@@ -1,11 +1,12 @@
 #!/bin/bash
 
 repl(){
-  clj -R:nREPL -m nrepl.cmdline -i
+  # lein repl :headless :host 0.0.0.0 :port 35543
+  lein repl :start :host 0.0.0.0 :port 35543
 }
 
-connect7888(){
-  clj -Sdeps '{:deps {nrepl {:mvn/version "0.5.3"}}}' -m nrepl.cmdline --connect --host 127.0.0.1 --port 7888
+conn(){
+  lein repl :connect 0.0.0.0:35543
 }
 
 nrepl_cljs(){
