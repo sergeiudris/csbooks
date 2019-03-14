@@ -329,37 +329,60 @@
   (defmethod calculate-final-invoice-amount "NY" [invoice]
     (let [amount-due (:amount-due invoice)]
       (+ amount-due (* amount-due 0.045))))
-  
+
   (defmethod calculate-final-invoice-amount :default [invoice]
-    (:amount-due invoice) 
-    )
+    (:amount-due invoice))
 
   (defprotocol Shape
     (calc-area [this])
     (perimeter [this])
-    (hello [this y])
-    )
-  
+    (hello [this y]))
+
   (defrecord Rectangle [width length]
     Shape
-    (calc-area [this] (* (:width this) (:length this) ) )
-    (perimeter [this] (+ (* 2 (:width this)) (* 2 (:length this))  ) )
-    )
+    (calc-area [this] (* (:width this) (:length this)))
+    (perimeter [this] (+ (* 2 (:width this)) (* 2 (:length this)))))
 
   (defrecord Square [side]
     Shape
-    (calc-area [this] (* (:side this) (:side this) ) )
-    (perimeter [this]  (* 4 (:side this))  ) 
-    (hello [this y] y )
-    )
+    (calc-area [this] (* (:side this) (:side this)))
+    (perimeter [this]  (* 4 (:side this)))
+    (hello [this y] y))
 
   (def sq1 (->Square 4))
-  
-  
+
+
   (calc-area sq1)
 
   (def rect1 (->Rectangle 4 2))
 
   (calc-area rect1)
 
+  (def sq2 (map->Square {:side 3}))
+
+  (calc-area sq2)
+
+  (def rect2 (map->Rectangle {:width 4 :length 7}))
+  
+  (calc-area rect2)
+  (into {} rect2)
+  (:width rect2)
+  (:length rect2)
+  (:foo rect2 :not-found)
+  
+
+  ;; reify
+  
+  (def some-shape
+    (reify Shape
+      (calc-area [this] "I calculate area")
+      (perimeter [this] "I calculate perimeter")
+      )
+    )
+
+  (calc-area some-shape)
+
+  
+  
+  
   )
