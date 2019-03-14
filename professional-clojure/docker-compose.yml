@@ -21,6 +21,7 @@ services:
     ports:
       - 5335:35543
       - 5888:7888
+      - 5580:8080
     command: bash c init
     stdin_open: true
     tty: true

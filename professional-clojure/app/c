@@ -9,6 +9,10 @@ repl_headless(){
   lein repl :headless :host 0.0.0.0 :port 35543
 }
 
+ring_headless(){
+   lein ring server-headless 
+}
+
 conn(){
   lein repl :connect 0.0.0.0:35543
 }
@@ -18,7 +22,8 @@ nrepl_cljs(){
 }
 
 init(){
-   repl_headless
+  #  repl_headless
+  ring_headless
 }
 
 "$@"

@@ -496,5 +496,7 @@
    how to do things the Clojure way, you'll simply be writing the same old code in a different syntax
   "
 
+  (defn x [] "x")
+
   )
 

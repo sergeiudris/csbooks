@@ -5,6 +5,7 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [compojure "1.6.1"]
                  [ring/ring-defaults "0.3.2"]
+                 [ring/ring-json "0.4.0"]
                  [cider/piggieback "0.3.10"]
                  [figwheel-sidecar "0.5.16"]
                  [nrepl "0.5.3"]
@@ -12,9 +13,17 @@
                  ]
   :plugins [[lein-ring "0.12.5"]
             [cider/cider-nrepl "0.18.0"]]
-  :ring {:handler chapter2.handler/app}
+  :ring {
+        ;  :handler chapter2.handler/app
+         :handler app/app
+         :port 8080 
+         :host "0.0.0.0"  
+         :nrepl {:start? true :port 35543 :host "0.0.0.0"}
+         }
+  :main app
   :profiles
-  {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
+  {:dev {:dependencies [[clj-http "2.0.1"]
+                        [javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.2"]]}}
   :repl-options {:init-ns app
                 ;  :main dq.dq
