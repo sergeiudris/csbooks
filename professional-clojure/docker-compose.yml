@@ -2,14 +2,14 @@ version: "3.3"
 
 services:
 
-  datomic:
-    image: procloj-datomic-free
-    build:
-      context: ./datomic
-      dockerfile: ./Dockerfile
-    command: tail -f /dev/null
-    stdin_open: true
-    tty: true
+  # datomic:
+  #   image: procloj-datomic-free
+  #   build:
+  #     context: ./datomic
+  #     dockerfile: ./Dockerfile
+  #   command: tail -f /dev/null
+  #   stdin_open: true
+  #   tty: true
 
   app:
     image: procloj-app
@@ -19,42 +19,42 @@ services:
       context: ./app
       dockerfile: ./Dockerfile
     ports:
-      - 35543:35543
-      - 7888:7888
+      - 5335:35543
+      - 5888:7888
     command: bash c init
     stdin_open: true
     tty: true
-    links:
-      - datomic
-      - db
+    # links:
+    #   - datomic
+    #   - db
 
-  db:
-    image: procloj-db
-    ports:
-      # - "4436:4336"
-      # - "4435:4335"
-      # - "4434:4334"
-      # - "9000:9000"
-    command: ./bin/transactor ./config/free-transactor.properties
-    stdin_open: true
-    tty: true
-    depends_on:
-      - datomic
+  # db:
+  #   image: procloj-db
+  #   ports:
+  #     # - "4436:4336"
+  #     # - "4435:4335"
+  #     # - "4434:4334"
+  #     # - "9000:9000"
+  #   command: ./bin/transactor ./config/free-transactor.properties
+  #   stdin_open: true
+  #   tty: true
+  #   depends_on:
+  #     - datomic
 
-  ui:
-    image: proclj-ui
-    volumes:
-      - ./ui:/clj
-    build:
-      context: ./ui
-      dockerfile: ./Dockerfile
-    ports:
-      - 3449:3449
-      - 7788:7888
-    command: bash c init
-    stdin_open: true
-    tty: true
-    links:
-      - app
+  # ui:
+  #   image: proclj-ui
+  #   volumes:
+  #     - ./ui:/clj
+  #   build:
+  #     context: ./ui
+  #     dockerfile: ./Dockerfile
+  #   ports:
+  #     - 3449:3449
+  #     - 7788:7888
+  #   command: bash c init
+  #   stdin_open: true
+  #   tty: true
+  #   links:
+  #     - app
 
 

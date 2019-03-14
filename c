@@ -8,7 +8,7 @@ export COMPOSE_CONVERT_WINDOWS_PATHS=1
 
 dc(){
     docker-compose \
-    -f ./datomic.yml \
+    -f ./professional-clojure/docker-compose.yml \
     "$@"
 }
 

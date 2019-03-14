@@ -5,6 +5,10 @@ repl(){
   lein repl :start :host 0.0.0.0 :port 35543
 }
 
+repl_headless(){
+  lein repl :headless :host 0.0.0.0 :port 35543
+}
+
 conn(){
   lein repl :connect 0.0.0.0:35543
 }
@@ -14,8 +18,7 @@ nrepl_cljs(){
 }
 
 init(){
-    lein garden once
-    lein do clean, figwheel
+   repl_headless
 }
 
 "$@"
