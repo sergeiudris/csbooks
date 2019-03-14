@@ -363,26 +363,96 @@
   (calc-area sq2)
 
   (def rect2 (map->Rectangle {:width 4 :length 7}))
-  
+
   (calc-area rect2)
   (into {} rect2)
   (:width rect2)
   (:length rect2)
   (:foo rect2 :not-found)
-  
+
 
   ;; reify
   
   (def some-shape
     (reify Shape
       (calc-area [this] "I calculate area")
-      (perimeter [this] "I calculate perimeter")
-      )
-    )
+      (perimeter [this] "I calculate perimeter")))
 
   (calc-area some-shape)
 
+
+  (doc declare)
+  (declare Node)
+  (declare ->Node)
+
+
+  (defprotocol INode
+    (entry [_])
+    (left [_])
+    (right [_])
+    (contains-value? [_ _])
+    (insert-value [_ _]))
+
+  (deftype Node [value left-branch right-branch]
+    INode
+    (entry [_] value)
+    (left [_] left-branch)
+    (right [_] right-branch)
+    (contains-value? [tree v]
+      (cond
+        (nil? tree) false
+        (= v value) true
+        (< v value) (contains-value? left-branch v)
+        (> v value) (contains-value? right-branch v)))
+    (insert-value [tree v]
+      (cond
+        (nil? tree) (->Node v nil nil)
+        (= v value) tree
+        (< v value) (->Node value (insert-value left-branch v) right-branch)
+        (> v value) (->Node value left-branch (insert-value right-branch v)))))
+
+  (def root (Node. 7 nil nil))
+
+  (left root)
+  (right root)
+  (entry root)
+  (contains-value? root 7)
+
+  (contains-value? root 5)
   
+  (extend-protocol INode
+    nil
+    (entry [_] nil)
+    (left [_] nil)
+    (right [_] nil)
+    (contains-value? [_ _] false)
+    (insert-value [_ value] (Node. value nil nil) )
+    )
+
+  (deftype Node [value left-branch right-branch]
+    INode
+    (entry [_] value)
+    (left [_] left-branch)
+    (right [_] right-branch)
+    (contains-value? [tree v]
+      (cond
+        (= v value) true
+        (< v value) (contains-value? left-branch v)
+        (> v value) (contains-value? right-branch v)))
+    (insert-value [tree v]
+      (cond
+        (= v value) tree
+        (< v value) (Node. value (insert-value left-branch v) right-branch)
+        (> v value) (Node. value left-branch (insert-value right-branch v)))))
   
-  
+  (contains-value? root 5)
+
+ (def root (Node. 7 
+                  (Node. 5 
+                         (Node. 3 nil nil) 
+                         nil) 
+                  (Node. 12 
+                         (Node. 9 nil nil) 
+                         (Node. 17 nil nil))))
+
   )
