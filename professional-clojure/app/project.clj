@@ -20,10 +20,11 @@
          :host "0.0.0.0"  
          :nrepl {:start? true :port 35543 :host "0.0.0.0"}
          }
-  :main app
+  ; :main app
   :profiles
   {:dev {:dependencies [[clj-http "2.0.1"]
                         [javax.servlet/servlet-api "2.5"]
+                        [org.clojure/tools.namespace "0.2.11"]
                         [ring/ring-mock "0.3.2"]]}}
   :repl-options {:init-ns app
                 ;  :main dq.dq
