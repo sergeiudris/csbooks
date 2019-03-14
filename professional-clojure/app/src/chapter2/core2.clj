@@ -54,6 +54,17 @@
 
 (comment
   
-   (add-task "File Taxes.")
+  (add-task "File Taxes.")
+  
+  
+  (defn api-url [path] (str "http://0.0.0.0:8080/api2" path))
+
+  (:body (client/get (api-url "/tasks/chores") {:as :json}))
+
+
+  (:body (client/post  (api-url "/tasks/chores")  {:form-params {:task "take out the trash"} :as :json}))
+  (:body (client/post  (api-url "/tasks/chores")  {:form-params {:task "mow the lawn"} :as :json}))
+  
+  
   
   )
