@@ -159,61 +159,55 @@
   
   (def add2 (partial + 2))
 
-  
+
   (def spec {:classname "org.postgresql.Driver"
              :subprotocol "postgresql"
              :subname "//localhost:5432/sampledb"})
 
   (defn all-users []
-    (jdbc/query spec ["select * from login order by username desc"])
-    )
-  
+    (jdbc/query spec ["select * from login order by username desc"]))
+
   (defn find-user [username]
-    (jdbc/query spec ["select * from login where username = ?" username])
-    )
-  
+    (jdbc/query spec ["select * from login where username = ?" username]))
+
   (defn create-user [username password]
-    (jdbc/insert! spec :login {:username username :password password :salt "some_salt"})
-    )
-  
+    (jdbc/insert! spec :login {:username username :password password :salt "some_salt"}))
+
   ;; to  much repetition above, use partial
   
   (def query (partial jdbc/query spec))
-  
+
   (def insert! (partial jdbc/insert! spec))
-  
+
   (defn all-users []
     (query ["select * from login order by username desc"]))
-  
+
   (defn find-user [username]
     (query ["select * from login where username = ?" username]))
-  
+
   (defn create-user [username password]
     (insert! :login {:username username :password password :salt "some_salt"}))
 
   (defn apply-sales-tax [items]
-    ((map (partial * 1.06) items))
-    )
-  
+    ((map (partial * 1.06) items)))
+
   ;; function composition
   
   (defn minify [input]
-    (str/join (map str/trim (str/split-lines input) ))
-    )
+    (str/join (map str/trim (str/split-lines input))))
 
-  (def minify (comp str/join (partial map str/trim) str/split-lines ) )
+  (def minify (comp str/join (partial map str/trim) str/split-lines))
 
   ;; embracing laziness
   
-  (def result (map (fn [i] (println "." i) (inc i)) '[0 1 2 3] ))
-  
+  (def result (map (fn [i] (println "." i) (inc i)) '[0 1 2 3]))
+
   result
 
   (println ".")
 
   (def fib-seq
-    (lazy-cat [1 1] (map + (rest fib-seq) fib-seq))
-    )
+    (lazy-cat [1 1] (map + (rest fib-seq) fib-seq)))
 
   (take 10 fib-seq)
 
@@ -221,12 +215,12 @@
                "Tanisha" "Jenny" "Erma" "Magdalen" "Carmelia" "Joana"
                "Violeta" "Gianna" "Shad" "Joe" "Justin" "Donella"
                "Raeann" "Karoline"])
-  
-  (mapv #(vector %1 %2) (cycle '[:first :second :third :fourth]) names )
-  
+
+  (mapv #(vector %1 %2) (cycle '[:first :second :third :fourth]) names)
+
   (doc cycle)
   (doc mapv)
-  
+
   ;; atoms
   
   (def app-state (atom {}))
@@ -243,30 +237,28 @@
   (deref app-state)
   (:session-id @app-state)
   (:foo @app-state :not-found)
-  
+
   ;; concurrency and Software Transactional Memory
   (def savings (atom {:balance 500}))
   (def checking (atom {:balance 250}))
   (do
     (swap! checking assoc :balance 700)
     (throw (Exception. "oops..."))
-    (swap! savings assoc :balance 50)
-    )
+    (swap! savings assoc :balance 50))
   (:balance @checking)
   (:balance @savings)
-  
+
   (def checking (ref {:balance 500}))
   (def savings (ref {:balance 250}))
 
   (dosync
    (commute checking assoc :balance 700)
    (throw (Exception. "oops..."))
-   (commute savings assoc :balance 50)
-   )
+   (commute savings assoc :balance 50))
   (:balance @checking)
   (:balance @savings)
 
-  
+
   ;; nil punning
   
   (if nil "true" "false")
@@ -276,20 +268,98 @@
   (first nil)
   (last nil)
   (second nil)
-  
+
   (seq? nil)
 
   (if '() "true" "false")
   (if '[] "true" "false")
   (if '{} "true" "false")
-  
+
 
   (:foo {:foo nil :bar "baz"})
   (:foo {:foo nil :bar "baz"} :not-found)
   (:foo {:bar "baz"} :not-found)
+
+
+  ;; polymorphic dispatch and defmulti
+  
+  (defmulti area
+    (fn [shape & _]
+      shape))
+
+  (defmethod area :triangle
+    [_ base height]
+    (/ (* base height) 2))
+
+  (defmethod area :square
+    [_ side]
+    (* side side))
+
+  (defmethod area :rectangle
+    [_ length width]
+    (* length width))
+
+  (defmethod area :circle
+    [_ radius]
+    (* radius radius Math/PI))
+
+  (area :square 5)
+  (area :triangle  3 4)
+  (area :circle 5)
+
+  ;; surcharge example of using multimethods
+  
+  (def invoice {:id 42
+                :issue-date #inst "2016-01-01"
+                :due-date #inst "2016-02-01"
+                :customer {:name "Foo Bar Industries"
+                           :address "123 Main St"
+                           :city "New York"
+                           :state "NY"
+                           :zipcode "10101"}
+                :amount-due 5000})
+
+  (defmulti calculate-final-invoice-amount (fn [invoice]
+                                             (get-in invoice [:customer :state])))
+
+  (defmethod calculate-final-invoice-amount "CA" [invoice]
+    (let [amount-due (:amount-due invoice)]
+      (+ amount-due (* amount-due 0.05))))
+
+  (defmethod calculate-final-invoice-amount "NY" [invoice]
+    (let [amount-due (:amount-due invoice)]
+      (+ amount-due (* amount-due 0.045))))
+  
+  (defmethod calculate-final-invoice-amount :default [invoice]
+    (:amount-due invoice) 
+    )
+
+  (defprotocol Shape
+    (calc-area [this])
+    (perimeter [this])
+    (hello [this y])
+    )
+  
+  (defrecord Rectangle [width length]
+    Shape
+    (calc-area [this] (* (:width this) (:length this) ) )
+    (perimeter [this] (+ (* 2 (:width this)) (* 2 (:length this))  ) )
+    )
+
+  (defrecord Square [side]
+    Shape
+    (calc-area [this] (* (:side this) (:side this) ) )
+    (perimeter [this]  (* 4 (:side this))  ) 
+    (hello [this y] y )
+    )
+
+  (def sq1 (->Square 4))
   
   
-  
-  
-  
+  (calc-area sq1)
+
+  (def rect1 (->Rectangle 4 2))
+
+  (calc-area rect1)
+
   )
