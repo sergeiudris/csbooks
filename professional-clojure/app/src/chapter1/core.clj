@@ -489,7 +489,12 @@
 
   (is-palindrome? "tacocat")  
 
-  
+
+
+  "
+   Clojure is different. If you don't caome at it with a clear mind and learn
+   how to do things the Clojure way, you'll simply be writing the same old code in a different syntax
+  "
   
 
   )
