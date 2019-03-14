@@ -63,6 +63,8 @@
   (api-url "/api/tasks" )
   
   (:body (client/get (api-url "/api/tasks") {:as :json}))
+  (:body (client/get (api-url "/api/tasks1") {:as :json}))
+  
   
   (:body (client/post  (api-url "/api/tasks")  {:form-params {:task "connect"} :as :json}))
   (:body (client/post  (api-url "/api/tasks")  {:form-params {:task "gather"} :as :json}))
