@@ -13,7 +13,7 @@
 
   ;; ch1 p3
   ; substitution model for procedure applications
-  
+
   (defn square [a] (* a a))
   (defn sum-of-squares [a b] (+ (square a) (square b)))
 
@@ -25,7 +25,7 @@
 
 
   ;; fib and memoization
-  
+
   (defn fib [n]
     (cond
       (= n 0) 0
@@ -48,7 +48,7 @@
   (time (memoized-fib 38))
 
   ;; thinking recursively
-  
+
   (defn factorial [n]
     (if (= n 1)
       1
@@ -87,7 +87,7 @@
   720
 
   ;; mutual recursion
-  
+
   (declare my-odd? my-even?)
 
   (defn my-odd? [n]
@@ -143,7 +143,7 @@
   (filter #(= "CA" (:state %)) customers)
 
   ;; command pattern
-  
+
   (defn wrapTransaction [f]
     (do
       (startTransaction)
@@ -156,7 +156,7 @@
 
 
  ;; builder pattern vs partail
-  
+
   (def add2 (partial + 2))
 
 
@@ -174,7 +174,7 @@
     (jdbc/insert! spec :login {:username username :password password :salt "some_salt"}))
 
   ;; to  much repetition above, use partial
-  
+
   (def query (partial jdbc/query spec))
 
   (def insert! (partial jdbc/insert! spec))
@@ -192,14 +192,14 @@
     ((map (partial * 1.06) items)))
 
   ;; function composition
-  
+
   (defn minify [input]
     (str/join (map str/trim (str/split-lines input))))
 
   (def minify (comp str/join (partial map str/trim) str/split-lines))
 
   ;; embracing laziness
-  
+
   (def result (map (fn [i] (println "." i) (inc i)) '[0 1 2 3]))
 
   result
@@ -222,7 +222,7 @@
   (doc mapv)
 
   ;; atoms
-  
+
   (def app-state (atom {}))
 
   app-state
@@ -260,11 +260,11 @@
 
 
   ;; nil punning
-  
+
   (if nil "true" "false")
 
   ; nil can be treated like an empty seq
-  
+
   (first nil)
   (last nil)
   (second nil)
@@ -282,7 +282,7 @@
 
 
   ;; polymorphic dispatch and defmulti
-  
+
   (defmulti area
     (fn [shape & _]
       shape))
@@ -308,7 +308,7 @@
   (area :circle 5)
 
   ;; surcharge example of using multimethods
-  
+
   (def invoice {:id 42
                 :issue-date #inst "2016-01-01"
                 :due-date #inst "2016-02-01"
@@ -372,7 +372,7 @@
 
 
   ;; reify
-  
+
   (def some-shape
     (reify Shape
       (calc-area [this] "I calculate area")
@@ -419,15 +419,14 @@
   (contains-value? root 7)
 
   (contains-value? root 5)
-  
+
   (extend-protocol INode
     nil
     (entry [_] nil)
     (left [_] nil)
     (right [_] nil)
     (contains-value? [_ _] false)
-    (insert-value [_ value] (Node. value nil nil) )
-    )
+    (insert-value [_ value] (Node. value nil nil)))
 
   (deftype Node [value left-branch right-branch]
     INode
@@ -444,15 +443,39 @@
         (= v value) tree
         (< v value) (Node. value (insert-value left-branch v) right-branch)
         (> v value) (Node. value left-branch (insert-value right-branch v)))))
-  
+
   (contains-value? root 5)
 
- (def root (Node. 7 
-                  (Node. 5 
-                         (Node. 3 nil nil) 
-                         nil) 
-                  (Node. 12 
-                         (Node. 9 nil nil) 
-                         (Node. 17 nil nil))))
+  (def root (Node. 7
+                   (Node. 5
+                          (Node. 3 nil nil)
+                          nil)
+                   (Node. 12
+                          (Node. 9 nil nil)
+                          (Node. 17 nil nil))))
 
-  )
+
+  (left root)
+
+  (entry  (left root))
+  (entry  (left (left root)))
+  (entry (right root))
+
+  (entry (right (rigth root)))
+
+  (identity (left root))
+  ;; #object[user.Node 0x5cedcfe8 "user.Node@5cedcfe8"]
+  (identity (right root))
+  ;; #object[user.Node 0x124ee325 "user.Node@124ee325"]
+
+  ;; create new list by inserting 6
+  (def l (insert-value root 6)))
+
+  ;; check the identity of nodes from new list - right is the same
+  (identity (left l))
+  ;; #object[user.Node 0x167286ec "user.Node@167286ec"]
+  (identity (right l))
+  ;; #object[user.Node 0x124ee325 "user.Node@124ee325"]
+
+
+
