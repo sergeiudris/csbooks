@@ -13,6 +13,14 @@
 
 (def tasks (atom (sorted-map)))
 
+(defrecord Task [task creation-time] )
+
+(defn now 
+  "returns java.util.Date object representing the current time"
+  []
+  (new java.util.Date)
+  )
+
 (defn get-task-lists
   "Get the names of all created task lists"
   []
@@ -30,7 +38,7 @@
 (defn add-task
   "Add a task to the specified to-do list. Accepts the name of the list and a string describing the task"
   [list-name task]
-  (swap! tasks assoc-in [list-name (next-id)] task )
+  (swap! tasks assoc-in [list-name (next-id)] (Task. task (now)) )
   )
 
 (defn remove-task
