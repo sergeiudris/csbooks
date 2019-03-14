@@ -8,6 +8,7 @@
                  [cider/piggieback "0.3.10"]
                  [figwheel-sidecar "0.5.16"]
                  [nrepl "0.5.3"]
+                 [org.clojure/java.jdbc "0.7.9"]
                  ]
   :plugins [[lein-ring "0.12.5"]
             [cider/cider-nrepl "0.18.0"]]
