@@ -15,6 +15,7 @@
             [cider/cider-nrepl "0.18.0"]]
   :ring {
         ;  :handler chapter2.handler/app
+         :auto-reload? true
          :handler app/app
          :port 8080 
          :host "0.0.0.0"  
