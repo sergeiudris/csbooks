@@ -58,6 +58,7 @@
   
   (remove-task 3)
   
+  (:body (client/get "http://0.0.0.0:8080/api/tasks" {:as :json}))
   
   
   
