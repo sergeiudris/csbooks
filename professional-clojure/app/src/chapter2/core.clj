@@ -58,8 +58,21 @@
   
   (remove-task 3)
   
-  (:body (client/get "http://0.0.0.0:8080/api/tasks" {:as :json}))
+  (defn api-url [path] (str "http://0.0.0.0:8080" path )  )
   
+  (api-url "/api/tasks" )
+  
+  (:body (client/get (api-url "/api/tasks") {:as :json}))
+  
+  (:body (client/post  (api-url "/api/tasks")  {:form-params {:task "connect"} :as :json}))
+  (:body (client/post  (api-url "/api/tasks")  {:form-params {:task "gather"} :as :json}))
+  (:body (client/post  (api-url "/api/tasks")  {:form-params {:task "ppush"} :as :json}))
+  
+  
+  
+  (:body (client/delete  (api-url "/api/tasks/2")  {:as :json}))
+  
+
   
   
   
