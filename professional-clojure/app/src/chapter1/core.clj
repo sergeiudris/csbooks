@@ -267,6 +267,29 @@
   (:balance @savings)
 
   
+  ;; nil punning
+  
+  (if nil "true" "false")
+
+  ; nil can be treated like an empty seq
+  
+  (first nil)
+  (last nil)
+  (second nil)
+  
+  (seq? nil)
+
+  (if '() "true" "false")
+  (if '[] "true" "false")
+  (if '{} "true" "false")
   
 
+  (:foo {:foo nil :bar "baz"})
+  (:foo {:foo nil :bar "baz"} :not-found)
+  (:foo {:bar "baz"} :not-found)
+  
+  
+  
+  
+  
   )
