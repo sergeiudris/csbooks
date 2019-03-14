@@ -8,4 +8,11 @@
   
   (hi)
   
+  ;; ch1 p3
+  
+  (defn square [a] (* a a) )
+  
+  
+  
+  
   )

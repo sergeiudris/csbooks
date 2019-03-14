@@ -15,7 +15,7 @@
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.2"]]}}
-  :repl-options {:init-ns chapter2.core
+  :repl-options {:init-ns app
                 ;  :main dq.dq
                 ;  :nrepl-middleware [cider.piggieback/wrap-cljs-repl]
                  }
