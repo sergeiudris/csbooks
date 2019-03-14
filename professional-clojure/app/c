@@ -21,6 +21,14 @@ nrepl_cljs(){
   clj -R:nREPL -m nrepl.cmdline --middleware "[cider.piggieback/wrap-cljs-repl]"
 }
 
+test(){
+  lein test
+}
+
+test_refresh(){
+  lein test-refresh
+}
+
 init(){
   #  repl_headless
   ring_headless

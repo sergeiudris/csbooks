@@ -12,6 +12,7 @@
                  [org.clojure/java.jdbc "0.7.9"]
                  ]
   :plugins [[lein-ring "0.12.5"]
+            [com.jakemccrary/lein-test-refresh "0.12.0"]
             [cider/cider-nrepl "0.18.0"]]
   :ring {
         ;  :handler chapter2.handler/app

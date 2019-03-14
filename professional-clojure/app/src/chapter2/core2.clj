@@ -41,6 +41,17 @@
   (swap! tasks assoc-in [list-name (next-id)] (Task. task (now)) )
   )
 
+(defn add-task
+  "Add a task to the specified to-do list. Accepts the name of the list and a string describing the task"
+  [list-name task]
+  (letfn [(maybe-add-task [current-list]
+            (if (some #(= task (:task (second %1))) current-list )
+              current-list
+              (assoc current-list (next-id) (Task. task (now)))))]
+    (swap! tasks update list-name maybe-add-task)
+    )
+)
+
 (defn remove-task
   "Removes a task from the specified to-do list. Accepts the name of the list and the id of the task to remove"
   [list-name task-id]
