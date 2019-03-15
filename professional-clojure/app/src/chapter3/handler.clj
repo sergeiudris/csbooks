@@ -11,9 +11,18 @@
 
 (def routesv [
               (GET "/ch3" [] "Hello World!!!")
-      (GET "/film" []
-        (core/get-favorite-film))
+              (GET "/film" []
+                (core/get-favorite-film)
+                )
+              (GET "/hw" []
+                {:status 200
+                 :headers {"Content-Type" "text/html; charset=utf-8"}
+                 :body "Hello World"})
               
+              (GET "/redirect" []
+              {:status 302
+               :headers {"Location" "http://example.com"}
+               :body ""})
               ])
 
 (def app-routes (apply routes routesv) )
