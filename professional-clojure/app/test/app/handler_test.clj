@@ -18,6 +18,12 @@
       (is (= 200 (:status response) ))
       (is (= "Echo!" (:body response)))
       )
+    (let [response (app (mock/request :post "/echo" "Hello"))]
+      (is (= 200 (:status response)))
+      (is (= "Hello" (:body response))))
+    (let [response (app (mock/request :post "/echo" "Goodbye"))]
+      (is (= 200 (:status response)))
+      (is (= "Goodbye" (:body response))))
     (let [response (app (mock/request :post "/echo")) ]
       (is (= 400 (:status response)))
       )

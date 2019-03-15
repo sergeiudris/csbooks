@@ -8,3 +8,13 @@
 (defn get-favorite-film []
   "Star Wars, MiddleEarth, Men In Black "
   )
+
+
+(comment
+  
+  
+  (:body (client/post  "http://0.0.0.0:8080/echo"  {:body "some body"}))
+  
+  (:body (client/post  "http://0.0.0.0:8080/echo"  {}))
+  
+  )

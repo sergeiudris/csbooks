@@ -5,6 +5,7 @@
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
             [ring.middleware.json :refer [wrap-json-response]]
             [clojure.tools.namespace.repl :refer [refresh]]
+            [clojure.repl :refer :all]
             [chapter3.core :as core]
             [ring.util.response :as ring-response]
             ))
@@ -48,7 +49,7 @@
     )
   )
 
-(defn body-echo-handler
+(defn echo-body-handler
   [request]
   (if-let [body (:body request)]
     (-> (ring-response/response body)
@@ -62,9 +63,24 @@
     )
   )
 
+(defn echo 
+  [body]
+  (if (not-empty body )
+    (->
+     (ring-response/response body)
+     (ring-response/content-type "text/plain")
+     (ring-response/charset "utf-8")
+     )
+    (->
+     (ring-response/response "you must submit a body with your request!")
+     (ring-response/status 400)
+     )
+    )
+  )
+
 (def body-echo-app
     (->
-   body-echo-handler
+   echo-body-handler
    wrap-500-catchall
    wrap-slurp-body
    )
@@ -89,7 +105,7 @@
               (GET "/trouble" []
                 (/ 1 0)
                 )
-              (POST "/echo" [:as request] (body-echo-handler request) )
+              (ANY "/echo" [:as {body :body}] (echo body) )
               ])
 
 (def app-routes (apply routes routesv) )
@@ -109,6 +125,8 @@
   (+)
   
   (refresh)
+  
+  (doc not-empty)
   
   my404
   
