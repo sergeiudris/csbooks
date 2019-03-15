@@ -5,12 +5,15 @@
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
             [ring.middleware.json :refer [wrap-json-response]]
             [clojure.tools.namespace.repl :refer [refresh]]
-            
+            [chapter3.core :as core]
             ))
 
 
 (def routesv [
               (GET "/ch3" [] "Hello World!!!")
+      (GET "/film" []
+        (core/get-favorite-film))
+              
               ])
 
 (def app-routes (apply routes routesv) )
