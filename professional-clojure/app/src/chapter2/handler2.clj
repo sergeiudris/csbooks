@@ -8,24 +8,26 @@
             ))
 
 
-(def routesv [
-              (GET "/api2/tasks/:list-name" [list-name]
-                {:body (tasks/get-tasks list-name)})
-              (POST "/api2/tasks/:list-name" {{list-name :list-name task :task} :params}
-                {:body (tasks/add-task list-name task)})
-              (DELETE "/api2/tasks/:list-name" [list-name]
-                {:body (tasks/remove-list list-name)})
-              (DELETE "/api2/tasks/:list-name/:task-id" [list-name task-id]
-                {:body (tasks/remove-task list)})
-              ])
 
 
-(def api-routes (apply routes routesv) )
-
+(def app-routes 
+  (->
+   (routes 
+    (GET "/api2/tasks/:list-name" [list-name]
+      {:body (tasks/get-tasks list-name)})
+    (POST "/api2/tasks/:list-name" {{list-name :list-name task :task} :params}
+      {:body (tasks/add-task list-name task)})
+    (DELETE "/api2/tasks/:list-name" [list-name]
+      {:body (tasks/remove-list list-name)})
+    (DELETE "/api2/tasks/:list-name/:task-id" [list-name task-id]
+      {:body (tasks/remove-task list)})
+    )
+   )
+  )
 
 (def app
   (-> 
-   api-routes
+   app-routes
    (wrap-defaults api-defaults)
    wrap-json-response
    )

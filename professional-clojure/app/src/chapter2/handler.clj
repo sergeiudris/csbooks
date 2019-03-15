@@ -8,15 +8,18 @@
             [clojure.tools.namespace.repl :refer [refresh]]
             ))
 
-(def routesv [
-              (GET "/" [] "Hello World!!!")
-              (GET "/api/tasks" [] {:body (tasks/get-tasks)})
-              (GET "/api/tasks1" [] {:body (tasks/get-tasks)})
-              (POST "/api/tasks" {{task :task} :params} {:body (tasks/add-task task)})
-              (DELETE "/api/tasks/:task-id" [task-id] {:body (tasks/remove-task (Integer/parseInt task-id))})
-              ])
-
-(def app-routes   (apply routes routesv)  )
+(def app-routes
+  (-> 
+   (routes
+    (GET "/" [] "Hello World!!!")
+    (GET "/api/tasks" [] {:body (tasks/get-tasks)})
+    (GET "/api/tasks1" [] {:body (tasks/get-tasks)})
+    (POST "/api/tasks" {{task :task} :params} {:body (tasks/add-task task)})
+    (DELETE "/api/tasks/:task-id" [task-id] {:body (tasks/remove-task (Integer/parseInt task-id))})
+    )
+   )
+  
+  )
 
 (def app
   (-> 

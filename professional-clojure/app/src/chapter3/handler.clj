@@ -87,38 +87,49 @@
   )
 
 
-(def routesv [
-              (GET "/ch3" [] "Hello World!!!")
-              (GET "/film" []
-                (core/get-favorite-film)
-                )
-              (GET "/hw" []
-                {:status 200
-                 :headers {"Content-Type" "text/html; charset=utf-8"}
-                 :body "Hello World"})
-              
-              (GET "/redirect" []
-                {:status 302
-                 :headers {"Location" "http://example.com"}
-                 :body ""})
-              
-              (GET "/trouble" []
-                (/ 1 0)
-                )
-              (ANY "/echo" [:as {body :body}] (echo body) )
-              (GET "/links/:id" [id] (str "The id is: " id))
-              
-              ])
 
-(def app-routes (apply routes routesv) )
+(def body-routes 
+  (-> 
+   (routes 
+    (ANY "/echo" [:as {body :body}] (echo body))
+    )
+   (wrap-routes  wrap-slurp-body)
+   )
+  )
+
+(def non-body-routes
+  (->
+   (routes
+    (GET "/ch3" [] "Hello World!!!")
+    (GET "/film" []
+      (core/get-favorite-film))
+    (GET "/hw" []
+      {:status 200
+       :headers {"Content-Type" "text/html; charset=utf-8"}
+       :body "Hello World"})
+
+    (GET "/redirect" []
+      {:status 302
+       :headers {"Location" "http://example.com"}
+       :body ""})
+
+    (GET "/trouble" []
+      (/ 1 0))
+    (GET "/links/:id" [id] (str "The id is: " id))
+    )
+   )
+  )
+
+(def app-routes 
+  (routes body-routes non-body-routes )
+  )
 
 (def app
   (-> 
    app-routes
-   (wrap-defaults api-defaults)
    wrap-json-response
-   wrap-slurp-body
    wrap-500-catchall
+      (wrap-defaults api-defaults)
    )
 )
 
@@ -129,6 +140,8 @@
   (refresh)
   
   (doc not-empty)
+  
+  (doc wrap-routes)
   
   my404
   

@@ -12,20 +12,24 @@
             [clojure.tools.namespace.repl :refer [refresh]]))
 
 
+
+
 (def app-routes
-  (apply routes (concat
-                 chapter2.handler/routesv
-                 chapter2.handler2/routesv
-                 chapter3.handler/routesv
-                 [(route/not-found "Not Found")])))
+  (routes 
+   chapter2.handler/app-routes 
+   chapter2.handler2/app-routes
+   chapter3.handler/app-routes
+   (route/not-found "Not Found")
+   )
+  )
+
 
 (def app
   (->
    app-routes
-   (wrap-defaults api-defaults)
    wrap-json-response
-   chapter3.handler/wrap-slurp-body
    chapter3.handler/wrap-500-catchall
+   (wrap-defaults api-defaults)
    ))
 
 (comment
