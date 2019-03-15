@@ -35,6 +35,41 @@
     )
   )
 
+(defn wrap-slurp-body
+  "slurps BiteArrayInputStream into e.g. string"
+  [handler]
+  (fn [request]
+    (if (instance? java.io.InputStream (:body request) )
+      (let [prepared-request (update request :body slurp) ]
+        (handler prepared-request)
+        )
+      (handler request)
+      )
+    )
+  )
+
+(defn body-echo-handler
+  [request]
+  (if-let [body (:body request)]
+    (-> (ring-response/response body)
+        (ring-response/content-type "text/plain")
+        (ring-response/charset "utf-8")
+        )
+    (-> 
+     (ring-response/response "You must submit a body with your request!")
+     (ring-response/status 400)
+     )
+    )
+  )
+
+(def body-echo-app
+    (->
+   body-echo-handler
+   wrap-500-catchall
+   wrap-slurp-body
+   )
+  )
+
 
 (def routesv [
               (GET "/ch3" [] "Hello World!!!")
@@ -61,9 +96,10 @@
 (def app
   (-> 
    app-routes
-   wrap-500-catchall
    (wrap-defaults api-defaults)
    wrap-json-response
+   wrap-slurp-body
+   wrap-500-catchall
    )
 )
 

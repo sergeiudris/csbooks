@@ -28,6 +28,29 @@
     )
   )
 
+(deftest slurp-body-test
+  (testing "when a handler requires a request body"
+    (testing "and a body is provided"
+      (let [response (body-echo-app (mock/request :post "/" "Echo!" )) ]
+        (testing "the status code is 200"
+          (is (= 200 (:status response)))
+          (testing "with the request body in the response body"
+            (is (= "Echo!" (:body response) ))
+            )
+          )
+        )
+      )
+  (testing "and a body is not provided"
+    (let [response (body-echo-app (mock/request :get "/") )]
+      (testing "the status code is 400"
+        (is (= 400 (:status response)))
+        )
+      )
+    )
+    )
+  
+  )
+
 
 (comment
   
@@ -42,4 +65,16 @@
   
   (mock/request
    :post "/foo" "Hello, this request has a body")
+  
+  (def request-with-body (mock/request :post "/" "This is the request body"))
+  
+  (:body request-with-body)
+  
+  (slurp (:body request-with-body))
+  
+  (slurp (:body request-with-body))
+  
+  
+  
+  
   )

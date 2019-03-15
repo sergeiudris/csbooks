@@ -22,9 +22,11 @@
 (def app
   (->
    app-routes
-   chapter3.handler/wrap-500-catchall
    (wrap-defaults api-defaults)
-   wrap-json-response))
+   wrap-json-response
+   chapter3.handler/wrap-slurp-body
+   chapter3.handler/wrap-500-catchall
+   ))
 
 (comment
   api-defaults
