@@ -7,7 +7,7 @@
             [chapter2.handler]
             [chapter2.handler2]
             [chapter3.handler]
-            
+            [core]
 
             [clojure.tools.namespace.repl :refer [refresh]]))
 
@@ -28,7 +28,7 @@
   (->
    app-routes
    wrap-json-response
-   chapter3.handler/wrap-500-catchall
+   core/wrap-500-catchall
    (wrap-defaults api-defaults)
    ))
 
