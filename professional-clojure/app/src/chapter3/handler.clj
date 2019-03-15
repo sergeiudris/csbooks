@@ -89,6 +89,7 @@
               (GET "/trouble" []
                 (/ 1 0)
                 )
+              (POST "/echo" [:as request] (body-echo-handler request) )
               ])
 
 (def app-routes (apply routes routesv) )

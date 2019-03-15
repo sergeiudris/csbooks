@@ -11,4 +11,18 @@
 
   (testing "not-found route"
     (let [response (app (mock/request :get "/invalid"))]
-      (is (= (:status response) 404)))))
+      (is (= (:status response) 404))))
+  
+  (testing "echo route"
+    (let [response (app (mock/request :post "/echo" "Echo!" ))]
+      (is (= 200 (:status response) ))
+      (is (= "Echo!" (:body response)))
+      )
+    (let [response (app (mock/request :post "/echo")) ]
+      (is (= 400 (:status response)))
+      )
+    )
+    
+  )
+
+
