@@ -1,7 +1,7 @@
 (ns app.handler-test
   (:require [clojure.test :refer :all]
             [ring.mock.request :as mock]
-            [chapter2.handler :refer :all]))
+            [handler :refer :all]))
 
 (deftest test-app
   (testing "main route"

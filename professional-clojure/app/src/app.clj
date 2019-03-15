@@ -6,11 +6,11 @@
             [chapter2.core2]
             [chapter2.handler]
             [chapter2.handler2]
-            
+            [handler]
             [dev]
             ))
 
-(def app chapter2.handler/app)
+(def app handler/app)
 
 
 (defn -main []

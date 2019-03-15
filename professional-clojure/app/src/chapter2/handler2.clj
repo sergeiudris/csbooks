@@ -7,15 +7,21 @@
             [chapter2.core2 :as tasks]
             ))
 
-(defroutes api-routes
- (GET "/api/tasks/:list-name" [list-name]
- {:body (tasks/get-tasks list-name)})
- (POST "/api/tasks/:list-name" {{list-name :list-name task :task} :params}
- {:body (tasks/add-task list-name task)})
- (DELETE "/api/tasks/:list-name" [list-name]
- {:body (tasks/remove-list list-name)})
- (DELETE "/api/tasks/:list-name/:task-id" [list-name task-id]
- {:body (tasks/remove-task list)}))
+
+(def routesv [
+              (GET "/api2/tasks/:list-name" [list-name]
+                {:body (tasks/get-tasks list-name)})
+              (POST "/api2/tasks/:list-name" {{list-name :list-name task :task} :params}
+                {:body (tasks/add-task list-name task)})
+              (DELETE "/api2/tasks/:list-name" [list-name]
+                {:body (tasks/remove-list list-name)})
+              (DELETE "/api2/tasks/:list-name/:task-id" [list-name task-id]
+                {:body (tasks/remove-task list)})
+              ])
+
+
+(def api-routes (apply routes routesv) )
+
 
 (def app
   (-> 
