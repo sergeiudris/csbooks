@@ -13,3 +13,33 @@
   ;   (let [response (app (mock/request :get "/invalid"))]
   ;     (is (= (:status response) 404))))
   )
+
+(deftest catchall-test
+  (testing "when a handler throws an exception"
+    (let [response (app (mock/request :get "/trouble" ))]
+      (testing "the status code is 500"
+        (is (= 500 (:status response)))
+        )
+      (testing "and the body only contains the exception message"
+        (is (= "Divide by zero" (:body response) ))
+        )
+      )
+    
+    )
+  )
+
+
+(comment
+  
+  ; https://ring-clojure.github.io/ring-mock/ring.mock.request.html
+  
+  (mock/request :get "/ch3")
+  
+  (app (mock/request :get "/ch3"))
+  
+  (app (mock/request :get "/trouble"))
+  
+  
+  (mock/request
+   :post "/foo" "Hello, this request has a body")
+  )

@@ -6,7 +6,34 @@
             [ring.middleware.json :refer [wrap-json-response]]
             [clojure.tools.namespace.repl :refer [refresh]]
             [chapter3.core :as core]
+            [ring.util.response :as ring-response]
             ))
+
+(def my404 
+  (->
+   (ring-response/response "Not Found")
+   (ring-response/status 404)
+   (ring-response/content-type "text/html")
+   (ring-response/charset "utf-8")
+   )
+  )
+
+(defn wrap-500-catchall
+  "Wrap the given handler in a try/catch expression, returning a 500 response if any exceptions are caught"
+  [handler]
+  (fn [request]
+    (try (handler request)
+         (catch Exception e
+           (->
+            (ring-response/response (.getMessage e) )
+            (ring-response/status 500)
+            (ring-response/content-type "text/plain")
+            (ring-response/charset "utf-8")
+            )
+           )
+         )
+    )
+  )
 
 
 (def routesv [
@@ -20,9 +47,13 @@
                  :body "Hello World"})
               
               (GET "/redirect" []
-              {:status 302
-               :headers {"Location" "http://example.com"}
-               :body ""})
+                {:status 302
+                 :headers {"Location" "http://example.com"}
+                 :body ""})
+              
+              (GET "/trouble" []
+                (/ 1 0)
+                )
               ])
 
 (def app-routes (apply routes routesv) )
@@ -30,6 +61,7 @@
 (def app
   (-> 
    app-routes
+   wrap-500-catchall
    (wrap-defaults api-defaults)
    wrap-json-response
    )
@@ -40,5 +72,9 @@
   (+)
   
   (refresh)
+  
+  my404
+  
+  ; https://ring-clojure.github.io/ring/ring.util.response.html
   
   )
