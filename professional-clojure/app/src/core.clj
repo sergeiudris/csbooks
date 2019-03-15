@@ -1,14 +1,15 @@
 (ns core
-  (:require [compojure.core :refer :all]
-            [compojure.route :as route]
-            [ring.middleware.defaults :refer [wrap-defaults site-defaults api-defaults]]
-            [ring.middleware.keyword-params :refer [wrap-keyword-params]]
-            [ring.middleware.json :refer [wrap-json-response]]
-            [clojure.tools.namespace.repl :refer [refresh]]
-            [clojure.repl :refer :all]
-            [ring.util.response :as ring-response]
-            [cheshire.core :as json]
-            ))
+  (:require    [clojure.repl :refer :all]
+              ;  [compojure.core :refer :all]
+              ;  [compojure.route :as route]
+               [ring.middleware.defaults :refer [wrap-defaults site-defaults api-defaults]]
+               [ring.middleware.keyword-params :refer [wrap-keyword-params]]
+              ;  [ring.middleware.json :refer [wrap-json-response]]
+               [clojure.tools.namespace.repl :refer [refresh]]
+               
+               [ring.util.response :as ring-response]
+               [cheshire.core :as json]
+               ))
 
 
 (def my404
@@ -65,3 +66,5 @@
    (ring-response/content-type "application/edn")
    )
   )
+
+(defn wrap-json-response [] 3)
