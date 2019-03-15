@@ -106,6 +106,8 @@
                 (/ 1 0)
                 )
               (ANY "/echo" [:as {body :body}] (echo body) )
+              (GET "/links/:id" [id] (str "The id is: " id))
+              
               ])
 
 (def app-routes (apply routes routesv) )
