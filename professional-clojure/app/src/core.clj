@@ -67,4 +67,13 @@
    )
   )
 
-(defn wrap-json-response [] 3)
+(defn wrap-json-response 
+  [handler]
+  (fn [request]
+    (->
+     (handler request)
+     (update :body json/encode)
+     (ring-response/content-type "application/json")
+     )
+    )
+  )
