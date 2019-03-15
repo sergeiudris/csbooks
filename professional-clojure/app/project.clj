@@ -10,6 +10,7 @@
                  [figwheel-sidecar "0.5.16"]
                  [nrepl "0.5.3"]
                  [org.clojure/java.jdbc "0.7.9"]
+                 [cheshire "5.5.0"]
                  ]
   :plugins [[lein-ring "0.12.5"]
             [com.jakemccrary/lein-test-refresh "0.12.0"]

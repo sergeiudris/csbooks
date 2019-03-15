@@ -8,6 +8,7 @@
             [clojure.repl :refer :all]
             [chapter3.core :as ch3-core]
             [ring.util.response :as ring-response]
+            [cheshire.core :as json]
             [core]
             ))
 
@@ -55,6 +56,7 @@
   (-> 
    (routes 
     (ANY "/echo" [:as {body :body}] (echo body))
+    (POST "/clojurefy" []  (core/wrap-json core/handle-clojurefy) )
     )
    (wrap-routes  core/wrap-slurp-body)
    )
@@ -107,6 +109,8 @@
   (doc wrap-routes)
   
   my404
+  
+  json/decode
   
   ; https://ring-clojure.github.io/ring/ring.util.response.html
   

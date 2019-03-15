@@ -6,7 +6,9 @@
             [ring.middleware.json :refer [wrap-json-response]]
             [clojure.tools.namespace.repl :refer [refresh]]
             [clojure.repl :refer :all]
-            [ring.util.response :as ring-response]))
+            [ring.util.response :as ring-response]
+            [cheshire.core :as json]
+            ))
 
 
 (def my404
@@ -36,3 +38,30 @@
       (let [prepared-request (update request :body slurp)]
         (handler prepared-request))
       (handler request))))
+
+
+(defn wrap-json
+  [handler]
+  (fn [request]
+    (if-let [prepd-request (try (update request :body json/decode )
+                                (catch com.fasterxml.jackson.core.JsonParseException e nil)
+                                )]
+      (handler prepd-request)
+      (->
+       (ring-response/response "Sorry, that's not JSON" )
+       (ring-response/status 400)
+       )
+      )
+    
+    )
+  )
+
+(defn handle-clojurefy
+  [request]
+  (->
+   (:body request)
+   str
+   ring-response/response
+   (ring-response/content-type "application/edn")
+   )
+  )

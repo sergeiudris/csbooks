@@ -1,7 +1,9 @@
 (ns app.handler-test
   (:require [clojure.test :refer :all]
             [ring.mock.request :as mock]
-            [handler :refer :all]))
+            [handler :refer :all]
+            [cheshire.core :as json]
+            ))
 
 (deftest test-app
   (testing "main route"
@@ -60,6 +62,36 @@
   
   )
 
+
+(deftest json-test
+  (testing "the /clojurefy endpoint"
+    (testing "when provided with some valid JSON"
+      (let [example-map {"hello" "json"}
+            example-json (json/encode example-map)
+            response (app (-> (mock/request :post "/clojurefy" example-json )
+                              (mock/content-type "application/json")
+                              ))
+            ]
+        (testing "returns a 200"
+          (is (= 200 (:status response)))
+          (testing  "with a clojure map in the body"
+            (is (= (str example-map) (:body response)  )) 
+            )
+          )
+        )
+      )
+    (testing "when provided with invalid json"
+      (let [response (app (-> 
+                           (mock/request :post "/clojurefy" ";!:")
+                           (mock/content-type "application/json")
+                           ))]
+        (testing "returns 400"
+          (is (= 400 (:status response)))
+          )
+        )
+      )
+    )
+  )
 
 
 (comment
