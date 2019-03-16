@@ -92,6 +92,6 @@
       ring-response/response
       )
      )
-   wrap-json-response
+  ;  wrap-json-response
    )
   )
