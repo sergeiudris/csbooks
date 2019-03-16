@@ -4,6 +4,7 @@
             [clojure.test :refer :all]
             [ch3shortener.storage.in-memory :refer [in-memory-storage]]
             [ch3shortener.storage :as st]
+            [ring.mock.request :as mock]
             ))
 
 (deftest get-link-test
@@ -30,6 +31,75 @@
            )
       )
     )
+  )
+
+
+(deftest create-link-test
+  (let [stg (in-memory-storage)
+        id "test"
+        url "http://example.com"
+        request (-> 
+                 (mock/request :post "/links/test" url )
+                 (update :body slurp)
+                 )
+        ]
+    (testing "when ID does not exist"
+      (let [response (create-link stg "test" request )]
+        (testing "the result is 200"
+          (is (= 200 (:status response)))
+          
+          (testing "with the expected body"
+            (is (= "/links/test" (:body response)))
+            )
+          
+          (testing "and the link is actually created"
+            (is (= url (st/get-link stg "test" ) ))
+            )
+          
+          )
+        )
+      )
+    ;; so it means testing share context ? (at this point "test" already exists from previous assertion )
+    (testing "when the ID does exist"
+      (let [response (create-link stg "test" request)]
+        (testing "the result is a 422"
+          (is (= 422 (:status response )))
+          )
+        )
+      
+      )
+    )
+  )
+
+
+(deftest update-link-test
+  (let [stg (in-memory-storage)
+        id "test"
+        url "http://example.com"
+        request (->
+                 (mock/request :put "/links/test" url)
+                 (update :body slurp))]
+    
+    (testing "when the ID does not exist"
+      (let [response (update-link stg "test" request)]
+        (testing "the result is a 404"
+          (is (= 404 (:status response))))))
+    
+    (testing "when ID does exist"
+      (st/create-link stg "test" url)
+      (let [new-url "http://example.gov"
+            request (assoc request :body new-url )
+            response (update-link stg "test" request)]
+        (testing "the result is 200"
+          (is (= 200 (:status response)))
+
+          (testing "with the expected body"
+            (is (= "/links/test" (:body response))))
+
+          (testing "and the link is actually created"
+            (is (= new-url (st/get-link stg "test")))))))
+    )
+  
   )
 
 

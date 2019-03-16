@@ -13,7 +13,29 @@
     )
   )
 
+(defn create-link 
+  [stg id {url :body}]
+  (if (st/create-link stg id url )
+    (res/response (str "/links/" id))
+    (-> 
+     (format "The id %s is already in use" id)
+     res/response 
+     (res/status 422)
+     )
+    )
+  )
 
+
+(defn update-link
+  [stg id {url :body}]
+  (if (st/update-link stg id url)
+    (res/response (str "/links/" id))
+     (->
+      (format "id %s not found" id)
+      (res/not-found)
+      )
+    )
+  )
 
 (comment
 
