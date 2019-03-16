@@ -28,9 +28,10 @@
   [stg]
   (routes
    (GET "/links/:id" [id] (handler/get-link stg id))
-   (GET "/links" [id :as request] (handler/list-links stg))
+   (GET "/links" [] (handler/list-links stg))
    (POST "/links/:id" [id :as request] (handler/create-link stg id request) )
    (PUT "/links/:id" [id :as request] (handler/update-link stg id request))
+   (DELETE "/links/:id" [id] (handler/delete-link stg id ) )
    )
   )
 
