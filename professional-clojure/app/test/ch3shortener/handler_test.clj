@@ -136,18 +136,44 @@
           id "test"
           url "http://example.com/foo"
           ]
-      (testing "contains a link")
-      (st/create-link stg id url)
-      (let [response ((list-links stg ) {} )]
-        (is (subset? #{"test"} (->
-                               (:body response)
-                               json/decode
-                               keys
-                               set
-                               ) ) )
-        
+      (testing "contains a link"
+        (st/create-link stg id url)
+        (let [response ((list-links stg ) {} )]
+          (is (subset? #{"test"} (->
+                                  (:body response)
+                                  json/decode
+                                  keys
+                                  set
+                                  )))
+          
+          )
         )
       )
+  )
+
+(deftest list-links-test
+  (let [stg (in-memory-storage)
+        id-urls {"a" "http://link.to/a"
+                 "b" "http://link.to/b"
+                 "c" "http://link.to/c"
+                 }]
+    (doseq [[id url] id-urls]
+      (st/create-link stg id url )
+      )
+    
+    (let [handler (list-links stg) 
+          response (handler (mock/request :get "/links") )
+          parsed-links (json/decode (:body response))
+          ]
+      (testing "the response is a 200"
+        (is (= 200 (:status response) ))
+        )
+      
+      (testing "with a body that decodes to the original map"
+       (is (= id-urls parsed-links)) 
+        )
+      )
+    )
   )
 
 
