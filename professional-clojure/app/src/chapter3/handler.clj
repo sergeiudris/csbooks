@@ -3,7 +3,7 @@
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults api-defaults]]
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
-            [ring.middleware.json :refer [wrap-json-response]]
+            [ring.middleware.json :as ring-json]
             [clojure.tools.namespace.repl :refer [refresh]]
             [clojure.repl :refer :all]
             [chapter3.core :as ch3-core]
@@ -51,12 +51,16 @@
   )
 
 
+(def json-routes
+  (->
+   (routes
+    (POST "/clojurefy" []  (ring-json/wrap-json-body core/handle-clojurefy)))
+   ))
 
 (def body-routes 
   (-> 
    (routes 
     (ANY "/echo" [:as {body :body}] (echo body))
-    (POST "/clojurefy" []  (core/wrap-json core/handle-clojurefy) )
     )
    (wrap-routes  core/wrap-slurp-body)
    )
@@ -87,13 +91,13 @@
   )
 
 (def app-routes 
-  (routes body-routes non-body-routes )
+  (routes json-routes body-routes non-body-routes )
   )
 
 (def app
   (-> 
    app-routes
-   wrap-json-response
+   ring-json/wrap-json-response
    core/wrap-500-catchall
       (wrap-defaults api-defaults)
    )

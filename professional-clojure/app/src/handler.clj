@@ -27,8 +27,8 @@
 (def app
   (->
    app-routes
-  ;  wrap-json-response
-   core/wrap-json-response
+   wrap-json-response
+  ;  core/wrap-json-response
    core/wrap-500-catchall
    (wrap-defaults api-defaults)
    ))

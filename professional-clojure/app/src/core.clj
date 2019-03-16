@@ -41,21 +41,21 @@
       (handler request))))
 
 
-(defn wrap-json
-  [handler]
-  (fn [request]
-    (if-let [prepd-request (try (update request :body json/decode )
-                                (catch com.fasterxml.jackson.core.JsonParseException e nil)
-                                )]
-      (handler prepd-request)
-      (->
-       (ring-response/response "Sorry, that's not JSON" )
-       (ring-response/status 400)
-       )
-      )
+; (defn wrap-json
+;   [handler]
+;   (fn [request]
+;     (if-let [prepd-request (try (update request :body json/decode )
+;                                 (catch com.fasterxml.jackson.core.JsonParseException e nil)
+;                                 )]
+;       (handler prepd-request)
+;       (->
+;        (ring-response/response "Sorry, that's not JSON" )
+;        (ring-response/status 400)
+;        )
+;       )
     
-    )
-  )
+;     )
+;   )
 
 (defn handle-clojurefy
   [request]
@@ -67,16 +67,16 @@
    )
   )
 
-(defn wrap-json-response 
-  [handler]
-  (fn [request]
-    (->
-     (handler request)
-     (update :body json/encode)
-     (ring-response/content-type "application/json")
-     )
-    )
-  )
+; (defn wrap-json-response 
+;   [handler]
+;   (fn [request]
+;     (->
+;      (handler request)
+;      (update :body json/encode)
+;      (ring-response/content-type "application/json")
+;      )
+;     )
+;   )
 
 
 (defn handle-info
