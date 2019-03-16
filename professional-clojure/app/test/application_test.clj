@@ -1,7 +1,7 @@
-(ns application.handler-test
+(ns application-test
   (:require [clojure.test :refer :all]
             [ring.mock.request :as mock]
-            [handler :refer :all]
+            [application :refer :all]
             [cheshire.core :as json]
             [clojure.set :refer [subset?]]
             ))
