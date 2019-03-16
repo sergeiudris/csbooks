@@ -1,11 +1,21 @@
 (ns chapter2.core-test
   (:require [clojure.test :refer :all]
             [clojure.repl :refer :all]
-            [chapter2.core2 :refer :all]))
+            [ring.mock.request :as mock]
+            [chapter2.core2 :refer :all]
+            [chapter2.handler :refer [app]]
+            ))
 
 (defn clear-tasks-fixture [f] (swap! tasks empty) (f) )
 
 (use-fixtures :each clear-tasks-fixture )
+
+(deftest ch2-app
+    (testing "main route"
+      (let [response (app (mock/request :get "/"))]
+        (is (= (:status response) 200))
+        (is (= (:body response) "Hello World!!!"))))
+  )
 
 (deftest test-get-task-lists
   (testing "No task lists."
