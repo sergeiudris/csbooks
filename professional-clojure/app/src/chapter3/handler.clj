@@ -99,7 +99,7 @@
    app-routes
    ring-json/wrap-json-response
    core/wrap-500-catchall
-      (wrap-defaults api-defaults)
+   (wrap-defaults api-defaults)
    )
 )
 

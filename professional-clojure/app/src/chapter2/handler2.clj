@@ -5,6 +5,7 @@
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
             [ring.middleware.json :refer [wrap-json-response]]
             [chapter2.core2 :as tasks]
+            [core]
             ))
 
 
@@ -28,10 +29,12 @@
 (def app
   (-> 
    app-routes
-   (wrap-defaults api-defaults)
    wrap-json-response
+   core/wrap-500-catchall
+   (wrap-defaults api-defaults)
    )
-)
+  )
+
 
 (comment
   api-defaults

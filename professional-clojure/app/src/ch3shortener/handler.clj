@@ -1,4 +1,4 @@
-(ns shortener.handler
+(ns ch3shortener.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults api-defaults]]
@@ -6,9 +6,7 @@
             [ring.middleware.json :as ring-json]
             [clojure.tools.namespace.repl :refer [refresh]]
             [clojure.repl :refer :all]
-            [chapter3.core :as ch3-core]
             [ring.util.response :as ring-response]
-            [cheshire.core :as json]
             [core]
             ))
 

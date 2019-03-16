@@ -6,6 +6,7 @@
             [ring.middleware.json :refer [wrap-json-response]]
             [chapter2.core :as tasks]
             [clojure.tools.namespace.repl :refer [refresh]]
+            [core]
             ))
 
 (def app-routes
@@ -24,8 +25,10 @@
 (def app
   (-> 
    app-routes
-   (wrap-defaults api-defaults)
    wrap-json-response
+  ;  core/wrap-json-response
+   core/wrap-500-catchall
+   (wrap-defaults api-defaults)
    )
 )
 

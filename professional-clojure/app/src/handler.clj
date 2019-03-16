@@ -7,35 +7,29 @@
             [chapter2.handler]
             [chapter2.handler2]
             [chapter3.handler]
-            [shortener.handler]
+            [ch3shortener.handler]
             [core]
             [clojure.tools.namespace.repl :refer [refresh]]))
 
 
 
 
-(def app-routes
-  (routes 
-   chapter2.handler/app-routes 
-   chapter2.handler2/app-routes
-   chapter3.handler/app-routes
-   shortener.handler/app-routes
-   (route/not-found "Not Found")
-   )
-  )
-
-
 (def app
   (->
-   app-routes
-   wrap-json-response
-  ;  core/wrap-json-response
-   core/wrap-500-catchall
-   (wrap-defaults api-defaults)
-   ))
+   (routes
+    chapter2.handler/app
+    chapter2.handler2/app
+    chapter3.handler/app
+    ch3shortener.handler/app
+    (route/not-found "Not Found")
+    )
+   )
+  )
 
 (comment
   api-defaults
   (+)
 
-  (refresh))
+  (refresh)
+  
+  )
