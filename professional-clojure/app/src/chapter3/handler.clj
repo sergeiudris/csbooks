@@ -81,6 +81,7 @@
     (GET "/trouble" []
       (/ 1 0))
     (GET "/links/:id" [id] (str "The id is: " id))
+    (GET "/info" [] core/handle-info )
     )
    )
   )
@@ -107,6 +108,8 @@
   (doc not-empty)
   
   (doc wrap-routes)
+  
+  *clojure-version*
   
   my404
   

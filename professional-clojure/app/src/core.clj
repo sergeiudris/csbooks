@@ -77,3 +77,21 @@
      )
     )
   )
+
+
+(defn handle-info
+  [handler]
+  (->
+   (fn [_]
+     (-> 
+      {"Java Version" (System/getProperty "java.version")
+       "OS Name" (System/getProperty "os.name")
+       "OS Version" (System/getProperty "os.version")
+       "Clojure Version" *clojure-version*
+       }
+      ring-response/response
+      )
+     )
+   wrap-json-response
+   )
+  )

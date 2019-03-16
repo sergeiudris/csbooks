@@ -3,6 +3,7 @@
             [ring.mock.request :as mock]
             [handler :refer :all]
             [cheshire.core :as json]
+            [clojure.set :refer [subset?]]
             ))
 
 (deftest test-app
@@ -87,6 +88,24 @@
                            ))]
         (testing "returns 400"
           (is (= 400 (:status response)))
+          )
+        )
+      )
+    )
+  )
+
+
+(deftest info-test
+  (testing "the /info endpoint"
+    (let [response (app (mock/request :get "/info" ))]
+      (testing "returns 200"
+        (is (= 200 (:status response)))
+        (testing "with a valid JSON body"
+          (let [info (json/decode (:body response))]
+            (testing "containing the exprected keys"
+              (is (subset? #{"Java Version" } (set (keys info)) ))
+              )
+            )
           )
         )
       )
