@@ -8,6 +8,8 @@
             [chapter2.core2]
             [chapter2.handler]
             [chapter2.handler2]
+            [chapter3.handler]
+            [ch3shortener.routes]
             [dev]
             ))
 
