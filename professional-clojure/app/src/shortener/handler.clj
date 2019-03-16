@@ -1,4 +1,4 @@
-(ns links.handler
+(ns shortener.handler
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults api-defaults]]
@@ -14,7 +14,7 @@
 
 
 
-(def link-routes
+(def shortener-routes
   (->
    (routes
     (GET "/links/:id" [id] (str "The id is: " id))
@@ -23,7 +23,7 @@
   )
 
 (def app-routes 
-  (routes link-routes  )
+  (routes shortener-routes  )
   )
 
 (def app

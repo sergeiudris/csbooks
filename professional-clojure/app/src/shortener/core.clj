@@ -1,4 +1,4 @@
-(ns links.core
+(ns shortener.core
   (:require [clojure.repl :refer :all]
             [dev]
             [clojure.java.javadoc :refer [javadoc]]
