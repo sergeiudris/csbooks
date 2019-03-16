@@ -10,6 +10,7 @@
             [chapter2.handler2]
             [chapter3.handler]
             [ch3shortener.routes]
+            [ch3shortener.storage]
             [dev]
             ))
 
