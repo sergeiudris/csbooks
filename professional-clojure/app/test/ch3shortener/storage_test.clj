@@ -2,6 +2,7 @@
   (:require [clojure.repl :refer :all]
             [ch3shortener.storage :refer :all]
             [clojure.test :refer :all]
+            [ch3shortener.storage.in-memory :as in-memory]
             ))
 
 
@@ -53,6 +54,12 @@
     )
 
   )
+
+(deftest in-memory-storage-test
+  (let [stg (in-memory/in-memory-storage)]
+    (is-valid-storage stg)
+    )
+)
 
 (comment
   
