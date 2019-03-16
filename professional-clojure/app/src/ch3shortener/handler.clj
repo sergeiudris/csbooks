@@ -12,26 +12,6 @@
 
 
 
-(def shortener-routes
-  (->
-   (routes
-    (GET "/links/:id" [id] (str "The id is: " id))
-    )
-   )
-  )
-
-(def app-routes 
-  (routes shortener-routes  )
-  )
-
-(def app
-  (-> 
-   app-routes
-   ring-json/wrap-json-response
-   core/wrap-500-catchall
-   (wrap-defaults api-defaults)
-   )
-)
 
 (comment
 
