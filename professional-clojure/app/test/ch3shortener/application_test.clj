@@ -15,6 +15,7 @@
   (let [url "http://example.com/post"
         id "test"
         path (str "/links/" id)]
+    (app (mock/request :delete path url))
     (testing "creating a link"
       (let [response (app (mock/request :post path url))]
         (is (= 200 (:status response)))
@@ -41,6 +42,7 @@
   (let [id "put"
         url "http://example.com/putTest"
         path (str "/links/" id)]
+    (app (mock/request :delete path url))
     (testing "when the link does not exist"
       (let [response (app (mock/request :put path url))]
         (testing "the response is a 404"

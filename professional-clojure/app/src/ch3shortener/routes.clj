@@ -37,9 +37,11 @@
 
 
 (def app
-  (let [stg (in-memory-storage)]
+  (let [stg (in-memory-storage)
+        app-routes- (app-routes stg)
+        ]
     (->
-     (app-routes stg)
+     app-routes-
      (wrap-routes mw/wrap-slurp-body) ;; only use mw when a route matches
   ;  ring-json/wrap-json-response
      core/wrap-500-catchall
@@ -52,7 +54,9 @@
 (comment
   (+)
   (:body (client/post  "http://0.0.0.0:8080/links/3"  {:body "http://example.com/3"}))
-  (:body (client/put  "http://0.0.0.0:8080/links/3"  {:body "http://example.com/3"}))
+  (:body (client/post  "http://0.0.0.0:8080/links/4"  {:body "http://example.com/4"}))
+  
+  (:body (client/put  "http://0.0.0.0:8080/links/3"  {:body "http://example.com/33"}))
   
   
   
