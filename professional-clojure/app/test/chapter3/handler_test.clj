@@ -1,7 +1,10 @@
 (ns chapter3.handler-test
   (:require [clojure.test :refer :all]
             [ring.mock.request :as mock]
-            [chapter3.handler :refer :all]))
+            [chapter3.handler :refer :all]
+            [cheshire.core :as json]
+            [clojure.set :refer [subset?]]
+            ))
 
 (deftest chapter3-test
   (testing "main route"
@@ -50,6 +53,57 @@
     )
   
   )
+
+(deftest links-test
+  (testing "the /ch3/links/:id edpoint"
+    (testing "when an id is provied"
+      (let [response (app (mock/request :get "/ch3/links/foo123"))]
+        (testing "returns a 200"
+          (is (= 200 (:status response)))
+          (testing "with id in the body"
+            (is (re-find #"foo123" (:body response)))))))
+    (testing "when id is omitted"
+      (let [response (app (mock/request :get "/ch3/links"))]
+        (testing "returns a 404"
+          ; (is (= 404 (:status response)))
+          (is (= response nil))
+          )))
+    (testing "when the path is too long"
+      (let [response (app (mock/request :get "/ch3/links/foo123/extra-segment"))]
+        (testing "returns a 404"
+          ; (is (= 404 (:status response)))
+          (is (= response nil))
+          )))))
+
+
+(deftest json-test
+  (testing "the /clojurefy endpoint"
+    (testing "when provided with some valid JSON"
+      (let [example-map {"hello" "json"}
+            example-json (json/encode example-map)
+            response (app (-> (mock/request :post "/clojurefy" example-json)
+                              (mock/content-type "application/json")))]
+        (testing "returns a 200"
+          (is (= 200 (:status response)))
+          (testing  "with a clojure map in the body"
+            (is (= (str example-map) (:body response)))))))
+    (testing "when provided with invalid json"
+      (let [response (app (->
+                           (mock/request :post "/clojurefy" ";!:")
+                           (mock/content-type "application/json")))]
+        (testing "returns 400"
+          (is (= 400 (:status response))))))))
+
+
+(deftest info-test
+  (testing "the /info endpoint"
+    (let [response (app (mock/request :get "/info"))]
+      (testing "returns 200"
+        (is (= 200 (:status response)))
+        (testing "with a valid JSON body"
+          (let [info (json/decode (:body response))]
+            (testing "containing the exprected keys"
+              (is (subset? #{"Java Version"} (set (keys info)))))))))))
 
 
 (comment
