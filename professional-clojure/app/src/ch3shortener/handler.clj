@@ -3,6 +3,8 @@
             [ring.util.request :as req]
             [ring.util.response :as res]
             [ch3shortener.storage :as st]
+            [ring.middleware.json :refer [wrap-json-response]]
+            
             ))
 
 (defn get-link
@@ -43,6 +45,16 @@
   (->
    (res/response "")
    (res/status 204)
+   )
+  )
+
+(defn list-links
+  "returns a handler! call the handler if you want a response"
+  [stg]
+  (wrap-json-response
+   (fn [_]
+     (res/response  (st/list-links stg))
+     )
    )
   )
 

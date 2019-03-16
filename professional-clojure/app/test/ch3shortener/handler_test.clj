@@ -5,6 +5,8 @@
             [ch3shortener.storage.in-memory :refer [in-memory-storage]]
             [ch3shortener.storage :as st]
             [ring.mock.request :as mock]
+            [clojure.set :refer [subset?]]
+            [cheshire.core :as json]
             ))
 
 (deftest get-link-test
@@ -127,6 +129,25 @@
       )
     )
   
+  )
+
+(deftest list-links-test-my
+    (let [stg (in-memory-storage)
+          id "test"
+          url "http://example.com/foo"
+          ]
+      (testing "contains a link")
+      (st/create-link stg id url)
+      (let [response ((list-links stg ) {} )]
+        (is (subset? #{"test"} (->
+                               (:body response)
+                               json/decode
+                               keys
+                               set
+                               ) ) )
+        
+        )
+      )
   )
 
 

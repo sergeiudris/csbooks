@@ -3,10 +3,10 @@
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults api-defaults]]
             [ring.middleware.keyword-params :refer [wrap-keyword-params]]
-            [ring.middleware.json :as ring-json]
             [clojure.tools.namespace.repl :refer [refresh]]
             [clojure.repl :refer :all]
             [ring.util.response :as ring-response]
+            [ring.middleware.json :refer [wrap-json-response]]
             [core]
             [ch3shortener.handler :as handler]
             [ch3shortener.middleware :as mw]
@@ -24,7 +24,7 @@
 (def app
   (->
    app-routes
-   ring-json/wrap-json-response
+  ;  ring-json/wrap-json-response
    core/wrap-500-catchall
    (wrap-defaults api-defaults)))
 
