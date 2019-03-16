@@ -37,6 +37,15 @@
     )
   )
 
+(defn delete-link
+  [stg id]
+  (st/delete-link stg id)
+  (->
+   (res/response "")
+   (res/status 204)
+   )
+  )
+
 (comment
 
   
