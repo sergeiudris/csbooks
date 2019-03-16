@@ -11,6 +11,7 @@
             [chapter3.handler]
             [ch3shortener.routes]
             [ch3shortener.storage]
+            [ch3shortener.storage.in-memory]
             [dev]
             ))
 
