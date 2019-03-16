@@ -18,18 +18,18 @@
   :ring {
         ;  :handler chapter2.handler/app
          :auto-reload? true
-         :handler app/app
+         :handler application/app
          :port 8080 
          :host "0.0.0.0"  
          :nrepl {:start? true :port 35543 :host "0.0.0.0"}
          }
-  ; :main app
+  ; :main application
   :profiles
   {:dev {:dependencies [[clj-http "2.0.1"]
                         [javax.servlet/servlet-api "2.5"]
                         [org.clojure/tools.namespace "0.2.11"]
                         [ring/ring-mock "0.3.2"]]}}
-  :repl-options {:init-ns app
+  :repl-options {:init-ns application
                 ;  :main dq.dq
                 ;  :nrepl-middleware [cider.piggieback/wrap-cljs-repl]
                  }
