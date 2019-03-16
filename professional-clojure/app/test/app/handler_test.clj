@@ -35,9 +35,9 @@
   )
 
 (deftest links-test
-  (testing "the links/:id edpoint"
+  (testing "the /ch3/links/:id edpoint"
     (testing "when an id is provied"
-      (let [response (app (mock/request :get "/links/foo123" ))]
+      (let [response (app (mock/request :get "/ch3/links/foo123" ))]
       (testing "returns a 200"
         (is (= 200 (:status response)))
         (testing "with id in the body"
@@ -46,14 +46,14 @@
         ))
       )
     (testing "when id is omitted"
-      (let [response (app (mock/request :get "/links" ))]
+      (let [response (app (mock/request :get "/ch3/links" ))]
         (testing "returns a 404"
           (is (= 404 (:status response) ))
           )
         )
       )
     (testing "when the path is too long"
-      (let [response (app (mock/request :get "/links/foo123/extra-segment" ))]
+      (let [response (app (mock/request :get "/ch3/links/foo123/extra-segment" ))]
         (testing "returns a 404"
           (is (= 404 (:status response)))
           )

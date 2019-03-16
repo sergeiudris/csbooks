@@ -7,8 +7,8 @@
             [chapter2.handler]
             [chapter2.handler2]
             [chapter3.handler]
+            [links.handler]
             [core]
-
             [clojure.tools.namespace.repl :refer [refresh]]))
 
 
@@ -19,6 +19,7 @@
    chapter2.handler/app-routes 
    chapter2.handler2/app-routes
    chapter3.handler/app-routes
+   links.handler/app-routes
    (route/not-found "Not Found")
    )
   )
