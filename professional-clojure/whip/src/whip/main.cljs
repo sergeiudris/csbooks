@@ -33,6 +33,9 @@
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
 )
 
+(defn ^:export name-wont-be-minified []
+  (+ 1 2))
+
 
 (comment
   
@@ -51,5 +54,9 @@
   
   (set! (.-Audio js/window) nil)
   
+  
+  (try
+    (/ :1 2)
+    (catch :default ex))
   
   )
