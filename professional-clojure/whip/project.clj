@@ -13,6 +13,7 @@
                  [org.clojure/core.async  "0.4.474"]
                  [reagent "0.8.1"]
                  [devcards "0.2.6"]
+                 [lein-ancient "0.6.15"]
                  ]
 
   :plugins [[lein-figwheel "0.5.16"]

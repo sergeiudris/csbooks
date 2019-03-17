@@ -37,5 +37,19 @@
 (comment
   
   (+ 1 1)
+
+  ;; JavaScript interop
+  
+  (. js/console log 3)
+  (.log js/console  3)
+  (. js/Number parseInt "3")
+  
+  (.addEventListener js/window "load" (fn [e] (prn "hi") ))
+  
+  (.-Audio js/window)
+  (. js/window -Audio)
+  
+  (set! (.-Audio js/window) nil)
+  
   
   )

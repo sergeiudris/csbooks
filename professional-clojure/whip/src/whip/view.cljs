@@ -1,11 +1,17 @@
 (ns whip.view
   (:require    [whip.model :as model :refer [app-state]]
-               [devcards.core :refer-macros [defcard-rg deftest]])
+               [reagent.core :as reagent :refer [atom]]
+               [devcards.core :refer-macros [defcard-rg defcard deftest]])
   )
 
 
-(defcard-rg project-board-example
-  [project-board model/app-state "aaa"])
+
+
+(defn projects-list [app-state]
+  [:div "Project List"])
+
+(defcard-rg projects-list-example
+  [projects-list model/app-state])
 
 
 
@@ -24,6 +30,12 @@
               :cx 40
               :cy 40
               :fill "green"}]]])
+
+(defcard test-card
+  "=Hello hello"
+  [:div "hello"])
+    ; [story-card app-state id :title title  :status status]
+
 
 
 (defn navbar [app-state]
@@ -98,6 +110,19 @@
     ;   "done"]
     ;  ]
           )))
+
+(defcard-rg project-board-example
+  [project-board model/app-state "aaa"])
+
+(defn story-card-example-component []
+  (let [app-state (reagent/atom model/example-projects)]
+    (fn a-story-card-example-component []
+      [story-card app-state  2  :title "title"  :status "status"
+       (get-in @app-state [:projects "aaa" :stories 2])])))
+
+(defcard-rg story-card-example
+  [story-card-example-component])
+
 
 (defn whip-main [app-state]
   [:div
