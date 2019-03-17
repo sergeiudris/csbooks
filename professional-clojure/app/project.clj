@@ -12,6 +12,7 @@
                  [org.clojure/java.jdbc "0.7.9"]
                  [cheshire "5.5.0"]
                  [peridot "0.5.1"]
+                 [com.datomic/datomic-free "0.9.5656"]
                  ]
   :plugins [[lein-ring "0.12.5"]
             [lein-cloverage "1.0.6"]
