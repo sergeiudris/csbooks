@@ -14,6 +14,7 @@
                  [peridot "0.5.1"]
                  ]
   :plugins [[lein-ring "0.12.5"]
+            [lein-cloverage "1.0.6"]
             [com.jakemccrary/lein-test-refresh "0.12.0"]
             [cider/cider-nrepl "0.18.0"]]
   :ring {
