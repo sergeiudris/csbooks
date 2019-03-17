@@ -5,7 +5,9 @@
 
 (declare ^:dynamic *txn*)
 
-(def db "postgresql://localhost:5432/fincalc")
+; (def db "postgresql://localhost:5432/fincalc")
+(def db db-spec)
+
 
 (use-fixtures :each
   (fn [f]
@@ -27,3 +29,10 @@
 (deftest inserted-symbol-rolled-back
   (testing
     (is (not (some #{"NOK"} (get-symbols *txn*))))))
+
+
+(comment
+  
+  (run-tests)
+  
+  )

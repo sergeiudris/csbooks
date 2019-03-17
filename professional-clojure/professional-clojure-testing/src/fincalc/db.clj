@@ -22,4 +22,11 @@
   
   (sql/db-do-commands db-spec (sql/create-table-ddl :stocks [:symbol "varchar(10)"]))
   
+  (sql/insert! db-spec :stocks {:symbol "AAPL"}
+               {:symbol "MSFT"}
+               {:symbol "YHOO"}
+               {:symbol "AMZN"}
+               {:symbol "GOOGL"}
+               {:symbol "FB"})
+  
   )
