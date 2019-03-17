@@ -16,6 +16,7 @@
                  [org.clojure/java.jdbc "0.4.1"]
                  [org.postgresql/postgresql "9.4-1201-jdbc41"]]
   :plugins [[lein-ring "0.9.7"]
+            [com.jakemccrary/lein-test-refresh "0.12.0"]
             [org.clojars.punkisdead/lein-cucumber "1.0.5"]]
   :cucumber-feature-paths ["features"]
   :ring {;  :handler chapter2.handler/app

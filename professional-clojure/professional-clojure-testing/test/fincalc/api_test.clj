@@ -13,3 +13,10 @@
   (let [response (app (mock/request :get "/api/stocks"))]
     (is (= (:status response) 200))
     (is (some #{"AAPL"} (json/parse-string (:body response))))))
+
+
+(comment
+
+  (run-tests)
+  
+  )
