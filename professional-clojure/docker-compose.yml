@@ -29,6 +29,24 @@ services:
     #   - datomic
     #   - db
 
+  app-testing:
+    image: app-testing
+    volumes:
+      - ./professional-clojure-testing:/opt/code/app
+    build:
+      context: ./professional-clojure-testing
+      dockerfile: ./Dockerfile
+    ports:
+      - 5345:35543
+      - 5889:7888
+      - 5581:8080
+    command: bash c init
+    stdin_open: true
+    tty: true
+    # links:
+    #   - datomic
+    #   - db
+
   # db:
   #   image: procloj-db
   #   ports:

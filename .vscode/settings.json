@@ -1,3 +1,6 @@
 {
-    "calva.testOnSave": false
+    "calva.testOnSave": false,
+    "files.exclude": {
+        "**/.git": false
+    }
 }

@@ -9,6 +9,7 @@
             [chapter2.handler]
             [chapter2.handler2]
             [chapter3.handler]
+            [chapter4.core]
             [ch3shortener.routes]
             [ch3shortener.storage]
             [ch3shortener.storage.in-memory]
