@@ -13,7 +13,7 @@ nrepl_cljs(){
 }
 
 init(){
-    lein do clean, figwheel
+    lein do clean, figwheel devcards dev
 }
 
 min(){

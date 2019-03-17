@@ -8,10 +8,12 @@
   
   :min-lein-version "2.7.1"
 
-  :dependencies [[org.clojure/clojure "1.9.0"]
-                 [org.clojure/clojurescript "1.10.238"]
+  :dependencies [[org.clojure/clojure "1.10.0"]
+                 [org.clojure/clojurescript "1.10.520"]
                  [org.clojure/core.async  "0.4.474"]
-                 [reagent "0.7.0"]]
+                 [reagent "0.8.1"]
+                 [devcards "0.2.6"]
+                 ]
 
   :plugins [[lein-figwheel "0.5.16"]
             [lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]]
@@ -30,7 +32,7 @@
                            ;; in the default browser once Figwheel has
                            ;; started and compiled your application.
                            ;; Comment this out once it no longer serves you.
-                           :open-urls ["http://localhost:3449/index.html"]
+                          ;  :open-urls ["http://localhost:3449/index.html"]
                            :websocket-host "0.0.0.0"}
 
                 :compiler {:main whip.main
@@ -41,6 +43,33 @@
                            ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
                            ;; https://github.com/binaryage/cljs-devtools
                            :preloads [devtools.preload]}}
+               
+               {:id "devcards"
+                :source-paths ["src"]
+
+                ;; The presence of a :figwheel configuration here
+                ;; will cause figwheel to inject the figwheel client
+                ;; into your build
+                :figwheel {:on-jsload "whip.main/on-js-reload"
+                           :devcards true
+                           ;; :open-urls will pop open your application
+                           ;; in the default browser once Figwheel has
+                           ;; started and compiled your application.
+                           ;; Comment this out once it no longer serves you.
+                          ;  :open-urls ["http://localhost:3449/index.html"]
+                           :websocket-host "0.0.0.0"}
+
+                :compiler {:main whip.main
+                           :output-to "resources/public/js/compiled/devcards.js"
+                           :output-dir "resources/public/js/compiled/devcards"
+                           :asset-path "js/compiled/devcards"
+                           :source-map-timestamp true
+                           ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
+                           ;; https://github.com/binaryage/cljs-devtools
+                           :preloads [devtools.preload]}}
+               
+               
+               
                ;; This next build is a compressed minified build for
                ;; production. You can build this with:
                ;; lein cljsbuild once min

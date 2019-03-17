@@ -1,7 +1,9 @@
 (ns  whip.main
     (:require [whip.a-init]
               [reagent.core :as reagent :refer [atom]]
+              [goog.dom :as dom]
               [whip.model :as model]
+              
               ))
 
 
@@ -141,8 +143,10 @@
    [project-board app-state "aaa"]
    ])
 
-(reagent/render-component [whip-main app-state ]
-                          (. js/document (getElementById "app")))
+(when-let [app (dom/getElement "app")]
+  (reagent/render-component [whip-main app-state]
+                            (. js/document (getElementById "app")))
+  )
 
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
