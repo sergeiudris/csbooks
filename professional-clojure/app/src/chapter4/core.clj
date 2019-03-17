@@ -3,7 +3,7 @@
             [clojure.test :refer :all]
             [clojure.string :as str]))
 
-(commnent
+(comment
  
  (doc is)
 
