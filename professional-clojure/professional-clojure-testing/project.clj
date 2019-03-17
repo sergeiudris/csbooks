@@ -17,6 +17,8 @@
                  [org.postgresql/postgresql "9.4-1201-jdbc41"]]
   :plugins [[lein-ring "0.9.7"]
             [lein-cloverage "1.0.6"]
+            [lein-kibit "0.1.2"]
+            [lein-bikeshed "0.2.0"]
             [com.jakemccrary/lein-test-refresh "0.12.0"]
             [org.clojars.punkisdead/lein-cucumber "1.0.5"]]
   :cucumber-feature-paths ["features"]

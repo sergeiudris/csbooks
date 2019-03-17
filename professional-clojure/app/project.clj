@@ -15,6 +15,8 @@
                  ]
   :plugins [[lein-ring "0.12.5"]
             [lein-cloverage "1.0.6"]
+            [lein-kibit "0.1.2"]
+            [lein-bikeshed "0.2.0"]
             [com.jakemccrary/lein-test-refresh "0.12.0"]
             [cider/cider-nrepl "0.18.0"]]
   :ring {
