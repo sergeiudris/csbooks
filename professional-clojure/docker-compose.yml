@@ -43,9 +43,24 @@ services:
     command: bash c init
     stdin_open: true
     tty: true
-    # links:
-    #   - datomic
-    #   - db
+    links:
+      - postgresdb
+
+  postgresdb:
+    image: postgres:11.1
+    # restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: fincalc
+      POSTGRES_PASSWORD: postgres
+
+  adminer:
+    image: adminer
+    # restart: always
+    ports:
+      - 5582:8080
+    links:
+      - postgresdb:db
 
   # db:
   #   image: procloj-db
