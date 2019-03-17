@@ -51,7 +51,14 @@
                            :optimizations :advanced
                            :source-map "resources/public/js/compiled/whip.js.map"
                            :output-dir "resources/public/js/compiled/min"
-                           :pretty-print false}}]}
+                           :pretty-print false}}]
+              ; :warning-handlers
+              ; [(fn treat-warnings-as errors [warning-type env extra]
+              ;    (when-let [s (cljs.analyzer/error-message warning-type extra)]
+              ;      (binding [*out* *err*]
+              ;        (println "WARNING:" (cljs.analyzer/message env s)))
+              ;      (System/exit 1)))]
+              }
 
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
              ;; :server-port 3449 ;; default

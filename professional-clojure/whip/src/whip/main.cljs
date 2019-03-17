@@ -1,6 +1,8 @@
 (ns  whip.main
     (:require [whip.a-init]
-              [reagent.core :as reagent :refer [atom]]))
+              [reagent.core :as reagent :refer [atom]]
+              [whip.model :as model]
+              ))
 
 
 (println "This text is printed from src/whip/core.cljs. Go ahead and edit it and see reloading in action.!!")
@@ -55,6 +57,29 @@
     ]
    ])
 
+
+(defn navbar [app-state]
+  
+  [:nav
+   [:ul.nav-list
+    [:li
+     [:a
+      {:href "#/"}
+      ; [:img
+      ;  {:src "img/logo.png"}]
+      [:span
+       {:style {:font-family "fantasy" :font-size "3em"}}
+       " Whip"]]]
+    [:ul.nav-list
+     {:style {:float "right"}}
+     [:li
+      [:a {:href "#/"} "About"]]
+     [:li
+      (if-let [username (:username @app-state)]
+        [:a {:href "#/settings"} username]
+        [:a {:href "#/login"} "Login"])]]]])
+
+
  (defn story-card [app-state id & {:keys [title status]}]
    [:li.card
     (if (= status "done")
@@ -69,6 +94,25 @@
            (swap! app-state assoc-in [:projects "aaa" :stories id :status]
                   "done"))}
         "done"]])])
+
+;  (defn add-story-form [app-state project-id status]
+;    [:form
+;     {:on-submit
+;      (fn add-story-submit [e]
+;        (.preventDefault e)
+;        (model/add-story!
+;         app-state
+;         project-id
+;         (forms/getValueByName (.-target e) "story-title")
+;         status))}
+;     [:input
+;      {:type "text"
+;       :name "story-title"}]
+;     [:input
+;      {:type "submit"
+;       :value "Add story"}]]
+;    )
+
 
 (defn project-board [app-state project-id]
  (into [:ul]
@@ -92,8 +136,10 @@
 
 (defn whip-main [app-state]
   [:div
+   [navbar app-state]
    [:h1 "Whip project management tool"]
-   [project-board app-state "aaa"]])
+   [project-board app-state "aaa"]
+   ])
 
 (reagent/render-component [whip-main app-state ]
                           (. js/document (getElementById "app")))
