@@ -92,3 +92,21 @@ services:
   #     - app
 
 
+  whip:
+    image: whip
+    # container_name: dq-dockerwheel
+    volumes:
+      - ./whip:/opt/code/app
+    build:
+      context: ./whip
+      dockerfile: ./Dockerfile
+    ports:
+      - 3449:3449
+      - 5355:35543
+    # command: tail -f /dev/null
+    # command: lein do clean, figwheel
+    command: bash c init
+    # environment:
+    #   - DISPLAY=10.0.75.1:0.0
+    stdin_open: true
+    tty: true
