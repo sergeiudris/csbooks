@@ -22,5 +22,8 @@ down(){
   # emacs_up
 }
 
+caddy_install(){
+  curl https://getcaddy.com | bash -s personal
+}
 
 "$@"
