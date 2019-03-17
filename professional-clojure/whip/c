@@ -16,4 +16,8 @@ init(){
     lein do clean, figwheel
 }
 
+min(){
+    lein do clean, cljsbuild once min
+}
+
 "$@"

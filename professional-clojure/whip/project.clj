@@ -49,6 +49,8 @@
                 :compiler {:output-to "resources/public/js/compiled/whip.js"
                            :main whip.main
                            :optimizations :advanced
+                           :source-map "resources/public/js/compiled/whip.js.map"
+                           :output-dir "resources/public/js/compiled/min"
                            :pretty-print false}}]}
 
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
