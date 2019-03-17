@@ -18,3 +18,9 @@ and they feel it would be irresponsible to deliver software without quality test
 your software does as it intends.
 
 * No amount of testing can make up for not being able to reason about your code.
+
+### chapter 5
+
+* p 136 
+project board requires two args
+

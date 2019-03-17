@@ -25,7 +25,7 @@
                 ;; The presence of a :figwheel configuration here
                 ;; will cause figwheel to inject the figwheel client
                 ;; into your build
-                :figwheel {:on-jsload "whip.core/on-js-reload"
+                :figwheel {:on-jsload "whip.main/on-js-reload"
                            ;; :open-urls will pop open your application
                            ;; in the default browser once Figwheel has
                            ;; started and compiled your application.
@@ -33,7 +33,7 @@
                            :open-urls ["http://localhost:3449/index.html"]
                            :websocket-host "0.0.0.0"}
 
-                :compiler {:main whip.core
+                :compiler {:main whip.main
                            :asset-path "js/compiled/out"
                            :output-to "resources/public/js/compiled/whip.js"
                            :output-dir "resources/public/js/compiled/out"
@@ -47,7 +47,7 @@
                {:id "min"
                 :source-paths ["src"]
                 :compiler {:output-to "resources/public/js/compiled/whip.js"
-                           :main whip.core
+                           :main whip.main
                            :optimizations :advanced
                            :pretty-print false}}]}
 
