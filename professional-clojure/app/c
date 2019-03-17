@@ -34,4 +34,13 @@ init(){
   ring_headless
 }
 
+uberjar(){
+  lein ring uberjar
+}
+
+
+uberwar(){
+  lein ring uberwar
+}
+
 "$@"
