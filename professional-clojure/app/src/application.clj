@@ -13,6 +13,7 @@
             [ch3shortener.routes]
             [ch3shortener.storage]
             [ch3shortener.storage.in-memory]
+            [chapter4.simple-api-handler]
             [dev]
             ))
 

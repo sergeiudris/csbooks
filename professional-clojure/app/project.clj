@@ -11,6 +11,7 @@
                  [nrepl "0.5.3"]
                  [org.clojure/java.jdbc "0.7.9"]
                  [cheshire "5.5.0"]
+                 [peridot "0.5.1"]
                  ]
   :plugins [[lein-ring "0.12.5"]
             [com.jakemccrary/lein-test-refresh "0.12.0"]
