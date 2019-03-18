@@ -45,15 +45,16 @@
  [[:db/add e ident-attr value]])"}}
 
  
- [{:db/id #db/id[:db.part/account]
+ {:db/id #db/id[:db.part/account]
    :db/ident :account/update-balance
    :db/fn #db/fn{:lang "clojure"
                  :params [db a amt]
                  :code "(let [acct (d/entity db a) 
 balance (or (:account/current-balance acct) 0)]
  [[:db/add a :account/current-balance
- (bigdec (+ balance amt))]])"}}
-  ]
+ (bigdec (+ balance amt))]])"
+                 }}
+  
  
 
  ]
