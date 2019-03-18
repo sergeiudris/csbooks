@@ -13,6 +13,7 @@
                  [cheshire "5.5.0"]
                  [peridot "0.5.1"]
                  [com.datomic/datomic-free "0.9.5656"]
+                 [crypto-password "0.1.3"]
                  ]
   :plugins [[lein-ring "0.12.5"]
             [lein-cloverage "1.0.6"]
@@ -31,7 +32,8 @@
          }
   ; :main application
   :profiles
-  {:dev {:dependencies [[clj-http "2.0.1"]
+  {:dev {:source-paths ["setup"]
+         :dependencies [[clj-http "2.0.1"]
                         [javax.servlet/servlet-api "2.5"]
                         [org.clojure/tools.namespace "0.2.11"]
                         [ring/ring-mock "0.3.2"]]}}

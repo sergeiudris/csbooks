@@ -1,0 +1,34 @@
+[
+ 
+ {:db/ident :task.status/todo
+  :label "To Do"}
+
+ {:db/ident :task.status/in-progress
+  :label "In Progress"}
+
+ {:db/ident :task.status/done
+  :label "Done"}
+
+ 
+ {:db/id #db/id[:db.part/account]
+  :db/ident :account.type/free
+  :label "Free account"}
+ 
+ {db/id #db/id[:db.part/account]
+  :db/ident :account.type/paid
+  :label "Paid account"}
+ 
+
+ {:db/id #db/id[:db.part/account]
+  :db/ident :transaction.type/charge
+  :label "Charge"}
+
+{:db/id #db/id[:db.part/account]
+ :db/ident :transaction.type/payment
+ :label "Payment"}
+
+{:db/id #db/id[:db.part/account]
+ :db/ident :transaction.type/adjustment
+ :label "Adjustment"}
+
+ ]
