@@ -43,3 +43,22 @@
 
 ; (not (or (x) (y))) is the same as (and (not (x)) (not (y)))
 ; (not (and (x) (y))) is the same as (or (not (x)) (not (y)))
+
+; (ppdefrule "rule-name&6")
+
+
+
+(deftemplate auto (slot price) (slot color))
+
+; (defrule no-red-cars
+; (auto (color ~red))
+; =>)
+
+(defrule no-red-cars-2
+(not (auto (color red)))
+=>)
+
+(defrule no-odd-numbers
+(not (number ?n&:(oddp ?n)))
+=>
+(printout t "There are no odd numbers." crlf))

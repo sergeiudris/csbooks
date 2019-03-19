@@ -18,7 +18,8 @@
 (defrule simple-variables
 (a ?x ?y)
 =>
-(printout t "Saw 'a " ?x " " ?y "'" crlf))
+(printout t "Saw 'a " ?x " " ?y "'" crlf)
+)
 
 
 ; (deffacts simple-var-facts 
