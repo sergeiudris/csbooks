@@ -76,12 +76,21 @@
 (printout t "The cart contains " ?items crlf))
 
 
-(defrule cart-containing-milk
+(defrule cart-containing-greens
 (shopping-cart (contents $?before greens $?after))
 =>
 (printout t "The cart contains greens." crlf))
 
+(defrule cart-containing-blanks1
+(shopping-cart (contents veggies $? fruit))
+=>
+(printout t "using blank ($?) as palceholder" crlf))
 
+
+(defrule cart-containing-blanks2
+(shopping-cart (contents veggies ? ? fruit))
+=>
+(printout t "using blank (?) as palceholder " crlf))
 
 (reset)
 (run)
