@@ -41,8 +41,12 @@
 
 
 (assert (a 2) (b 2) )
-
 (run)
+
+
+
+(printout t "---Literal constraints" crlf)
+
 
 (deffacts repeated-variable-facts
 (a 1)
@@ -51,5 +55,33 @@
 (b 3))
 
 (reset)
+(run)
 
+
+
+(printout t "---Literal constraints" crlf)
+
+
+(deftemplate shopping-cart "cart"
+(multislot contents))
+
+(deffacts multifield-fact
+(shopping-cart (contents veggies greens beans fruit))
+)
+
+
+(defrule any-shopping-cart
+(shopping-cart (contents $?items))
+=>
+(printout t "The cart contains " ?items crlf))
+
+
+(defrule cart-containing-milk
+(shopping-cart (contents $?before greens $?after))
+=>
+(printout t "The cart contains greens." crlf))
+
+
+
+(reset)
 (run)
