@@ -103,25 +103,54 @@
 (slot name (default CLIENT))
 (slot city)
 (slot civ)
+(multislot items)
 (multislot hobbies))
 
 (deffacts multifield-fact
-(client1  (name "Ori") (city "Dale" ) (civ "gnomes"))
-(client1  (name "Legolas") (city "Woodland" )  (civ "elves"))
-(client1  (name "Aragorn") (city "Minas" )  (civ "humans"))
-(client1  (name "Bilbo") (city "Shire" ) (civ "hobbit"))
-(client1  (name "Thorin") (city "Erebor" ) (civ "gnomes"))
+(client1  (name "Ori") (city "Dale" ) (civ "gnomes") (items "coins" "coins" "beard" ))
+(client1  (name "Legolas") (city "Woodland" )  (civ "elves") (items "arrow" "arrow" "knife" "bow" ))
+(client1  (name "Aragorn") (city "Minas" )  (civ "humans") (items "sword" "symbol" ) )
+(client1  (name "Bilbo") (city "Shire" ) (civ "hobbit") (items "ring" "strig" "bag" ))
+(client1  (name "Thorin") (city "Erebor" ) (civ "gnomes") (items "grudge" "grudge" ) )
 )
 
 (defrule client-not-from-erebor
-(client1 (name ?name) (city ~"Erebor"))
+(client1 (name ?name) (city ?c&~"Erebor"))
 =>
-(printout t "not from erebor " ?name crlf))
+(printout t t2 "not from erebor " ?name ?c crlf))
 
 (defrule client-gnome-human
 (client1 (name ?name) (civ "gnomes" | "humans"))
 =>
 (printout t "gnome or human " ?name crlf))
+
+
+(defrule client-has-two-different-items
+(client1 (name ?name) (items ?x ~?x))
+=>
+(printout t "client-has-two-different-items " ?name crlf))
+
+(defrule many-items
+(client1 (name ?name) (items  $?c&
+    :(> (length$ $?c) 2 )
+    ))
+=>
+(printout t "has many items" ?name crlf))
+
+
+(defrule many-items2
+(client1 (name ?name) (items  $?c&
+    :(and  (> (length$ $?c) 2 )
+        (not 
+            (or (member$ "beard"  $?c))
+            (or (member$ "bag"  $?c))
+        )
+     )
+    ))
+=>
+(printout t "has many items, no beard, no bag " ?name crlf))
+
+
 
 (reset)
 (run)
