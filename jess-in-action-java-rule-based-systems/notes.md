@@ -227,7 +227,7 @@
     the execution engine is a language interpreter; for others, it is a dispatcher that
     invokes compiled code.
 
-> 6.1 p76
+> 6.1 p76 Facts in Jess 
 
     It is important to recognize that we’re using the word fact in a specific, techni-
     cal sense, and the meaning differs slightly from the colloquial English usage. In
@@ -236,3 +236,36 @@
     or removed from the working memory of a rule-based system. Jess facts aren’t gen-
     erally atomic; rather, they have some structure to them, as you’ll see in the follow-
     ing sections.
+
+> 7 p96 Writing rules in Jess 
+
+    There are two main classes of rules in Jess: forward-chaining and backward-chain-
+    ing rules. Forward-chaining rules are somewhat like if ... then statements in a pro-
+    cedural language, and they’re the most common and important kind of rule in
+    Jess. Backward-chaining rules, on the other hand, don’t have a clear analogy in
+    procedural programming. They are also similar to if ... then statements, but a
+    backward-chaining rule actively tries to satisfy the conditions of its if part.
+
+    You can access working memory directly with queries. You can design queries to
+    search working memory, to find specific facts, and to explore their relationships.
+    Queries have a lot in common with rules—if you can write one, you know how to
+    write the other. You’ll learn how to write and invoke queries in section 7.7.
+
+
+> 7.1 p 98 Forward-chaining rules
+
+    Let me say that again: The left-hand side of a rule (the if part) consists of pat-
+    terns that match facts; they are not function calls. The right-hand side of a rule
+    (the then clause) is made up of function calls. The following rule does not work:
+    Jess> (defrule wrong-rule
+    (eq 1 1)
+    =>
+    (printout t "Just as I thought, 1 == 1!" crlf))
+    Many novice Jess users write rules like this, intending (eq 1 1) to be interpreted as
+    a function call. This rule will not fire just because the function call (eq 1 1) would
+    evaluate to TRUE . Instead, Jess tries to find a fact in the working memory that looks
+    like (eq 1 1) . Unless you have previously asserted such a fact, this rule will not be
+    activated and will not fire. If you want to fire a rule based on the evaluation of a
+    function, you can use the test conditional element, described in section 7.3.4.
+
+    
