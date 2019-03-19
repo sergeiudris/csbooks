@@ -281,3 +281,27 @@
         ■ Predicate constraints—Let you call a function to test for a match
         ■ Return value constraints—Test for an exact match between a slot’s contents
     and the result of a function call
+
+
+> 7.3 p108  Qualifying patterns with conditional elements
+
+    We’ve just been looking at increasingly sophisticated ways to match the data
+    within individual facts. Now we’ll look at ways to express more complex relation-
+    ships between facts, and to qualify the matches for entire facts. Conditional elements
+    (CEs) are pattern modifiers. They can group patterns into logical structures, and
+    they can say something about the meaning of a match. There’s even one condi-
+    tional element, test , that doesn’t involve matching a fact at all.
+    Before we begin, let me caution you that many of these conditional elements
+    have the same names as predicate functions we looked at in the last section.
+    There’s an and conditional element, and there’s an and predicate function.
+    Although they may look similar, they’re entirely unrelated. The and predicate
+    function operates on Boolean expressions, but the and conditional element oper-
+    ates on patterns. You can always tell which you’re dealing with by the context—
+    predicate functions can appear only as constraints on slot data. The following are
+    all of Jess’s conditional elements:
+        ■ and —Matches multiple facts
+        ■ or —Matches alternative facts
+        ■ not —Matches if no facts match
+        ■ exists —Matches if at least one fact matches
+        ■ test —Matches if a function call doesn’t evaluate to FALSE
+        ■ logical —Matching facts offer logical support to new facts

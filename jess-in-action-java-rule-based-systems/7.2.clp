@@ -1,5 +1,5 @@
 
-(printout t "---Literal constraints" crlf)
+(printout t "---Variable constraints" crlf)
 (clear)
 
 (defrule literal-values
