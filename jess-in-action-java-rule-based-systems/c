@@ -1,0 +1,12 @@
+#!/bin/bash
+
+jess(){
+    # java -classpath /opt/jess.jar jess.Main
+    java -classpath /opt/Jess61p4/jess.jar jess.Main
+}
+
+
+
+
+
+"$@"

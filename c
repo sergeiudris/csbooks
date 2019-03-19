@@ -12,6 +12,7 @@ dc(){
     "$@"
 }
 
+
 up(){
   dc up -d --build
   # emacs_up
@@ -25,5 +26,16 @@ down(){
 caddy_install(){
   curl https://getcaddy.com | bash -s personal
 }
+
+jess(){
+    docker-compose \
+    -f ./jess-in-action-java-rule-based-systems/docker-compose.yml \
+    "$@"
+}
+
+jessbash(){
+  sh c jess exec jess bash
+}
+
 
 "$@"
