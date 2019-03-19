@@ -268,4 +268,16 @@
     activated and will not fire. If you want to fire a rule based on the evaluation of a
     function, you can use the test conditional element, described in section 7.3.4.
 
-    
+> 7.2 Constraining slot data
+
+    Most facts
+    do, however, and most patterns need to specify some particular set of slot values
+    for the facts they match. These specifications are called constraints, because they
+    constrain the values a slot can have in a fact that matches the pattern. A number
+    of different kinds of constraints can be used to match slot data:
+        ■ Literal constraints—Specify exact slot values
+        ■ Variable constraints—Bind a matched value to a variable
+        ■ Connective constraints—Let you combine conditions to match A and B, or A or B
+        ■ Predicate constraints—Let you call a function to test for a match
+        ■ Return value constraints—Test for an exact match between a slot’s contents
+    and the result of a function call
