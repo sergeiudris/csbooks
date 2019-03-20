@@ -1,6 +1,6 @@
-
-(printout t "---Tax Forms Advisor" crlf)
 (clear)
+(reset)
+
 
 (defrule use-ez-form
 ; If filing status is "single", and...
@@ -10,6 +10,8 @@
 =>
 ; recommend the user file Form 1040EZ
 (recommend 1040EZ))
+
+
 
 (deftemplate user
 (slot income (default 0))
@@ -90,10 +92,37 @@ else (return (> (str-length ?answer) 0))))
 (question (ident q3) (type number)
 (text "How many dependents do you have?")))
 
+
+; (reset)
+
+; (assert (ask q2))
+
+; (watch all)
+
+; (run)
+
+
+(defmodule startup)
+(defrule print-banner
+=>
+(printout t "Type your name and press Enter> ")
+(bind ?name (read))
+(printout t crlf "*****************************" crlf)
+(printout t "Hello, " ?name "." crlf)
+(printout t "Welcome to the tax forms advisor" crlf)
+(printout t "Please answer the questions and" crlf)
+(printout t "I will tell you what tax forms" crlf)
+(printout t "you may need to file." crlf)
+(printout t "*****************************" crlf crlf))
+
 (reset)
 
-(assert (ask q2))
+(focus startup)
 
 (watch all)
+
+(run)
+
+(assert (ask q2))
 
 (run)
