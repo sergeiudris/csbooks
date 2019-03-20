@@ -305,3 +305,15 @@
         ■ exists —Matches if at least one fact matches
         ■ test —Matches if a function call doesn’t evaluate to FALSE
         ■ logical —Matching facts offer logical support to new facts
+
+> 7.4 p116 Backward-chaining rules
+
+    The rules you’ve seen so far have been forward-chaining rules; as I’ve said, that
+    means the rules are treated as if ... then statements, with the engine simply exe-
+    cuting the RHSs of activated rules. Some rule-based systems, notably Prolog and
+    its derivatives, support backward chaining. In a backward-chaining system, rules are
+    still if ... then statements, but the engine actively tries to make rules fire. If the if
+    clause of one rule is only partially matched and the engine can determine that fir-
+    ing some other rule would cause it to be fully matched, the engine tries to fire
+    that second rule. This behavior is often called goal seeking.
+

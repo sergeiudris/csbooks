@@ -62,3 +62,60 @@
 (not (number ?n&:(oddp ?n)))
 =>
 (printout t "There are no odd numbers." crlf))
+
+
+; (defrule forall-example
+; (not (and (car (color ?c)) (not (bus (color ?c)))))
+; =>)
+
+(defrule exists-an-honest-man
+(exists (honest ?))
+=>
+(printout t "There is at least one honest man!" crlf))
+
+; (defrule find-trustworthy-people-1
+; (person (age ?x))
+; (test (< ?x 30))
+; =>
+; (printout t ?x " is under 30!" crlf))
+
+; (defrule find-trustworthy-people-2
+; (person (age ?x&:(< ?x 30)))
+; =>
+; (printout t ?x " is under 30!" crlf))
+
+(import java.util.Date)
+(defrule fire-next-century
+(test ((new Date) after (new Date "Dec 31 2099")))
+=>
+(printout t "Welcome to the 22nd century!" crlf))
+
+
+
+
+(defrule turn-water-on
+(faucet open)
+=>
+(assert (water flowing)))
+
+(defrule turn-water-off
+(not (faucet open))
+?water <- (water flowing)
+=>
+(retract ?water))
+
+
+(clear)
+
+(defrule water-flows-while-faucet-is-open
+(logical (faucet open))
+=>
+(assert (water flowing)))
+
+(assert (faucet open))
+
+(run)
+(facts)
+(watch facts)
+(retract 0)
+(facts)
