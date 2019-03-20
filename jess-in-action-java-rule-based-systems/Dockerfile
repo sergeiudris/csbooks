@@ -33,10 +33,13 @@ RUN curl -O https://download.clojure.org/install/linux-install-1.10.0.411.sh && 
     sudo ./linux-install-1.10.0.411.sh
 
 WORKDIR /opt
+ADD c c
+
 # Jess61p4
-RUN curl -O https://manning-content.s3.amazonaws.com/download/e/839f142-236f-4866-8693-abf06add86de/friedman-hill_src_1_jess_se.zip && \
-    unzip friedman-hill_src_1_jess_se.zip && \
-    cp Jess61p4/jess.jar jess.jar
+# RUN curl -O https://manning-content.s3.amazonaws.com/download/e/839f142-236f-4866-8693-abf06add86de/friedman-hill_src_1_jess_se.zip && \
+#     unzip friedman-hill_src_1_jess_se.zip && \
+#     cp Jess61p4/jess.jar jess.jar
+RUN sh c download_jess
 
 RUN mkdir -p /opt/code/app
 RUN mkdir -p /root/.m2
