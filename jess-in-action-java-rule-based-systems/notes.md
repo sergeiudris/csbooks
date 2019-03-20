@@ -359,3 +359,34 @@
     change your rules to be less sensitive to execution order, or consider implement-
     ing your algorithm as one or more deffunction s or as Java code. Alternatively,
     you might consider structuring your program using modules.
+
+
+> 7.6 p123 Partitioning the rule base with defmodule
+
+    You might hope to mitigate the problem by partitioning a rule base into man-
+    ageable chunks. The defmodule construct lets you divide rules and facts into dis-
+    tinct groups called modules. Modules help you in two ways: First, they help you
+    physically organize large numbers of rules into logical groups. The commands for
+    listing constructs ( rules , facts , and so on) let you specify the name of a module
+    and can then operate on one module at a time. Second, modules provide a con-
+    trol mechanism: The rules in a module fire only when that module has the focus,
+    and only one module can be in focus at a time (you’ll learn about module focus in
+    section 7.6.3).
+    We’ll discuss the following functions and constructs in this section:
+        ■ clear-focus-stack —Empties the focus stack
+        ■ defmodule —Defines a new module
+        ■ focus —Sets the focus module
+        ■ get-current-module —Returns the current module
+        ■ get-focus-stack —Returns the focus stack’s contents as a list
+        ■ list-focus-stack —Displays the focus stack’s contents
+        ■ pop-focus —Pops a module from the focus stack
+
+> p126 7.6.3 Module focus and execution control 
+
+    Rule bases are commonly divided into modules along functional lines. For
+    example, you might put all your input-gathering rules into one module, your
+    data-processing rules into another, and your reporting rules into a third. Then,
+    changing the focus from input, to processing, to output represents a natural pro-
+    gression through well-defined phases of your application’s execution.
+
+    
