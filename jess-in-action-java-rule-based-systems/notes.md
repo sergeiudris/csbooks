@@ -441,3 +441,12 @@
     cess of collecting information about a problem domain is called knowledge engineer-
     ing. Knowledge engineering can include gathering data from interviews, books
     and other publications, the Internet, and other sources.
+
+> p166 10.5 Organizing the rules
+    The Tax Forms Advisor needs to do four things:
+        1 Initialize the application
+        2 Conduct an interview with the user to learn about her tax situation
+        3 Figure out what tax forms to recommend
+        4 Present the list of forms to the user, removing any duplicate recommenda-
+        tions in the process
+
