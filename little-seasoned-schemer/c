@@ -27,6 +27,22 @@ devnull(){
    tail -f /dev/null
 }
 
+dc(){
+   docker-compose "$@"
+}
+
+
+up(){
+  dc up -d --build
+  # emacs_up
+}
+
+down(){
+  dc down
+  # emacs_up
+}
+
+
 
 
 "$@"
