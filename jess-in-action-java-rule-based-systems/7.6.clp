@@ -114,3 +114,8 @@
 (bind ?fact (call ?token fact 1))
 (bind ?name (fact-slot-value ?fact name))
 (printout t ?name crlf))
+
+(defquery find-factorial
+(declare (max-background-rules 5)
+(variables ?arg))
+(factorial ?arg ?))
