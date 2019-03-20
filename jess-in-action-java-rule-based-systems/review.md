@@ -19,5 +19,16 @@
     
     It's books like Jess in Action that fuel your growth and provide invaluable engineering  knowledge.
 
+
+### Dare i say...
+
+    All is easy in retorspect. After learning so much from Clojure and re-building yourself with knowledge on
+    values, data vs mechainm, design, 'simplexity' and 'complectedness', breathing the rich air of clojure community,
+    it easy (as in near-by) to say in 2019:
+        - Jess, despite having lisp syntax, is still a domain-specific laguage, more of a tool
+        - Jess is still object oriented and is a Proloog-Lisp interface for java with rule engine built in
+        - rule systems today... it's a bit more complex in the world of social networks, machine learning and infintely large clouds
+    but it would be a disservice: Jess In Action is not a snaphot, it's a complete engineering experience and is still valuable
+
     
     
