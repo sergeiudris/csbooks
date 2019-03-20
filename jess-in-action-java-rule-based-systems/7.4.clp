@@ -67,3 +67,10 @@
 (reset)
 (assert (do-price-check waffles))
 (run)
+
+
+(defrule defer-exit-until-agenda-empty
+(declare (salience -100))
+(command exit-when-idle)
+=>
+(printout t "exiting..." crlf))

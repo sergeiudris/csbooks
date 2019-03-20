@@ -317,3 +317,45 @@
     ing some other rule would cause it to be fully matched, the engine tries to fire
     that second rule. This behavior is often called goal seeking.
 
+    ...
+
+    The head of the fact is constructed by taking the head of the reactive pattern and
+    adding the prefix need- . These need-x facts are called goal-seeking or trigger facts.
+
+> 7.5 p121 Managing the agenda
+
+    A typical rule-based system may contain hundreds or thousands of rules. It’s very
+    likely that at any given moment, more than one rule is activated. The set of acti-
+    vated rules that are eligible to be fired is called the conflict set, and the process of
+    putting the rules in firing order is called conflict resolution. The output of the con-
+    flict-resolution process is the ordered list of activations called the agenda. You can
+    see this ordered list of activated, but not yet fired, rules with the agenda function.
+
+    Conflict resolution in Jess is controlled by pluggable conflict-resolution strategies.
+    Jess comes with two strategies: depth (the default) and breadth. You can set the cur-
+    rent strategy with the set-strategy command. Using (set-strategy depth)
+    causes the most recently activated rules to fire first, and (set-strategy breadth)
+    makes rules fire in activation order—the most recently activated rules fire last.
+
+> 7.5.2 p122 Changing rule priority with salience
+
+    Sometimes you may find that a particular rule should be treated as a special case
+    by the conflict-resolution strategy. A rule that reports a security breach might
+    need to fire immediately, regardless of what else is on the agenda. On the other
+    hand, a rule that cleans up unused facts might only need to run during the idle
+    time when no other rules are activated. You can tell the conflict resolver to treat
+    these rules specially using rule salience.
+
+    ...
+
+    Note that extensive use of salience is generally discouraged, for two reasons.
+    First, use of salience has a negative impact on performance, at least with the built-
+    in conflict-resolution strategies. Second, it is considered bad style in rule-based
+    programming to try to force rules to fire in a particular order. If you find yourself
+    using salience on most of your rules, or if you are using more than two or three
+    different salience values, you probably need to reconsider whether you should be
+    using a rule-based approach to your problem. If you want strict control over exe-
+    cution order, then you’re trying to implement a procedural program. Either
+    change your rules to be less sensitive to execution order, or consider implement-
+    ing your algorithm as one or more deffunction s or as Java code. Alternatively,
+    you might consider structuring your program using modules.
