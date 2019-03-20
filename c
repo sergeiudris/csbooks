@@ -38,4 +38,11 @@ jessbash(){
 }
 
 
+schemer(){
+    docker-compose \
+    -f ./little-seasoned-schemer/docker-compose.yml \
+    "$@"
+}
+
+
 "$@"
