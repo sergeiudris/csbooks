@@ -389,4 +389,55 @@
     changing the focus from input, to processing, to output represents a natural pro-
     gression through well-defined phases of your application’s execution.
 
-    
+
+> p151 9.2 Introduction to knowledge engineering
+
+    A good knowledge engineer has to be a jack of all trades, because knowledge
+    engineering is really just learning—the knowledge engineer must learn a lot
+    about the domain in which the proposed system will operate. A knowledge engi-
+    neer doesn’t need to become an expert, although that sometimes happens. But
+    the knowledge engineer does have to learn something about the topic. In gen-
+    eral, this information will include:
+
+        ■   The requirements—Looking at the problem the system needs to solve is the
+            first step. However, you might not fully understand the problem until later
+            in the process.
+        ■   The principles—You need to learn the organizing principles of the field.
+        ■   The resources—Once you understand the principles, you need to know where
+            to go to learn more.
+        ■   The frontiers—Every domain has its dark corners and dead ends. You need to
+            find out where the tough bits, ambiguities, and limits of human understand-
+            ing lie.
+
+> p152 9.2.1 Where do you start ?
+
+    Detailed comments like those shown here will help non-technical people read
+    and understand the rules, if necessary. Buy a stack of white index cards and write
+    each potential rule on one side of an individual card. Use pencil so you can make
+    changes easily. The cards are useful because they let you group the rules accord-
+    ing to function, required inputs, or other criteria. When you have a stack of 100
+    cards or more, the utility becomes obvious. You can use the reverse sides of the
+    cards to record issues regarding each rule. This stack of cards might be the final
+    product of knowledge engineering, or the cards’ contents might be turned into a
+    report. The cards themselves are often the most useful format, though.
+
+    After organizing the new knowledge on index cards, you may see obvious gaps
+    that require additional information. Develop a new set of interview questions and
+    meet with the expert again. The appropriate number of iterations depends on the
+    complexity of the system.
+    Knowledge engineering doesn’t necessarily end when development begins.
+    After an initial version of a system is available, the expert should try it out as a user
+    and offer advice to correct its performance. If possible, a prototype of the system
+    should be presented to the expert at every interview—except perhaps the first one.
+    Likewise, development needn’t be deferred until knowledge engineering is
+    complete. For many small projects, the knowledge engineer is one of the develop-
+    ers, and in this case you may be able to dispense with the cards and simply encode
+    the knowledge you collect directly into a prototype system. This is what you’ll do
+    for the Tax Forms Advisor.
+
+> p160 9.4 Summary
+
+    The application area for a rule-based system is called its problem domain. The pro-
+    cess of collecting information about a problem domain is called knowledge engineer-
+    ing. Knowledge engineering can include gathering data from interviews, books
+    and other publications, the Internet, and other sources.
