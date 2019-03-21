@@ -7,6 +7,7 @@
                  [cider/piggieback "0.3.10"]
                  [nrepl "0.5.3"]
                  [org.clojure/core.async "0.4.490"]
+                 [net.mikera/core.matrix "0.20.0"]
                  ]
   :min-lein-version "2.8.3"
   :resource-paths ["config", "resources"]
