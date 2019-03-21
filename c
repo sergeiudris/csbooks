@@ -45,4 +45,20 @@ schemer(){
 }
 
 
+
+ml(){
+    docker-compose \
+    -f ./clojure-for-machine-learning/docker-compose.yml \
+    "$@"
+}
+
+mlup(){
+  ml up -d --build
+}
+
+mldown(){
+  ml down
+}
+
+
 "$@"
