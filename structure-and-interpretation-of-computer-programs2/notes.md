@@ -318,5 +318,16 @@
     more trouble than they are worth when programs become large and complex. In the
     words of Alan Perlis, “Syntactic sugar causes cancer of the semicolon.”
 
+    p19
 
-    
+    The process we have just described is called the substitution model for
+    procedure application. It can be taken as a model that determines the
+    “meaning” of procedure application, insofar as the procedures in this
+    chapter are concerned.
+
+    p20 Applicative order versus normal order
+
+    is alternative “fully expand and then reduce” evaluation method
+    is known as normal-order evaluation , in contrast to the “evaluate the
+    arguments and then apply” method that the interpreter actually uses,
+    which is called applicative-order evaluation .
