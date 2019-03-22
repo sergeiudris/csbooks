@@ -352,4 +352,13 @@
     subexpressions are not necessarily all evaluated. not is an ordinary pro-
     cedure.
 
-    
+    p28
+
+    e contrast between function and procedure is a reflection of the
+    general distinction between describing properties of things and describ-
+    ing how to do things, or, as it is sometimes referred to, the distinction
+    between declarative knowledge and imperative knowledge. In mathe-
+    matics we are usually concerned with declarative (what is) descriptions,
+    whereas in computer science we are usually concerned with imperative
+    (how to) descriptions.
+        
