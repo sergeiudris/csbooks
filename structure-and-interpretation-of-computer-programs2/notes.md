@@ -331,3 +331,25 @@
     is known as normal-order evaluation , in contrast to the “evaluate the
     arguments and then apply” method that the interpreter actually uses,
     which is called applicative-order evaluation .
+
+    p22 Conditional Expressions and Predicates
+
+    is construct is called a case analysis , and there is a special form in
+    Lisp for notating such a case analysis. It is called cond (which stands for
+    “conditional”)
+
+    p24
+
+    is uses the special form if , a restricted type of conditional that can
+    be used when there are precisely two cases in the case analysis. e
+    general form of an if expression is
+    (if
+    ⟨ predicate ⟩ ⟨ consequent ⟩ ⟨ alternative ⟩ )
+
+    p25
+
+    Notice that and and or are special forms, not procedures, because the
+    subexpressions are not necessarily all evaluated. not is an ordinary pro-
+    cedure.
+
+    
