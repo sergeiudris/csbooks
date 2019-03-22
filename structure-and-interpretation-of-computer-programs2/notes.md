@@ -184,5 +184,139 @@
     are expressed with mathematical notations, our procedural thoughts
     will be expressed in Lisp.
 
-    
+    p5
 
+    If Lisp is not a mainstream language, why are we using it as the
+    framework for our discussion of programming? Because the language
+    possesses unique features that make it an excellent medium for studying
+    important programming constructs and data structures and for relating
+    them to the linguistic features that support them. e most significant of
+    these features is the fact that Lisp descriptions of processes, called proce-
+    dures , can themselves be represented and manipulated as Lisp data. e
+    importance of this is that there are powerful program-design techniques
+    that rely on the ability to blur the traditional distinction between “pas-
+    sive” data and “active” processes. As we shall discover, Lisp’s flexibility
+    in handling procedures as data makes it one of the most convenient
+    languages in existence for exploring these techniques. e ability to
+    represent procedures as data also makes Lisp an excellent language for
+    writing programs that must manipulate other programs as data, such as
+    the interpreters and compilers that support computer languages. Above
+    and beyond these considerations, programming in Lisp is great fun.
+
+    p6 The Elements of Programming
+
+    A powerful programming language is more than just a means for in-
+    structing a computer to perform tasks. e language also serves as a
+    framework within which we organize our ideas about processes. us,
+    when we describe a language, we should pay particular aention to the
+    means that the language provides for combining simple ideas to form
+    more complex ideas. Every powerful language has three mechanisms
+    for accomplishing this:
+        • primitive expressions , which represent the simplest entities the
+        language is concerned with,
+        • means of combination , by which compound elements are built
+        from simpler ones, and
+        • means of abstraction , by whi
+
+
+    p8 Expressions
+
+    Expressions representing numbers may be combined with an expres-
+    sion representing a primitive procedure (such as + or * ) to form a com-
+    pound expression that represents the application of the procedure to
+    those numbers. For example:
+    (+ 137 349)
+    486
+    (- 1000 334)
+    666
+    (* 5 99)
+    495
+    (/ 10 5)
+    2
+    (+ 2.7 10)
+    12.7
+    Expressions such as these, formed by delimiting a list of expressions
+    within parentheses in order to denote procedure application, are called
+    combinations . e lemost element in the list is called the operator , and
+    the other elements are called operands . e value of a combination is
+    obtained by applying the procedure specified by the operator to the ar-
+    guments that are the values of the operands.
+
+    e convention of placing the operator to the le of the operands
+    is known as prefix notation 
+
+    p11
+
+    define is our language’s simplest means of abstraction, for it allows
+    us to use simple names to refer to the results of compound operations,
+    such as the circumference computed above.
+
+    ...
+
+    It should be clear that the possibility of associating values with sym-
+    bols and later retrieving them means that the interpreter must maintain
+    some sort of memory that keeps track of the name-object pairs. is
+    memory is called the environment (more precisely the global environ-
+    ment , since we will see later that a computation may involve a number
+    of different environments)
+
+    p12 Evaluating Combinations
+
+    One of our goals in this chapter is to isolate issues about thinking pro-
+    cedurally. As a case in point, let us consider that, in evaluating combi-
+    nations, the interpreter is itself following a procedure.
+    To evaluate a combination, do the following:
+    1. Evaluate the subexpressions of the combination.
+    2. Apply the procedure that is the value of the lemost subexpres-
+    sion (the operator) to the arguments that are the values of the
+    other subexpressions (the operands).
+    Even this simple rule illustrates some important points about processes
+    in general. First, observe that the first step dictates that in order to ac-
+    complish the evaluation process for a combination we must first per-
+    form the evaluation process on each element of the combination. us,
+    the evaluation rule is recursive in nature; that is, it includes, as one of
+    its steps, the need to invoke the rule itself.
+
+    https://www.dictionary.com/browse/succinctly
+
+    p13
+
+    Viewing evaluation in terms of the tree, we can
+    imagine that the values of the operands percolate upward, starting from
+    the terminal nodes and then combining at higher and higher levels. In
+    general, we shall see that recursion is a very powerful technique for
+    dealing with hierarchical, treelike objects. In fact, the “percolate values
+    upward” form of the evaluation rule is an example of a general kind of
+    process known as tree accumulation .
+
+    p14
+
+    (at is, (define x 3) is not a combination.)
+    Such exceptions to the general evaluation rule are called special forms .
+
+    p15 Compound procedures
+
+    We have identified in Lisp some of the elements that must appear in any
+    powerful programming language:
+        • Numbers and arithmetic operations are primitive data and proce-
+        dures.
+        • Nesting of combinations provides a means of combining opera-
+        tions.
+        • Definitions that associate names with values provide a limited
+        means of abstraction.
+    
+    ...
+
+    Special syntactic forms that are simply convenient alternative surface structures
+    for things that can be wrien in more uniform ways are sometimes called syntactic
+    sugar , to use a phrase coined by Peter Landin. In comparison with users of other lan-
+    guages, Lisp programmers, as a rule, are less concerned with maers of syntax. (By
+    contrast, examine any Pascal manual and notice how much of it is devoted to descrip-
+    tions of syntax.) is disdain for syntax is due partly to the flexibility of Lisp, which
+    makes it easy to change surface syntax, and partly to the observation that many “con-
+    venient” syntactic constructs, which make the language less uniform, end up causing
+    more trouble than they are worth when programs become large and complex. In the
+    words of Alan Perlis, “Syntactic sugar causes cancer of the semicolon.”
+
+
+    
