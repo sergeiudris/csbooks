@@ -1,6 +1,6 @@
 (ns sicp.exercises-1
   (:require [clojure.repl :refer :all]
-            [sicp.ch1-building-abstractions-with-procedures :refer [square good-enough? improve]]
+            [sicp.ch1-building-abstractions-with-procedures :refer [square average improve sqrt good-enough?  abs]]
             )
   )
 
@@ -69,17 +69,67 @@
             guess
             (sqrt-iter (improve guess x ) x ) 
             )
-    
     )
 
   (defn sqroot
     [x]
-    (sqrt-iter 1.0 2) 
+    (sqrt-iter 1.0 x) 
     )
 
 ; (sqroot 2) ; will fail, as new-if will evaluate second argument, will be StackOverflow
 
 
+(sqrt 2)
+(Math/sqrt 2)
+
+(sqrt 0.1)
+(Math/sqrt 0.1)
+
+
+(sqrt 0.001)
+(Math/sqrt 0.001)
+
+
+; (sqroot2 10000000000000) stackoverflow
+(Math/sqrt 10000000000000)
+
+
+(defn ok-enough?
+  [guess  old-guess]
+  ; (prn guess " , " old-guess)
+  (< (abs (- (/ guess old-guess) 1)) 0.001))
+
+
+(defn  sqrt-iter2
+  [guess old-guess  x]
+  (if (ok-enough? guess old-guess)
+    guess
+    (sqrt-iter2 (improve guess x) guess x)
+    ;  (recur (improve guess x) guess x)
+    ))
+
+
+  (defn sqroot2
+    [x]
+    (sqrt-iter2 1.0 0.1 x))
+
+(ok-enough? 1.0 0.9 )
+
+(Math/sqrt 2) ; 1.4142135623730951
+(sqrt 2)      ; 1.4142156862745097
+(sqroot2 2)   ; 1.4142135623746899
+
+(Math/sqrt 0.1) ; 0.31622776601683794
+(sqrt 0.1)      ; 0.316245562280389
+(sqroot2 0.1)   ; 0.31622776651756745
+
+(Math/sqrt 0.001) ; 0.03162277660168379
+(sqrt 0.001)      ; 0.04124542607499115
+(sqroot2 0.001)   ; 0.03162278245070105
+
+; (sqrt   10000000000000) ; stackoverflow
+(sqroot2   10000000000000) 
+(Math/sqrt 10000000000000)
 
   
   
