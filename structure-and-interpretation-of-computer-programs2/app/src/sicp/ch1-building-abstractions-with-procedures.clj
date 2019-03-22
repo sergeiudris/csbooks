@@ -119,5 +119,45 @@
              (not (< x y))))
 
   (gte 3 4)
+
+
+  ;;;; Square Roots by Newton's Method
+  
+  "
+      Guess Quotient Average
+1 (2/1) = 2 ((2 + 1)/2) = 1.5
+1.5 (2/1.5) = 1.3333 ((1.3333 + 1.5)/2) = 1.4167
+1.4167 (2/1.4167) = 1.4118 ((1.4167 + 1.4118)/2) = 1.4142
+1.4142 ... ...
+"
+
+
+  (defn sqrt-iter [guess x]
+    (if (good-enough? guess x)
+      guess
+      (sqrt-iter (improve guess x) x)))
+
+  (defn improve [guess x]
+    (average guess (/ x guess)))
+
+  (defn average [x y]
+    (/ (+ x y)  2))
+
+  (defn good-enough? [guess x]
+    (< (abs (- (square guess) x)) 0.001))
+
+  (float (sqrt-iter 1 2))
+
+  (defn sqrt [x]
+    (float (sqrt-iter 1 x)))
+
+  (sqrt 2)
+  
+  (sqrt (+ 100 37))
+
+  (square (sqrt 2) )
+
+  
   
   )
+
