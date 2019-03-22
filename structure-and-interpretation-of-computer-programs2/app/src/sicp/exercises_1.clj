@@ -135,6 +135,39 @@
 
   
   
+;; Exercise 1.8
+
+(defn improve-cbrt
+  [x guess]
+  (/ 
+    (+ (/ x (square guess) ) (* guess 2) ) 
+    3 
+    )
+  )
+
+(improve-cbrt 2 1.5)
+
+(defn cbrt-iter
+     [ guess old-guess x]
+     (if (ok-enough? guess old-guess ) 
+       guess
+       (cbrt-iter (improve-cbrt x guess ) guess x )
+       )
+     
+     )
+
+(defn cbrt [x]
+  (cbrt-iter 1.0 0.1 x )
+  )
+
+
+(Math/cbrt 2)
+(cbrt 2)
+
+
+
+
+
   
   
   
