@@ -61,4 +61,20 @@ mldown(){
 }
 
 
+sicp(){
+    docker-compose \
+    -f ./structure-and-interpretation-of-computer-programs2/docker-compose.yml \
+    "$@"
+}
+
+sicpup(){
+  sicp up -d --build
+}
+
+sicpdown(){
+  sicp down
+}
+
+
+
 "$@"
