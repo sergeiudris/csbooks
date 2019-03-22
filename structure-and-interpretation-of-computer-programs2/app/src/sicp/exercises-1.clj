@@ -1,14 +1,13 @@
 (ns sicp.exercises-1
   (:require [clojure.repl :refer :all]
+            [sicp.ch1-building-abstractions-with-procedures :refer [square good-enough? improve]]
             )
   )
 
 
-(comment
   
   ;; Exercise 1.3
   
-  (def square (fn [x] (* x x)))
   
   (def sum-squares-of-two-max-numbers 
     (fn [x y z]
@@ -46,15 +45,45 @@
                  (if (= x 0) 0 y )
                  ))
   
-  (test-xy 0 (p) )
+  ; (test-xy 0 (p) ) will be infinite loop
   
   ; applicative - inifine loop
   ; normal - 0
   
+  ;; Exercise 1.6 
+  
+  (defn new-if 
+    [predicate then-clause else-clause ]
+    (cond
+      predicate then-clause
+      :else else-clause
+      )
+    )
+  
+  (new-if (= 2 3) 0 5 )
+  (new-if (= 1 1) 0 5)
+  
+  (defn sqrt-iter
+    [guess x]
+    (new-if (good-enough? guess x) 
+            guess
+            (sqrt-iter (improve guess x ) x ) 
+            )
+    
+    )
+
+  (defn sqroot
+    [x]
+    (sqrt-iter 1.0 2) 
+    )
+
+; (sqroot 2) ; will fail, as new-if will evaluate second argument, will be StackOverflow
+
+
+
   
   
   
   
   
   
-  )

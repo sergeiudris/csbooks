@@ -3,8 +3,6 @@
   )
 
 
-(comment
-
   ;;;; Expressions
   
   486
@@ -148,8 +146,11 @@
 
   (float (sqrt-iter 1 2))
 
+  (sqrt-iter 1.0 2)
+
+
   (defn sqrt [x]
-    (float (sqrt-iter 1 x)))
+    (sqrt-iter 1.0 x))
 
   (sqrt 2)
   
@@ -158,6 +159,7 @@
   (square (sqrt 2) )
 
   
+
   
-  )
+  
 
