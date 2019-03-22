@@ -94,6 +94,8 @@
 (Math/sqrt 10000000000000)
 
 
+;; Exerseise 1.7  - yes, usign guess quotient is better
+
 (defn ok-enough?
   [guess  old-guess]
   ; (prn guess " , " old-guess)
