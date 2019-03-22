@@ -3,5 +3,7 @@
     "files.exclude": {
         "**/.git": false
     },
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "calva.fmt.allgnMapItems": true,
+    "calva.fmt.newIndentEngine": true
 }
