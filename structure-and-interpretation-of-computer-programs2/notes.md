@@ -140,3 +140,49 @@
     tage of Lisp is that it supports (but does not enforce) more of the large-
     scale strategies for modular decomposition of programs than any other
     language we know.    
+
+
+    ...
+
+    e acts of the mind, wherein it exerts its power over simple
+    ideas, are chiefly these three: 1. Combining several simple
+    ideas into one compound one, and thus all complex ideas
+    are made. 2. e second is bringing two ideas, whether sim-
+    ple or complex, together, and seing them by one another
+    so as to take a view of them at once, without uniting them
+    into one, by which it gets all its ideas of relations. 3. e
+    third is separating them from all other ideas that accom-
+    pany them in their real existence: this is called abstraction,
+    and thus all its general ideas are made.
+    
+    —John Locke, An Essay Concerning Human Understanding
+    (1690)
+
+    We are about ot study the idea of a computational process . Com-
+    putational processes are abstract beings that inhabit computers.
+    As they evolve, processes manipulate other abstract things called data .
+    The evolution of a process is directed by a paern of rules called a pro-
+    gram . People create programs to direct processes. In effect, we conjure
+    the spirits of the computer with our spells.
+
+    https://en.wiktionary.org/wiki/esoteric
+
+    ** the evolution of a process is directed by a pattern of rules called a program
+
+
+    p2
+
+    Well-designed com-putational systems, like well-designed automobiles or nuclear reactors,
+    are designed in a modular manner, so that the parts can be constructed,
+    replaced, and debugged separately.
+
+    p3
+
+    Just as our every-
+    day thoughts are usually expressed in our natural language (such as En-
+    glish, French, or Japanese), and descriptions of quantitative phenomena
+    are expressed with mathematical notations, our procedural thoughts
+    will be expressed in Lisp.
+
+    
+
