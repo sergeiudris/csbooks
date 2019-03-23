@@ -231,7 +231,33 @@
   
   
 
+;; Tree Recursion
 
   
   
+(defn fib1 ;; exponential recursive process
+  [n]
+  (cond
+    (= 0 n) 0
+    (= 1 n) 1
+    :else (+ (fib1 (- n 1) ) (fib1 (- n 2)))))
+  
+  (fib1 10)
+  
+  (defn fib-iter ;; linear iterative process
+    [a b count]
+    (if (= count 0)
+      b
+      (fib-iter (+ a b) a (- count 1))))
 
+(defn fib 
+  [n]
+  (fib-iter 1 0 n))
+
+(fib 10)
+  
+  
+  
+  
+  
+  
