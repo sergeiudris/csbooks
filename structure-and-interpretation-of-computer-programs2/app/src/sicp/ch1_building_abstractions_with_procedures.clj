@@ -1,5 +1,7 @@
 (ns sicp.ch1-building-abstractions-with-procedures
-    (:require [clojure.repl :refer :all])
+    (:require [clojure.repl :refer :all]
+              ; [clojure.math.numeric-tower]
+     )
   )
 
 
@@ -162,6 +164,23 @@
   (sqrt (+ 100 37))
 
   (square (sqrt 2) )
+  
+  (defn square2 [x] (* x x))
+  (defn square3 [x] (Math/pow x 2 ))
+  (defn double- [x] (+ x x))
+  (defn square4 [x] (Math/exp (double- (Math/log x) ) ))
+  
+  (square3 2 )
+  (square2 2)
+  (Math/log  10)
+  (square4 2)
+  (. Math E )
+  
+
+  (Math/exp 3)
+  (Math/pow (. Math E) 3)
+  
+  
 
   
 

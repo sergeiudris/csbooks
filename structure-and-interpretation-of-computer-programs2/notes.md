@@ -362,3 +362,17 @@
     whereas in computer science we are usually concerned with imperative
     (how to) descriptions.
         
+
+    p33 Procedures as Black-Box Abstractions
+
+    e importance of this decomposition strategy is not simply that
+    one is dividing the program into parts. Aer all, we could take any large
+    program and divide it into parts—the first ten lines, the next ten lines,
+    the next ten lines, and so on. Rather, it is crucial that each procedure ac-
+    complishes an identifiable task that can be used as a module in defining
+    other procedures. For example, when we define the good-enough? pro-
+    cedure in terms of square , we are able to regard the square procedure
+    as a “black box.” We are not at that moment concerned with how the
+    procedure computes its result, only with the fact that it computes the
+    square. e details of how the square is computed can be suppressed,
+    to be considered at a later time.
