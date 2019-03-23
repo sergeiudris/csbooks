@@ -161,7 +161,26 @@
 (Math/cbrt 2)
 (cbrt 2)
 
+;; Exercise 1.9
 
+;; both are iterative procedures
+;; the first is linear iterative process  uses tail-recursion (if implemented) 
+;; the second is linear recursive process with growing stack
+(defn +' 
+  [a b]
+  (if (= b 0)
+    a
+    (+' (inc a) (dec b)))) ;; 
+
+(+' 1 2)
+
+(defn +'
+  [a b]
+  (if (= b 0)
+    a
+    (inc (+' a (dec b)) )))
+
+(+' 1 2)
 
 
   
