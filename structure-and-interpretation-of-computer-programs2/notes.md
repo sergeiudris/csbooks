@@ -473,3 +473,16 @@
     that has a fixed set of registers and no auxiliary memory. In contrast, realizing a re-
     cursive process requires a machine that uses an auxiliary data structure known as a
     stack .
+
+    p46
+
+    Tail
+    recursion has long been known as a compiler optimization trick. A coherent
+    semantic basis for tail recursion was provided by Carl Hewi (1977), who explained it in
+    terms of the “message-passing” model of computation that we shall discuss in Chapter
+    3. Inspired by this, Gerald Jay Sussman and Guy Lewis Steele Jr. (see Steele and Sussman
+    1975) constructed a tail-recursive interpreter for Scheme. Steele later showed how tail
+    recursion is a consequence of the natural way to compile procedure calls (Steele 1977).
+    e  standard for Scheme requires that Scheme implementations be tail-recursive.
+
+    

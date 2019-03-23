@@ -182,7 +182,57 @@
 
 (+' 1 2)
 
+;; Exercise 1.10
+
+(defn A 
+  [x y]
+  (cond
+    (= y 0) 0
+    (= x 0) (* 2 y)
+    (= y 1) 2
+    :else (A (- x 1) (A x (- y 1)))))
+
+(A 1 2)
+(A 3 2)
+(A 3 3)
+
+(A 1 10)
+(A 2 4)
+(A 3 3)
+
+(Math/pow 2 16)
+(Math/pow 2 32)
+(Math/pow 2 10)
+
+(A 2 5)
+
+
+(defn f [n] (A 0 n))  ;  (f n) 2n
+(defn g [n] (A 1 n))  ;  (g n) 2^n
+(defn h [n] (A 2 n))  ;  (h n) 2^(h (- n 1))
+(defn k [n] (* 5 n n)) ; (k n) 5n^2
+
+(h 3)
+(h 4)
 
   
+  (declare ack-3)
+(defn ack-3
+  "The Ackermann function using a stack and only tail recursion.
+  Thanks to Allan Malloy's post at:
+  http://grokbase.com/p/gg/clojure/127rbk4518/reduction-to-tail-recursion"
+  [m n]
+  (loop [m     m
+         n     n
+         stack ()]
+    (cond
+      (zero? m)
+      (if (empty? stack)
+        (inc n)
+        (recur (peek stack) (inc n) (pop stack)))
+      (zero? n) (recur (dec m) 1 stack)
+      :else (recur m (dec n) (conj stack (dec m))))))
+
+(ack-3 2 4)
   
   
