@@ -180,9 +180,57 @@
   (Math/exp 3)
   (Math/pow (. Math E) 3)
   
-  
+  (defn sqrt3
+    [x]
+    (letfn 
+     [(good-enough? [guess] (+ guess x))]
+      (good-enough? x))
+    )
 
   
+  (good-enough? 3 1 )
+  
+  (sqrt3 4)
+  
+  ;; Linear recursion and Iteration
+  
+  (defn factorial1
+    [n]
+    (if (== n 1)
+      1
+      (* n (factorial1 (- n 1))))) ; linear recursive process
+
+  (factorial1 10.0)
+  (factorial1 100.0)
+  
+    
+  (defn fact-iter2
+    [product counter max-count]
+    (if (> counter max-count)
+      product
+      (fact-iter (* product counter) (+ counter 1) max-count))) ; linear iterative process 
+  
+  (defn factorial2 
+    [n]
+    (fact-iter2 1.0 1.0 n))
+  
+  (factorial2 5)
+  (factorial2 100)
+  
+  (defn fact-iter3
+    [product counter max-count]
+    (if (> counter max-count)
+      product
+      (recur (* product counter) (+ counter 1) max-count)))
+
+  (defn factorial3
+    [n]
+    (fact-iter3 1.0 1.0 n))
+  
+  (factorial3 100)
+  
+  
+
 
   
   
