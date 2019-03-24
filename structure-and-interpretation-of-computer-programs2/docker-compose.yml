@@ -13,6 +13,8 @@ services:
     command: bash c init
     ports:
       - 4545:35543
+    # logging:
+    #   driver: none
       # - 7889:7888
       # - 8891:8890
       # - 8892:8080
