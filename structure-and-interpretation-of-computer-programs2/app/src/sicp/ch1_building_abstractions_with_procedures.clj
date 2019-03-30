@@ -263,6 +263,9 @@
 (count #{1 2 })
 size
 
+
+; https://en.wikipedia.org/wiki/Triangular_number
+
 ; (defn nth-triangular-number
 ;   [n]
 ;   ()
