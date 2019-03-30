@@ -1,33 +1,33 @@
 (ns sicp.ch1-building-abstractions-with-procedures
-    (:require [clojure.repl :refer :all]
+    (:require [clojure.repl :refer :all]))
               ; [clojure.math.numeric-tower]
-     )
-  )
+     
+  
 
 
   ;;;; Expressions
   
-  486
+486
 
-  (+ 137 349)
+(+ 137 349)
 
-  (- 1000 334)
+(- 1000 334)
 
-  (* 5 99)
+(* 5 99)
 
-  (/ 10 5)
+(/ 10 5)
 
-  (+ 2.7 10)
+(+ 2.7 10)
 
-  (+ 21 35 12 7)
+(+ 21 35 12 7)
 
-  (* 25 4 12)
+(* 25 4 12)
 
-  (+ (* 3 5) (- 10 6)) ; nested
+(+ (* 3 5) (- 10 6)) ; nested
   
-  #_(asd
-     asdasdd asdasdd
-     asdasdd asdasdd dasd asd)
+#_(asd
+   asdasdd asdasdd
+   asdasdd asdasdd dasd asd)
 
   (+ (* 3 (+ (* 2 4) (+ 3 5))) (+ (- 10 7) 6))
 
@@ -102,8 +102,8 @@
   (def abs (fn [x]
              (if
               (< x 0) ; predicate
-               (- x) ; consequent
-               x))) ; alternative
+              (- x) ; consequent
+              x))) ; alternative
   
   (abs -3)
 
@@ -163,18 +163,18 @@
   
   (sqrt (+ 100 37))
 
-  (square (sqrt 2) )
+  (square (sqrt 2))
   
   (defn square2 [x] (* x x))
-  (defn square3 [x] (Math/pow x 2 ))
+  (defn square3 [x] (Math/pow x 2))
   (defn double- [x] (+ x x))
-  (defn square4 [x] (Math/exp (double- (Math/log x) ) ))
+  (defn square4 [x] (Math/exp (double- (Math/log x))))
   
-  (square3 2 )
+  (square3 2)
   (square2 2)
   (Math/log  10)
   (square4 2)
-  (. Math E )
+  (. Math E)
   
 
   (Math/exp 3)
@@ -184,11 +184,11 @@
     [x]
     (letfn 
      [(good-enough? [guess] (+ guess x))]
-      (good-enough? x))
-    )
+     (good-enough? x)))
+    
 
   
-  (good-enough? 3 1 )
+  (good-enough? 3 1)
   
   (sqrt3 4)
   
@@ -208,7 +208,7 @@
     [product counter max-count]
     (if (> counter max-count)
       product
-      (fact-iter (* product counter) (+ counter 1) max-count))) ; linear iterative process 
+      (fact-iter2 (* product counter) (+ counter 1) max-count))) ; linear iterative process 
   
   (defn factorial2 
     [n]
@@ -242,13 +242,13 @@
     (= 1 n) 1
     :else (+ (fib1 (- n 1) ) (fib1 (- n 2)))))
   
-  (fib1 10)
+(fib1 10)
   
-  (defn fib-iter ;; linear iterative process
-    [a b count]
-    (if (= count 0)
-      b
-      (fib-iter (+ a b) a (- count 1))))
+(defn fib-iter ;; linear iterative process
+  [a b count]
+  (if (= count 0)
+    b
+    (fib-iter (+ a b) a (- count 1))))
 
 (defn fib 
   [n]
@@ -258,6 +258,61 @@
   
   
   
+;; Counting Change
+
+(count #{1 2 })
+size
+
+; (defn nth-triangular-number
+;   [n]
+;   ()
+;   )
+
+(defn unique-2-subsets-of-n-set
+  [n]
+  (cond
+    (= n 0) 0
+    ; (= n 1) 1
+    ; (= n 2) 1
+    :else (+ (- n 1) (unique-2-subsets-of-n-set (- n 1) ))))
+
+(unique-2-subsets-of-n-set 1)
+(unique-2-subsets-of-n-set 2)
+(unique-2-subsets-of-n-set 3)
+(unique-2-subsets-of-n-set 4)
+(unique-2-subsets-of-n-set 5)
+(unique-2-subsets-of-n-set 6)
+(unique-2-subsets-of-n-set 7)
+
+(defn unique-3-subsets-of-n-set
+  [n]
+  (cond
+    (= n 0) 0
+    :else (+ (- n 1) (unique-2-subsets-of-a-set (- n 1)))))
+
+(defn unique-m-subsets-of-n-set
+  [n]
+  (cond
+    (= n 0) 0
+    (= n 1) 1
+    (= n 2) 1
+    :else (+ (- n 1) (unique-2-subsets-of-a-set (- n 1)))))
   
+(defn change-money
+  "returns possible ways to change an amount of money"
+  [amount vals]
+  (cond
+    (or (empty? vals)
+       (= amount (first vals))) [[amount]]
+    :else (change-money amount (rest vals))))
+  
+
+(defn change-money-iter
+  [amount vals]
+  (cond
+    
+    ))
+
+(change-money 100 [1 5 10 25 50])
   
   
