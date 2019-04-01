@@ -76,5 +76,26 @@ sicpdown(){
 }
 
 
+tools(){
+    docker-compose \
+    -f ./_tools/docker-compose.yml \
+    "$@"
+}
+
+
+toolsup(){
+  tools up -d --build
+}
+
+toolsdown(){
+  tools down
+}
+
+jltoken(){
+  tools logs jupyterlab
+}
+
+
+
 
 "$@"
