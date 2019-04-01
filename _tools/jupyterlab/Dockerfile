@@ -37,3 +37,6 @@ USER root
 RUN  ipcluster nbextension enable
 
 USER $NB_UID
+
+RUN pip install ipywidgets && \
+    jupyter nbextension enable --py widgetsnbextension
