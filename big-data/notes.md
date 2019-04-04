@@ -163,4 +163,19 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     - Realtime computation system
         Storm
 
-    
+    p 29
+
+    - Information is the general collection of knowledge relevant to your Big Data sys-
+      tem. It’s synonymous with the colloquial usage of the word data.
+
+    - Data refers to the information that can’t be derived from anything else. Data
+      serves as the axioms from which everything else derives.
+
+    - Queries are questions you ask of your data. For example, you query your finan-
+      cial transaction history to determine your current bank account balance.
+
+    - Views are information that has been derived from your base data. They are built
+      to assist with answering specific types of queries.
+
+
+      
