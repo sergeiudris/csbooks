@@ -178,4 +178,20 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
       to assist with answering specific types of queries.
 
 
-      
+    the key properties of data: rawness, immutability, and perpetuity (or the “eternal trueness of data”)
+
+    p 32
+
+    When deciding what raw data to store, a common hazy area is the line between parsing
+    and semantic normalization. Semantic normalization is the process of reshaping free-
+    form information into a structured form of data
+
+    ...
+
+    STORE UNSTRUCTURED DATA WHEN... As a rule of thumb, if your algorithm for
+    extracting the data is simple and accurate, like extracting an age from an
+    HTML page, you should store the results of that algorithm. If the algorithm is
+    subject to change, due to improvements or broadening the requirements,
+    store the unstructured form of the data.
+
+    
