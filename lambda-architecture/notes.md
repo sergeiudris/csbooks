@@ -245,4 +245,10 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     data normalization refers to storing data in a structured manner to minimize
     redundancy and promote consistency.
 
+    > 43
+
+    The figure highlights the three core components of a graph schema—nodes, edges,
+    and properties
+
     
+
