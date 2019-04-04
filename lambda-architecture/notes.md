@@ -250,5 +250,18 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     The figure highlights the three core components of a graph schema—nodes, edges,
     and properties
 
-    
 
+    p 46
+
+    How you model your master dataset creates the foundation for your Big Data system.
+    The decisions made about the master dataset determine the kind of analytics you can
+    perform on your data and how you’ll consume that data. The structure of the master
+    dataset must support evolution of the kinds of data stored, because your company’s
+    data types may change considerably over the years.
+    The fact-based model provides a simple yet expressive representation of your data
+    by naturally keeping a full history of each entity over time. Its append-only nature
+    makes it easy to implement in a distributed system, and it can easily evolve as your data
+    and your needs change. You’re not just implementing a relational system in a more
+    scalable way—you’re adding whole new capabilities to your system as well.
+
+    
