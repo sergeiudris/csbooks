@@ -2,7 +2,7 @@
 
 https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
 
-    > p7
+  > p7
 
     When you keep tracing back where information is derived from, you eventually
     end up at information that’s not derived from anything. This is the rawest information
@@ -21,7 +21,7 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
 
 
 
-    > p8
+  > p8
 
     Oftentimes a new feature or a change to an existing feature requires a migration of
     old data into a new format. Part of making a system extensible is making it easy to do
@@ -37,7 +37,7 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     large dataset has unanticipated value within it. Being able to mine a dataset arbitrarily
     gives opportunities for business optimization and new applications.
 
-    > p9
+  > p9
 
     At the highest level, traditional architectures look like figure 1.3. What characterizes
     these architectures is the use of read/write databases and maintaining the state in those
@@ -57,3 +57,56 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     ingrained, you don’t even think to find a way to avoid it.
 
 
+  > p10
+
+    In a read/write database, as a disk index is incrementally added to and modified,
+    parts of the index become unused. These unused parts take up space and eventually
+    need to be reclaimed to prevent the disk from filling up. Reclaiming space as soon as
+    it becomes unused is too expensive, so the space is occasionally reclaimed in bulk in a
+    process called compaction.
+
+    ...
+
+    Dealing with online compaction is a complexity
+    inherent to fully incremental architectures, but in a Lambda Architecture the primary
+    databases don’t require any online compaction.
+
+
+    > 11
+
+    It turns out that achieving high availability competes directly with another impor-
+    tant property called consistency. A consistent system returns results that take into
+    account all previous writes.
+
+    > 15
+
+    Let’s call the precomputed query function the batch view.
+
+    batch view = function ( all data )
+    query = function ( batch view )
+
+    15
+
+    Because this discussion is somewhat abstract, let’s ground it with an example. Sup-
+    pose you’re building a web analytics application (again), and you want to query the
+    number of pageviews for a URL on any range of days. If you were computing the query
+    as a function of all the data, you’d scan the dataset for pageviews for that URL within
+    that time range, and return the count of those results.
+    The batch view approach instead runs a function on all the pageviews to precom-
+    pute an index from a key of [url, day] to the count of the number of pageviews for
+    that URL for that day. Then, to resolve the query, you retrieve all values from that view
+    for all days within that time range, and sum up the counts to get the result. This
+    approach is shown in figure 1.7.
+
+    # batch layer
+
+    The portion of the Lambda Architecture
+    that implements the batch view = function(all
+    data) equation is called the batch layer. The
+    batch layer stores the master copy of the
+    dataset and precomputes batch views on that
+    master dataset (see figure 1.8). The master
+    dataset can be thought of as a very large list
+    of records.
+
+    
