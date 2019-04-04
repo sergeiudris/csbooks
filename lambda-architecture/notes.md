@@ -238,4 +238,11 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
       - Handles partial information
       - Has the advantages of both normalized and denormalized forms
 
+    > 40
+
+    Data normalization is completely
+    unrelated to the semantic normalization term that we used earlier. In this case,
+    data normalization refers to storing data in a structured manner to minimize
+    redundancy and promote consistency.
+
     
