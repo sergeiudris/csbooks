@@ -119,3 +119,25 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     batch views are available, the serving layer
     automatically swaps those in so that more
     up-to-date results are available
+
+    * innately
+        as an inborn characteristic; naturally.
+
+    # speed layer
+
+    You can think of the speed layer as being similar to the batch layer in that it produces
+    views based on data it receives. One big difference is that the speed layer only looks at
+    recent data, whereas the batch layer looks at all the data at once. Another big difference
+    is that in order to achieve the smallest
+    latencies possible, the speed layer doesn’t look at all the new data at once.
+    Instead, it updates the realtime views as it receives new data instead of recomput-
+    ing the views from scratch like the batch layer does.
+
+    realtime view = function ( realtime view, new data )
+
+    # Lambda Architecture
+
+    batch view = function ( all data )
+    realtime view = function ( realtime view, new data )
+    query = function ( batch view. realtime view )
+
