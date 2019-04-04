@@ -109,4 +109,13 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     dataset can be thought of as a very large list
     of records.
 
-    
+    # serving layer
+
+    The serving layer is a specialized
+    distributed database that loads in a batch
+    view and makes it possible to do random
+    reads on it
+    When new
+    batch views are available, the serving layer
+    automatically swaps those in so that more
+    up-to-date results are available
