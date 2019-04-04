@@ -141,3 +141,26 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     realtime view = function ( realtime view, new data )
     query = function ( batch view. realtime view )
 
+    p 20
+
+    This property of the Lambda Architecture is called com-
+    plexity isolation, meaning that complexity is pushed into a layer whose results are only
+    temporary.
+
+    * transient
+        lasting only for a short time; impermanent.
+    
+    > Vibrant open source ecosystem for Big Data
+
+    - Batch computation systems
+        HDFS Hadoop MapReduce
+    - Serialization frameworks
+        Thrift, Protocol Buffers, and Avro
+    - Random-access No SQL databases
+        Cassandra, HB ase, Mongo DB , Voldemort, Riak, Couch DB , and others
+    - Messaging/queuing systems
+        Kafka
+    - Realtime computation system
+        Storm
+
+    
