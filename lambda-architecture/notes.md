@@ -194,4 +194,48 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     subject to change, due to improvements or broadening the requirements,
     store the unstructured form of the data.
 
+    > 36
+
+    Garbage collection—When you perform garbage collection, you delete all data
+    units that have low value. You can use garbage collection to implement data-
+    retention policies that control the growth of the master dataset. For example,
+    you may decide to implement a policy that keeps only one location per person
+    per year instead of the full history of each time a user changes locations.
+
+    Regulations—Government regulations may require you to purge data from your
+    databases under certain conditions.
+
+    > 37
+
+    Data is the set of information that can’t be derived from anything else
+
+    ...
+
+    Facts are atomic because they can’t be subdivided further into meaningful compo-
+    nents
+
+    To distinguish different pageviews, you can add a nonce to your schema—a 64-bit
+    number randomly generated for each pageview
+    The nonce, combined with the
+    other fields, uniquely identifies
+    a particular pageview.
+
+    > 39
+
+    To quickly recap, the fact-based model
+      - Stores your raw data as atomic facts
+      - Keeps the facts immutable and eternally true by using timestamps
+      - Ensures each fact is identifiable so that query processing can identify duplicates
+
+    ...
+
+    The good news is
+    that by changing your data model paradigm, you gain numerous advantages. Specifi-
+    cally, your data
+
+      - Is queryable at any time in its history
+      - Tolerates human errors
+      - Handles partial information
+      - Has the advantages of both normalized and denormalized forms
+
     
