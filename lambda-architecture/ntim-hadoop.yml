@@ -1,0 +1,91 @@
+version: "3.4"
+
+services:
+  namenode:
+    image: ntim/hadoop-hdfs-namenode:2.9.0
+    hostname: namenode
+    networks:
+      - backend
+    volumes:
+      - namenode:/var/hadoop
+    ports:
+      - 8020:8020
+      - 50070:50070
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+  backupnode:
+    image: ntim/hadoop-hdfs-backupnode:2.9.0
+    hostname: backupnode
+    networks:
+      - backend
+    volumes:
+      - backupnode:/var/hadoop
+    ports:
+      - 50105:50105
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+  datanode:
+    image: ntim/hadoop-hdfs-datanode:2.9.0
+    # Set the hostname to something unique to prevent data corruption after restarts due to a chaning hostname.
+    hostname: "datanode-{{ .Node.ID }}"
+    networks:
+      - backend
+    ports:
+      - 50075:50075
+    volumes:
+      - datanode:/var/hadoop
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+  resourcemanager:
+    image: ntim/hadoop-yarn-resourcemanager:2.9.0
+    networks:
+      - backend
+    ports:
+      - 8088:8088
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+  nodemanager:
+    image: ntim/hadoop-yarn-nodemanager:2.9.0
+    networks:
+      - backend
+    ports:
+      - 8042:8042
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+    volumes:
+      - nodemanager_logs:/usr/share/hadoop/logs
+  zeppelin:
+    image: ntim/zeppelin:0.7.3
+    environment:
+      - MASTER=yarn
+    networks:
+      - backend
+    ports:
+      - 8080:8080
+    volumes:
+      - zeppelin_notebooks:/usr/local/zeppelin/notebook
+      - zeppelin_logs:/usr/local/zeppelin/logs
+
+networks:
+  backend:
+    attachable: true
+
+volumes:
+  namenode:
+  backupnode:
+  datanode:
+  nodemanager_logs:
+  zeppelin_notebooks:
+  zeppelin_logs:

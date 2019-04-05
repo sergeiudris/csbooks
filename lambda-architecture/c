@@ -1,0 +1,47 @@
+#!/bin/bash
+
+export COMPOSE_CONVERT_WINDOWS_PATHS=1
+
+# kill $(lsof -t -i:8080)
+# kill -9
+
+
+ntim(){
+    docker-compose \
+    -f ./ntim-hadoop.yml \
+    "$@"
+}
+
+
+ntimup(){
+  ntim up -d --build
+  # emacs_up
+}
+
+ntimdown(){
+  ntim down
+  # emacs_up
+}
+
+
+
+bde(){
+    docker-compose \
+    -f ./bde-hadoop.yml \
+    "$@"
+}
+
+
+bdeup(){
+  bde up -d --build
+  # emacs_up
+}
+
+bdedown(){
+  bde down
+  # emacs_up
+}
+
+
+
+"$@"

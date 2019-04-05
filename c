@@ -95,6 +95,19 @@ jltoken(){
   tools logs jupyterlab
 }
 
+la(){
+   docker-compose \
+    -f ./lambda-architecture/docker-compose.yml \
+    "$@"
+}
+
+laup(){
+  la up -d --build
+}
+
+ladown(){
+  la down
+}
 
 
 

@@ -1,0 +1,18 @@
+version: "3.3"
+
+services: 
+
+  hadoop:
+    image: la-hadoop
+    build:
+      context: ./hadoop
+      dockerfile: ./Dockerfile
+    volumes:
+      - hadoop:/var/hadoop
+    # command: bash c init
+    command: tail -f /dev/null
+    stdin_open: true
+    tty: true
+    
+volumes:
+  hadoop:
