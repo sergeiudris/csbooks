@@ -283,4 +283,15 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     - Wrap your generated code in additional code that checks the additional properties you care
       about, like ages being non-negative.
     - Check the extra properties at the very beginning of your batch-processing workflow
-      
+
+
+    p 61
+
+    Although the batch layer is built to run functions on the entire dataset, many compu-
+    tations don’t require looking at all the data. For example, you may have a computa-
+    tion that only requires information collected during the past two weeks. The batch
+    storage should allow you to partition your data so that a function only accesses data
+    relevant to its computation. This process is called vertical partitioning, and it can greatly
+    contribute to making the batch layer more efficient.
+
+    
