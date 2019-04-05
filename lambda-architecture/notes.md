@@ -264,4 +264,23 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     and your needs change. You’re not just implementing a relational system in a more
     scalable way—you’re adding whole new capabilities to your system as well.
 
-    
+    P 48
+
+    * rigorous
+      - strictly applied or adhered to
+
+    p 53
+
+    The right way to think about a schema is as a function that takes in a piece of data
+    and returns whether it’s valid or not. The schema language for Apache Thrift lets you
+    represent a subset of these functions where only field existence and field types are
+    checked. The ideal tool would let you implement any possible schema function.
+
+    Such an ideal tool—particularly one that is language neutral—doesn’t exist, but
+    there are two approaches you can take to work around these limitations with a serial-
+    ization framework like Apache Thrift:
+
+    - Wrap your generated code in additional code that checks the additional properties you care
+      about, like ages being non-negative.
+    - Check the extra properties at the very beginning of your batch-processing workflow
+      
