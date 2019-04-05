@@ -1,0 +1,50 @@
+version: "2.0"
+
+services: 
+
+  # hadoop:
+  #   image: la-hadoop
+  #   build:
+  #     context: ./hadoop
+  #     dockerfile: ./Dockerfile
+  #   volumes:
+  #     - hadoop:/var/hadoop
+  #   # command: bash c init
+  #   command: tail -f /dev/null
+  #   stdin_open: true
+  #   tty: true
+
+  cljbase:
+    image: la.cljbase
+    volumes:
+      - ./cljbase:/opt/code/app
+    build:
+      context: ./cljbase
+      dockerfile: ./Dockerfile
+    command: tail -f /dev/null
+    # command: bash c nrepl_clj
+    # environment:
+    #   - DISPLAY=10.0.75.1:0.0
+    stdin_open: true
+    tty: true
+    # depends_on:
+    #   - base
+
+
+  app:
+    image: la.app
+    volumes:
+      - ./app:/opt/code/app
+    build:
+      context: ./app
+      dockerfile: ./Dockerfile
+    ports:
+      - 12543:35543
+      # - 11488:7888
+      - 12080:8080
+    command: bash c init
+    stdin_open: true
+    tty: true
+    links:
+      - cljbase
+    
