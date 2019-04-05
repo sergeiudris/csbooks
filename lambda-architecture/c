@@ -25,21 +25,29 @@ ntimdown(){
 
 
 
-bde(){
+bde2(){
     docker-compose \
     -f ./bde-hadoop.yml \
     "$@"
 }
 
 
-bdeup(){
+bde2up(){
   bde up -d --build
   # emacs_up
 }
 
-bdedown(){
+bde2down(){
   bde down
   # emacs_up
+}
+
+bdenginx(){
+  docker-compose -f docker-hadoop/docker-compose-nginx.yml  "$@"
+}
+
+la(){
+  docker-compose -f docker-hadoop/docker-compose-local.yml -f docker-hadoop/apps.yml  "$@"
 }
 
 
