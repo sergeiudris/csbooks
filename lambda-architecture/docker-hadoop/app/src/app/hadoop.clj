@@ -124,7 +124,8 @@
   
   (.getWorkingDirectory fs)
   
-  
+  ; https://mvnrepository.com/artifact/org.apache.hadoop
+  ; https://creativedata.atlassian.net/wiki/spaces/SAP/pages/52199514/Java+-+Read+Write+files+with+HDFS
   (defn read-file
     [path]
     (let [
