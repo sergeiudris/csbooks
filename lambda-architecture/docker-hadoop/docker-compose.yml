@@ -5,7 +5,8 @@ services:
     image: bde2020/hadoop-namenode:1.1.0-hadoop2.7.1-java8
     container_name: namenode
     volumes:
-      - hadoop_namenode:/hadoop/dfs/name
+      # - hadoop_namenode:/hadoop/dfs/name
+      - ./.data/namenode:/hadoop/dfs/name
       - ./_data:/etc/data
     environment:
       - CLUSTER_NAME=test
@@ -32,7 +33,8 @@ services:
       - datanode1
       - datanode2
     volumes:
-      - hadoop_historyserver:/hadoop/yarn/timeline
+      # - hadoop_historyserver:/hadoop/yarn/timeline
+      - ./.data/historyserver:/hadoop/yarn/timeline
     env_file:
       - ./hadoop.env
   
@@ -52,7 +54,8 @@ services:
     depends_on:
       - namenode
     volumes:
-      - hadoop_datanode1:/hadoop/dfs/data
+      # - hadoop_datanode1:/hadoop/dfs/data
+      - ./.data/datanode1:/hadoop/dfs/data
     env_file:
       - ./hadoop.env
   
@@ -62,7 +65,8 @@ services:
     depends_on:
       - namenode
     volumes:
-      - hadoop_datanode2:/hadoop/dfs/data
+      # - hadoop_datanode2:/hadoop/dfs/data
+      - ./.data/datanode2:/hadoop/dfs/data
     env_file:
       - ./hadoop.env
   
@@ -72,13 +76,14 @@ services:
     depends_on:
       - namenode
     volumes:
-      - hadoop_datanode3:/hadoop/dfs/data
+      # - hadoop_datanode3:/hadoop/dfs/data
+      - ./.data/datanode3:/hadoop/dfs/data
     env_file:
       - ./hadoop.env
 
-volumes:
-  hadoop_namenode:
-  hadoop_datanode1:
-  hadoop_datanode2:
-  hadoop_datanode3:
-  hadoop_historyserver:
+# volumes:
+#   hadoop_namenode:
+#   hadoop_datanode1:
+#   hadoop_datanode2:
+#   hadoop_datanode3:
+#   hadoop_historyserver:

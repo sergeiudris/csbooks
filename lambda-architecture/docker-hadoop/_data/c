@@ -6,6 +6,7 @@ export COMPOSE_CONVERT_WINDOWS_PATHS=1
 # kill -9
 
 
+
 addlog(){
   hadoop fs -mkdir /log
   hadoop fs -put /var/log/apt/history.log /log
@@ -14,5 +15,13 @@ addlog(){
   hadoop fsck /log/history.log -files -blocks -locations
 }
 
+large(){
+  dd if=/dev/zero of=output.dat  bs=180M  count=1
+  hadoop fs -mkdir /log
+  hadoop fs -put output.dat /log
+  hadoop fs -ls -R /log
+
+  hadoop fsck /log/output.dat -files -blocks -locations
+}
 
 "$@"
