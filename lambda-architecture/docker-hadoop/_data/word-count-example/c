@@ -7,7 +7,7 @@ export COMPOSE_CONVERT_WINDOWS_PATHS=1
 
 words(){
   export PATH=${JAVA_HOME}/bin:${PATH}
-  export PATH=${JAVA_HOME}/bin:${PATH}
+  export HADOOP_CLASSPATH=${JAVA_HOME}/lib/tools.jar
   hadoop com.sun.tools.javac.Main WordCount.java
   hadoop com.sun.tools.javac.Main Word2Count.java
 
@@ -32,6 +32,11 @@ job(){
   hadoop jar w2c.jar Word2Count /user/joe/wordcount/input /user/joe/wordcount/output2
   hadoop fs -cat /user/joe/wordcount/output2/part-r-00000
 
+}
+
+run1(){
+  words
+  job
 }
 
 "$@"

@@ -6,7 +6,7 @@ services:
     container_name: namenode
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
-      - ../data/namenode1:/etc/data
+      - ./_data:/etc/data
     environment:
       - CLUSTER_NAME=test
     ports:
