@@ -96,6 +96,8 @@
 
   (def hdfsuri "hdfs://namenode:8020")
   (def hdfsuri-file01 "hdfs://namenode:8020/user/joe/wordcount/input/file01")
+  (def hdfsuri-file03 "hdfs://namenode:8020/user/joe/wordcount/input/file03")
+  
   ; hadoop fs -cat hdfs://localhost:8020/user/joe/wordcount/input/file01
   (defn hadoop-conf
     []
@@ -122,7 +124,8 @@
   
   (.getWorkingDirectory fs)
   
-  (defn read-path
+  
+  (defn read-file
     [path]
     (let [
           hdfs-path (Path. path)
@@ -131,11 +134,23 @@
           ]
       (prn out)
       (.close is)
-      (.close fs)
       )
     )
   
-  (read-path hdfsuri-file01)
+  (read-file hdfsuri-file01)
   
+  (defn write-file
+    [path content]
+     (let [hdfs-path (Path. path)
+           os        (.create fs hdfs-path)
+           ]
+       (.writeBytes os content)
+       (.close os)
+       )
+    )
+  
+  (write-file hdfsuri-file03 "abc")
+  
+  (read-file hdfsuri-file03)
   ;
   )
