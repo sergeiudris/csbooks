@@ -50,6 +50,9 @@
                  [backtype/cascading-thrift "0.2.3"]
                  [javax.annotation/javax.annotation-api "1.3.2"]
                  [org.apache.thrift/libthrift "0.6.1"]
+                 [org.apache.hadoop/hadoop-client "2.7.1"]
+                 [org.apache.commons/commons-io "1.3.2"]
+                 [org.apache.hadoop/hadoop-common "2.7.1"]
                  
                  ]
   

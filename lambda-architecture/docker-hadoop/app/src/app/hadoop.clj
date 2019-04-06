@@ -9,6 +9,13 @@
   (:import 
    (com.backtype.hadoop.pail Pail PailStructure)
    (app.java Login LoginPailStructure)
+   (app.java Login LoginPailStructure)
+   (org.apache.hadoop.conf Configuration)
+   (org.apache.commons.io IOUtils)
+   (org.apache.hadoop.hdfs DistributedFileSystem)
+   (java.net URI)
+   
+   (org.apache.hadoop.fs FSDataInputStream FSDataOutputStream FileSystem Path LocalFileSystem)
    )
   )
 
@@ -87,6 +94,30 @@
   
   (read-logins)
 
+  (def hdfsuri "hdfs://localhost:8020/user/joe/wordcount/input/file01")
+  
+  (defn hadoop-conf
+    []
+      (let [conf (Configuration.) ]
+            (.set conf "fs.defaultFS" hdfsuri)
+            (.set conf "fs.hdfs.impl" (.getName org.apache.hadoop.hdfs.DistributedFileSystem))
+            (.set conf "fs.fs.impl" (.getName org.apache.hadoop.fs.LocalFileSystem))
+            (System/setProperty "HADOOP_USER_NAME" "hdfs")
+            (System/setProperty "hadoop.home.dir" "/")
+        conf
+        ))
 
+  (defn hdfs-fs
+    []
+    (let [
+          conf (hadoop-conf)
+          fs (FileSystem/get  (URI/create hdfsuri) conf )
+          ]
+      fs
+      )
+    )
+  
+  (def fs (hdfs-fs) )
+  
   ;
   )
