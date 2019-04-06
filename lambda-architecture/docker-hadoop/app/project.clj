@@ -1,4 +1,4 @@
-(defproject probe.app "0.1.0-SNAPSHOT"
+(defproject la.app "0.1.0-SNAPSHOT"
   :repositories {"my.datomic.com" {:url "https://my.datomic.com/repo/"
                                     ; :creds :gpg
                                    }
@@ -47,6 +47,10 @@
 
                  [com.backtype/dfs-datastores "1.3.6"]
                  [cascalog/cascalog-core "3.0.0"]
+                 [backtype/cascading-thrift "0.2.3"]
+                 [javax.annotation/javax.annotation-api "1.3.2"]
+                 [org.apache.thrift/libthrift "0.6.1"]
+                 
                  ]
   
   :resource-paths ["config", "resources"]
@@ -64,5 +68,6 @@
   
   :main ^{:skip-aot true} app.app
   :jvm-opts ["-Xms768m" "-Xmx768m"]
+  :java-source-paths ["src/java"]
   ;
   )
