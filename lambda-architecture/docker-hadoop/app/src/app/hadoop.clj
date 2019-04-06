@@ -94,8 +94,9 @@
   
   (read-logins)
 
-  (def hdfsuri "hdfs://namenode:8020/user/joe/wordcount/input/file01")
-  ; hdfs://localhost:8020/user/joe/wordcount/input/file01
+  (def hdfsuri "hdfs://namenode:8020")
+  (def hdfsuri-file01 "hdfs://namenode:8020/user/joe/wordcount/input/file01")
+  ; hadoop fs -cat hdfs://localhost:8020/user/joe/wordcount/input/file01
   (defn hadoop-conf
     []
       (let [conf (Configuration.) ]
@@ -134,7 +135,7 @@
       )
     )
   
-  (read-path hdfsuri)
+  (read-path hdfsuri-file01)
   
   ;
   )
