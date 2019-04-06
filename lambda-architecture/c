@@ -47,7 +47,16 @@ bdenginx(){
 }
 
 la(){
-  docker-compose -f docker-hadoop/docker-compose-local.yml -f docker-hadoop/apps.yml  "$@"
+  docker-compose -f docker-hadoop/docker-compose.yml -f docker-hadoop/apps.yml  "$@"
+}
+laup(){
+  la up -d --build
+}
+ladown(){
+  la down
+}
+labash(){
+  la exec namenode bash
 }
 
 
