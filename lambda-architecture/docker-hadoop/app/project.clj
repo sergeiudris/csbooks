@@ -51,7 +51,8 @@
                  [javax.annotation/javax.annotation-api "1.3.2"]
                  [org.apache.thrift/libthrift "0.6.1"]
                  [org.apache.hadoop/hadoop-client "2.7.1"]
-                 [org.apache.commons/commons-io "1.3.2"]
+                 [org.apache.hadoop/hadoop-hdfs "2.7.1"]
+                 [commons-io/commons-io "2.5"]
                  [org.apache.hadoop/hadoop-common "2.7.1"]
                  
                  ]
@@ -64,7 +65,7 @@
                  }
   :profiles {:dev {:aliases {"run-dev" ["trampoline" "run" "-m" "app.app/-main"]}
                    :dependencies [[io.pedestal/pedestal.service-tools "0.5.5"]
-                                  [org.apache.hadoop/hadoop-core "1.2.1"]
+                                  ; [org.apache.hadoop/hadoop-core "1.2.1"]
                                   ]}
              :uberjar {:aot [app.app]}
              }
