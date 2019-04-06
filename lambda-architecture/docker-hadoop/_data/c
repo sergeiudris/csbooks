@@ -21,7 +21,9 @@ large(){
   hadoop fs -put output.dat /log
   hadoop fs -ls -R /log
 
-  hadoop fsck /log/output.dat -files -blocks -locations
+  hadoop fsck hdfs://0.0.0.0:8020/log/output.dat -files -blocks -locations
 }
+
+
 
 "$@"
