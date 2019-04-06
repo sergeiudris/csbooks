@@ -94,8 +94,8 @@
   
   (read-logins)
 
-  (def hdfsuri "hdfs://localhost:8020/user/joe/wordcount/input/file01")
-  
+  (def hdfsuri "hdfs://namenode:8020/user/joe/wordcount/input/file01")
+  ; hdfs://localhost:8020/user/joe/wordcount/input/file01
   (defn hadoop-conf
     []
       (let [conf (Configuration.) ]
@@ -118,6 +118,23 @@
     )
   
   (def fs (hdfs-fs) )
+  
+  (.getWorkingDirectory fs)
+  
+  (defn read-path
+    [path]
+    (let [
+          hdfs-path (Path. path)
+          is (.open fs hdfs-path)
+          out (. IOUtils toString is "UTF-8")
+          ]
+      (prn out)
+      (.close is)
+      (.close fs)
+      )
+    )
+  
+  (read-path hdfsuri)
   
   ;
   )

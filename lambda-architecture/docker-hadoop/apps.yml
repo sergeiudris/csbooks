@@ -48,4 +48,5 @@ services:
     tty: true
     links:
       - cljbase
+      - namenode
     
