@@ -20,6 +20,8 @@ services:
       - ../data/namenode:/hadoop/dfs/name
     # depends_on:
     #   - "base"
+    ports:
+      - "50070:50070"
     environment:
       - CLUSTER_NAME=test
     env_file:
