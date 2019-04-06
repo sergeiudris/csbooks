@@ -1,0 +1,29 @@
+#!/bin/bash
+
+export COMPOSE_CONVERT_WINDOWS_PATHS=1
+
+# kill $(lsof -t -i:8080)
+# kill -9
+
+words(){
+  export PATH=${JAVA_HOME}/bin:${PATH}
+  export PATH=${JAVA_HOME}/bin:${PATH}
+  hadoop com.sun.tools.javac.Main WordCount.java
+  jar cf wc.jar WordCount*.class
+
+  hadoop fs -mkdir -p /user/joe/wordcount/input/
+  hadoop fs -put file01 /user/joe/wordcount/input/
+  hadoop fs -put file02 /user/joe/wordcount/input/
+
+  hadoop fs -ls -R /user/joe/wordcount/input/
+
+  hadoop fs -cat /user/joe/wordcount/input/file01
+  hadoop fs -cat /user/joe/wordcount/input/file02
+}
+
+job(){
+  hadoop jar wc.jar WordCount /user/joe/wordcount/input /user/joe/wordcount/output
+  hadoop fs -cat /user/joe/wordcount/output/part-r-00000
+}
+
+"$@"
