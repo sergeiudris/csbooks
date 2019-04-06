@@ -35,6 +35,7 @@ services:
     image: la.app
     volumes:
       - ./app:/opt/code/app
+      - ./app/.tmp:/tmp
     build:
       context: ./app
       dockerfile: ./Dockerfile
