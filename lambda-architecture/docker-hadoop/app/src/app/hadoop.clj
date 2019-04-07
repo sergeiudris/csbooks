@@ -1,6 +1,9 @@
 (ns app.hadoop  
   (:require [clojure.repl :refer :all]
             [cascalog.api :as cs]
+   [clojure.reflect :as r]
+   [clojure.pprint :refer [print-table] :as pp]
+   
             ; [cascalog.playground :as csp]
             ; [com.backtype.hadoop.pail]
             ; [org.apache.hadoop/hadoop-core]
@@ -8,8 +11,7 @@
    )
   (:import 
    (com.backtype.hadoop.pail Pail PailStructure)
-   (app.java Login LoginPailStructure)
-   (app.java Login LoginPailStructure)
+   (app.java Login LoginPailStructure PartitionedLoginPailStructure)
    (org.apache.hadoop.conf Configuration)
    (org.apache.commons.io IOUtils)
    (org.apache.hadoop.hdfs DistributedFileSystem)
@@ -186,5 +188,43 @@
   (write-file hdfsuri-file03 "abc")
   
   (read-file hdfsuri-file03)
+  
+  (defn partition-data
+    []
+    (let 
+     [pail (Pail/create "/tmp/partitioned_logins3" (PartitionedLoginPailStructure.))
+      os (.openWrite pail)
+      ]
+      (.writeObject os (Login. "chris" 1352702020) )
+      (.writeObject os (Login. "david" 1352788472))
+      (.close os)
+      (prn "done")
+      )
+    )
+  
+  (print-table (:member (r/reflect "com.backtype.hadoop.pail.Pail")) )
+  
+  (print-table
+   (sort-by :name
+            (filter :exception-types (:members (r/reflect Pail)))))
+  
+  
+  (->> com.backtype.hadoop.pail.Pail 
+     r/reflect 
+     :members 
+        (filter #(contains? (:flags %) :static ))
+        (filter #(contains? (:flags %) :public ))
+      ;  pp/pprint
+     print-table
+       
+       )
+  
+  
+  
+  (partition-data )
+  
+  (read-logins  "/tmp/partitioned_logins")
+  
+  
   ;
   )
