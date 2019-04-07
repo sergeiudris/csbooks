@@ -10,17 +10,19 @@
    ;
    )
   (:import 
-   (com.backtype.hadoop.pail Pail PailStructure)
+   (com.backtype.hadoop.pail Pail PailStructure SequenceFileFormat PailSpec)
    (app.java Login LoginPailStructure PartitionedLoginPailStructure)
    (org.apache.hadoop.conf Configuration)
-   (org.apache.commons.io IOUtils)
+   
    (org.apache.hadoop.hdfs DistributedFileSystem)
    (java.net URI)
+   (java.util HashMap)
    
    (org.apache.hadoop.fs FSDataInputStream FSDataOutputStream FileSystem Path LocalFileSystem)
+  ;  (org.apache.hadoop.io SequenceFile)
+   
    )
   )
-
 
 (comment
   (doc doc)
@@ -225,6 +227,21 @@
   (partition-data "/tmp/partitioned_logins5")
   
   (read-logins  "/tmp/partitioned_logins5")
+  
+  HashMap
+  SequenceFileFormat/CODEC_ARG
+  
+  (defn compressed-pail
+    [path]
+    (let [options (HashMap.)
+          struct  (LoginPailStructure.)]
+      (.put options SequenceFileFormat/CODEC_ARG SequenceFileFormat/CODEC_ARG_GZIP)
+      (.put options SequenceFileFormat/TYPE_ARG SequenceFileFormat/TYPE_ARG_BLOCK)
+      (Pail/create path (PailSpec. "SequenceFile" options struct ) )
+      )
+    )
+  
+  (def compressed (compressed-pail "/tmp/compressed" ) )
   
   
   ;
