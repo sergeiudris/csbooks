@@ -2,8 +2,8 @@
   (:require [core.nrepl]
             [core.core]
             [app.hadoop]
-            [core.pedestal.server]
-            ))
+            [app.superwebanalytics]
+            [core.pedestal.server]))
 
 (defn -main []
   (core.nrepl/-main)

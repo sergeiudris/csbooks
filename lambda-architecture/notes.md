@@ -300,3 +300,6 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     pail will use significantly less space but will have a higher CPU cost for reading and
     writing records.
     
+    p 76
+
+    The unions within a graph schema provide a natural vertical partitioning scheme for a dataset.
