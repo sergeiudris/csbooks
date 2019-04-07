@@ -189,10 +189,11 @@
   
   (read-file hdfsuri-file03)
   
+  ; https://livebook.manning.com/#!/book/big-data/about-this-book/2
   (defn partition-data
-    []
+    [path]
     (let 
-     [pail (Pail/create "/tmp/partitioned_logins3" (PartitionedLoginPailStructure.))
+     [pail (Pail/create path (PartitionedLoginPailStructure.))
       os (.openWrite pail)
       ]
       (.writeObject os (Login. "chris" 1352702020) )
@@ -221,9 +222,9 @@
   
   
   
-  (partition-data )
+  (partition-data "/tmp/partitioned_logins5")
   
-  (read-logins  "/tmp/partitioned_logins")
+  (read-logins  "/tmp/partitioned_logins5")
   
   
   ;
