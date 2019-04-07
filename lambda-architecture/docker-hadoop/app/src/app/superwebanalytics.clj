@@ -11,7 +11,7 @@
    (app.java.tap ThriftPailStructure)
    
    (org.apache.hadoop.conf Configuration)
-   
+   (manning.tap SplitDataPailStructure)
    (org.apache.hadoop.hdfs DistributedFileSystem)
    (java.net URI)
    (java.util HashMap)
@@ -24,6 +24,6 @@
 
 (comment
  
-  
+  SplitDataPailStructure
   ;
   )
