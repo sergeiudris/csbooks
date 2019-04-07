@@ -59,6 +59,15 @@ labash(){
   la exec namenode bash
 }
 
+larm(){
+  la stop "$@"
+  la rm "$@"
+}
+larmres(){
+  larm "$@"
+  larm start "$@"
+}
+
 
 
 "$@"
