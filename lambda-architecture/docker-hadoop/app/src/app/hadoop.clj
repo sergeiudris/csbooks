@@ -13,13 +13,13 @@
    (com.backtype.hadoop.pail Pail PailStructure SequenceFileFormat PailSpec)
    (app.java Login LoginPailStructure PartitionedLoginPailStructure)
    (org.apache.hadoop.conf Configuration)
-   
+  (org.apache.commons.io IOUtils)
    (org.apache.hadoop.hdfs DistributedFileSystem)
    (java.net URI)
    (java.util HashMap)
    
    (org.apache.hadoop.fs FSDataInputStream FSDataOutputStream FileSystem Path LocalFileSystem)
-  ;  (org.apache.hadoop.io SequenceFile)
+  ;  (org.apache.hadoop.io IOUtils)
    
    )
   )
@@ -89,7 +89,7 @@
       (.close out)
       ))
   
-  (write-logins "/tmp/mylogins1" {
+  (write-logins "/tmp/mylogins3" {
                                  "alex" 123456789231
                                  "bob"  135123423413
                                  } )
@@ -187,7 +187,7 @@
        )
     )
   
-  (write-file hdfsuri-file03 "abc")
+  (write-file hdfsuri-file03 "abc2")
   
   (read-file hdfsuri-file03)
   
@@ -224,9 +224,9 @@
   
   
   
-  (partition-data "/tmp/partitioned_logins5")
+  (partition-data "/tmp/partitioned_logins6")
   
-  (read-logins  "/tmp/partitioned_logins5")
+  (read-logins  "/tmp/partitioned_logins6")
   
   HashMap
   SequenceFileFormat/CODEC_ARG
@@ -241,7 +241,7 @@
       )
     )
   
-  (def compressed (compressed-pail "/tmp/compressed" ) )
+  (def compressed (compressed-pail "/tmp/compressed2" ) )
   
   
   ;
