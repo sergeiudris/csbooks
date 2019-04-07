@@ -47,9 +47,9 @@
 
                  [com.backtype/dfs-datastores "1.3.6"]
                  [cascalog/cascalog-core "3.0.0"]
-                 [backtype/cascading-thrift "0.2.3"]
+                 [backtype/cascading-thrift "0.2.3" :exclusions [org.apache.thrift/libthrift]]
                  [javax.annotation/javax.annotation-api "1.3.2"]
-                 [org.apache.thrift/libthrift "0.6.1"]
+                ;  [org.apache.thrift/libthrift "0.6.1"]
                  [org.apache.hadoop/hadoop-client "2.7.1"]
                  [org.apache.hadoop/hadoop-hdfs "2.7.1"]
                  [commons-io/commons-io "2.5"]
@@ -72,6 +72,6 @@
   
   :main ^{:skip-aot true} app.app
   :jvm-opts ["-Xms768m" "-Xmx768m"]
-  :java-source-paths ["src/java"]
+  :java-source-paths ["src/java", "src/manning"]
   ;
   )
