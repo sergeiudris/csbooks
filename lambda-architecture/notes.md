@@ -294,4 +294,9 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     relevant to its computation. This process is called vertical partitioning, and it can greatly
     contribute to making the batch layer more efficient.
 
+    p 75
+
+    Whenever records are added to this pail, they’ll be automatically compressed. This
+    pail will use significantly less space but will have a higher CPU cost for reading and
+    writing records.
     
