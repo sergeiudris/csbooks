@@ -51,7 +51,7 @@ public class PartitionedLoginPailStructure extends LoginPailStructure {
   }
 
   public boolean isValidTarget(String... strings) {
-    if (strings.length != 1)
+    if (strings.length != 2)
       return false;
     try {
       return (formatter.parse(strings[0]) != null);
