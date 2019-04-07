@@ -71,29 +71,62 @@
 
 
   (defn write-logins
-    []
+    [path logins]
     (let [
-          login-pail (Pail/create "/tmp/mylogins" (LoginPailStructure.) )
+          login-pail (Pail/create path (LoginPailStructure.) )
           out (.openWrite login-pail)
           ]
-      (.writeObject out (Login. "alex" 123456789231 ) )
-      (.writeObject out (Login. "bob"  135123423413))
-      (.close out)))
+      ;  (.writeObject out (Login. "alex" 123456789231))
+; (.writeObject out (Login.  "bob"  135123423413))
+      (doall
+       (map (fn [x]
+              (.writeObject out (Login.  (first x) (second x)))) logins)
+       )
+      (.close out)
+      ))
   
-  (write-logins)
+  (write-logins "/tmp/mylogins1" {
+                                 "alex" 123456789231
+                                 "bob"  135123423413
+                                 } )
+  
+  
+; (map 
+; (fn [x] (prn x) )
+;  {"alex" 123456789231
+;       "bob"  135123423413})
   
   (defn read-logins
-    []
+    [path ]
     (let [
-          login-pail (Pail. "/tmp/mylogins")
+          login-pail (Pail. path)
           ]
       (for [l login-pail]
         (prn (.-userName l) (.-loginUnixTime l) ) 
         )
       ))
   
-  (read-logins)
+  (read-logins  "/tmp/mylogins")
+  (read-logins  "/tmp/mylogins1")
+  
+  
+  (defn append-pail
+    [path path-updates]
+    (let [
+          pail (Pail. path)
+          pail-updates (Pail. path-updates)
+          ]
+      (.absorb pail pail-updates)
+      (.consolidate pail)
+      )
+    )
+  
+  (append-pail "/tmp/mylogins" "/tmp/mylogins1" )
+  (read-logins  "/tmp/mylogins")
+  
 
+  (map #(prn %1) {1 2 2 3}  )
+  
   (def hdfsuri "hdfs://namenode:8020")
   (def hdfsuri-file01 "hdfs://namenode:8020/user/joe/wordcount/input/file01")
   (def hdfsuri-file03 "hdfs://namenode:8020/user/joe/wordcount/input/file03")
