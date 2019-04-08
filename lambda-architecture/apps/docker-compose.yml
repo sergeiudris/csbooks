@@ -1,4 +1,4 @@
-version: "2.0"
+version: "3.3"
 
 services: 
 
@@ -62,6 +62,25 @@ services:
       - 12544:35543
       # - 11488:7888
       - 12081:8080
+    command: bash c init
+    stdin_open: true
+    tty: true
+    links:
+      - cljbase
+      - namenode
+
+  app_cascalog:
+    image: la.app_cascalog
+    volumes:
+      - ./app_cascalog:/opt/code/app
+      - ./app_cascalog/.tmp:/tmp
+    build:
+      context: ./app_cascalog
+      dockerfile: ./Dockerfile
+    ports:
+      - 12545:35543
+      # - 11488:7888
+      - 12082:8080
     command: bash c init
     stdin_open: true
     tty: true

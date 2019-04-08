@@ -1,0 +1,89 @@
+version: "3.3"
+
+services: 
+
+  # hadoop:
+  #   image: la-hadoop
+  #   build:
+  #     context: ./hadoop
+  #     dockerfile: ./Dockerfile
+  #   volumes:
+  #     - hadoop:/var/hadoop
+  #   # command: bash c init
+  #   command: tail -f /dev/null
+  #   stdin_open: true
+  #   tty: true
+
+  cljbase:
+    image: la.cljbase
+    volumes:
+      - ./apps/cljbase:/opt/code/app
+    build:
+      context: ./apps/cljbase
+      dockerfile: ./Dockerfile
+    command: tail -f /dev/null
+    # command: bash c nrepl_clj
+    # environment:
+    #   - DISPLAY=10.0.75.1:0.0
+    stdin_open: true
+    tty: true
+    # depends_on:
+    #   - base
+
+
+  app:
+    image: la.app
+    volumes:
+      - ./apps/app:/opt/code/app
+      - ./apps/app/.tmp:/tmp
+    build:
+      context: ./apps/app
+      dockerfile: ./Dockerfile
+    ports:
+      - 12543:35543
+      # - 11488:7888
+      - 12080:8080
+    command: bash c init
+    stdin_open: true
+    tty: true
+    links:
+      - cljbase
+      - namenode
+
+  app_hdfs:
+    image: la.app_hdfs
+    volumes:
+      - ./apps/app_hdfs:/opt/code/app
+      - ./apps/app_hdfs/.tmp:/tmp
+    build:
+      context: ./apps/app_hdfs
+      dockerfile: ./Dockerfile
+    ports:
+      - 12544:35543
+      # - 11488:7888
+      - 12081:8080
+    command: bash c init
+    stdin_open: true
+    tty: true
+    links:
+      - cljbase
+      - namenode
+
+  app_cascalog:
+    image: la.app_cascalog
+    volumes:
+      - ./apps/app_cascalog:/opt/code/app
+      - ./apps/app_cascalog/.tmp:/tmp
+    build:
+      context: ./apps/app_cascalog
+      dockerfile: ./Dockerfile
+    ports:
+      - 12545:35543
+      # - 11488:7888
+      - 12082:8080
+    command: bash c init
+    stdin_open: true
+    tty: true
+    links:
+      - cljbase
+      - namenode

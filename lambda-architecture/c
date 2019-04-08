@@ -47,7 +47,8 @@ bdenginx(){
 }
 
 la(){
-  docker-compose -f docker-hadoop/docker-compose.yml -f docker-hadoop/apps.yml  "$@"
+  docker-compose -f dc-apps.yml -f dc-docker-hadoop.yml "$@"
+  # docker-compose -f docker-hadoop/docker-compose.yml -f apps/docker-compose.yml config | docker-compose -f - up
 }
 laup(){
   la up -d --build

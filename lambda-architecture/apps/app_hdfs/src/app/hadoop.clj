@@ -74,7 +74,7 @@
        )
     )
   
-  (write-file hdfsuri-file03 "abcasd2")
+  (write-file hdfsuri-file03 "abcasds2")
   
   (read-file hdfsuri-file03)
   

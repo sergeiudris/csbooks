@@ -6,15 +6,15 @@ services:
     container_name: namenode
     volumes:
       # - hadoop_namenode:/hadoop/dfs/name
-      - ./.data/namenode:/hadoop/dfs/name
-      - ./_data:/etc/data
+      - ./docker-hadoop/.data/namenode:/hadoop/dfs/name
+      - ./docker-hadoop/_data:/etc/data
     environment:
       - CLUSTER_NAME=test
     ports:
       - "50070:50070"
       - "8020:8020"
     env_file:
-      - ./hadoop.env
+      - ./docker-hadoop/hadoop.env
   
   resourcemanager:
     image: bde2020/hadoop-resourcemanager:1.1.0-hadoop2.7.1-java8
@@ -24,7 +24,7 @@ services:
       - datanode1
       - datanode2
     env_file:
-      - ./hadoop.env
+      - ./docker-hadoop/hadoop.env
   
   historyserver:
     image: bde2020/hadoop-historyserver:1.1.0-hadoop2.7.1-java8
@@ -35,9 +35,9 @@ services:
       - datanode2
     volumes:
       # - hadoop_historyserver:/hadoop/yarn/timeline
-      - ./.data/historyserver:/hadoop/yarn/timeline
+      - ./docker-hadoop/.data/historyserver:/hadoop/yarn/timeline
     env_file:
-      - ./hadoop.env
+      - ./docker-hadoop/hadoop.env
   
   nodemanager1:
     image: bde2020/hadoop-nodemanager:1.1.0-hadoop2.7.1-java8
@@ -47,7 +47,7 @@ services:
       - datanode1
       - datanode2
     env_file:
-      - ./hadoop.env
+      - ./docker-hadoop/hadoop.env
   
   datanode1:
     image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
@@ -56,9 +56,9 @@ services:
       - namenode
     volumes:
       # - hadoop_datanode1:/hadoop/dfs/data
-      - ./.data/datanode1:/hadoop/dfs/data
+      - ./docker-hadoop/.data/datanode1:/hadoop/dfs/data
     env_file:
-      - ./hadoop.env
+      - ./docker-hadoop/hadoop.env
   
   datanode2:
     image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
@@ -67,9 +67,9 @@ services:
       - namenode
     volumes:
       # - hadoop_datanode2:/hadoop/dfs/data
-      - ./.data/datanode2:/hadoop/dfs/data
+      - ./docker-hadoop/.data/datanode2:/hadoop/dfs/data
     env_file:
-      - ./hadoop.env
+      - ./docker-hadoop/hadoop.env
   
   datanode3:
     image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
@@ -78,9 +78,9 @@ services:
       - namenode
     volumes:
       # - hadoop_datanode3:/hadoop/dfs/data
-      - ./.data/datanode3:/hadoop/dfs/data
+      - ./docker-hadoop/.data/datanode3:/hadoop/dfs/data
     env_file:
-      - ./hadoop.env
+      - ./docker-hadoop/hadoop.env
 
 # volumes:
 #   hadoop_namenode:
