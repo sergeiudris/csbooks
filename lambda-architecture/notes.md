@@ -322,4 +322,52 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     nation of the total amount of data you have, how much new data you receive every
     day, how many requests per second your application serves, and so forth.
 
+    p 93
+
+    We delved into this discussion about scalability to set the scene for introducing Map-
+    Reduce, a distributed computing paradigm that can be used to implement a batch
+    layer. As we cover the details of its workings, keep in mind that it’s linearly scalable:
+    should the size of your master dataset double, then twice the number of servers will be
+    able to build the batch views with the same latency.
+
+    p 96
+
+    Because tasks can be retried, MapReduce requires that your map and reduce func-
+    tions be deterministic. This means that given the same inputs, your functions must
+    always produce the same outputs.
+
+    p 98
+
+    MapReduce vs. Spark
+    Spark is a relatively new computation system that has gained a lot of attention.
+    Spark’s computation model is “resilient distributed datasets.” Spark isn’t any more
+    general or scalable than MapReduce, but its model allows it to have much higher per-
+    formance for algorithms that have to repeatedly iterate over the same dataset
+    (because Spark is able to cache that data in memory rather than read it from disk
+    every time). Many machine-learning algorithms iterate over the same data repeatedly,
+    making Spark particularly well suited for that use case.
+
+    https://github.com/apache/spark
+
+    p 101
+
+    And so you have a tough trade-off to make—either weave all the functionality
+    together, engaging in bad software-engineering practices, or modularize the code,
+    leading to poor resource usage.
+
+    p 102
+
+    Pipe diagrams in practice
+    Pipe diagrams aren’t a hypothetical concept; all of the higher-level MapReduce tools
+    are a fairly direct mapping of pipe diagrams, including Cascading, Pig, Hive, and Cas-
+    calog. Spark is too, to some extent, though its data model doesn’t natively include
+    the concept of tuples with an arbitrary number of named fields.
+
+    ...
+
+    The idea behind pipe diagrams is to think of processing in
+    terms of tuples, functions, filters, aggregators, joins, and
+    merges—concepts you’re likely already familiar with from
+    SQL .
+
     
