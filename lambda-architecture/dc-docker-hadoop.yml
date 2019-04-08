@@ -33,6 +33,8 @@ services:
       - namenode
       - datanode1
       - datanode2
+    ports:
+      - "58188:8188"
     volumes:
       # - hadoop_historyserver:/hadoop/yarn/timeline
       - ./docker-hadoop/.data/historyserver:/hadoop/yarn/timeline
