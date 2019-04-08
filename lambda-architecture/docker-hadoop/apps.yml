@@ -49,4 +49,22 @@ services:
     links:
       - cljbase
       - namenode
-    
+
+  app_hdfs:
+    image: la.app_hdfs
+    volumes:
+      - ./app_hdfs:/opt/code/app
+      - ./app_hdfs/.tmp:/tmp
+    build:
+      context: ./app_hdfs
+      dockerfile: ./Dockerfile
+    ports:
+      - 12544:35543
+      # - 11488:7888
+      - 12081:8080
+    command: bash c init
+    stdin_open: true
+    tty: true
+    links:
+      - cljbase
+      - namenode
