@@ -370,4 +370,13 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     merges—concepts you’re likely already familiar with from
     SQL .
 
-    
+    p 108
+
+    All combiner aggregators work this way—doing a par-
+    tial aggregation first and then combining the partial
+    results to get the desired result. Not every aggregator can
+    be expressed this way, but when it’s possible you get huge
+    performance and scalability boosts when doing global
+    aggregations or aggregations with very few groups. Count-
+    ing and summing, two of the most common aggregators,
+    can be implemented as combiner aggregators.
