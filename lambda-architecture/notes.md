@@ -303,3 +303,23 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     p 76
 
     The unions within a graph schema provide a natural vertical partitioning scheme for a dataset.
+
+    p 91
+
+    The key takeaway is that you must always have recomputation versions of your
+    algorithms. This is the only way to ensure human-fault tolerance for your system,
+    and human-fault tolerance is a non-negotiable requirement for a robust system.
+
+    * ad hoc
+      Ad hoc is a Latin phrase meaning literally "for this". In English, it generally signifies a solution designed for a specific problem or task, non-generalizable, and not intended to be able to be adapted to other purposes (compare with a priori).
+
+    p 92
+
+    Scalability is the ability of a system to maintain performance
+    under increased load by adding more resources.
+    
+    Load in a Big Data context is a combi-
+    nation of the total amount of data you have, how much new data you receive every
+    day, how many requests per second your application serves, and so forth.
+
+    
