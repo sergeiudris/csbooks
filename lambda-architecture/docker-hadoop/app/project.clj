@@ -18,7 +18,7 @@
             [com.jakemccrary/lein-test-refresh "0.12.0"]
             ]
   
-  :dependencies [[org.clojure/clojure "1.10.0"]
+  :dependencies [[org.clojure/clojure "1.10.1-beta1"]
                  [cider/piggieback "0.3.10"]
                  [figwheel-sidecar "0.5.16"]
                  [nrepl "0.5.3"]
@@ -50,8 +50,10 @@
 
                  [com.backtype/dfs-datastores "1.3.6"]
                  [backtype/dfs-datastores-cascading "1.2.0"]
+                 [cascalog/cascalog-core "3.0.0"]
+                 [cascading/cascading-hadoop "2.5.5"]
+                ;  [cascalog/cascalog "1.10.0"]
                 ;  [cascalog/cascalog-core "3.0.0"]
-                 [cascalog/cascalog "1.10.0"]
                 ;  [backtype/cascading-thrift "0.2.3" :exclusions [org.apache.thrift/libthrift]]
                  [javax.annotation/javax.annotation-api "1.3.2"]
                  [org.apache.thrift/libthrift "0.9.3"]
@@ -83,7 +85,7 @@
                  }
   :profiles {:dev {:aliases {"run-dev" ["trampoline" "run" "-m" "app.app/-main"]}
                    :dependencies [[io.pedestal/pedestal.service-tools "0.5.5"]
-                                  ; [org.apache.hadoop/hadoop-core "1.2.1"]
+                                  [org.apache.hadoop/hadoop-core "1.2.1"]
                                   ]}
              :uberjar {:aot [app.app]}
              }
