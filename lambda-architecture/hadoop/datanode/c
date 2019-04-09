@@ -5,11 +5,15 @@
 # kill -9
 main(){
   start
-  tail_dev_null
 }
-start(){
+start_daemon(){
   # hdfs datanode -h
   $HADOOP_HOME/bin/hdfs --daemon start datanode 
+}
+
+start(){
+  # hdfs datanode -h
+  $HADOOP_HOME/bin/hdfs --config $HADOOP_CONF_DIR datanode
 }
 
 tail_dev_null(){

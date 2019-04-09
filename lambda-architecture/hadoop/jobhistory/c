@@ -6,12 +6,16 @@
 
 main(){
   start
-  tail_dev_null
 }
-start(){
+start_daemon(){
   # hdfs datanode -h
   $HADOOP_HOME/bin/mapred --daemon start historyserver
 }
+
+start(){
+  $HADOOP_PREFIX/bin/mapred --config $HADOOP_CONF_DIR historyserver
+}
+
 
 tail_dev_null(){
   tail -f /dev/null
