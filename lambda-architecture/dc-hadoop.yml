@@ -45,6 +45,8 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./hadoop/resourcemanager:/opt/code/app
+    ports:
+      - 18088:8088
     command: bash c main
     env_file:
       - ./hadoop/.conf/.env
@@ -53,6 +55,10 @@ services:
     links:
       - base
       - namenode
+      - datanode1
+      - datanode2
+      - datanode3
+
 
   nodemanager:
     image: la.hadoop.nodemanager

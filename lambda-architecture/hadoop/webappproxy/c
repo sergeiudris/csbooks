@@ -5,8 +5,14 @@
 # kill -9
 
 main(){
+  start
+}
+start_daemon(){
+  # hdfs datanode -h
   $HADOOP_HOME/bin/yarn --daemon start proxyserver
 }
-
+start(){
+  $HADOOP_HOME/bin/yarn --config $HADOOP_CONF_DIR proxyserver
+}
 
 "$@"
