@@ -7,10 +7,7 @@ services:
     build:
       context: ./hadoop
       dockerfile: ./base/Dockerfile
-    # volumes:
-    #   - ./hadoop/.volumes/etc.hadoop:/usr/local/hadoop/etc/hadoop
-    # command: bash c init
-    command: bash c tail_dev_null
+    command: tail -f /dev/null
     env_file:
       - ./hadoop/.conf/.env
     stdin_open: true
