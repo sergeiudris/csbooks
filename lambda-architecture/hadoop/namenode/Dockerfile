@@ -1,0 +1,13 @@
+FROM la.hadoop.base
+
+
+
+
+WORKDIR ${HADOOP_DIR}
+
+
+
+EXPOSE 9870
+EXPOSE 9871
+EXPOSE 9820
+
