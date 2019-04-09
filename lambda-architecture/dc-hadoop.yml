@@ -27,8 +27,8 @@ services:
     ports:
       - "19870:9870"
       - "18020:9020"
-    # command: bash c main
-    command: bash c tail_dev_null
+    command: bash c main
+    # command: bash c tail_dev_null
     env_file:
       - ./hadoop/.conf/.env
     stdin_open: true
