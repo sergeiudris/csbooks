@@ -3,8 +3,6 @@ FROM la.hadoop.base
 
 
 
-WORKDIR ${HADOOP_DIR}
-
 
 EXPOSE 8030
 EXPOSE 8031

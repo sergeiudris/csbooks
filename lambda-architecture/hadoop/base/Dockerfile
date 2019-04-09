@@ -24,17 +24,24 @@ RUN apt-get install -y openjdk-11-jdk
 
 ENV HADOOP_VERSION 3.1.2
 ENV JAVA_HOME  /usr/lib/jvm/java-11-openjdk-amd64/
-ENV HADOOP_DIR  /usr/local/hadoop
+ENV USER=root
+ENV HADOOP_HOME=/usr/local/hadoop
+ENV PATH $HADOOP_HOME/bin/:$PATH
 
 #hadoop
 
 # RUN wget https://dist.apache.org/repos/dist/release/hadoop/common/hadoop-3.0.3/hadoop-3.0.3.tar.gz.mds
 RUN wget http://www-us.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/hadoop-${HADOOP_VERSION}.tar.gz && \
     tar -xzvf hadoop-${HADOOP_VERSION}.tar.gz && \
-    sudo mv hadoop-${HADOOP_VERSION} ${HADOOP_DIR}
+    sudo mv hadoop-${HADOOP_VERSION} ${HADOOP_HOME}
 
-COPY .conf/etc.hadoop/* ${HADOOP_DIR}/etc/hadoop/
+COPY .conf/etc.hadoop/* ${HADOOP_HOME}/etc/hadoop/
 
+# RUN useradd -ms /bin/bash hdfs
+# RUN useradd -ms /bin/bash yarn
+
+
+WORKDIR /opt/code/app
 
 
 
