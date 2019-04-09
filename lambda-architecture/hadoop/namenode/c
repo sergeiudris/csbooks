@@ -19,6 +19,7 @@ start(){
 main(){
   format
   start
+  tail_dev_null
 }  
 
 tail_dev_null(){
