@@ -5,14 +5,14 @@ services:
   la.hadoop.base:
     image: la.hadoop.base
     build:
-      context: ./hadoop/base
-      dockerfile: ./Dockerfile
+      context: ./
+      dockerfile: ./base/Dockerfile
     # volumes:
     #   - ./hadoop/.volumes/etc.hadoop:/usr/local/hadoop/etc/hadoop
     # command: bash c init
     command: tail -f /dev/null
     env_file:
-      - ./hadoop/.env
+      - ./hadoop/.conf/.env
     stdin_open: true
     tty: true
 
@@ -27,7 +27,7 @@ services:
     # command: bash c init
     command: tail -f /dev/null
     env_file:
-      - ./hadoop/.env
+      - ./hadoop/.conf/.env
     stdin_open: true
     tty: true
     links:
@@ -43,7 +43,7 @@ services:
     # command: bash c init
     command: tail -f /dev/null
     env_file:
-      - ./hadoop/.env
+      - ./hadoop/.conf/.env
     stdin_open: true
     tty: true
     links:
@@ -59,7 +59,7 @@ services:
     # command: bash c init
     command: tail -f /dev/null
     env_file:
-      - ./hadoop/.env
+      - ./hadoop/.conf/.env
     stdin_open: true
     tty: true
     links:
@@ -75,7 +75,7 @@ services:
     # command: bash c init
     command: tail -f /dev/null
     env_file:
-      - ./hadoop/.env
+      - ./hadoop/.conf/.env
     stdin_open: true
     tty: true
     links:
@@ -91,7 +91,7 @@ services:
     # command: bash c init
     command: tail -f /dev/null
     env_file:
-      - ./hadoop/.env
+      - ./hadoop/.conf/.env
     stdin_open: true
     tty: true
     links:
@@ -107,7 +107,7 @@ services:
     # command: bash c init
     command: tail -f /dev/null
     env_file:
-      - ./hadoop/.env
+      - ./hadoop/.conf/.env
     stdin_open: true
     tty: true
     links:
