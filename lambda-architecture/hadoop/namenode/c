@@ -4,9 +4,22 @@
 # kill $(lsof -t -i:8080)
 # kill -9
 
-main(){
+format(){
   $HADOOP_HOME/bin/hdfs namenode -format ${CLUSTER_NAME}
 }
+
+start(){
+  # if [ "`ls -A $namedir`" == "" ]; then
+  #   echo "Formatting namenode name directory: $namedir"
+  #   $HADOOP_PREFIX/bin/hdfs --config $HADOOP_CONF_DIR namenode -format $CLUSTER_NAME 
+  # fi
+  $HADOOP_HOME/bin/hdfs --daemon start namenode # -bootstrapStandby -nonInteractive
+}
+
+main(){
+  format
+  start
+}  
 
 tail_dev_null(){
   tail -f /dev/null

@@ -5,7 +5,7 @@ services:
   la.hadoop.base:
     image: la.hadoop.base
     build:
-      context: ./
+      context: ./hadoop
       dockerfile: ./base/Dockerfile
     # volumes:
     #   - ./hadoop/.volumes/etc.hadoop:/usr/local/hadoop/etc/hadoop
@@ -27,7 +27,8 @@ services:
     ports:
       - "19870:9870"
       - "18020:9020"
-    command: bash c main
+    # command: bash c main
+    command: bash c tail_dev_null
     env_file:
       - ./hadoop/.conf/.env
     stdin_open: true

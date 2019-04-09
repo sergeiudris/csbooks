@@ -62,8 +62,12 @@ laup(){
 ladown(){
   la down
 }
+
+b(){
+  la exec "$1" bash # "${@:2}"
+}
 labash(){
-  la exec namenode bash
+  la exec -it "$1" bash "${@:2}"
 }
 
 larm(){
