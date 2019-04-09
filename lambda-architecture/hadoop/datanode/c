@@ -8,8 +8,8 @@ main(){
   tail_dev_null
 }
 start(){
-  $HADOOP_HOME/bin/hdfs --daemon start datanode
-
+  # hdfs datanode -h
+  $HADOOP_HOME/bin/hdfs --daemon start datanode 
 }
 
 tail_dev_null(){

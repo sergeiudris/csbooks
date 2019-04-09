@@ -18,9 +18,10 @@
 (comment
   (doc doc)
   
-  (def hdfsuri "hdfs://namenode:8020")
-  (def hdfsuri-file01 "hdfs://namenode:8020/user/joe/wordcount/input/file01")
-  (def hdfsuri-file03 "hdfs://namenode:8020/user/joe/wordcount/input/file03")
+  
+  (def hdfsuri "hdfs://namenode:9820")
+  (def hdfsuri-file01 "hdfs://namenode:9820/user/joe/wordcount/input/file01")
+  (def hdfsuri-file03 "hdfs://namenode:9820user/joe/wordcount/input/file03")
   
   ; hadoop fs -cat hdfs://localhost:8020/user/joe/wordcount/input/file01
   (defn hadoop-conf

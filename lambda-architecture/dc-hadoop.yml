@@ -2,7 +2,7 @@ version: "3.3"
 
 services: 
 
-  la.hadoop.base:
+  base:
     image: la.hadoop.base
     build:
       context: ./hadoop
@@ -17,7 +17,7 @@ services:
     tty: true
 
 
-  la.hadoop.namenode:
+  namenode:
     image: la.hadoop.namenode
     build:
       context: ./hadoop/namenode
@@ -26,7 +26,7 @@ services:
       - ./hadoop/namenode:/opt/code/app
     ports:
       - "19870:9870"
-      - "18020:9020"
+      - "9820:9820"
     command: bash c main
     # command: bash c tail_dev_null
     env_file:
@@ -34,11 +34,11 @@ services:
     stdin_open: true
     tty: true
     links:
-      - la.hadoop.base
+      - base
 
 
 
-  la.hadoop.resourcemanager:
+  resourcemanager:
     image: la.hadoop.resourcemanager
     build:
       context: ./hadoop/resourcemanager
@@ -51,10 +51,10 @@ services:
     stdin_open: true
     tty: true
     links:
-      - la.hadoop.base
-      - la.hadoop.namenode
+      - base
+      - namenode
 
-  la.hadoop.nodemanager:
+  nodemanager:
     image: la.hadoop.nodemanager
     build:
       context: ./hadoop/nodemanager
@@ -68,9 +68,9 @@ services:
     stdin_open: true
     tty: true
     links:
-      - la.hadoop.base
+      - base
 
-  la.hadoop.webappproxy:
+  webappproxy:
     image: la.hadoop.webappproxy
     build:
       context: ./hadoop/webappproxy
@@ -84,9 +84,9 @@ services:
     stdin_open: true
     tty: true
     links:
-      - la.hadoop.base
+      - base
 
-  la.hadoop.jobhistory:
+  jobhistory:
     image: la.hadoop.jobhistory
     build:
       context: ./hadoop/jobhistory
@@ -102,11 +102,11 @@ services:
     stdin_open: true
     tty: true
     links:
-      - la.hadoop.base
-      - la.hadoop.namenode
+      - base
+      - namenode
       
 
-  la.hadoop.datanode:
+  datanode:
     image: la.hadoop.datanode
     build:
       context: ./hadoop/datanode
@@ -117,9 +117,9 @@ services:
     stdin_open: true
     tty: true
     links:
-      - la.hadoop.base
+      - base
 
-  la.hadoop.datanode1:
+  datanode1:
     image: la.hadoop.datanode
     command: bash c main
     env_file:
@@ -127,10 +127,10 @@ services:
     stdin_open: true
     tty: true
     links:
-      - la.hadoop.datanode
-      - la.hadoop.namenode
+      - datanode
+      - namenode
 
-  la.hadoop.datanode2:
+  datanode2:
     image: la.hadoop.datanode
     command: bash c main
     env_file:
@@ -138,10 +138,10 @@ services:
     stdin_open: true
     tty: true
     links:
-      - la.hadoop.datanode
-      - la.hadoop.namenode
+      - datanode
+      - namenode
 
-  la.hadoop.datanode3:
+  datanode3:
     image: la.hadoop.datanode
     command: bash c main
     env_file:
@@ -149,8 +149,8 @@ services:
     stdin_open: true
     tty: true
     links:
-      - la.hadoop.datanode
-      - la.hadoop.namenode
+      - datanode
+      - namenode
 
 # volumes:
 #   volume.la.hadoop.namenode:
