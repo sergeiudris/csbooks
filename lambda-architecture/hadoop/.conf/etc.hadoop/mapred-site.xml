@@ -17,12 +17,12 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-  <property>
+  <!-- <property>
     <name>mapreduce.jobhistory.address</name>
-    <value>hdfs://namenode:10020</value>
+    <value>jobhistory:10020</value>
   </property>
    <property>
     <name>mapreduce.jobhistory.webapp.address</name>
     <value>jobhistory:19888</value>
-  </property>
+  </property> -->
 </configuration>
