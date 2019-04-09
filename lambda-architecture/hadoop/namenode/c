@@ -13,7 +13,8 @@ start(){
   #   echo "Formatting namenode name directory: $namedir"
   #   $HADOOP_PREFIX/bin/hdfs --config $HADOOP_CONF_DIR namenode -format $CLUSTER_NAME 
   # fi
-  $HADOOP_HOME/bin/hdfs --daemon start namenode # -bootstrapStandby -nonInteractive
+  # $HADOOP_HOME/bin/hdfs --daemon start namenode -fs hdfs://0.0.0.0:9820 # -bootstrapStandby -nonInteractive
+  $HADOOP_HOME/bin/hdfs --daemon start namenode 
 }
 
 main(){
@@ -24,6 +25,13 @@ main(){
 
 tail_dev_null(){
   tail -f /dev/null
+}
+
+hello(){
+  hadoop fs -mkdir -p /hello
+  hadoop fs -put hello.txt /hello
+  hadoop fs -ls -R /hello
+  hadoop fsck /hello/hello.txt -files -blocks -locations
 }
 
 "$@"
