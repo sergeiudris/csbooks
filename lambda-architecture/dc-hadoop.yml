@@ -24,19 +24,94 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./hadoop/namenode:/opt/code/app
-      # - volume.la.hadoop.namenode: /opt/
-      # - ./hadoop/.volumes/namenode/etc.hadoop:/usr/local/hadoop/etc/hadoop
     # command: bash c init
     command: tail -f /dev/null
     env_file:
       - ./hadoop/.env
-
     stdin_open: true
     tty: true
     links:
       - la.hadoop.base
 
+  la.hadoop.datanode:
+    image: la.hadoop.datanode
+    build:
+      context: ./hadoop/datanode
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./hadoop/datanode:/opt/code/app
+    # command: bash c init
+    command: tail -f /dev/null
+    env_file:
+      - ./hadoop/.env
+    stdin_open: true
+    tty: true
+    links:
+      - la.hadoop.base
 
+  la.hadoop.resourcemanager:
+    image: la.hadoop.resourcemanager
+    build:
+      context: ./hadoop/resourcemanager
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./hadoop/resourcemanager:/opt/code/app
+    # command: bash c init
+    command: tail -f /dev/null
+    env_file:
+      - ./hadoop/.env
+    stdin_open: true
+    tty: true
+    links:
+      - la.hadoop.base
+
+  la.hadoop.nodemanager:
+    image: la.hadoop.nodemanager
+    build:
+      context: ./hadoop/nodemanager
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./hadoop/nodemanager:/opt/code/app
+    # command: bash c init
+    command: tail -f /dev/null
+    env_file:
+      - ./hadoop/.env
+    stdin_open: true
+    tty: true
+    links:
+      - la.hadoop.base
+
+  la.hadoop.webappproxy:
+    image: la.hadoop.webappproxy
+    build:
+      context: ./hadoop/webappproxy
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./hadoop/webappproxy:/opt/code/app
+    # command: bash c init
+    command: tail -f /dev/null
+    env_file:
+      - ./hadoop/.env
+    stdin_open: true
+    tty: true
+    links:
+      - la.hadoop.base
+
+  la.hadoop.jobhistoryserver:
+    image: la.hadoop.jobhistoryserver
+    build:
+      context: ./hadoop/jobhistoryserver
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./hadoop/jobhistoryserver:/opt/code/app
+    # command: bash c init
+    command: tail -f /dev/null
+    env_file:
+      - ./hadoop/.env
+    stdin_open: true
+    tty: true
+    links:
+      - la.hadoop.base
 
 # volumes:
 #   volume.la.hadoop.namenode:
