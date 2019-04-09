@@ -36,8 +36,6 @@ services:
     links:
       - base
 
-
-
   resourcemanager:
     image: la.hadoop.resourcemanager
     build:

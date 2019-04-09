@@ -13,7 +13,7 @@ start_daemon(){
 }
 
 start(){
-  $HADOOP_PREFIX/bin/mapred --config $HADOOP_CONF_DIR historyserver
+  $HADOOP_HOME/bin/mapred --config $HADOOP_CONF_DIR historyserver
 }
 
 
