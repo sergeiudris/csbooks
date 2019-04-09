@@ -4,8 +4,8 @@
 # kill $(lsof -t -i:8080)
 # kill -9
 
-init(){
-  
+main(){
+  $HADOOP_HOME/bin/hdfs --daemon start datanode
 }
 
 

@@ -4,9 +4,12 @@
 # kill $(lsof -t -i:8080)
 # kill -9
 
-init(){
-  
+main(){
+  $HADOOP_HOME/bin/hdfs namenode -format ${CLUSTER_NAME}
 }
 
+tail_dev_null(){
+  tail -f /dev/null
+}
 
 "$@"

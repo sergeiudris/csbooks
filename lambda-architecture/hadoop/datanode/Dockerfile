@@ -5,7 +5,7 @@ FROM la.hadoop.base
 
 WORKDIR ${HADOOP_DIR}
 
-
+COPY ./c ./c
 
 EXPOSE 9870
 EXPOSE 9871

@@ -10,7 +10,7 @@ services:
     # volumes:
     #   - ./hadoop/.volumes/etc.hadoop:/usr/local/hadoop/etc/hadoop
     # command: bash c init
-    command: tail -f /dev/null
+    command: bash c tail_dev_null
     env_file:
       - ./hadoop/.conf/.env
     stdin_open: true
@@ -24,8 +24,10 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./hadoop/namenode:/opt/code/app
-    # command: bash c init
-    command: tail -f /dev/null
+    ports:
+      - "19870:9870"
+      - "18020:9020"
+    command: bash c main
     env_file:
       - ./hadoop/.conf/.env
     stdin_open: true
@@ -33,21 +35,7 @@ services:
     links:
       - la.hadoop.base
 
-  la.hadoop.datanode:
-    image: la.hadoop.datanode
-    build:
-      context: ./hadoop/datanode
-      dockerfile: ./Dockerfile
-    volumes:
-      - ./hadoop/datanode:/opt/code/app
-    # command: bash c init
-    command: tail -f /dev/null
-    env_file:
-      - ./hadoop/.conf/.env
-    stdin_open: true
-    tty: true
-    links:
-      - la.hadoop.base
+
 
   la.hadoop.resourcemanager:
     image: la.hadoop.resourcemanager
@@ -56,14 +44,14 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./hadoop/resourcemanager:/opt/code/app
-    # command: bash c init
-    command: tail -f /dev/null
+    command: bash c main
     env_file:
       - ./hadoop/.conf/.env
     stdin_open: true
     tty: true
     links:
       - la.hadoop.base
+      - la.hadoop.namenode
 
   la.hadoop.nodemanager:
     image: la.hadoop.nodemanager
@@ -97,21 +85,71 @@ services:
     links:
       - la.hadoop.base
 
-  la.hadoop.jobhistoryserver:
-    image: la.hadoop.jobhistoryserver
+  la.hadoop.jobhistory:
+    image: la.hadoop.jobhistory
     build:
-      context: ./hadoop/jobhistoryserver
+      context: ./hadoop/jobhistory
       dockerfile: ./Dockerfile
     volumes:
-      - ./hadoop/jobhistoryserver:/opt/code/app
+      - ./hadoop/jobhistory:/opt/code/app
     # command: bash c init
     command: tail -f /dev/null
+    env_file:
+      - ./hadoop/.conf/.env
+    ports:
+      - "18188:8188"
+    stdin_open: true
+    tty: true
+    links:
+      - la.hadoop.base
+      - la.hadoop.namenode
+      
+
+  la.hadoop.datanode:
+    image: la.hadoop.datanode
+    build:
+      context: ./hadoop/datanode
+      dockerfile: ./Dockerfile
+    command: bash c tail_dev_null
     env_file:
       - ./hadoop/.conf/.env
     stdin_open: true
     tty: true
     links:
       - la.hadoop.base
+
+  la.hadoop.datanode1:
+    image: la.hadoop.datanode
+    command: bash c main
+    env_file:
+      - ./hadoop/.conf/.env
+    stdin_open: true
+    tty: true
+    links:
+      - la.hadoop.datanode
+      - la.hadoop.namenode
+
+  la.hadoop.datanode2:
+    image: la.hadoop.datanode
+    command: bash c main
+    env_file:
+      - ./hadoop/.conf/.env
+    stdin_open: true
+    tty: true
+    links:
+      - la.hadoop.datanode
+      - la.hadoop.namenode
+
+  la.hadoop.datanode3:
+    image: la.hadoop.datanode
+    command: bash c main
+    env_file:
+      - ./hadoop/.conf/.env
+    stdin_open: true
+    tty: true
+    links:
+      - la.hadoop.datanode
+      - la.hadoop.namenode
 
 # volumes:
 #   volume.la.hadoop.namenode:
