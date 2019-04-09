@@ -33,6 +33,7 @@ RUN wget http://www-us.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/ha
     tar -xzvf hadoop-${HADOOP_VERSION}.tar.gz && \
     sudo mv hadoop-${HADOOP_VERSION} ${HADOOP_DIR}
 
+COPY etc/hadoop/* ${HADOOP_DIR}/etc/hadoop
 
 
 

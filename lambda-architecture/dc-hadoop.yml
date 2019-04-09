@@ -21,10 +21,55 @@ services:
       context: ./hadoop/namenode
       dockerfile: ./Dockerfile
     volumes:
-      - ./hadoop/.volumes/namenode/etc.hadoop:/usr/local/hadoop/etc/hadoop
+      - ./hadoop/namenode:/opt/code/app
+      # - volume.la.hadoop.namenode: /opt/
+      # - ./hadoop/.volumes/namenode/etc.hadoop:/usr/local/hadoop/etc/hadoop
     # command: bash c init
     command: tail -f /dev/null
     stdin_open: true
     tty: true
     links:
       - la.hadoop.base
+
+
+      
+# volumes:
+#   volume.la.hadoop.namenode:
+#       external:
+#         name: volume.la.hadoop.namenode
+
+# https://docs.docker.com/compose/compose-file/#long-syntax-3
+# https://docs.docker.com/storage/bind-mounts/#configure-bind-propagation
+
+  # la.hadoop.namenode:
+  #   image: la.hadoop.namenode
+  #   build:
+  #     context: ./hadoop/namenode
+  #     dockerfile: ./Dockerfile
+  #   # volumes:
+  #     # - type: bind
+  #     #   source: ./hadoop/.volumes/namenode/etc.hadoop
+  #     #   target: /usr/local/hadoop/etc/hadoop
+  #     #   read_only: false
+  #     #   # bind:
+  #     #   #   propagation: rshared
+  #     #   volume:
+  #     #     nocopy: true
+        
+  #     # - ./hadoop/.volumes/namenode/etc.hadoop:/usr/local/hadoop/etc/hadoop
+  #   # command: bash c init
+  #   command: tail -f /dev/null
+  #   stdin_open: true
+  #   tty: true
+  #   links:
+  #     - la.hadoop.base
+
+# volumes:
+#   volume.la.hadoop.namenode:
+#     driver: local
+#     source: /tmp/volume
+#     driver_opts:
+#       type: volume
+      # o: 'bind'
+      # mountpoint: /tmp/volume/la.hadoop.namenode
+      # device: '/tmp/volumes/la.hadoop.namenode'
