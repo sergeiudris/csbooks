@@ -1,5 +1,8 @@
 #!/bin/bash
 
 
+tail_dev_null(){
+  tail -f /dev/null
+}
 
 "$@"
