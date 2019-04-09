@@ -11,6 +11,8 @@ services:
     #   - ./hadoop/.volumes/etc.hadoop:/usr/local/hadoop/etc/hadoop
     # command: bash c init
     command: tail -f /dev/null
+    env_file:
+      - ./hadoop/.env
     stdin_open: true
     tty: true
 
@@ -26,13 +28,16 @@ services:
       # - ./hadoop/.volumes/namenode/etc.hadoop:/usr/local/hadoop/etc/hadoop
     # command: bash c init
     command: tail -f /dev/null
+    env_file:
+      - ./hadoop/.env
+
     stdin_open: true
     tty: true
     links:
       - la.hadoop.base
 
 
-      
+
 # volumes:
 #   volume.la.hadoop.namenode:
 #       external:
