@@ -48,7 +48,7 @@ services:
     tty: true
     links:
       - cljbase
-      - namenode
+      - la.hadoop.namenode
 
   app_hdfs:
     image: la.app_hdfs
@@ -67,7 +67,7 @@ services:
     tty: true
     links:
       - cljbase
-      - namenode
+      - la.hadoop.namenode
 
   app_cascalog:
     image: la.app_cascalog
@@ -86,4 +86,4 @@ services:
     tty: true
     links:
       - cljbase
-      - namenode
+      - la.hadoop.namenode
