@@ -22,6 +22,8 @@
   (def hdfsuri "hdfs://namenode:9820")
   (def hdfsuri-file01 "hdfs://namenode:9820/user/joe/wordcount/input/file01")
   (def hdfsuri-file03 "hdfs://namenode:9820user/joe/wordcount/input/file03")
+  (def hdfsuri-hello "hdfs://namenode:9820/hello/hello.txt")
+  
   
   ; hadoop fs -cat hdfs://localhost:8020/user/joe/wordcount/input/file01
   (defn hadoop-conf
@@ -63,7 +65,7 @@
       )
     )
   
-  (read-file hdfsuri-file01)
+  (read-file hdfsuri-hello)
   
   (defn write-file
     [path content]

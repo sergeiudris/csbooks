@@ -21,8 +21,8 @@
                  [io.pedestal/pedestal.service       "0.5.5"]
                  [io.pedestal/pedestal.jetty         "0.5.5"]
 
-                 [org.apache.hadoop/hadoop-client "2.7.1"]
-                 [org.apache.hadoop/hadoop-hdfs "2.7.1"]
+                 [org.apache.hadoop/hadoop-client "3.1.2"]
+                 [org.apache.hadoop/hadoop-hdfs "3.1.2" :exclusions [org.eclipse.jetty/jetty-util]]
                  [commons-io/commons-io "2.5"]
                 ;  [commons-fileupload/commons-fileupload "1.3"]
                 ;  [org.apache.commons/commons-fileupload "1.4"]

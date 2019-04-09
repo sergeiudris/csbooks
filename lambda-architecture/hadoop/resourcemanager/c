@@ -5,7 +5,16 @@
 # kill -9
 
 main(){
-   $HADOOP_HOME/bin/yarn --daemon start resourcemanager
+  start
+  tail_dev_null
+}
+start(){
+  # hdfs datanode -h
+ $HADOOP_HOME/bin/yarn --daemon start resourcemanager
+}
+
+tail_dev_null(){
+  tail -f /dev/null
 }
 
 

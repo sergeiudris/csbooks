@@ -93,12 +93,12 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./hadoop/jobhistory:/opt/code/app
-    # command: bash c init
-    command: tail -f /dev/null
+    command: bash c main
+    # command: tail -f /dev/null
     env_file:
       - ./hadoop/.conf/.env
     ports:
-      - "18188:8188"
+      - "18188:19888"
     stdin_open: true
     tty: true
     links:
