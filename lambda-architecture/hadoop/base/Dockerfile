@@ -28,6 +28,7 @@ ENV JAVA_HOME  /usr/java/default/
 ENV USER=root
 ENV HADOOP_HOME=/usr/local/hadoop
 ENV PATH $HADOOP_HOME/bin/:$PATH
+ENV PATH $JAVA_HOME/bin/:$PATH
 
 #hadoop
 

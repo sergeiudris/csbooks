@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# export $(grep -v '^#' /opt/.env | xargs)
+
 repl(){
   # lein repl :headless :host 0.0.0.0 :port 35543
   lein repl :start :host 0.0.0.0 :port 35543
@@ -41,6 +43,17 @@ uberjar(){
 
 uberwar(){
   lein ring uberwar
+}
+
+
+set_env(){
+  # export $(cat .env | xargs) && rails c
+  export $(grep -v '^#' /opt/.env | xargs)
+
+}
+
+unset_env(){
+  unset $(grep -v '^#' .env | sed -E 's/(.*)=.*/\1/' | xargs)
 }
 
 "$@"

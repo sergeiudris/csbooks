@@ -19,8 +19,8 @@ services:
     volumes:
       - ./apps/cljbase:/opt/code/app
     build:
-      context: ./apps/cljbase
-      dockerfile: ./Dockerfile
+      context: ./
+      dockerfile: ./apps/cljbase/Dockerfile
     command: tail -f /dev/null
     # command: bash c nrepl_clj
     # environment:
@@ -45,8 +45,6 @@ services:
       - 12080:8080
     command: bash c main
     # command:  tail -f /dev/null
-    env_file:
-      - ./hadoop/.conf/.env
     stdin_open: true
     tty: true
     links:
@@ -66,8 +64,6 @@ services:
       # - 11488:7888
       - 12081:8080
     command: bash c main
-    env_file:
-      - ./hadoop/.conf/.env
     stdin_open: true
     tty: true
     links:
@@ -87,8 +83,6 @@ services:
       # - 11488:7888
       - 12082:8080
     command: bash c main
-    env_file:
-      - ./hadoop/.conf/.env
     stdin_open: true
     tty: true
     links:

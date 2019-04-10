@@ -22,4 +22,10 @@ pull(){
   docker pull $REGISTRY_HOST/$1
 }
 
+
+dev(){
+  lein run-dev
+}
+
+
 "$@"

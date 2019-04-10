@@ -9,7 +9,7 @@ services:
       dockerfile: ./base/Dockerfile
     command: tail -f /dev/null
     env_file:
-      - ./hadoop/.conf/.env
+      - ./.env
     stdin_open: true
     tty: true
 
@@ -27,7 +27,7 @@ services:
     command: bash c main
     # command: bash c tail_dev_null
     env_file:
-      - ./hadoop/.conf/.env
+      - ./.env
     stdin_open: true
     tty: true
     links:
@@ -44,7 +44,7 @@ services:
       - 18088:8088
     command: bash c main
     env_file:
-      - ./hadoop/.conf/.env
+      - ./.env
     stdin_open: true
     tty: true
     links:
@@ -62,10 +62,13 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./hadoop/nodemanager:/opt/code/app
+      - ./apps/app_cascalog:/opt/code/app_cascalog
+    ports:
+      - 12555:35543
     command: bash c main
     # command: tail -f /dev/null
     env_file:
-      - ./hadoop/.conf/.env
+      - ./.env
     privileged: true
     stdin_open: true
     tty: true
@@ -83,7 +86,7 @@ services:
     # command: bash c init
     command: tail -f /dev/null
     env_file:
-      - ./hadoop/.conf/.env
+      - ./.env
     stdin_open: true
     tty: true
     links:
@@ -99,7 +102,7 @@ services:
     command: bash c main
     # command: tail -f /dev/null
     env_file:
-      - ./hadoop/.conf/.env
+      - ./.env
     ports:
       - "18188:19888"
     stdin_open: true
@@ -130,7 +133,7 @@ services:
       dockerfile: ./Dockerfile
     command: bash c tail_dev_null
     env_file:
-      - ./hadoop/.conf/.env
+      - ./.env
     stdin_open: true
     tty: true
     links:
@@ -140,7 +143,7 @@ services:
     image: la.hadoop.datanode
     command: bash c main
     env_file:
-      - ./hadoop/.conf/.env
+      - ./.env
     stdin_open: true
     tty: true
     links:
@@ -151,7 +154,7 @@ services:
     image: la.hadoop.datanode
     command: bash c main
     env_file:
-      - ./hadoop/.conf/.env
+      - ./.env
     stdin_open: true
     tty: true
     links:
@@ -162,7 +165,7 @@ services:
     image: la.hadoop.datanode
     command: bash c main
     env_file:
-      - ./hadoop/.conf/.env
+      - ./.env
     stdin_open: true
     tty: true
     links:

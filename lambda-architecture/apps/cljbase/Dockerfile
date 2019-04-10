@@ -48,6 +48,7 @@ RUN mkdir -p /opt/code/app
 RUN mkdir -p /root/.m2
 WORKDIR /opt/code/app
 
+# COPY ./.env /opt/
 # ADD ./.m2/settings.xml /root/.m2/
 
 EXPOSE 35543
