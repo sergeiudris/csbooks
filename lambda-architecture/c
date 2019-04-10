@@ -75,6 +75,13 @@ larm(){
   la rm "$@"
 }
 
+push(){
+  # http://localhost:5000/v2/_catalog
+  REGISTRY_HOST=localhost:5000
+  echo $REGISTRY_HOST/$1
+  docker image tag $1 $REGISTRY_HOST/$1
+  docker push $REGISTRY_HOST/$1
+}
 
 
 "$@"

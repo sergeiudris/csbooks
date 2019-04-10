@@ -8,10 +8,9 @@
   (:import 
    (com.backtype.hadoop.pail Pail PailStructure SequenceFileFormat PailSpec)
    (app.java Login LoginPailStructure PartitionedLoginPailStructure)
-   (app.java.tap ThriftPailStructure)
    
    (org.apache.hadoop.conf Configuration)
-   (manning.tap SplitDataPailStructure)
+   (manning.tap SplitDataPailStructure ThriftPailStructure)
    (org.apache.hadoop.hdfs DistributedFileSystem)
    (java.net URI)
    (java.util HashMap)

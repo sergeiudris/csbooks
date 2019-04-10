@@ -24,11 +24,13 @@ RUN  apt-get update -qq && apt-get install -qqy \
 #     usermod -aG docker $USER 
 
 RUN curl -sSL https://get.docker.com/ | sh
-
 ADD ./wrapdocker /usr/local/bin/wrapdocker
 RUN chmod +x /usr/local/bin/wrapdocker
 
 VOLUME /var/lib/docker
+
+ADD ./daemon.json /etc/docker/daemon.json
+
 
 # CMD ["wrapdocker"]
 

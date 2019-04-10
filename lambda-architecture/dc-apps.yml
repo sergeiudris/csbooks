@@ -9,7 +9,7 @@ services:
   #     dockerfile: ./Dockerfile
   #   volumes:
   #     - hadoop:/var/hadoop
-  #   # command: bash c init
+  #   # command: bash c main
   #   command: tail -f /dev/null
   #   stdin_open: true
   #   tty: true
@@ -43,7 +43,8 @@ services:
       - 12543:35543
       # - 11488:7888
       - 12080:8080
-    command: bash c init
+    command: bash c main
+    # command:  tail -f /dev/null
     stdin_open: true
     tty: true
     links:
@@ -62,7 +63,7 @@ services:
       - 12544:35543
       # - 11488:7888
       - 12081:8080
-    command: bash c init
+    command: bash c main
     stdin_open: true
     tty: true
     links:
@@ -81,7 +82,7 @@ services:
       - 12545:35543
       # - 11488:7888
       - 12082:8080
-    command: bash c init
+    command: bash c main
     stdin_open: true
     tty: true
     links:

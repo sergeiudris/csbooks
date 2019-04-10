@@ -29,7 +29,7 @@ test_refresh(){
   lein test-refresh
 }
 
-init(){
+main(){
   #  repl_headless
   lein run-dev
 }
