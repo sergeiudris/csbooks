@@ -17,17 +17,17 @@
             [lein-ancient "0.6.15"]
             [com.jakemccrary/lein-test-refresh "0.12.0"]
             ]
-  :dependencies [
-                 [org.clojure/clojure "1.10.1-beta1"]
+  :dependencies [[org.clojure/clojure "1.10.1-beta1"]
                  [org.clojure/core.async "0.4.490"]
                  [nrepl "0.5.3"]
 
                  [io.pedestal/pedestal.service       "0.5.5"]
                  [io.pedestal/pedestal.jetty         "0.5.5"]
 
-
-                 [cascalog/cascalog-core "3.0.0"]
-                 ]
+                 
+                 [com.twitter/carbonite "1.3.2"]
+                 [com.twitter/maple "0.2.2"]
+                 [cascalog/cascalog-core "3.0.0"]]
   
   :resource-paths ["config", "resources"]
   
