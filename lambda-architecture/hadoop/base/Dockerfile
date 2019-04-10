@@ -43,6 +43,32 @@ COPY .conf/etc.hadoop/* ${HADOOP_HOME}/etc/hadoop/
 # RUN useradd -ms /bin/bash yarn
 
 
+# RUN apt-get update && \
+#     apt-get install -y openjdk-11-jdk
+
+RUN curl -O https://download.clojure.org/install/linux-install-1.10.0.442.sh && \
+    chmod +x linux-install-1.10.0.442.sh && \
+    sudo ./linux-install-1.10.0.442.sh
+
+WORKDIR /tmp
+
+ENV LEIN_VERSION=2.8.3
+ENV LEIN_INSTALL=/usr/local/bin/
+
+# Download the whole repo as an archive
+RUN mkdir -p $LEIN_INSTALL \
+  && wget -q https://raw.githubusercontent.com/technomancy/leiningen/$LEIN_VERSION/bin/lein-pkg \
+  # && echo "Comparing lein-pkg checksum ..." \
+  # && echo "019faa5f91a463bf9742c3634ee32fb3db8c47f0 *lein-pkg" | sha1sum -c - \
+  && mv lein-pkg $LEIN_INSTALL/lein \
+  && chmod 0755 $LEIN_INSTALL/lein \
+  && wget -q https://github.com/technomancy/leiningen/releases/download/$LEIN_VERSION/leiningen-$LEIN_VERSION-standalone.zip \
+  && wget -q https://github.com/technomancy/leiningen/releases/download/$LEIN_VERSION/leiningen-$LEIN_VERSION-standalone.zip.asc \
+  && rm leiningen-$LEIN_VERSION-standalone.zip.asc \
+  && mkdir -p /usr/share/java \
+  && mv leiningen-$LEIN_VERSION-standalone.zip /usr/share/java/leiningen-$LEIN_VERSION-standalone.jar
+
+
 WORKDIR /opt/code/app
 
 
