@@ -5,6 +5,7 @@
 # kill -9
 
 main(){
+  wrapdocker
   start
 }
 start_daemon(){

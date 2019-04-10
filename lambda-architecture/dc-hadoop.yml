@@ -62,10 +62,11 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./hadoop/nodemanager:/opt/code/app
-    # command: bash c init
-    command: tail -f /dev/null
+    command: bash c main
+    # command: tail -f /dev/null
     env_file:
       - ./hadoop/.conf/.env
+    privileged: true
     stdin_open: true
     tty: true
     links:
