@@ -21,9 +21,11 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./hadoop/namenode:/opt/code/app
+      - ./apps/app_cascalog:/opt/code/app_cascalog
     ports:
       - "19870:9870"
       - "9820:9820"
+      - 12556:35543
     command: bash c main
     # command: bash c tail_dev_null
     env_file:
