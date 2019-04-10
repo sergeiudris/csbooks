@@ -16,6 +16,10 @@ start(){
   $HADOOP_HOME/bin/yarn --config $HADOOP_CONF_DIR nodemanager
 }
 
-
+pull(){
+  REGISTRY_HOST=registry:5000
+  echo $REGISTRY_HOST/$1
+  docker pull $REGISTRY_HOST/$1
+}
 
 "$@"
