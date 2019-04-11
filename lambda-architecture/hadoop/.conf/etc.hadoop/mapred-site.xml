@@ -18,14 +18,14 @@
 
 <configuration>
 <!-- THE REASON JOBS ARE NOT DISPLAYED IN TIMELINE JOB HISTORY - local classic yarn -->
-  <property>
+  <!-- <property>
   <name>mapreduce.framework.name</name>
   <value>local</value>
-  </property>
+  </property> -->
 
-<!-- <property>
+<property>
 <name>mapreduce.framework.name</name>
-<value>local</value>
+<value>yarn</value>
 </property>
   <property>
     <name>mapreduce.jobhistory.address</name>
@@ -39,7 +39,7 @@
   <property>
 <name>mapreduce.job.emit-timeline-data</name>
 <value>true</value>
-</property>  -->
+</property> 
 
 
 </configuration>
