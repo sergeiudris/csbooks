@@ -426,4 +426,17 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     can be any type of object. A set of tuples shares a schema that specifies how many fields
     are in each tuple and the name of each field.
 
+    p 118
+
+    A key design decision for JC ascalog was to make all predicates share a common struc-
+    ture. The first argument to a predicate is the predicate operation, and the remaining
+    arguments are parameters for that operation. For function and aggregator predicates,
+    the labels for the outputs are specified using the out method.
+
+    .predicate(new Plus(), 2, "?x").out(6)
+
+    .predicate(new Multiply(), 2, "?a").out("?z") 
+    .predicate(new Multiply(), 3, "?b").out("?z")
+
+
     

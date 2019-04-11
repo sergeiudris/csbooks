@@ -34,6 +34,10 @@
   
   (Examples/wordCount)
   
+  (Examples/lessThanThirtyYearsOld)
+  (Examples/lessThanThirtyYearsOldWithAge)
+  
+  
   (.execute jcascalog.Api)
   
   ;
