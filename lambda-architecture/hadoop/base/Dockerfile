@@ -67,7 +67,7 @@ RUN mkdir -p $LEIN_INSTALL \
   && mkdir -p /usr/share/java \
   && mv leiningen-$LEIN_VERSION-standalone.zip /usr/share/java/leiningen-$LEIN_VERSION-standalone.jar
 
-COPY .conf/etc.hadoop/* ${HADOOP_HOME}/etc/hadoop/
+COPY .conf/etc.hadoop0/* ${HADOOP_HOME}/etc/hadoop/
 
 
 WORKDIR /opt/code/app
