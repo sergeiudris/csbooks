@@ -4,6 +4,7 @@
             [cascalog.logic.ops :as c]
             [cascalog.logic.def :as defc]
             [cascalog.playground :refer :all]
+            [app.playground :as pg]
             [clojure.pprint :refer [print-table] :as pp]
    ;
             )
@@ -24,6 +25,8 @@
   Subquery
   
   jcascalog.Subquery
+  
+  pg/person
   
   (Examples/sentenceUniqueWords)
   

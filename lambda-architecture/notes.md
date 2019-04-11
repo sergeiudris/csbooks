@@ -380,3 +380,50 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     aggregations or aggregations with very few groups. Count-
     ing and summing, two of the most common aggregators,
     can be implemented as combiner aggregators.
+
+    p 114
+
+    Complexity in code arises in two
+    forms: essential complexity that is inherent in the problem to be solved, and accidental
+    complexity that arises solely from the approach to the solution.
+
+    ...
+
+    A common source of complexity in data-processing tools is the use of custom lan-
+    guages. Examples of this include SQL for relational databases or Pig and Hive for
+    Hadoop.
+
+    [bold...]
+
+    ....
+
+    The use of custom languages introduces a language barrier that requires an inter-
+    face to interact with other parts of your code. This interface is a common source of
+    errors and an unavoidable source of complexity.
+
+    Modulariza-
+    tion can become painful—the custom language may support namespaces and func-
+    tions, but ultimately these are not going to be as good as their general-purpose
+    language counterparts.
+
+    if you want to incorporate your own business
+    logic into queries, you must create your own user-defined functions ( UDF s) and regis-
+    ter them with the language.
+
+    Lastly, you have to coordinate switching between your general-purpose language
+    and your data-processing language.
+
+    p 115
+
+    Another common source of accidental complexity can occur when using multiple
+    abstractions in conjunction. It’s important that your abstractions can be composed
+    together to create new and greater abstractions—otherwise you’re unable to reuse
+    code and you keep reinventing the wheel in slightly different ways.
+
+    p 116
+
+    JC ascalog manipulates and transforms tuples—named lists of values where each value
+    can be any type of object. A set of tuples shares a schema that specifies how many fields
+    are in each tuple and the name of each field.
+
+    
