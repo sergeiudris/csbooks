@@ -42,6 +42,7 @@
   </property>
 
   <!-- CAUSES JOBS TO BE STUCK ON ACCEPTED -->
+  <!-- NO IT DOES NOT -->
  <property>
   <description>Indicate to clients whether Timeline service is enabled or not.
   If enabled, the TimelineClient library used by end-users will post entities
