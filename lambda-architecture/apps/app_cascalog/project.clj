@@ -24,10 +24,13 @@
                  [io.pedestal/pedestal.service       "0.5.5"]
                  [io.pedestal/pedestal.jetty         "0.5.5"]
 
-                 
                  [com.twitter/carbonite "1.3.2"]
                  [com.twitter/maple "0.2.2"]
-                 [cascalog/cascalog-core "3.0.0"]]
+                 [com.twitter/chill-hadoop "0.3.5"]
+                 [com.esotericsoftware/kryo "4.0.2"]
+                 [cascalog/cascalog-core "3.0.0"]
+                ;  [cascalog/cascalog-core "2.1.1"]
+                 [org.apache.storm/storm-core "0.9.4" :exclusions [clj-time commons-fileupload]]]
   
   :resource-paths ["config", "resources"]
   
