@@ -17,5 +17,20 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-
+ <!-- <property>
+    <name>dfs.namenode.rpc-address</name>
+    <value>namenode:9820</value>
+  </property> -->
+  <!-- <property>
+    <name>dfs.namenode.rpc-bind-host</name>
+    <value>namenode</value>
+  </property> -->
+    <!-- <property>
+    <name>dfs.namenode.servicerpc-address</name>
+    <value>namenode:9820</value>
+  </property> -->
+      <!-- <property>
+    <name>dfs.namenode.servicerpc-bind-host</name>
+    <value>namenode</value>
+  </property> -->
 </configuration>
