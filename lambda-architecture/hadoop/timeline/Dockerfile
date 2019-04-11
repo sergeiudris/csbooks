@@ -1,0 +1,13 @@
+FROM la.hadoop.base
+
+
+
+
+
+
+EXPOSE 10200
+EXPOSE 8188
+EXPOSE 8190
+
+
+
