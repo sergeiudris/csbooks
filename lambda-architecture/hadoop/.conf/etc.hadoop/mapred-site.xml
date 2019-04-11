@@ -27,11 +27,6 @@
     <value>jobhistory:10020</value>
   </property> -->
 
-  <!-- <property>
-<name>mapreduce.job.emit-timeline-data</name>
-<value>true</value>
-</property> -->
-
    <!-- <property>
     <name>mapreduce.jobhistory.webapp.address</name>
     <value>jobhistory:19888</value>
