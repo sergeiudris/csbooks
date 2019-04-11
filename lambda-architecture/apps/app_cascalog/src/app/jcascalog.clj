@@ -9,9 +9,10 @@
             )
   (:import 
    (jcascalog  Api Option Playground Subquery)
+   
    (jcascalog.op Count  GT LT Multiply)
    (com.twitter.maple.tap StdoutTap)
-   (app.java Split)
+   (app.java Split Examples)
    )
   )
 
@@ -22,6 +23,14 @@
   
   Subquery
   
+  jcascalog.Subquery
+  
+  (Examples/sentenceUniqueWords)
+  
+  (Examples/hello)
+  
+  (Examples/wordCount)
+  
   (.execute jcascalog.Api)
   
   ;
@@ -29,6 +38,9 @@
 
 
 (comment
+  
+  
+  (jcascalog.Subquery. "?word" "?count")
  
   (.execute Api (StdoutTap.)
            (as-> (Subquery. "?word" "?count") v
@@ -38,7 +50,12 @@
              (.predicate v (Count.) "?count")
              )
             )
-  
+      ; public static void wordCount () {Api.execute (new StdoutTap ()
+      ;                                                   new Subquery ("?word", "?count")
+      ;                                                   .predicate (Playground.SENTENCE, "?sentence")
+      ;                                                   .predicate (new Split (), "?sentence") .out ("?word")
+      ;                                                   .predicate (new Count (), "?count"));
+      ;                                  }
   
   ;
   )
