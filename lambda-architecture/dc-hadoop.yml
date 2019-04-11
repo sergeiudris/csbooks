@@ -71,7 +71,7 @@ services:
     # command: tail -f /dev/null
     env_file:
       - ./.env
-    privileged: true
+    # privileged: true
     stdin_open: true
     tty: true
     links:
