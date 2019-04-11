@@ -25,7 +25,8 @@
 
 <property>
 <name>mapreduce.framework.name</name>
-<value>yarn</value>
+<!-- <value>yarn</value> -->
+<value>local</value>
 </property>
   <property>
     <name>mapreduce.jobhistory.address</name>
