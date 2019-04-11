@@ -16,6 +16,7 @@
             [lein-bikeshed "0.2.0"]
             [lein-ancient "0.6.15"]
             [com.jakemccrary/lein-test-refresh "0.12.0"]
+            [lein-auto "0.1.3"]
             ]
   :dependencies [[org.clojure/clojure "1.10.1-beta1"]
                  [org.clojure/core.async "0.4.490"]
@@ -48,5 +49,10 @@
   :main ^{:skip-aot true} app.app
   :jvm-opts ["-Xms768m" "-Xmx768m"]
   :java-source-paths ["src/java", "src/manning"]
+  :auto {"javac" {
+                  ; :file-pattern #"\.(clj|cljs|cljx|cljc|edn)$"
+                  :paths ["src/java"]
+                  :wait-time 200
+                  }}
   ;
   )

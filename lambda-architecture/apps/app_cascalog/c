@@ -33,6 +33,7 @@ test_refresh(){
 
 main(){
   #  repl_headless
+  # lein auto javac &
   lein run-dev
 }
 
