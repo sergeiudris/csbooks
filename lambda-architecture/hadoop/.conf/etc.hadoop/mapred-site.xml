@@ -17,22 +17,29 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
+<!-- THE REASON JOBS ARE NOT DISPLAYED IN TIMELINE JOB HISTORY - local classic yarn -->
+  <property>
+  <name>mapreduce.framework.name</name>
+  <value>local</value>
+  </property>
+
 <!-- <property>
 <name>mapreduce.framework.name</name>
-<value>yarn</value>
+<value>local</value>
 </property>
-
   <property>
     <name>mapreduce.jobhistory.address</name>
     <value>jobhistory:10020</value>
-  </property> -->
+  </property>
 
-   <!-- <property>
+   <property>
     <name>mapreduce.jobhistory.webapp.address</name>
     <value>jobhistory:19888</value>
-  </property> -->
+  </property>
   <property>
 <name>mapreduce.job.emit-timeline-data</name>
 <value>true</value>
-</property> 
+</property>  -->
+
+
 </configuration>
