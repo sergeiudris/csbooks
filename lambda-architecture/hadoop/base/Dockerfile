@@ -37,7 +37,6 @@ RUN wget http://www-us.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/ha
     tar -xzvf hadoop-${HADOOP_VERSION}.tar.gz && \
     sudo mv hadoop-${HADOOP_VERSION} ${HADOOP_HOME}
 
-COPY .conf/etc.hadoop/* ${HADOOP_HOME}/etc/hadoop/
 
 # RUN useradd -ms /bin/bash hdfs
 # RUN useradd -ms /bin/bash yarn
@@ -67,6 +66,8 @@ RUN mkdir -p $LEIN_INSTALL \
   && rm leiningen-$LEIN_VERSION-standalone.zip.asc \
   && mkdir -p /usr/share/java \
   && mv leiningen-$LEIN_VERSION-standalone.zip /usr/share/java/leiningen-$LEIN_VERSION-standalone.jar
+
+COPY .conf/etc.hadoop/* ${HADOOP_HOME}/etc/hadoop/
 
 
 WORKDIR /opt/code/app

@@ -113,6 +113,26 @@ services:
       - base
       - namenode
 
+  timeline:
+    image: la.hadoop.timeline
+    build:
+      context: ./hadoop/timeline
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./hadoop/timeline:/opt/code/app
+    command: bash c main
+    # command: tail -f /dev/null
+    env_file:
+      - ./.env
+    ports:
+      - "18288:8188"
+    stdin_open: true
+    tty: true
+    links:
+      - base
+      - namenode
+
+
   registry:
     image: registry:2
     ports:
