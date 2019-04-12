@@ -18,7 +18,7 @@
             [com.jakemccrary/lein-test-refresh "0.12.0"]
             ]
   :dependencies [
-                 [org.clojure/clojure "1.10.1-beta1"]
+                 [org.clojure/clojure "1.10.1-beta2"]
                  [org.clojure/core.async "0.4.490"]
                  [nrepl "0.5.3"]
                  
