@@ -1,0 +1,9 @@
+#!/bin/bash
+
+
+stop(){
+    docker stop hadoop-master hadoop-slave1  hadoop-slave2
+    docker rm hadoop-master hadoop-slave1  hadoop-slave2
+}
+
+"$@"
