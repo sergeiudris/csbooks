@@ -439,4 +439,9 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     .predicate(new Multiply(), 3, "?b").out("?z")
 
 
-    
+    p 138
+
+    The way you express your computations is crucially important if you want to avoid com-
+    plexity, prevent bugs, and increase productivity. The main techniques for fighting com-
+    plexity are abstraction and composition, and it’s important that your data-processing
+    tool encourage these techniques rather than make them difficult.

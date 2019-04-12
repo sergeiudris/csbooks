@@ -79,6 +79,12 @@
        (< ?a 30)
        (c/count ?count))
 
+  
+;   When executing the
+; aggregator, the
+; output fields imply
+; tuples should be
+; grouped by ?person.
   (?<- (stdout)
        [?person ?count]
        (follows ?person _)
