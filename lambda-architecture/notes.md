@@ -445,3 +445,14 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     plexity, prevent bugs, and increase productivity. The main techniques for fighting com-
     plexity are abstraction and composition, and it’s important that your data-processing
     tool encourage these techniques rather than make them difficult.
+
+    p 147
+
+    Instead, you must
+    take an iterative approach where each step modifies the graph to a state closer to the
+    desired structure shown in figure 8.9. Once you’ve defined the iterative step, you exe-
+    cute it repeatedly until no further progress is made. This is known as reaching a fixed
+    point where the resulting output is the same as the input. When this point is reached,
+    the graph has attained the desired state.
+
+    
