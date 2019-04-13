@@ -83,7 +83,7 @@
 
   <!-- CAUSES JOBS TO BE STUCK ON ACCEPTED -->
   <!-- NO IT DOES NOT -->
- <!-- <property>
+  <property>
   <description>Indicate to clients whether Timeline service is enabled or not.
   If enabled, the TimelineClient library used by end-users will post entities
   and events to the Timeline server.</description>
@@ -127,7 +127,7 @@
   <property>
       <name>yarn.nodemanager.remote-app-log-dir-suffix</name>
       <value>logs</value>
-  </property> -->
+  </property> 
     <!-- 
 
 

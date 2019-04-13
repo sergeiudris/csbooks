@@ -37,10 +37,10 @@
     <name>mapreduce.jobhistory.webapp.address</name>
     <value>jobhistory:19888</value>
   </property>
-  <!-- <property>
+  <property>
 <name>mapreduce.job.emit-timeline-data</name>
 <value>true</value>
-</property>  -->
+</property> 
 
 
     <property>
