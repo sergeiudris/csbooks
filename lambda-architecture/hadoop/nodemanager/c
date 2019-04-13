@@ -31,7 +31,7 @@ dev(){
 
 job(){
   cd ../apps//word-count-example
-  sh c run1
+  sh c job
 }
 
 
