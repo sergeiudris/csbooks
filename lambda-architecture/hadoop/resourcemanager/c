@@ -5,6 +5,7 @@
 # kill -9
 
 main(){
+  # service ssh start &
   start
   # tail_dev_null
 }

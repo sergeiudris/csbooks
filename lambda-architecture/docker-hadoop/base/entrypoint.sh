@@ -56,6 +56,11 @@ if [ "$MULTIHOMED_NETWORK" = "1" ]; then
 
     # MAPRED
     addProperty /etc/hadoop/mapred-site.xml yarn.nodemanager.bind-host 0.0.0.0
+    addProperty /etc/hadoop/mapred-site.xml mapreduce.framework.name yarn
+    addProperty /etc/hadoop/mapred-site.xml mapreduce.job.emit-timeline-data true
+
+
+    
 fi
 
 if [ -n "$GANGLIA_HOST" ]; then
