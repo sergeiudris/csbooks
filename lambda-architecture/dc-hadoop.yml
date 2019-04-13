@@ -21,7 +21,7 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./hadoop/namenode:/opt/code/app
-      - ./apps/app_cascalog:/opt/code/app_cascalog
+      # - ./apps/app_cascalog:/opt/code/app_cascalog/
     ports:
       - "19870:9870"
       - "9820:9820"
@@ -64,7 +64,7 @@ services:
       dockerfile: ./Dockerfile
     volumes:
       - ./hadoop/nodemanager:/opt/code/app
-      - ./apps/app_cascalog:/opt/code/app_cascalog
+      - ./apps:/opt/code/apps
     ports:
       - 12555:35543
     command: bash c main

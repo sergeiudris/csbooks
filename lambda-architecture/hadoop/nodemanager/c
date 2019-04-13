@@ -30,7 +30,7 @@ dev(){
 
 
 job(){
-  cd ../app_cascalog/resources/word-count-example
+  cd ../apps/app_cascalog/resources/word-count-example
   sh c run1
 }
 
