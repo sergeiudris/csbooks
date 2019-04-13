@@ -3,6 +3,7 @@
             [shared.core]
             [app.cascalog]
             [app.jcascalog]
+            [app.wordcount]
             [shared.pedestal.server]))
 
 (defn -main []

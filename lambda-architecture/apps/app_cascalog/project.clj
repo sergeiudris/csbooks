@@ -31,7 +31,12 @@
                  [com.esotericsoftware/kryo "4.0.2"]
                  [cascalog/cascalog-core "3.0.0"]
                 ;  [cascalog/cascalog-core "2.1.1"]
-                 [org.apache.storm/storm-core "0.9.4" :exclusions [clj-time commons-fileupload]]]
+                 [org.apache.storm/storm-core "0.9.4" :exclusions [clj-time commons-fileupload]]
+
+                 [commons-io/commons-io "2.5"]
+                ;  [org.apache.hadoop/hadoop-hdfs "3.1.2"]
+                 [org.apache.hadoop/hadoop-client "3.1.2"]
+                 [org.apache.hadoop/hadoop-hdfs "3.1.2" :exclusions [org.eclipse.jetty/jetty-util]]]
   
   :resource-paths ["config", "resources"]
   
@@ -41,7 +46,7 @@
                  }
   :profiles {:dev {:aliases {"run-dev" ["trampoline" "run" "-m" "app.app/-main"]}
                    :dependencies [
-                                  [org.apache.hadoop/hadoop-core "1.2.1"]
+                                  ; [org.apache.hadoop/hadoop-core "1.2.1"]
                                   ]}
              :uberjar {:aot [app.app]}
              }
