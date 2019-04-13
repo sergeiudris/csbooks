@@ -25,8 +25,8 @@
 
 <property>
 <name>mapreduce.framework.name</name>
-<!-- <value>yarn</value> -->
-<value>local</value>
+<value>yarn</value>
+<!-- <value>local</value> -->
 </property>
   <property>
     <name>mapreduce.jobhistory.address</name>
@@ -37,10 +37,10 @@
     <name>mapreduce.jobhistory.webapp.address</name>
     <value>jobhistory:19888</value>
   </property>
-  <property>
+  <!-- <property>
 <name>mapreduce.job.emit-timeline-data</name>
 <value>true</value>
-</property> 
+</property>  -->
 
 
     <!-- <property>

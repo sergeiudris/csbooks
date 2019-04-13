@@ -24,7 +24,13 @@ start(){
 
 main(){
   format
+  # service ssh start &
   start
+  # tail_dev_null
+  # format
+  # echo 3
+  # bash -c "start"
+
 }  
 
 tail_dev_null(){

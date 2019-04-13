@@ -8,7 +8,7 @@ FROM la.hadoop.base
 COPY ./c ./c
 
 COPY ./etc.hadoop/* ${HADOOP_HOME}/etc/hadoop/
-
+# RUN /usr/local/hadoop/bin/hdfs namenode -format
 
 EXPOSE 9870
 EXPOSE 9871

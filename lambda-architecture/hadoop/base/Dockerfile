@@ -8,7 +8,8 @@ RUN apt-get update && \
                          gpg \
                          rsync \
                          rlwrap \
-                         software-properties-common
+                         software-properties-common \
+                         openssh-server 
 
 # java
 
@@ -27,8 +28,7 @@ ENV HADOOP_VERSION 3.1.2
 ENV JAVA_HOME  /usr/java/default/
 ENV USER=root
 ENV HADOOP_HOME=/usr/local/hadoop
-ENV PATH $HADOOP_HOME/bin/:$PATH
-ENV PATH $JAVA_HOME/bin/:$PATH
+ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$JAVA_HOME/bin
 
 #hadoop
 
@@ -37,7 +37,12 @@ RUN wget http://www-us.apache.org/dist/hadoop/common/hadoop-${HADOOP_VERSION}/ha
     tar -xzvf hadoop-${HADOOP_VERSION}.tar.gz && \
     sudo mv hadoop-${HADOOP_VERSION} ${HADOOP_HOME}
 
+RUN ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
+RUN mkdir -p ~/hdfs/namenode && \ 
+    mkdir -p ~/hdfs/datanode && \
+    mkdir $HADOOP_HOME/logs
 # RUN useradd -ms /bin/bash hdfs
 # RUN useradd -ms /bin/bash yarn
 
@@ -69,6 +74,9 @@ RUN mkdir -p $LEIN_INSTALL \
 
 COPY .conf/etc.hadoop/* ${HADOOP_HOME}/etc/hadoop/
 
+RUN ls ${HADOOP_HOME}/etc/hadoop/
+RUN ls ~/.ssh/
+RUN mv ${HADOOP_HOME}/etc/hadoop/ssh_config ~/.ssh/config
 
 WORKDIR /opt/code/app
 
