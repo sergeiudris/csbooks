@@ -6,7 +6,7 @@
 
 main(){
   # wrapdocker
-  # service ssh start &
+  service ssh start &
   start
 }
 start_daemon(){
