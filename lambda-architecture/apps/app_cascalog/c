@@ -57,4 +57,12 @@ unset_env(){
   unset $(grep -v '^#' .env | sed -E 's/(.*)=.*/\1/' | xargs)
 }
 
+uber(){
+  java -jar target/la.app_cascalog-0.1.0-SNAPSHOT-standalone.jar
+}
+
+uberh(){
+  hadoop jar target/la.app_cascalog-0.1.0-SNAPSHOT-standalone.jar
+}
+
 "$@"
