@@ -83,5 +83,8 @@ push(){
   docker push $REGISTRY_HOST/$1
 }
 
+nmcas(){
+  sh c la exec nodemanager bash -c "bash c appcas; cd ../apps/app_cascalog; bash;"
+}
 
 "$@"

@@ -30,8 +30,13 @@ dev(){
 
 
 job(){
-  cd ../apps//word-count-example
+  cd ../apps/word-count-example
   sh c job
+}
+
+appcas(){
+  cd ../apps/app_cascalog
+  bash c main
 }
 
 
