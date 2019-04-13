@@ -4,7 +4,7 @@
 # kill $(lsof -t -i:8080)
 # kill -9
 main(){
-  # service ssh start &
+  service ssh start &
   start
 }
 start_daemon(){

@@ -24,7 +24,7 @@ start(){
 
 main(){
   format
-  # service ssh start &
+  service ssh start &
   start
   # tail_dev_null
   # format
