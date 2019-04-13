@@ -26,11 +26,11 @@ files(){
 }
 
 wordcount(){
-  hadoop jar wc.jar WordCount /user/joe/wordcount/input /user/joe/wordcount/output3
-  hadoop fs -cat /user/joe/wordcount/output3/part-r-00000
+  hadoop jar wc.jar WordCount /user/joe/wordcount/input /user/joe/wordcount/output10
+  hadoop fs -cat /user/joe/wordcount/output10/part-r-00000
 
-  hadoop jar w2c.jar Word2Count /user/joe/wordcount/input /user/joe/wordcount/output4
-  hadoop fs -cat /user/joe/wordcount/output4/part-r-00000
+  hadoop jar w2c.jar Word2Count /user/joe/wordcount/input /user/joe/wordcount/output11
+  hadoop fs -cat /user/joe/wordcount/output11/part-r-00000
 
 }
 
