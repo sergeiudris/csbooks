@@ -7,7 +7,7 @@
             [app.wordcount]
             [shared.pedestal.server])
   (:import 
-   (app.java WordCount)
+   (jva WordCount)
    )
   )
 
@@ -17,6 +17,6 @@
   )
 
 (defn -main  [& args]
-  (WordCount/main (into-array ["/user/joe/wordcount/input" "/user/joe/wordcount/output102"]))
+  (WordCount/main (into-array ["/user/joe/wordcount/input" (str "/user/joe/wordcount/" (first args) )]))
   )
 

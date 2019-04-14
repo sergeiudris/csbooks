@@ -1,4 +1,4 @@
-package app.java;
+package jva;
 
 import com.twitter.maple.tap.StdoutTap;
 import jcascalog.Api;
@@ -11,7 +11,7 @@ import jcascalog.op.LT;
 import jcascalog.op.Multiply;
 
 
-public class Examples {
+public class Examples1 {
     public static void twentyFiveYearOlds() {
         Api.execute(
           new StdoutTap(),

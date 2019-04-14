@@ -69,7 +69,7 @@ uber(){
 }
 
 uberh(){
-  hadoop jar target/la.app_cascalog-0.1.0-SNAPSHOT-standalone.jar
+  hadoop jar target/la.app_cascalog-0.1.0-SNAPSHOT-standalone.jar "$@"
 }
 
 "$@"

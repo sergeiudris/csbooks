@@ -1,4 +1,4 @@
-package app.java;
+package jva;
 
 import java.io.IOException;
 import java.util.StringTokenizer;

@@ -1,4 +1,4 @@
-package app.java;
+package jva;
 
 import cascading.flow.FlowProcess;
 import cascading.operation.FunctionCall;

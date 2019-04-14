@@ -17,6 +17,7 @@
             [lein-ancient "0.6.15"]
             [com.jakemccrary/lein-test-refresh "0.12.0"]
             [lein-auto "0.1.3"]
+            [lein-virgil "0.1.9"]
             ]
   :dependencies [[org.clojure/clojure "1.10.1-beta2"]
                  [org.clojure/core.async "0.4.490"]
@@ -46,6 +47,7 @@
                  }
   :profiles {:dev {:aliases {"run-dev" ["trampoline" "run" "-m" "app.app/-dev"]}
                    :dependencies [
+                                  [io.pedestal/pedestal.service-tools "0.5.5"]
                                   ; [org.apache.hadoop/hadoop-core "1.2.1"]
                                   ]}
              :uberjar {:aot [app.app]}
@@ -53,11 +55,11 @@
   
   :main ^{:skip-aot true} app.app
   :jvm-opts ["-Xms768m" "-Xmx768m"]
-  :java-source-paths ["src/java", "src/manning"]
-  :auto {"javac" {
-                  ; :file-pattern #"\.(clj|cljs|cljx|cljc|edn)$"
-                  :paths ["src/java"]
-                  :wait-time 200
-                  }}
-  ;
+  :java-source-paths ["src"]
+  ; :auto {"javac" {
+  ;                 ; :file-pattern #"\.(clj|cljs|cljx|cljc|edn)$"
+  ;                 :paths ["src"]
+  ;                 :wait-time 200
+  ;                 }}
+  ; ;
   )
