@@ -1,8 +1,8 @@
-(ns core.pedestal.service-test
+(ns shared.pedestal.service-test
   (:require [clojure.test :refer :all]
             [io.pedestal.test :refer :all]
             [io.pedestal.http :as bootstrap]
-            [core.pedestal.service :as service]))
+            [shared.pedestal.service :as service]))
 
 (def service
   (::bootstrap/service-fn (bootstrap/create-servlet service/service)))

@@ -8,7 +8,7 @@
    ;
             )
   (:import
-   (app.java WordCount)
+   (jva WordCount)
    )
   )
 

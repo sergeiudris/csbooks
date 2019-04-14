@@ -6,6 +6,7 @@
             [cascalog.playground :refer :all]
             [app.playground :as pg]
             [clojure.pprint :refer [print-table] :as pp]
+            [clojure.java.shell :as shell]
    ;
             )
   (:import 
@@ -13,7 +14,9 @@
    
    (jcascalog.op Count  GT LT Multiply)
    (com.twitter.maple.tap StdoutTap)
-   (app.java Split Examples)
+  ;  (app.java Split Examples)
+   (jva Examples Split  Examples1)
+   
    )
   )
 
@@ -30,12 +33,28 @@
   
   (Examples/sentenceUniqueWords)
   
+  (compile 'jva.Examples1)
+  
+  *compile-path*
+  
   (Examples/hello)
   
   (Examples/wordCount)
   
   (Examples/lessThanThirtyYearsOld)
   (Examples/lessThanThirtyYearsOldWithAge)
+  
+  (shell/sh "ls")
+  
+  (shell/sh "pwd")
+  
+  (shell/sh "echo 3")
+  shell/*sh-dir*
+  
+  (shell/with-sh-dir )
+  
+  (shell/sh "lein compile")
+  
   
   
   (.execute jcascalog.Api)
