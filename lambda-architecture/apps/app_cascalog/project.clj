@@ -44,7 +44,7 @@
                  :main app.app
                 ;  :nrepl-middleware [cider.piggieback/wrap-cljs-repl]
                  }
-  :profiles {:dev {:aliases {"run-dev" ["trampoline" "run" "-m" "app.app/-main"]}
+  :profiles {:dev {:aliases {"run-dev" ["trampoline" "run" "-m" "app.app/-dev"]}
                    :dependencies [
                                   ; [org.apache.hadoop/hadoop-core "1.2.1"]
                                   ]}

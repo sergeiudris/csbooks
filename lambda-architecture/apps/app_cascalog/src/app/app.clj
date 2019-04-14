@@ -11,9 +11,12 @@
    )
   )
 
-(defn -main  [& args]
-  ; (WordCount/main (into-array ["/user/joe/wordcount/input" "/user/joe/wordcount/output101"]))
+(defn -dev [& args]
   (shared.nrepl/-main)
   (shared.pedestal.server/run-dev)
+  )
+
+(defn -main  [& args]
+  (WordCount/main (into-array ["/user/joe/wordcount/input" "/user/joe/wordcount/output102"]))
   )
 

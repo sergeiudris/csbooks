@@ -148,8 +148,8 @@ services:
     #   - /path/certs:/certs
     #   - /path/auth:/auth     
 
-  datanode:
-    image: la.hadoop.datanode
+  datanodebase:
+    image: la.hadoop.datanodebase
     build:
       context: ./hadoop/datanode
       dockerfile: ./Dockerfile
@@ -162,36 +162,36 @@ services:
       - base
 
   datanode1:
-    image: la.hadoop.datanode
+    image: la.hadoop.datanodebase
     command: bash c main
     env_file:
       - ./.env
     stdin_open: true
     tty: true
     links:
-      - datanode
+      - datanodebase
       - namenode
 
   datanode2:
-    image: la.hadoop.datanode
+    image: la.hadoop.datanodebase
     command: bash c main
     env_file:
       - ./.env
     stdin_open: true
     tty: true
     links:
-      - datanode
+      - datanodebase
       - namenode
 
   datanode3:
-    image: la.hadoop.datanode
+    image: la.hadoop.datanodebase
     command: bash c main
     env_file:
       - ./.env
     stdin_open: true
     tty: true
     links:
-      - datanode
+      - datanodebase
       - namenode
 
 # volumes:
