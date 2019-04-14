@@ -52,9 +52,9 @@ services:
     links:
       - base
       - namenode
-      - datanode1
-      - datanode2
-      - datanode3
+      # - datanode1
+      # - datanode2
+      # - datanode3
 
 
   nodemanager:
@@ -76,6 +76,8 @@ services:
     tty: true
     links:
       - base
+      - namenode
+      # - resourcemanager
       - registry
 
   webappproxy:
@@ -93,6 +95,7 @@ services:
     tty: true
     links:
       - base
+      - namenode
 
   jobhistory:
     image: la.hadoop.jobhistory
@@ -161,7 +164,7 @@ services:
     links:
       - base
 
-  datanode1:
+  datanode:
     image: la.hadoop.datanodebase
     command: bash c main
     env_file:
@@ -172,27 +175,27 @@ services:
       - datanodebase
       - namenode
 
-  datanode2:
-    image: la.hadoop.datanodebase
-    command: bash c main
-    env_file:
-      - ./.env
-    stdin_open: true
-    tty: true
-    links:
-      - datanodebase
-      - namenode
+  # datanode2:
+  #   image: la.hadoop.datanodebase
+  #   command: bash c main
+  #   env_file:
+  #     - ./.env
+  #   stdin_open: true
+  #   tty: true
+  #   links:
+  #     - datanodebase
+  #     - namenode
 
-  datanode3:
-    image: la.hadoop.datanodebase
-    command: bash c main
-    env_file:
-      - ./.env
-    stdin_open: true
-    tty: true
-    links:
-      - datanodebase
-      - namenode
+  # datanode3:
+  #   image: la.hadoop.datanodebase
+  #   command: bash c main
+  #   env_file:
+  #     - ./.env
+  #   stdin_open: true
+  #   tty: true
+  #   links:
+  #     - datanodebase
+  #     - namenode
 
 # volumes:
 #   volume.la.hadoop.namenode:
