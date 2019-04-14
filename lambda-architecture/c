@@ -86,5 +86,8 @@ push(){
 nmcas(){
   sh c la exec nodemanager bash -c "bash c appcas; cd ../apps/app_cascalog; bash;"
 }
+bsh(){
+  sh c la exec nodemanager bash -c "cd ../apps/batch; bash;"
+}
 
 "$@"
