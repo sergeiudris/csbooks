@@ -40,7 +40,7 @@ dev(){
 main(){
   #  repl_headless
   # lein auto javac &
-  lein run-dev
+  lein run
 }
 
 
