@@ -10,7 +10,7 @@
             
   :min-lein-version "2.0.0"
   
-  :plugins [[cider/cider-nrepl "0.18.0"]
+  :plugins [[cider/cider-nrepl "0.18.0" :exclusions [org.clojure/tools.logging]]
             [lein-cloverage "1.0.6"]
             [lein-kibit "0.1.2"]
             [lein-bikeshed "0.2.0"]
@@ -22,21 +22,21 @@
                  [org.clojure/core.async "0.4.490"]
                  [nrepl "0.5.3"]
 
-                 [io.pedestal/pedestal.service       "0.5.5"]
+                 [io.pedestal/pedestal.service       "0.5.5"  :exclusions [org.slf4j/slf4j-api joda-time org.clojure/core.incubator]]
                  [io.pedestal/pedestal.jetty         "0.5.5"]
 
                  [com.twitter/carbonite "1.3.2"]
                  [com.twitter/maple "0.2.2"]
                  [com.twitter/chill-hadoop "0.3.5"]
                  [com.esotericsoftware/kryo "4.0.2"]
-                 [cascalog/cascalog-core "3.0.0"]
+                 [cascalog/cascalog-core "3.0.0" :exclusions [org.clojure/tools.logging]] 
                 ;  [cascalog/cascalog-core "2.1.1"]
-                 [org.apache.storm/storm-core "0.9.4" :exclusions [clj-time commons-fileupload]]
+                 [org.apache.storm/storm-core "0.9.4" :exclusions [org.slf4j/log4j-over-slf4j clj-time commons-fileupload  clj-time org.slf4j/slf4j-api]]
 
                  [commons-io/commons-io "2.5"]
                 ;  [org.apache.hadoop/hadoop-hdfs "3.1.2"]
-                 [org.apache.hadoop/hadoop-client "3.1.2"]
-                 [org.apache.hadoop/hadoop-hdfs "3.1.2" :exclusions [org.eclipse.jetty/jetty-util]]]
+                 [org.apache.hadoop/hadoop-client "3.1.2" :exclusions [com.google.guava/guava commons-lang org.slf4j/slf4j-log4j12 log4j org.slf4j/slf4j-log4j12 org.slf4j/slf4j-api] ]
+                 [org.apache.hadoop/hadoop-hdfs "3.1.2" :exclusions [org.eclipse.jetty/jetty-util commons-lang log4j]]]
   
   :resource-paths ["config", "resources"]
   
