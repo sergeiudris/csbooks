@@ -6,6 +6,7 @@
             [cascalog.playground :refer :all]
             [clojure.pprint :refer [print-table] :as pp]
             [casc.examples]
+            [casc.jcascalog]
    ;
             ))
 
@@ -15,9 +16,7 @@
   (casc.examples/age-25)
   )
 
-(defn -main  [& args]
-  (WordCount/main (into-array ["/user/joe/wordcount/input"
-                               (str "/user/joe/wordcount/" (first args))])))
+
 
 
 

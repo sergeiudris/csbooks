@@ -5,7 +5,7 @@
             )
   (:import 
    (com.backtype.hadoop.pail Pail PailStructure SequenceFileFormat PailSpec)
-   (sandbox.java Login LoginPailStructure PartitionedLoginPailStructure)
+   (jvm.sandbox Login LoginPailStructure PartitionedLoginPailStructure)
    (java.util HashMap)
    )
   )
@@ -75,7 +75,7 @@
       (.close out)
       ))
   
-  (write-logins "/tmp/mylogins3" {
+  (write-logins "/tmp/mylogins227" {
                                  "alex" 123456789231
                                  "bob"  135123423413
                                  } )
@@ -151,7 +151,7 @@
   
   
   
-  (partition-data "/tmp/partitioned_logins6")
+  (partition-data "/tmp/partitioned_logins6ww")
   
   (read-logins  "/tmp/partitioned_logins6")
   
@@ -168,7 +168,7 @@
       )
     )
   
-  (def compressed (compressed-pail "/tmp/compressed2" ) )
+  (def compressed (compressed-pail "/tmp/compressede2" ) )
   
   
   ;

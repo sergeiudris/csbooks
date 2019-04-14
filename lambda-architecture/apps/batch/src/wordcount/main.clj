@@ -4,7 +4,7 @@
    ;
             )
   (:import
-   (wordcount.java WordCount))
+   (jvm.wordcount WordCount))
   ;
   )
 
