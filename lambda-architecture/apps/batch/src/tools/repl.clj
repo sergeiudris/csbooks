@@ -1,4 +1,4 @@
-(ns shared.repl
+(ns tools.repl
   (:require [clojure.repl :refer :all]
             [clojure.java.javadoc :refer [javadoc]]
             ;

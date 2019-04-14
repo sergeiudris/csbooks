@@ -1,4 +1,4 @@
-(defproject batch "0.1.0-SNAPSHOT"
+(defproject batch "0.1.0"
   :repositories {
                  "conjars"        "https://conjars.org/repo"
                  "clojars"        "https://clojars.org/repo"
@@ -14,7 +14,9 @@
             [com.jakemccrary/lein-test-refresh "0.12.0"]
             [lein-auto "0.1.3"]
             [lein-virgil "0.1.9"]]
-  :dependencies [[org.clojure/clojure "1.10.1-beta2"]
+  :dependencies [
+                 ;; casaclog
+                 [org.clojure/clojure "1.10.1-beta2"]
                  [org.clojure/core.async "0.4.490"]
                  [nrepl "0.5.3"]
 
@@ -32,21 +34,33 @@
                  [commons-io/commons-io "2.5"]
                 ;  [org.apache.hadoop/hadoop-hdfs "3.1.2"]
                  [org.apache.hadoop/hadoop-client "3.1.2" :exclusions [com.google.guava/guava commons-lang org.slf4j/slf4j-log4j12 log4j org.slf4j/slf4j-log4j12 org.slf4j/slf4j-api]]
-                 [org.apache.hadoop/hadoop-hdfs "3.1.2" :exclusions [org.eclipse.jetty/jetty-util commons-lang log4j]]]
+                 [org.apache.hadoop/hadoop-hdfs "3.1.2" :exclusions [org.eclipse.jetty/jetty-util commons-lang log4j]]
+                 
+                 ;; pail
+                 
+                 
+                 
+                 
+                 ]
 
-  :resource-paths ["config", "resources"]
+  :resource-paths ["resources"]
 
   :repl-options {:init-ns app.app
                  :main    app.app
                 ;  :nrepl-middleware [cider.piggieback/wrap-cljs-repl]
                  }
-  :profiles {:dev       {:aliases      {"dev" ["trampoline" "run" "-m" "app.app/-dev"]}
-                         :dependencies [
-                                        [io.pedestal/pedestal.service-tools "0.5.5"]
-                                        ]}
+  :profiles {:dev       {:main dev
+                         :aliases      {"dev" ["trampoline" "run" "-m" "dev/-main"]}
+                         :dependencies [[io.pedestal/pedestal.service-tools "0.5.5"]]
+                         }
 
              :wordcount {:main         wordcount.main
                          :uberjar-name "wordcount.jar"
+                         :aot          :all ;[wordcount.main]
+                         }
+
+             :casc   {:main         casc.main
+                         :uberjar-name "casc.jar"
                          :aot          :all ;[wordcount.main]
                          }
              :supweb1   {:main         supweb.main1
@@ -60,13 +74,8 @@
                          }}
   
 
-  :main ^{:skip-aot true} app.app
+  ; :main ^{:skip-aot true} app.app
   :jvm-opts ["-Xms768m" "-Xmx768m"]
   :java-source-paths ["src"]
-  ; :auto {"javac" {
-  ;                 ; :file-pattern #"\.(clj|cljs|cljx|cljc|edn)$"
-  ;                 :paths ["src"]
-  ;                 :wait-time 200
-  ;                 }}
-  ; ;
+ 
   )
