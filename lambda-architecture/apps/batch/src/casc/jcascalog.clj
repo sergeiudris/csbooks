@@ -4,7 +4,6 @@
             [cascalog.logic.ops :as c]
             [cascalog.logic.def :as defc]
             [cascalog.playground :refer :all]
-            [app.playground :as pg]
             [clojure.pprint :refer [print-table] :as pp]
             [clojure.java.shell :as shell]
    ;
@@ -15,7 +14,7 @@
    (jcascalog.op Count  GT LT Multiply)
    (com.twitter.maple.tap StdoutTap)
   ;  (app.java Split Examples)
-   (casc.java Examples Split )
+   (jvm.casc Examples Split )
    
    )
   )

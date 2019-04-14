@@ -17,13 +17,13 @@ test_refresh(){
   lein test-refresh
 }
 
-main(){
+dev(){
   #  repl_headless
   lein dev
 }
 
 uberjar(){
-  lein with-profile wordcount:sandbox uberjar
+  lein with-profile wordcount:sandbox:casc uberjar
 }
 
 
