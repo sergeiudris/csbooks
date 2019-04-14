@@ -13,7 +13,7 @@
             [lein-ancient "0.6.15"]
             [com.jakemccrary/lein-test-refresh "0.12.0"]
             [lein-auto "0.1.3"]
-            [lein-virgil "0.1.9"]
+            ; [lein-virgil "0.1.9"]
             ]
   :dependencies [;; casaclog
                  [org.clojure/clojure "1.10.1-beta2"]
@@ -27,14 +27,28 @@
                  [com.twitter/maple "0.2.2"]
                  [com.twitter/chill-hadoop "0.3.5"]
                  [com.esotericsoftware/kryo "4.0.2"]
-                 [cascalog/cascalog-core "3.0.0" :exclusions [org.clojure/tools.logging]]
+                 [cascalog/cascalog-core "3.0.0" :exclusions 
+                  [org.clojure/tools.logging com.twitter/carbonite
+                   org.clojure/tools.macro
+                   org.clojure/tools.logging ]]
                 ;  [cascalog/cascalog-core "2.1.1"]
-                 [org.apache.storm/storm-core "0.9.4" :exclusions [org.slf4j/log4j-over-slf4j clj-time commons-fileupload  clj-time org.slf4j/slf4j-api]]
+                 [org.apache.storm/storm-core "0.9.4" :exclusions 
+                  [com.twitter/carbonite org.slf4j/log4j-over-slf4j commons-fileupload clj-time org.slf4j/slf4j-api]
+                  ; [org.slf4j/log4j-over-slf4j clj-time commons-fileupload  clj-time org.slf4j/slf4j-api]
+                  ]
 
                  [commons-io/commons-io "2.5"]
                 ;  [org.apache.hadoop/hadoop-hdfs "3.1.2"]
-                 [org.apache.hadoop/hadoop-client "3.1.2" :exclusions [com.google.guava/guava commons-lang org.slf4j/slf4j-log4j12 log4j org.slf4j/slf4j-log4j12 org.slf4j/slf4j-api]]
-                 [org.apache.hadoop/hadoop-hdfs "3.1.2" :exclusions [org.eclipse.jetty/jetty-util commons-lang log4j]]
+                 [org.apache.hadoop/hadoop-client "3.1.2" :exclusions 
+                  [com.google.guava/guava log4j commons-lang org.slf4j/slf4j-log4j12 org.slf4j/slf4j-api
+                   org.apache.zookeeper/zookeeper org.apache.httpcomponents/httpclient
+                   org.apache.httpcomponents/httpcore
+                   ]
+                  ; [com.google.guava/guava commons-lang org.slf4j/slf4j-log4j12 log4j org.slf4j/slf4j-log4j12 org.slf4j/slf4j-api]
+                  ]
+                 [org.apache.hadoop/hadoop-hdfs "3.1.2" :exclusions [org.eclipse.jetty/jetty-util commons-lang log4j
+                                                                     io.netty/netty 
+                                                                     ]]
 
                  ;; pail
                  
@@ -46,15 +60,20 @@
                 ;  [cascalog/cascalog-core "3.0.0"]
                 ;  [backtype/cascading-thrift "0.2.3" :exclusions [org.apache.thrift/libthrift]]
                  [javax.annotation/javax.annotation-api "1.3.2"]
-                 [org.apache.thrift/libthrift "0.9.3"]
+                 [org.apache.thrift/libthrift "0.9.3" :exclusions [org.slf4j/slf4j-api commons-logging]]
                 ;  [org.apache.storm/storm-core "0.9.4" :exclusions [clj-time commons-fileupload]]
                  [com.clearspring.analytics/stream "2.7.0"]
                  [org.apache.zookeeper/zookeeper "3.4.6"]
-                 [org.hectorclient/hector-core "2.0-0"]
-                 [elephantdb/elephantdb-cascalog "0.4.5"]
-                 [org.apache.kafka/kafka_2.9.2 "0.8.1.1"]
-                 [org.apache.storm/storm-kafka "0.9.4"]
-                 [elephantdb/elephantdb-bdb "0.4.5"]
+                 [org.hectorclient/hector-core "2.0-0" :exclusions [org.slf4j/slf4j-api]]
+                 [elephantdb/elephantdb-cascalog "0.4.5" :exclusions [
+                                                                      cascading/cascading-hadoop cascading/cascading-core
+                                                                      org.slf4j/slf4j-api org.clojure/tools.macro]]
+                 [org.apache.kafka/kafka_2.9.2 "0.8.1.1" :exclusions [org.slf4j/slf4j-api]]
+                 [org.apache.storm/storm-kafka "0.9.4" :exclusions [org.slf4j/slf4j-api]]
+                 [elephantdb/elephantdb-bdb "0.4.5" :exclusions [org.clojure/tools.macro
+                                                                 cascading/cascading-hadoop
+                                                                  cascading/cascading-core
+                                                                 org.slf4j/slf4j-api cascading/cascading-hadoop]]
                  
                  ;
                  ]
@@ -67,7 +86,11 @@
                  }
   :profiles {:dev       {:main dev
                          :aliases      {"dev" ["trampoline" "run" "-m" "dev/-main"]}
-                         :dependencies [[io.pedestal/pedestal.service-tools "0.5.5"]]
+                         :dependencies [[io.pedestal/pedestal.service-tools "0.5.5" :exclusions [joda-time
+                                                                                     ch.qos.logback/logback-core
+                                                                                     ch.qos.logback/logback-classic
+                                                                                     org.clojure/core.incubator
+                                                                                     org.slf4j/slf4j-api]]]
                          }
 
              :wordcount {:main         wordcount.main
