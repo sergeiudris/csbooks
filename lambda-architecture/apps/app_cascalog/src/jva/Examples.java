@@ -95,7 +95,7 @@ public class Examples {
     }    
     
     public static String hello(){
-      return "hello!!";
+      return "hello!!!!!!";
     }
 
     public static void sentenceUniqueWords() {

@@ -5,7 +5,7 @@
             )
   (:import 
    (com.backtype.hadoop.pail Pail PailStructure SequenceFileFormat PailSpec)
-   (jvm.sandbox Login LoginPailStructure PartitionedLoginPailStructure)
+   (jva.sandbox Login LoginPailStructure PartitionedLoginPailStructure)
    (java.util HashMap)
    )
   )
@@ -168,7 +168,7 @@
       )
     )
   
-  (def compressed (compressed-pail "/tmp/compressede2" ) )
+  (def compressed (compressed-pail "/tmp/compressedwe2" ) )
   
   
   ;
