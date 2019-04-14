@@ -82,7 +82,7 @@ services:
       - 12545:35543
       # - 11488:7888
       - 12082:8080
-    command: bash c main
+    command: bash c dev
     stdin_open: true
     tty: true
     links:
