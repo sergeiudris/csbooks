@@ -1,4 +1,4 @@
-(ns shared.nrepl
+(ns tools.nrepl
   (:require [nrepl.server :refer [start-server stop-server]]
             [clojure.repl :refer :all]))
 

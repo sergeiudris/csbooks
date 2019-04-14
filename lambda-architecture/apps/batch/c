@@ -1,0 +1,34 @@
+#!/bin/bash
+
+repl(){
+  # lein repl :headless :host 0.0.0.0 :port 35543
+  lein repl :start :host 0.0.0.0 :port 35543
+}
+
+repl_headless(){
+  lein repl :headless :host 0.0.0.0 :port 35543
+}
+
+test(){
+  lein test
+}
+
+test_refresh(){
+  lein test-refresh
+}
+
+main(){
+  #  repl_headless
+  lein dev
+}
+
+uberjar(){
+  lein with-profile wordcount:sandbox uberjar
+}
+
+
+uberwar(){
+  lein ring uberwar
+}
+
+"$@"

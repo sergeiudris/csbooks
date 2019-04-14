@@ -1,4 +1,4 @@
-(ns shared.core
+(ns tools.core
   (:require [clojure.repl :refer :all]
             ;
             ))
