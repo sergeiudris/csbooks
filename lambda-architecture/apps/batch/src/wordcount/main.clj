@@ -4,7 +4,7 @@
    ;
             )
   (:import
-   (jvm.wordcount WordCount))
+   (jva.wordcount WordCount))
   ;
   )
 

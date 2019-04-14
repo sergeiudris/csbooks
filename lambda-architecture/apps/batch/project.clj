@@ -13,7 +13,7 @@
             [lein-ancient "0.6.15"]
             [com.jakemccrary/lein-test-refresh "0.12.0"]
             [lein-auto "0.1.3"]
-            ; [lein-virgil "0.1.9"]
+            [lein-virgil "0.1.9"]
             ]
   :dependencies [;; casaclog
                  [org.clojure/clojure "1.10.1-beta2"]
@@ -52,8 +52,10 @@
 
                  ;; pail
                  
-                 [com.backtype/dfs-datastores "1.3.6"]
-                 [backtype/dfs-datastores-cascading "1.2.0"]
+                 [com.backtype/dfs-datastores "1.3.6"  :exclusions [cascading/cascading-hadoop
+                                                                    cascading/cascading-core]]
+                 [backtype/dfs-datastores-cascading "1.2.0" :exclusions [cascading/cascading-hadoop 
+                                                                         cascading/cascading-core ]]
                 ;  [cascalog/cascalog-core "3.0.0"]
                 ;  [cascading/cascading-hadoop "2.5.5"]
                 ;  [cascalog/cascalog "1.10.0"]
@@ -113,8 +115,8 @@
                          }}
   
 
-  :main ^{:skip-aot true} dev
+  :main ^{:skip-aot false} dev
   :jvm-opts ["-Xms768m" "-Xmx768m"]
-  :java-source-paths ["src/jvm"]
+  :java-source-paths ["src"]
  
   )
