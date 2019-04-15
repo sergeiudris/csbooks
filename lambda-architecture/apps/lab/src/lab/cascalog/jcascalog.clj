@@ -14,7 +14,7 @@
    (jcascalog.op Count  GT LT Multiply)
    (com.twitter.maple.tap StdoutTap)
   ;  (app.java Split Examples)
-   ( lab.cascalog.java Examples Split )
+   ( lab.cascalog Examples Split )
    
    )
   )

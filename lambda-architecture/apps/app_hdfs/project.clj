@@ -10,12 +10,12 @@
             
   :min-lein-version "2.0.0"
   
-  :plugins [[cider/cider-nrepl "0.18.0"]
+  :plugins [[cider/cider-nrepl "0.21.1"]
             [com.jakemccrary/lein-test-refresh "0.12.0"]
             ]
             
   :dependencies [[org.clojure/clojure "1.10.1-beta2"]
-                 [nrepl "0.5.3"]
+                 [nrepl "0.6.0"]
                  [org.clojure/core.async "0.4.490"]
 
                  [io.pedestal/pedestal.service       "0.5.5"]
