@@ -1,4 +1,5 @@
 (ns lab.cascalog.main
+  (:gen-class)
   (:require [clojure.repl :refer :all]
             [cascalog.api :refer :all]
             [cascalog.logic.ops :as c]

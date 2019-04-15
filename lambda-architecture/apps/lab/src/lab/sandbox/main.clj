@@ -1,4 +1,5 @@
 (ns lab.sandbox.main
+  (:gen-class)
   (:require [lab.sandbox.hadoop]
    ))
 

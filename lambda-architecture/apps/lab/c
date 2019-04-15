@@ -23,12 +23,18 @@ dev(){
 }
 
 uberjar(){
-  lein with-profile wordcount:sandbox:casc uberjar
+  # lein with-profile wordcount:sandbox:cascalog uberjar
+  lein with-profile wordcount uberjar
 }
 
 
-uberwar(){
-  lein ring uberwar
+hadjar(){
+  hadoop jar target/$1-standalone.jar  "${@:2}"
 }
+
+jobwc(){
+  hadjar wordcount out11
+}
+
 
 "$@"

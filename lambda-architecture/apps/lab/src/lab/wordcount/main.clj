@@ -1,4 +1,5 @@
 (ns lab.wordcount.main
+  (:gen-class)
   (:require [clojure.repl :refer :all]
             [clojure.pprint :refer [print-table] :as pp]
    ;

@@ -1,1 +1,3 @@
-(ns lab.supweb.main)
+(ns lab.supweb.main
+  (:gen-class)
+  )
