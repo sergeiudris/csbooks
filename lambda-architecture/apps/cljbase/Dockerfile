@@ -18,7 +18,7 @@ RUN curl -O https://download.clojure.org/install/linux-install-1.10.0.442.sh && 
 
 WORKDIR /tmp
 
-ENV LEIN_VERSION=2.8.3
+ENV LEIN_VERSION=2.9.1
 ENV LEIN_INSTALL=/usr/local/bin/
 
 # Download the whole repo as an archive

@@ -5,7 +5,7 @@
    ;
             )
   (:import
-   (lab.wordcount.java WordCount))
+   (lab.wordcount WordCount))
   ;
   )
 

@@ -3,7 +3,7 @@
             [tools.core]
             [tools.pedestal.server]
    
-            [lab.sandbox.main]
+            [lab.pail.main]
             [lab.bigdata.main]
             [lab.supweb.main]
             [lab.cascalog.main]
