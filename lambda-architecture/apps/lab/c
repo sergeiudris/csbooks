@@ -22,11 +22,14 @@ dev(){
   lein dev
 }
 
-uberjar(){
-  # lein with-profile wordcount:sandbox:cascalog uberjar
-  lein with-profile wordcount uberjar
+uberjars(){
+  lein with-profile wordcount:sandbox:cascalog uberjar
+  # lein with-profile wordcount uberjar
 }
-
+jars(){
+  lein with-profile wordcount:sandbox:cascalog jar
+  # lein with-profile wordcount uberjar
+}
 
 hadjar(){
   hadoop jar target/$1-standalone.jar  "${@:2}"

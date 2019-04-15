@@ -122,5 +122,6 @@
   :jvm-opts ["-Xms768m" "-Xmx768m"]
   :javac-opts ["-nowarn "]
   :java-source-paths ["src"]
+  :auto-clean false
  
   )
