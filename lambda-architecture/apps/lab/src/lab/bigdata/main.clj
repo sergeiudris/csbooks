@@ -1,1 +1,4 @@
-(ns lab.bigdata.main)
+(ns lab.bigdata.main
+  (:gen-class)
+  
+  )

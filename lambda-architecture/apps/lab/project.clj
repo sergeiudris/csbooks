@@ -86,37 +86,41 @@
                  :main    dev
                 ;  :nrepl-middleware [cider.piggieback/wrap-cljs-repl]
                  }
-  :profiles {:dev       {:main dev
+  :profiles {:dev       {:main         dev
                          :aliases      {"dev" ["trampoline" "run" "-m" "dev/-main"]}
                          :dependencies [[io.pedestal/pedestal.service-tools "0.5.5" :exclusions [joda-time
-                                                                                     ch.qos.logback/logback-core
-                                                                                     ch.qos.logback/logback-classic
-                                                                                     org.clojure/core.incubator
-                                                                                     org.slf4j/slf4j-api]]]
-                         }
+                                                                                                 ch.qos.logback/logback-core
+                                                                                                 ch.qos.logback/logback-classic
+                                                                                                 org.clojure/core.incubator
+                                                                                                 org.slf4j/slf4j-api]]]}
 
-             :wordcount {:main         wordcount.main
-                         :uberjar-name "wordcount.jar"
-                        ;  :aot          :all ;[wordcount.main]
-                         }
+             :wordcount ^:leaky {:main         lab.wordcount.main
+                                 :uberjar-name "wordcount-standalone.jar"
+                                 :jar-name "wordcount.jar"
+                                 :aot          [lab.wordcount.main]}
 
-             :casc   {:main         casc.main
-                         :uberjar-name "casc.jar"
-                        ;  :aot          :all ;[wordcount.main]
-                         }
-             :supweb1   {:main         supweb.main1
-                         :uberjar-name "supweb1.jar"
-                        ;  :aot          :all ;[wordcount.main]
-                         }
+             :cascalog ^:leaky  {:main         lab.cascalog.main
+                                 :uberjar-name "cascalog-standalone.jar"
+                                 :jar-name "cascalog.jar"
+                                 :aot          [lab.cascalog.main]}
+             :sandbox  ^:leaky {:main         lab.sandbox.main
+                                :uberjar-name "sandbox-standalone.jar"
+                                :jar-name "sandbox.jar"
+                                :aot          [lab.sandbox.main]}
+             :supweb1   {:main         lab.supweb.main1
+                         :uberjar-name "supweb1-standalone.jar"
+                         :jar-name "supweb1.jar"
+                         :aot          [lab.supweb.main1]}
 
-             :supweb2   {:main         supweb.main2
-                         :uberjar-name "supweb2.jar"
-                        ;  :aot          :all ;[wordcount.main]
-                         }}
+             :supweb2   {:main         lab.supweb.main2
+                         :uberjar-name "supweb2-standalone.jar"
+                         :jar-name "supweb2.jar"
+                         :aot          [lab.supweb.main2]}}
   
 
   :main ^{:skip-aot false} dev
   :jvm-opts ["-Xms768m" "-Xmx768m"]
+  :javac-opts ["-nowarn "]
   :java-source-paths ["src"]
  
   )
