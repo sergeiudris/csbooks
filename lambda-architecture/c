@@ -51,28 +51,30 @@ la0(){
   # docker-compose -f docker-hadoop/docker-compose.yml -f apps/docker-compose.yml config | docker-compose -f - up
 }
 
-la(){
+dc(){
   docker-compose -f dc-apps.yml -f dc-hadoop.yml "$@"
   # docker-compose -f docker-hadoop/docker-compose.yml -f apps/docker-compose.yml config | docker-compose -f - up
 }
 
-laup(){
-  la up -d --build --scale datanode=3
+up(){
+  dc up -d --build --scale datanode=3
 }
-ladown(){
-  la down
+down(){
+  dc down
+}
+
+downup(){
+  down
+  up
 }
 
 b(){
-  la exec "$1" bash # "${@:2}"
-}
-labash(){
-  la exec -it "$1" bash "${@:2}"
+  dc exec "$1" bash "${@:2}"
 }
 
-larm(){
-  la stop "$@"
-  la rm "$@"
+dcrm(){
+  dc stop "$@"
+  dc rm "$@"
 }
 
 push(){
@@ -84,10 +86,10 @@ push(){
 }
 
 nmcas(){
-  sh c la exec nodemanager bash -c "bash c appcas; cd ../apps/app_cascalog; bash;"
+  sh c dc exec nodemanager bash -c "bash c appcas; cd ../apps/app_cascalog; bash;"
 }
 labsh(){
-  sh c la exec nodemanager bash -c "cd ../apps/lab; bash;"
+  sh c dc exec nodemanager bash -c "cd ../apps/lab; bash;"
 }
 
 "$@"
