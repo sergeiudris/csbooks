@@ -134,7 +134,7 @@
   :javac-opts ["-nowarn "]
 
   
-  :source-paths ["src"]
+  :source-paths ["src/clojure"]
   :java-source-paths ["src/java"]  ; Java source is stored separately.
   :test-paths ["test"]
   :resource-paths ["resources"]
