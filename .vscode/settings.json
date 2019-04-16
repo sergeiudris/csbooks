@@ -5,5 +5,87 @@
     },
     "editor.tabSize": 2,
     "calva.fmt.allgnMapItems": true,
-    "calva.fmt.newIndentEngine": true
+    "calva.fmt.newIndentEngine": true,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "calva.autoConnect": false,
+    "workbench.sideBar.location": "left",
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
+    "calva.evalOnSave": false,
+    "window.zoomLevel": 0,
+    "files.autoSave": "off",
+    "LineCount.includes": [     
+ 
+        ],    
+
+"LineCount.excludes": [ 
+         "**/.vscode/**",
+        "**/node_modules/**",
+        "**/dist/**",
+        "**/static/**",
+        "**/.git/**",
+        "**/__deprecated/**"
+        ],
+        "editor.suggestSelection": "first",
+        "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+        "java.configuration.checkProjectSettingsExclusions": false,
+        "java.errors.incompleteClasspath.severity": "ignore",
+        "workbench.colorTheme": "One Dark Pro Vivid",
+        "workbench.colorCustomizations": {
+            "[One Dark Pro Vivid]": {
+        },
+        "editor.tokenColorCustomizations": {
+            "[One Dark Pro Vivid]": {
+
+                "functions": "#ef596f",
+                // "variables": "#ef596f"
+                // "functions": "#ef596f",
+                
+                "variables": "#61afef",
+                "textMateRules": [
+                    {
+                        "name": "Variables",
+                        "scope": "variable",
+                        "settings": {
+                          "foreground": "#61afef"
+                        }
+                      },
+                      {
+                        "name": "Clojure globals",
+                        "scope": [
+                          "entity.global.clojure"
+                        ],
+                        "settings": {
+                          "foreground": "#e5c07b"
+                        }
+                      },
+                      {
+                        "name": "Clojure symbols",
+                        "scope": [
+                          "meta.symbol.clojure"
+                        ],
+                        "settings": {
+                        //   "foreground": "#ef596f"
+                          "foreground": "#61afef"
+                        }
+                      },
+                      {
+                        "name": "Clojure constants",
+                        "scope": [
+                          "constant.keyword.clojure"
+                        ],
+                        "settings": {
+                          "foreground": "#2bbac5"
+                        }
+                      },
+                ]
+            }
+        }
 }
+
+
+
+
+
+
