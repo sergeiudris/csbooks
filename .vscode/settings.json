@@ -32,7 +32,10 @@
     "workbench.colorCustomizations": {
         "[One Dark Pro Vivid]": {},
         "[One Dark Pro]": {
-            "sideBar.background": "#282c34"
+            "sideBar.background": "#282c34",
+            // "list.activeSelectionForeground": "#e0e0e0"
+            "list.activeSelectionBackground": "#e0e0e050",
+            "sideBar.foreground" : "#b0bec5"
         }
     },
     "editor.tokenColorCustomizations": {
