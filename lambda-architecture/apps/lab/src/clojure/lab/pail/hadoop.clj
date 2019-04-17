@@ -5,17 +5,39 @@
             )
   (:import 
    (com.backtype.hadoop.pail Pail PailStructure SequenceFileFormat PailSpec)
-   (lab.pail Login LoginPailStructure PartitionedLoginPailStructure)
+  ;  (lab.pail Login LoginPailStructure PartitionedLoginPailStructure)
+   (lab.pail Examples)
    (java.util HashMap)
    )
   )
 
+  
+
+
+
 (comment
   (doc doc)
+  
   (clojure-version)
   (use 'cascalog.api)
   (use 'cascalog.playground)
 
+  
+    ; https://livebook.manning.com/#!/book/big-data/about-this-book/2
+  (defn partition-data
+    [path]
+    (let
+     [pail (Pail/create path (PartitionedLoginPailStructure.))
+      os   (.openWrite pail)]
+      (.writeObject os (Login. "chris" 1352702020))
+      (.writeObject os (Login. "david" 1352788472))
+      (.close os)
+      (prn "done")))
+  (partition-data "/tmp/pw2211")
+  
+  (Examples/partitionData "/tmp/pw221122")
+  
+  
   (def pail (Pail/create "/tmp/mypail"))
   (def os (.openWrite pail))
   (.writeObject os (bytes (byte-array [1 2 3])))
@@ -117,21 +139,7 @@
   
 
   (map #(prn %1) {1 2 2 3}  )
-  
-  
-  ; https://livebook.manning.com/#!/book/big-data/about-this-book/2
-  (defn partition-data
-    [path]
-    (let 
-     [pail (Pail/create path (PartitionedLoginPailStructure.))
-      os (.openWrite pail)
-      ]
-      (.writeObject os (Login. "chris" 1352702020) )
-      (.writeObject os (Login. "david" 1352788472))
-      (.close os)
-      (prn "done")
-      )
-    )
+
   
   (print-table (:member (r/reflect "com.backtype.hadoop.pail.Pail")) )
   
@@ -152,7 +160,6 @@
   
   
   
-  (partition-data "/tmp/partitaiosnseda_lo41g")
   
   (read-logins  "/tmp/partitioned_logins6")
   
