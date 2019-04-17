@@ -96,11 +96,13 @@
             },
             "strings":{
                 // "foreground": "#ffa726",
-                "foreground": "#ef5350",
+                // "foreground": "#ef5350",
+                "foreground": "#4db6ac",
                 // "fontStyle": "italic"
             },
             "functions": {
                 // "foreground": "#ef5350"
+                // "foreground": "#c88719"
                 "foreground": "#c88719"
                 // "foreground": "#ff7043"
             },
@@ -146,7 +148,8 @@
                     "settings": {
                         // "foreground": "#e06c75"
                         // "foreground": "#56b6c2"
-                        "foreground": "#90a4ae"
+                        // "foreground": "#90a4ae",
+                        "foreground": "#b0bec5"
                         
                     }
                 },

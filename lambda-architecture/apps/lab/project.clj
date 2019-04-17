@@ -13,7 +13,7 @@
             [lein-ancient "0.6.15"]
             [com.jakemccrary/lein-test-refresh "0.12.0"]
             ; [lein-auto "0.1.3"]
-            ; [lein-virgil "0.1.9"]
+            [lein-virgil "0.1.9"]
             ]
   :dependencies [;; casaclog
                  [org.clojure/clojure "1.10.1-beta2"]
@@ -98,6 +98,7 @@
                 ;  :nrepl-middleware [cider.piggieback/wrap-cljs-repl]
                  }
   :profiles {:dev       {:main       ^{:skip-aot true}  dev
+                         :aot []
                          :aliases      {"dev" ["trampoline" "run" "-m" "dev/-main"]}
                          :dependencies [[io.pedestal/pedestal.service-tools "0.5.5" :exclusions [joda-time
                                                                                                  ch.qos.logback/logback-core
@@ -108,25 +109,25 @@
              :wordcount ^:leaky {:main         lab.wordcount.main
                                  :uberjar-name "wordcount-standalone.jar"
                                  :jar-name     "wordcount.jar"
-                                 :aot          [lab.wordcount.main]}
+                                 :aot           []}
 
              :cascalog  ^:leaky  {:main         lab.cascalog.main
                                   :uberjar-name "cascalog-standalone.jar"
                                   :jar-name     "cascalog.jar"
-                                  :aot          [lab.cascalog.main]}
+                                  :aot          []}
              :pail   ^:leaky {:main         lab.pail.main
                                  :uberjar-name "pail-standalone.jar"
                                  :jar-name     "pail.jar"
-                                 :aot          [lab.pail.main]}
+                                 :aot          []}
              :supweb1   {:main         lab.supweb.main1
                          :uberjar-name "supweb1-standalone.jar"
                          :jar-name     "supweb1.jar"
-                         :aot          [lab.supweb.main1]}
+                         :aot          []}
 
              :supweb2   {:main         lab.supweb.main2
                          :uberjar-name "supweb2-standalone.jar"
                          :jar-name     "supweb2.jar"
-                         :aot          [lab.supweb.main2]}}
+                         :aot          []}}
 
 
   :main ^{:skip-aot true} dev

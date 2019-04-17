@@ -152,7 +152,7 @@
   
   
   
-  (partition-data "/tmp/partitaioned_lo41gai5ns6waaa1244aa31wa1")
+  (partition-data "/tmp/partitaiosnseda_lo41g")
   
   (read-logins  "/tmp/partitioned_logins6")
   
