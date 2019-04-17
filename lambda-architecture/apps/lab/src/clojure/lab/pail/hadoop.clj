@@ -35,7 +35,7 @@
       (prn "done")))
   (partition-data "/tmp/pw2211")
   
-  (Examples/partitionData "/tmp/pw221122")
+  (Examples/partitionData "/tmp/pwaa32121q1a22")
   
   
   (def pail (Pail/create "/tmp/mypail"))

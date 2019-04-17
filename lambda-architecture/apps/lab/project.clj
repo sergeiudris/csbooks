@@ -97,14 +97,16 @@
                  :main    dev
                 ;  :nrepl-middleware [cider.piggieback/wrap-cljs-repl]
                  }
-  :profiles {:dev       {:main       ^{:skip-aot true}  dev
-                         :aot []
+  :profiles {:dev       {:main       ^:skip-aot  dev
+                         :aot nil
                          :aliases      {"dev" ["trampoline" "run" "-m" "dev/-main"]}
                          :dependencies [[io.pedestal/pedestal.service-tools "0.5.5" :exclusions [joda-time
                                                                                                  ch.qos.logback/logback-core
                                                                                                  ch.qos.logback/logback-classic
                                                                                                  org.clojure/core.incubator
-                                                                                                 org.slf4j/slf4j-api]]]}
+                                                                                                 org.slf4j/slf4j-api]]]
+                         
+                         }
 
              :wordcount ^:leaky {:main         lab.wordcount.main
                                  :uberjar-name "wordcount-standalone.jar"
