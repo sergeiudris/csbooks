@@ -22,6 +22,8 @@
   (use 'cascalog.api)
   (use 'cascalog.playground)
 
+  true
+  
   
     ; https://livebook.manning.com/#!/book/big-data/about-this-book/2
   (defn partition-data
@@ -35,7 +37,7 @@
       (prn "done")))
   (partition-data "/tmp/pw2211")
   
-  (Examples/partitionData "/tmp/pwaa32121q1a22")
+  (Examples/partitionData "/tmp/1pwqsa1a1w3211211q1a22")
   
   
   (def pail (Pail/create "/tmp/mypail"))
@@ -44,11 +46,12 @@
   (.writeObject os (bytes (byte-array [1 2 3 4])))
   (.writeObject os (bytes (byte-array [1 2 3 4 5])))
   (.close os)
+  
 
   (defn simpleIO
     []
     (let
-     [pail (Pail/create "/tmp/mypail2")
+     [pail (Pail/create "/tmp/mypail2" )
       os   (.openWrite pail)]
       (.writeObject os (bytes (byte-array [1 2 3])))
       (.writeObject os (bytes (byte-array [1 2 3 4])))

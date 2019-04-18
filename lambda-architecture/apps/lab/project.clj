@@ -16,7 +16,8 @@
             [lein-virgil "0.1.9"]
             ]
   :dependencies [;; casaclog
-                 [org.clojure/clojure "1.10.1-beta2"]
+                ;  [org.clojure/clojure "1.10.1-beta2"]
+                 [org.clojure/clojure "1.9.0"]
                  [org.clojure/core.async "0.4.490"]
                  [nrepl "0.6.0"]
 
@@ -97,8 +98,8 @@
                  :main    dev
                 ;  :nrepl-middleware [cider.piggieback/wrap-cljs-repl]
                  }
-  :profiles {:dev       {:main       ^:skip-aot  dev
-                         :aot nil
+  :profiles {:dev  {:main        ^{:skip-aot true }  dev
+                         :aot nil ;[dev ]
                          :aliases      {"dev" ["trampoline" "run" "-m" "dev/-main"]}
                          :dependencies [[io.pedestal/pedestal.service-tools "0.5.5" :exclusions [joda-time
                                                                                                  ch.qos.logback/logback-core
