@@ -7,7 +7,7 @@
    )
   (:import 
    (com.backtype.hadoop.pail Pail PailStructure SequenceFileFormat PailSpec)
-   (app.java Login LoginPailStructure PartitionedLoginPailStructure)
+  ;  (app.java Login LoginPailStructure PartitionedLoginPailStructure)
    
    (org.apache.hadoop.conf Configuration)
    (manning.tap SplitDataPailStructure ThriftPailStructure)

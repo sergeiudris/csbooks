@@ -19,6 +19,7 @@ test_refresh(){
 
 dev(){
   #  repl_headless
+  lein clean
   lein dev
 }
 

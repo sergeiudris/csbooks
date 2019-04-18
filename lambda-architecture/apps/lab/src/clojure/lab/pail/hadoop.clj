@@ -5,7 +5,7 @@
             )
   (:import 
    (com.backtype.hadoop.pail Pail PailStructure SequenceFileFormat PailSpec)
-  ;  (lab.pail Login LoginPailStructure PartitionedLoginPailStructure)
+   (lab.pail Login LoginPailStructure PartitionedLoginPailStructure)
    (lab.pail Examples)
    (java.util HashMap)
    )
@@ -35,9 +35,9 @@
       (.writeObject os (Login. "david" 1352788472))
       (.close os)
       (prn "done")))
-  (partition-data "/tmp/pw2211")
+  (partition-data "/tmp/pw2wsw211")
   
-  (Examples/partitionData "/tmp/1pwqsa1a1w3211211qs1a22")
+  (Examples/partitionData "/tmp/1p2d22")
   
   
   (def pail (Pail/create "/tmp/mypail"))
