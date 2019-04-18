@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cd lambda-architecture
+sudo su
+
+
