@@ -30,8 +30,8 @@
     "java.errors.incompleteClasspath.severity": "ignore",
     "workbench.colorTheme": "One Dark Pro",
     "workbench.colorCustomizations": {
-        "[One Dark Pro Vivid]": {},
-        "[One Dark Pro]": {
+        "[-One Dark Pro Vivid]": {},
+        "[-One Dark Pro]": {
             "sideBar.background": "#282c34",
             // "list.activeSelectionForeground": "#e0e0e0"
             "list.activeSelectionBackground": "#e0e0e050",
@@ -39,7 +39,7 @@
         }
     },
     "editor.tokenColorCustomizations": {
-        "[One Dark Pro Vivid]": {
+        "[-One Dark Pro Vivid]": {
             "functions": "#ef596f",
             // "variables": "#ef596f"
             // "functions": "#ef596f",
@@ -87,59 +87,69 @@
             // "functions": "#f9a825",
             // "functions": "#c75b39",
             "keywords": {
-                "foreground": "#03a9f4",
+                "foreground": "#705ce6",
                 // "fontStyle": "italic"
             },
             "comments":{
-                "foreground": "#75a478",
-                // "fontStyle": "italic"
-            },
-            "strings":{
-                // "foreground": "#ffa726",
-                // "foreground": "#ef5350",
-                "foreground": "#4db6ac",
-                // "fontStyle": "italic"
-            },
-            "functions": {
-                // "foreground": "#ef5350"
-                // "foreground": "#c88719"
-                "foreground": "#c88719"
-                // "foreground": "#ff7043"
-            },
-            "numbers": {
-                "foreground": "#66bb6a"
-            },
+                //   "foreground": "#75a478",
+                  "foreground": "#7d6a72"
+                  
+                  // "fontStyle": "italic"
+              },
+              "strings":{
+                  // "foreground": "#ffa726",
+                  // "foreground": "#ef5350",
+                //   "foreground": "#4db6ac",
+                //   "foreground": "#f9ee98",
+                  "foreground": "#98c379"
+                  
+                  // "fontStyle": "italic"
+              },
+              "functions": {
+                  // "foreground": "#ef5350"
+                  // "foreground": "#c88719"
+                //   "foreground": "#c88719"
+                  "foreground": "#ac885b"
+                  
+                  // "foreground": "#ff7043"
+              },
+              "numbers": {
+                //   "foreground": "#0288d1"
+                "foreground": "#81d4fa"
+
+              },
             // "variables": "#ef596f"
             // "functions": "#ef596f",
             // "variables": "#56b6c2",
             "textMateRules": [
                 {
-                    "name": "punctuation.definition",
-                    "scope": "punctuation.definition.string.begin,punctuation.definition.string.end",
+                    "name": "Boolean",
+                    "scope": "none",
                     "settings": {
-                      "foreground": "#98c379"
+                      "foreground": "#0288d1"
                     }
                   },
-                {
-                    "name": "Keywords",
-                    "scope": "keyword",
+                  {
+                    "name": "Constants",
+                    "scope": "constant",
                     "settings": {
-                      "foreground": "#56b6c2"
+                      "foreground": "#0288d1"
                     }
                   },
-                {
-                    "name": "Clojure globals",
-                    "scope": [
-                        "entity.global.clojure"
-                    ],
-                    "settings": {
-                        // "foreground": "#e5c07b"
-                        // "foreground": "#ef5350",
-                        "foreground": "#ef5350",
-                        // "foreground": "#bb4d00",
-                        "fontStyle": "underline"
-                    }
-                },
+                  {
+                      "name": "punctuation.definition",
+                      "scope": "punctuation.definition.string.begin,punctuation.definition.string.end",
+                      "settings": {
+                        "foreground": "#98c379"
+                      }
+                    },
+                  {
+                      "name": "Keywords",
+                      "scope": "keyword",
+                      "settings": {
+                        "foreground": "#cf6a4c"
+                      }
+                    },
                 {
                     "name": "Clojure symbols",
                     "scope": [
@@ -154,6 +164,19 @@
                     }
                 },
                 {
+                    "name": "Clojure globals",
+                    "scope": [
+                        "entity.global.clojure"
+                    ],
+                    "settings": {
+                        // "foreground": "#e5c07b"
+                        // "foreground": "#ef5350",
+                        "foreground": "#d46361",
+                        // "foreground": "#bb4d00",
+                        // "fontStyle": "underline"
+                    }
+                },
+                {
                     "name": "Clojure constants",
                     "scope": [
                         "constant.keyword.clojure"
@@ -162,16 +185,13 @@
                         // "foreground": "#56b6c2"
                         // "foreground": "#e06c75",
                         // "foreground": "#7986cb"
-                        "foreground": "#aed581"
+                        "foreground": "#cf6a4c"
                     }
                 },
                 {
                     "name": "Control flow keywords",
                     "scope": [
-                        "keyword.control",
-                        "keyword.operator.new.cpp",
-                        "keyword.operator.delete.cpp",
-                        "keyword.other.using"
+                        "keyword.control"
                     ],
                     "settings": {
                         "foreground": "#c678dd",
@@ -189,7 +209,7 @@
                 },
             ]
         },
-        "[Default Dark+]": {
+        "[-Default Dark+]": {
             // "functions": "#ff8f00",
             // "functions": "#f9a825",
             // "functions": "#c75b39",
