@@ -173,7 +173,7 @@
                         // "foreground": "#ef5350",
                         "foreground": "#d46361",
                         // "foreground": "#bb4d00",
-                        // "fontStyle": "underline"
+                        "fontStyle": "bold"
                     }
                 },
                 {
