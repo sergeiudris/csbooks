@@ -14,7 +14,7 @@
    (jcascalog.op Count  GT LT Multiply)
    (com.twitter.maple.tap StdoutTap)
   ;  (app.java Split Examples)
-   ( lab.cascalog Examples Split )
+   ( lab.cascalog Examples Split Datum)
    
    )
   )
@@ -37,6 +37,9 @@
   *compile-path*
   
   (Examples/hello)
+  
+  (Examples/tmp (Datum.) )
+  
   
   (Examples/wordCount)
   
