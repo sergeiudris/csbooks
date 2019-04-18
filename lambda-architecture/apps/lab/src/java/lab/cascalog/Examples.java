@@ -10,8 +10,27 @@ import jcascalog.op.GT;
 import jcascalog.op.LT;
 import jcascalog.op.Multiply;
 
+import lab.cascalog.Tmp;
+import lab.cascalog.Datum;;
+
+
+
 
 public class Examples {
+
+    public static String hello(){
+      return "hello!!2!";
+    }
+
+    public static String tmp(Datum datum){
+      Tmp t = new Tmp();
+      t.val = 3;
+
+      return t.getTarget(datum);
+
+    }
+
+
     public static void twentyFiveYearOlds() {
         Api.execute(
           new StdoutTap(),
@@ -94,9 +113,6 @@ public class Examples {
             .predicate(Playground.FOLLOWS, "?person1", "?person2"));
     }    
     
-    public static String hello(){
-      return "hello!!2!";
-    }
 
     public static void sentenceUniqueWords() {
         Api.execute(

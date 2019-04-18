@@ -16,8 +16,8 @@
             [lein-virgil "0.1.9"]
             ]
   :dependencies [;; casaclog
-                ;  [org.clojure/clojure "1.10.1-beta2"]
-                 [org.clojure/clojure "1.9.0"]
+                 [org.clojure/clojure "1.10.1-beta2"]
+                ;  [org.clojure/clojure "1.9.0"]
                  [org.clojure/core.async "0.4.490"]
                  [nrepl "0.6.0"]
 
