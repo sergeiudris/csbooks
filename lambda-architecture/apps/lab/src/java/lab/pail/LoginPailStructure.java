@@ -37,6 +37,8 @@ import javax.annotation.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lab.pail.Login;
+
 public class LoginPailStructure implements PailStructure<Login> {
   public Class getType() {
     return Login.class;
