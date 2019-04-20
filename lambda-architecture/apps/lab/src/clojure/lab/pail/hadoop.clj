@@ -60,7 +60,7 @@
     (refresh-all))
   (lab.cascalog.Examples/hello)
   
-  (Examples/partitionData "/tmp/22223")
+  (Examples/partitionData "/tmp/2e22w232sse")
   
 
 
