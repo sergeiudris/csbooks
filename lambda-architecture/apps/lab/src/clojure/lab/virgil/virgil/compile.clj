@@ -117,6 +117,11 @@
 
 (def ^:dynamic *print-compiled-classes* false)
 
+(defn first->last
+  [m]
+   (assoc (dissoc m (ffirst m)) (ffirst m) (second (first m)))
+  )
+
 (defn compile-java
   [opts diag name->source]
   ; (println "---name->source")
@@ -125,16 +130,24 @@
   (when-not (empty? name->source)
     (let [cl              (clojure.lang.RT/makeClassLoader)
           class->bytecode (source->bytecode opts diag name->source)
-          rank-order      (decompile/rank-order class->bytecode)]
+          rank-order      (decompile/rank-order class->bytecode)
+          ; rank-order2 (conj (first rank-order) (rest rank-order)  )lab.pail.Login
+          ; rank-order2 (-> rank-order first->last (assoc "lab.pail.Login" 3 )  )
+          ; class->bytecode2 (first->last class->bytecode)
+          
+          ]
+
       (println "---class->bytecode")
       (println class->bytecode)
+      (println "---rank-order")
+      (println rank-order)
       (println "---sort-by class->bytecode")
       (println (sort-by #(-> % key rank-order) class->bytecode))
 
+
       (doseq [[class bytecode]
               ; class->bytecode
-              (sort-by #(-> % key rank-order) class->bytecode)
-              ]
+              (sort-by #(-> % key rank-order) class->bytecode)]
         (when *print-compiled-classes*
           (println (str "  " class)))
         (.defineClass ^DynamicClassLoader cl class bytecode nil))
