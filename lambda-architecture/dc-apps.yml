@@ -2,17 +2,6 @@ version: "3.3"
 
 services: 
 
-  # hadoop:
-  #   image: la-hadoop
-  #   build:
-  #     context: ./hadoop
-  #     dockerfile: ./Dockerfile
-  #   volumes:
-  #     - hadoop:/var/hadoop
-  #   # command: bash c main
-  #   command: tail -f /dev/null
-  #   stdin_open: true
-  #   tty: true
 
   cljbase:
     image: la.cljbase
@@ -31,60 +20,79 @@ services:
     #   - base
 
 
-  app:
-    image: la.app
-    volumes:
-      - ./apps/app:/opt/code/app
-      - ./apps/app/.tmp:/tmp
-    build:
-      context: ./apps/app
-      dockerfile: ./Dockerfile
-    ports:
-      - 12543:35543
-      # - 11488:7888
-      - 12080:8080
-    command: bash c main
-    # command:  tail -f /dev/null
-    stdin_open: true
-    tty: true
-    links:
-      - cljbase
-      - namenode
+  # app:
+  #   image: la.app
+  #   volumes:
+  #     - ./apps/app:/opt/code/app
+  #     - ./apps/app/.tmp:/tmp
+  #   build:
+  #     context: ./apps/app
+  #     dockerfile: ./Dockerfile
+  #   ports:
+  #     - 12543:35543
+  #     # - 11488:7888
+  #     - 12080:8080
+  #   command: bash c main
+  #   # command:  tail -f /dev/null
+  #   stdin_open: true
+  #   tty: true
+  #   links:
+  #     - cljbase
+  #     - namenode
 
-  app_hdfs:
-    image: la.app_hdfs
-    volumes:
-      - ./apps/app_hdfs:/opt/code/app
-      - ./apps/app_hdfs/.tmp:/tmp
-    build:
-      context: ./apps/app_hdfs
-      dockerfile: ./Dockerfile
-    ports:
-      - 12544:35543
-      # - 11488:7888
-      - 12081:8080
-    command: bash c main
-    stdin_open: true
-    tty: true
-    links:
-      - cljbase
-      - namenode
+  # app_hdfs:
+  #   image: la.app_hdfs
+  #   volumes:
+  #     - ./apps/app_hdfs:/opt/code/app
+  #     - ./apps/app_hdfs/.tmp:/tmp
+  #   build:
+  #     context: ./apps/app_hdfs
+  #     dockerfile: ./Dockerfile
+  #   ports:
+  #     - 12544:35543
+  #     # - 11488:7888
+  #     - 12081:8080
+  #   command: bash c main
+  #   stdin_open: true
+  #   tty: true
+  #   links:
+  #     - cljbase
+  #     - namenode
 
-  app_cascalog:
-    image: la.app_cascalog
-    volumes:
-      - ./apps/app_cascalog:/opt/code/app
-      - ./apps/app_cascalog/.tmp:/tmp
-    build:
-      context: ./apps/app_cascalog
-      dockerfile: ./Dockerfile
-    ports:
-      - 12545:35543
-      # - 11488:7888
-      - 12082:8080
-    command: bash c dev
-    stdin_open: true
-    tty: true
-    links:
-      - cljbase
-      - namenode
+  # app_cascalog:
+  #   image: la.app_cascalog
+  #   volumes:
+  #     - ./apps/app_cascalog:/opt/code/app
+  #     - ./apps/app_cascalog/.tmp:/tmp
+  #   build:
+  #     context: ./apps/app_cascalog
+  #     dockerfile: ./Dockerfile
+  #   ports:
+  #     - 12545:35543
+  #     # - 11488:7888
+  #     - 12082:8080
+  #   command: bash c dev
+  #   stdin_open: true
+  #   tty: true
+  #   links:
+  #     - cljbase
+  #     - namenode
+
+  # lab:
+  #   image: la.lab
+  #   volumes:
+  #     - ./apps/lab:/opt/code/app
+  #     - ./apps/lab/.tmp:/tmp
+  #   build:
+  #     context: ./apps/lab
+  #     dockerfile: ./Dockerfile
+  #   ports:
+  #     - 12547:35543
+  #     # - 11488:7888
+  #     - 12083:8080
+  #   command: bash c dev
+  #   stdin_open: true
+  #   tty: true
+  #   links:
+  #     - cljbase
+  #     - namenode
