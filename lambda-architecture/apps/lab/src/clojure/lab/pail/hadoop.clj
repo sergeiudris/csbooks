@@ -59,8 +59,10 @@
   (binding [*ns* *ns*]
     (refresh-all))
   (lab.cascalog.Examples/hello)
+  (lab.cascalog.Examples/tmp (lab.cascalog.Login. "aswd" 123) )
   
-  (Examples/partitionData "/tmp/3ssss3sds43")
+  
+  (Examples/partitionData "/tmp/3ssss3sdssss43")
   
   (#{ 2 3 } 2)
   (#{2 3} 4)
