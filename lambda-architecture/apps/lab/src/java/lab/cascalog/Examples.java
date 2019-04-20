@@ -19,7 +19,7 @@ import lab.cascalog.Datum;;
 public class Examples {
 
     public static String hello(){
-      return "hello!!12345!";
+      return "hello!!123456!";
     }
 
     public static String tmp(Datum datum){

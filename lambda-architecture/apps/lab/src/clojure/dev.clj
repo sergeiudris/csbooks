@@ -8,6 +8,8 @@
             [lab.supweb.main]
             [lab.cascalog.main]
             [lab.wordcount.main]
+            [lab.virgil.virgil]
+   
    ;
             )
 
