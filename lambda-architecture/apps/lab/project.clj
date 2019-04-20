@@ -13,13 +13,14 @@
             [lein-ancient "0.6.15"]
             [com.jakemccrary/lein-test-refresh "0.12.0"]
             ; [lein-auto "0.1.3"]
-            [lein-virgil "0.1.9"]
+            ; [lein-virgil "0.1.9"]
             ]
   :dependencies [;; casaclog
                  [org.clojure/clojure "1.10.1-beta2"]
                 ;  [org.clojure/clojure "1.9.0"]
                  [org.clojure/core.async "0.4.490"]
                  [nrepl "0.6.0"]
+                 [virgil "0.1.9"]
 
                  [io.pedestal/pedestal.service       "0.5.5"  
                   ; :exclusions [org.slf4j/slf4j-api joda-time org.clojure/core.incubator]
