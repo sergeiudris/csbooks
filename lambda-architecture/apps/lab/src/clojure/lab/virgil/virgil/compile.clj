@@ -98,6 +98,7 @@
         urls (into-array URL [(io/as-url file)])
         cl (URLClassLoader/newInstance urls)
         compiler-class (Class/forName "com.sun.tools.javac.api.JavacTool" false cl)]
+    ; (println urls)
     (.newInstance compiler-class)))
 
 (defn source->bytecode [opts diag name->source]
@@ -118,12 +119,22 @@
 
 (defn compile-java
   [opts diag name->source]
+  ; (println "---name->source")
+  ; (println name->source)
+  
   (when-not (empty? name->source)
     (let [cl              (clojure.lang.RT/makeClassLoader)
           class->bytecode (source->bytecode opts diag name->source)
           rank-order      (decompile/rank-order class->bytecode)]
+      (println "---class->bytecode")
+      (println class->bytecode)
+      (println "---sort-by class->bytecode")
+      (println (sort-by #(-> % key rank-order) class->bytecode))
 
-      (doseq [[class bytecode] (sort-by #(-> % key rank-order) class->bytecode)]
+      (doseq [[class bytecode]
+              ; class->bytecode
+              (sort-by #(-> % key rank-order) class->bytecode)
+              ]
         (when *print-compiled-classes*
           (println (str "  " class)))
         (.defineClass ^DynamicClassLoader cl class bytecode nil))
@@ -160,4 +171,6 @@
                           (into {}))
         class->bytecode (compile-java nil diag name->source)]
     (print-diagnostics diag)
-    class->bytecode))
+    ; class->bytecode
+    nil
+    ))

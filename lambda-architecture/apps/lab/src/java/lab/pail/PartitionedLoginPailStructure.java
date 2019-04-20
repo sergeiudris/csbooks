@@ -40,6 +40,9 @@ import javax.annotation.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import lab.pail.Login;
+import lab.pail.LoginPailStructure;
+
 public class PartitionedLoginPailStructure extends LoginPailStructure {
   SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 

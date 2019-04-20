@@ -17,6 +17,7 @@
 
 (defn rank-order
   [class->bytecode]
+  ; (println class->bytecode)
   (let [parents        (fn [class]
                          (->> class
                            class->bytecode

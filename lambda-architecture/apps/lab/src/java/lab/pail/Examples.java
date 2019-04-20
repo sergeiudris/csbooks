@@ -4,6 +4,10 @@ import java.io.IOException;
 import com.backtype.hadoop.pail.Pail;
 import com.backtype.hadoop.pail.Pail.TypedRecordOutputStream;
 
+import lab.pail.Login;
+import lab.pail.PartitionedLoginPailStructure;
+
+
 public class Examples {
   public static void partitionData(String path) throws IOException {
     Pail<Login> pail = Pail.create(path, new PartitionedLoginPailStructure());

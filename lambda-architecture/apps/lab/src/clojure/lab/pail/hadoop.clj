@@ -41,14 +41,28 @@
   (virgil.compile/compile-all-java ["src/java/lab"])
 
 
-  (lab.cascalog.Examples/hello)
 
-  
+
+
   (lvc/compile-all-java ["src/java/lab/cascalog"])
 
   (lvc/compile-all-java ["src/java/lab/pail"])
 
   (lvc/compile-all-java ["src/java/lab"])
+
+  (lv/watch "src/java/lab")
+
+  
+  
+  (lab.cascalog.Examples/hello)
+  (lvc/compile-all-java ["src/java/lab/cascalog"])
+  (binding [*ns* *ns*]
+    (refresh-all))
+  (lab.cascalog.Examples/hello)
+  
+  (Examples/partitionData "/tmp/22223")
+  
+
 
 
   (clojure-version)
