@@ -5,8 +5,8 @@ import lab.cascalog.Datum;
 
 public class TmpParent {
 
-  public String getTarget(Datum datum){
-    return datum.name;
+  public String getTarget(Login login){
+    return login.userName;
   }
 
 } 

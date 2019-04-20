@@ -22,11 +22,11 @@ public class Examples {
       return "hello!!12345678!";
     }
 
-    public static String tmp(Datum datum){
+    public static String tmp(Login login){
       Tmp t = new Tmp();
       t.val = 3;
 
-      return t.getTarget(datum);
+      return t.getTarget(login);
 
     }
 

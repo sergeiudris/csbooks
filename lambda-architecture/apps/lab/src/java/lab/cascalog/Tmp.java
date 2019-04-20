@@ -6,8 +6,8 @@ public class Tmp extends TmpParent  {
 
   public Number val;
   
-  public String getTarget(Datum datum){
-    return datum.name + val.toString();
+  public String getTarget(Login login){
+    return login.userName + val.toString();
   }
 
   public Number getVal(){
