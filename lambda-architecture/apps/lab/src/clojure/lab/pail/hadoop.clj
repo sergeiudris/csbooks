@@ -60,8 +60,14 @@
     (refresh-all))
   (lab.cascalog.Examples/hello)
   
-  (Examples/partitionData "/tmp/2e22w232sse")
+  (Examples/partitionData "/tmp/2e22wass23dss2ssasse")
   
+  (#{ 2 3 } 2)
+  (#{2 3} 4)
+  
+  (def m {'a 3 'b 2 'c 4})
+  
+  (assoc (dissoc m (ffirst m) ) (ffirst m) (second (first m))  )
 
 
 
