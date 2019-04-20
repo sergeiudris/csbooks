@@ -4,6 +4,8 @@
             [clojure.pprint :refer [print-table] :as pp]
             [virgil]
             [virgil.compile]
+            [lab.virgil.virgil :as lv]
+            [lab.virgil.virgil.compile :as lvc]
             [clojure.tools.namespace.repl :refer (refresh-all)]
    ;
             )
@@ -24,10 +26,10 @@
   (System/getProperty "java.vm.version")
   (System/getProperty "java.version")
   (System/getProperty "java.specification.version")
-  
-  
-  
-  
+
+
+
+
 
   (virgil/watch "src/java")
   (virgil.compile/compile-all-java ["src/java"])
@@ -36,7 +38,17 @@
 
   (virgil.compile/compile-all-java ["src/java/lab/pail"])
 
+  (virgil.compile/compile-all-java ["src/java/lab"])
 
+
+  (lab.cascalog.Examples/hello)
+
+  
+  (lvc/compile-all-java ["src/java/lab/cascalog"])
+
+  (lvc/compile-all-java ["src/java/lab/pail"])
+
+  (lvc/compile-all-java ["src/java/lab"])
 
 
   (clojure-version)
@@ -58,10 +70,9 @@
       (prn "done")))
   (partition-data "/tmp/pw2wsw211")
 
-  (lab.cascalog.Examples/hello)
 
 
-  (Examples/partitionData "/tmp/1ps2dss3sw2ssw2")
+  (Examples/partitionData "/tmp/1ps2dss3sssw2ssw2")
 
 
 
