@@ -455,4 +455,19 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     point where the resulting output is the same as the input. When this point is reached,
     the graph has attained the desired state.
 
+    p 183
+
+    The normalization versus denormalization decision is ultimately a choice between
+    unacceptable trade-offs. In the relational world, you want to store your data fully nor-
+    malized; this involves defining relationships between independent datasets to mini-
+    mize redundancy. Unfortunately, querying normalized data can be slow, so you may
+    need to store some information redundantly to improve response times. This denor-
+    malization process increases performance, but it comes with the huge complexity of
+    keeping the redundant data consistent.
+    To illustrate this tension, suppose you’re storing user location information in rela-
+    tional tables, as shown in figure 10.6. Each location has an identifier, and each person
+    uses one of those identifiers to indicate their location. A query to retrieve the location
+    for a specific individual requires a join between the two tables. This is an example of a
+    fully normalized schema, as no information is stored redundantly.
+
     
