@@ -27,6 +27,10 @@ uberjars(){
   lein with-profile wordcount:sandbox:cascalog uberjar
   # lein with-profile wordcount uberjar
 }
+supujar(){
+  lein with-profile supweb1 uberjar
+  # lein with-profile wordcount uberjar
+}
 jars(){
   lein with-profile wordcount:sandbox:cascalog jar
   # lein with-profile wordcount uberjar
