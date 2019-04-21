@@ -62,7 +62,7 @@
   (lab.cascalog.Examples/tmp (lab.cascalog.Login. "aswd" 123) )
   
   
-  (Examples/partitionData "/tmp/3ssss3sdssss43")
+  (Examples/partitionData "/tmp/3sssss3sdsssss43")
   
   (#{ 2 3 } 2)
   (#{2 3} 4)
