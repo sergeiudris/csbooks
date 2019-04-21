@@ -64,8 +64,10 @@
                 ;  [cascading/cascading-hadoop "2.5.5"]
                 ;  [cascalog/cascalog "1.10.0"]
                 ;  [cascalog/cascalog-core "3.0.0"]
-                ;  [backtype/cascading-thrift "0.2.3" :exclusions [org.apache.thrift/libthrift]]
+                 [backtype/cascading-thrift "0.2.3" :exclusions [org.apache.thrift/libthrift]]
                  [javax.annotation/javax.annotation-api "1.3.2"]
+                ;  [backtype/cascading-thrift "0.2.5"]
+                ;  [backtype/cascading-thrift "0.1.0"]
                  [org.apache.thrift/libthrift "0.9.3"
                   ; :exclusions [org.slf4j/slf4j-api commons-logging]
                   ]
@@ -125,7 +127,7 @@
                                  :uberjar-name "pail-standalone.jar"
                                  :jar-name     "pail.jar"
                                  :aot          []}
-             :supweb1   {:main         lab.supweb.main1
+             :supweb1   {:main         lab.supweb.main
                          :uberjar-name "supweb1-standalone.jar"
                          :jar-name     "supweb1.jar"
                          :aot          []}
