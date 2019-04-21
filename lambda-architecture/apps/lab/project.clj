@@ -138,7 +138,7 @@
 
   :main ^{:skip-aot true} dev
   :jvm-opts ["-Xms768m" "-Xmx768m"]
-  :javac-opts ["-nowarn "]
+  :javac-opts ["-target" "1.8" "-source" "1.8"]
 
   
   :source-paths ["src/clojure"]
