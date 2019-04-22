@@ -470,4 +470,57 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     for a specific individual requires a join between the two tables. This is an example of a
     fully normalized schema, as no information is stored redundantly.
 
-    
+    p 209
+
+    The basic objective of the speed layer is the same as for the batch and serving layers: to
+    produce views that can be efficiently queried. The key differences are that the views
+    only represent recent data and that they must be updated very shortly after new data
+    arrives. What “very shortly” means varies per application, but it typically ranges from a
+    few milliseconds to a few seconds.
+
+    Suppose your data system receives 32 GB of new data per day, and that new data gets into the serving layer
+    within 6 hours of being received.The speed layer would be responsible for at most 6
+    hours of data—about 8 GB .
+
+    p 212
+
+    The CAP theorem is about fundamental trade-offs between consistency, where reads
+    are guaranteed to incorporate all previous writes, and availability, where every query
+    returns an answer instead of erroring.
+
+    CAP is typically stated as “you can have at most two of consistency, availability, and
+    partition-tolerance.” The problem with this explanation is that the CAP theorem is
+    entirely about what happens to data systems when not all machines can communicate
+    with each other. Saying a data system is consistent and available but not partition-tolerant
+    makes no sense, because the theorem is entirely about what happens under partitions.
+
+    The proper way to present the CAP theorem is that “when a distributed data sys-
+    tem is partitioned, it can be consistent or available but not both.” Should you choose
+    consistency, sometimes a query will receive an error instead of an answer. When you
+    choose availability, reads may return stale results during network partitions. The best
+    consistency property you can have in a highly available system is eventual consistency,
+    where the system returns to consistency once the network partition ends.
+        
+    Some distributed databases have an option called sloppy quorums, which provides
+    availability in the extreme—writes are accepted even if replicas for that data aren’t
+    available. Instead, a temporary replica will be created and then merged into the official
+    replicas once they become available. With sloppy quorums, the potential number of
+    replicas for a piece of data is equal to the number of nodes in the cluster if every node
+    is partitioned from every other node. While this can be useful, keep in mind that such
+    an approach increases the incidental complexity of your system.
+
+    p 215
+
+    To implement eventually consistent counting correctly, you need to make use of
+    structures called conflict-free replicated data types (commonly referred to as CRDT s).
+
+    p 217
+
+    There are uses for both synchronous and asynchronous updates. Synchronous
+    updates are typical among transactional systems that interact with users and require
+    coordination with the user interface. Asynchronous updates are common for analyt-
+    ics-oriented workloads or workloads not requiring coordination. The architectural
+    advantages of asynchronous updates—better throughput and better management of
+    load spikes—suggest implementing asynchronous updates unless you have a good rea-
+    son not to do so.    
+
