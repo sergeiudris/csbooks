@@ -524,3 +524,92 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     load spikes—suggest implementing asynchronous updates unless you have a good rea-
     son not to do so.    
 
+    p 226
+
+    This fire-and-forget scheme can’t guarantee that all the data is successfully pro-
+    cessed. For example, if a worker dies before completing its assigned task, there’s no
+    mechanism to detect or correct the error. The architecture is also susceptible to bursts
+    in traffic that exceed the resources of the processing cluster. In such a scenario, the
+    cluster would be overwhelmed and messages could be lost.
+    Writing events to a persistent queue addresses both of these issues. Queues allow
+    the system to retry events whenever a worker fails, and they provide a place for events
+    to buffer when downstream workers hit their processing limits.
+
+    p 228
+
+    Discussing the limitations of a single-consumer queue helps identify the desired
+    properties for a queuing system. What you really want is a single queue that can be
+    used by many consumers, where adding a consumer is simple and introduces a mini-
+    mal increase in load. When you think about this further, the fundamental issue with a
+    single-consumer queue is that the queue is responsible for keeping track of what’s
+    consumed. Because of the restrictive condition that an item is either “consumed” or
+    “not consumed,” the queue is unable to gracefully handle multiple clients wanting to
+    consume the same item.
+
+    Thankfully there’s an alternative queue design that doesn’t suffer the problems associ-
+    ated with single-consumer queues. The idea is to shift the responsibility of tracking
+    the consumed/unconsumed status of events from the queue to the applications them-
+    selves. If an application keeps track of the consumed events, it can then request the
+    event stream to be replayed from any point in the stream history.
+
+    p 229
+
+    There’s another notable difference between single-consumer and multi-consumer
+    queues. With a single-consumer queue, a message is deleted once it has been ack ed
+    and can no longer be replayed. As a result, a failed event can cause the event stream to
+    be processed out of order. To understand this behavior, if the stream is consumed in
+    parallel and an event fails, other events subsequent to the failed event may be pro-
+    cessed successfully before a reattempt is made. In contrast, a multi-consumer queue
+    allows you to rewind the stream and replay everything from the point of failure, ensur-
+    ing that you process events in the order in which they originated. The ability to replay
+    the event stream is a great benefit of multi-consumer queues, and these queues don’t
+    have any drawbacks when compared to single-consumer queues. Accordingly, we
+    highly recommend using multi-consumer queues such as Apache Kafka.
+
+    p 231
+
+    The higher-level, one-at-a-time, stream-processing approach you’ll learn is a general-
+    ization of the queues-and-workers model but without any of its complexities. Like
+    queues and workers, the scheme processes tuples one tuple at a time, but the code
+    runs in parallel across the cluster so that the system is scalable with high throughput.
+
+    p 232
+
+    Storm model
+    The Storm model represents the entire stream-processing pipeline as a graph of com-
+    putation called a topology. Rather than write separate programs for each node of the
+    topology and connect them manually, as required in the queues-and-workers schemes,
+    the Storm model involves a single program that’s deployed across a cluster.
+
+    In essence, the Storm model is about trans-
+    forming streams into new streams, potentially updating databases along the way.
+
+    The next abstraction in the Storm model is the spout. A spout is a source of streams in
+    a topology
+
+    While spouts are sources of streams, the bolt abstrac-
+    tion performs actions on streams. A bolt takes any
+    number of streams as input and produces any num-
+    ber of streams as output
+
+    Having defined these abstractions, a topology is
+    therefore a network of spouts and bolts with each
+    edge representing a bolt that processes the output
+    stream of another spout or bolt
+
+    p 233
+
+    Spouts and bolts consist of
+    multiple tasks that are
+    executed in parallel. A bolt
+    task receives tuples from all
+    tasks that generate the bolt’s
+    input stream.
+
+    p 247
+
+    it’s possible to guarantee message processing with the
+    Storm model without intermediate message queues. When a failure is detected down-
+    stream from the spout in the tuple DAG , tuples can be retried from the spout.
+
+    
