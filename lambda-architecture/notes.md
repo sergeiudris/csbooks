@@ -612,4 +612,36 @@ https://medium.com/red-planet-labs/introducing-red-planet-labs-2a0304a67312
     Storm model without intermediate message queues. When a failure is detected down-
     stream from the spout in the tuple DAG , tuples can be retried from the spout.
 
+    p 285
+
+    Latency—The time it takes to run a query. In many cases, your latency require-
+    ments will be very low—on the order of milliseconds. Other times it’s okay for a
+    query to take a few seconds. When doing ad hoc analysis, your latency require-
+    ments are often very lax, even on the order of hours.
+
+    Timeliness—How up-to-date the query results are. A completely timely query
+    takes into account all data ever seen in the past, whereas a less timely query may
+    not include results from the recent minutes or hours.
+
+    Accuracy—In many cases, in order to make queries performant or scalable, you
+    must make approximations in your query implementations.
+
+    The CAP theorem shows that under par-
+    titions, a system can either be consistent (queries take into account all previous written
+    data) or available (queries are answered at the moment). Consistency is just a form of
+    timeliness, and availability just means the latency of the query is bounded. An eventu-
+    ally consistent system chooses latency over timeliness (queries are always answered, but
+    may not take into account all prior data during failure scenarios)
+
+    p 286
+
+    This leads us to the basic model of data systems:
+      ■ A master dataset consisting of an ever-growing set of data
+      ■ Queries as functions that take in the entire master dataset as input
+
+    p 288
+
+    There’s an alternative that blurs the line between incrementalization and recompu-
+    tation and gets you the best of both worlds. This technique is called partial recomputation.
+
     
