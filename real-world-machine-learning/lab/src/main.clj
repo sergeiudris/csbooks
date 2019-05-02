@@ -2,7 +2,7 @@
   (:require [tools.nrepl]
             [tools.core]
             [tools.pedestal.server]
-
+            [ml.core]
    ;
             )
 
@@ -32,6 +32,7 @@
   (System/getProperty "java.version")
   (System/getProperty "java.specification.version")
   (clojure-version)
+  (ml.core/hello)
 
   ;
   )
