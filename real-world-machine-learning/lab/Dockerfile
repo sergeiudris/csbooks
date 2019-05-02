@@ -43,6 +43,10 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
+RUN add-apt-repository ppa:timsc/opencv-3.4 && \
+     apt-get update && \
+     apt install -y libopencv-imgcodecs3.4 libopenblas-base libatlas3-base libcurl3 libgomp1
+
 
 RUN mkdir -p /opt/code/app
 RUN mkdir -p /root/.m2
