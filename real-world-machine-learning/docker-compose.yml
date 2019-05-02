@@ -1,0 +1,23 @@
+version: "3.3"
+
+services: 
+
+   lab:
+    image: rwml.lab
+    volumes:
+      - ./lab:/opt/code/app
+    build:
+      context: ./lab
+      dockerfile: ./Dockerfile
+    ports:
+      # - 7001:4001
+      - 4001:7878
+      # - 11488:7888
+      # - 12083:8080
+    command: bash c dev
+    # command: tail -f /dev/null
+    stdin_open: true
+    tty: true
+    # links:
+    #   - cljbase
+    #   - namenode 
