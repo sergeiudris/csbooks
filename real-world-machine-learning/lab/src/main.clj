@@ -3,6 +3,8 @@
             [tools.core]
             [tools.pedestal.server]
             [ml.core]
+            [mxnet.ndarray]
+            [mxnet.module]
    ;
             )
 
