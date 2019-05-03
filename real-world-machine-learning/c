@@ -62,7 +62,7 @@ push(){
 }
 
 mem(){
-  top -b -o +%MEM |head -17
+  top -b -o +%MEM |head -30
 }
 
 "$@"
