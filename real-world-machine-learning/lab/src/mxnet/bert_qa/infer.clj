@@ -155,6 +155,8 @@
 
   (inf)
 
-  (inf (context/gpu))
+  (inf (context/cpu))
+  (inf (context/gpu)); [05:07:16] src/storage/storage.cc:118: Compile with USE_CUDA=1 to enable GPU usage 
 
+  ;
   )
