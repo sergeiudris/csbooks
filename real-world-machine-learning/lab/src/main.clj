@@ -8,7 +8,7 @@
             [mxnet.bert-qa.infer]
             [mxnet.bert-qa.ask]
             [mxnet.cnn-text.classifier]
-
+            [mxnet.rnn.train-char-rnn]
    ;
             )
 

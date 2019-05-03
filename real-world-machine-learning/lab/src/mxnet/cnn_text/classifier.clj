@@ -162,6 +162,7 @@
   
   (def modul (-main :cpu "1"))
   
+  ; (.getParams modul)
   
   
   
