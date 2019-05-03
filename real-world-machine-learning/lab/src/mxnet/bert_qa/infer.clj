@@ -36,6 +36,8 @@
 
 ;; the maximum length of the sequence
 (def seq-length 384)
+; (def seq-length 8000)
+
 
 ;;; data helpers
 
@@ -143,7 +145,36 @@
          (pprint/pprint qa-map)
          (println)
          (println "  Predicted Answer: " answer)
-         (println "==============================="))))))
+         (println "==============================="))))
+   ))
+
+(defn inf-many
+  [question-data]
+    (let [ctx (context/cpu)
+          predictor                       (make-predictor ctx)
+          {:keys [idx->token token->idx]} (get-vocab)
+        ;;; samples taken from https://rajpurkar.github.io/SQuAD-explorer/explore/v2.0/dev/
+          question-answers                question-data]
+      (doseq [qa-map question-answers]
+        (let [{:keys [input-batch tokens qa-map]} (pre-processing ctx idx->token token->idx qa-map)
+              result                              (first (infer/predict-with-ndarray predictor input-batch))
+              answer                              (post-processing result tokens)]
+          (println "===============================")
+          (println "      Question Answer Data")
+          (pprint/pprint qa-map)
+          (println)
+          (println "  Predicted Answer: " answer)
+          (println "==============================="))))
+  )
+
+(defn infer-one
+  [question-datum]
+  (->
+   question-datum
+   vector
+   inf-many
+   )
+  )
 
 (defn -main [& args]
   (let [[dev] args]
@@ -158,5 +189,8 @@
   (inf (context/cpu))
   (inf (context/gpu)); [05:07:16] src/storage/storage.cc:118: Compile with USE_CUDA=1 to enable GPU usage 
 
+  
+  (clojure.repl/source doseq)
+  
   ;
   )

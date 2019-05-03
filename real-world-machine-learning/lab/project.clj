@@ -42,12 +42,12 @@
                  [cheshire "5.8.1"]
 
                  [thinktopic/cortex "0.9.22"]
-
+                 [clj-http "3.10.0"]
                 ;  [org.apache.mxnet.contrib.clojure/clojure-mxnet-linux-cpu "1.4.0"
                 ;   :exclusions [org.slf4j/log4j-over-slf4j org.slf4j/slf4j-api  org.slf4j/slf4j-log4j12]]
 
-                   [org.apache.mxnet.contrib.clojure/clojure-mxnet "1.5.0-SNAPSHOT"
-                    :exclusions [org.slf4j/log4j-over-slf4j org.slf4j/slf4j-api  org.slf4j/slf4j-log4j12]]
+                 [org.apache.mxnet.contrib.clojure/clojure-mxnet "1.5.0-SNAPSHOT"
+                  :exclusions [org.slf4j/log4j-over-slf4j org.slf4j/slf4j-api  org.slf4j/slf4j-log4j12]]
                  ;
                  ]
 
