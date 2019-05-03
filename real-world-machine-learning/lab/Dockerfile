@@ -63,7 +63,7 @@ WORKDIR /opt/code/app
 COPY project.clj  /opt/code/app
 RUN lein deps
 
-COPY .  .
+# COPY .  .
 
 EXPOSE 4001
 EXPOSE 8080

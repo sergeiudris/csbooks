@@ -7,7 +7,8 @@
             [mxnet.module]
             [mxnet.bert-qa.infer]
             [mxnet.bert-qa.ask]
-   
+            [mxnet.cnn-text.classifier]
+
    ;
             )
 
