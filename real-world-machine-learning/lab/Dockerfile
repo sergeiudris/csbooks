@@ -51,6 +51,8 @@ RUN add-apt-repository ppa:timsc/opencv-3.4 && \
 COPY  install_mxnet.sh .
 RUN   bash install_mxnet.sh
 
+RUN apt-get install -y graphviz
+
 RUN mkdir -p /opt/code/app
 RUN mkdir -p /root/.m2
 WORKDIR /opt/code/app
