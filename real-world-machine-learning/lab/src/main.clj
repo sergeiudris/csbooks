@@ -5,6 +5,7 @@
             [ml.core]
             [mxnet.ndarray]
             [mxnet.module]
+            [mxnet.bert-qa.infer]
    ;
             )
 

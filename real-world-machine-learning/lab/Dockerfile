@@ -48,6 +48,9 @@ RUN add-apt-repository ppa:timsc/opencv-3.4 && \
      apt install -y libopencv-imgcodecs3.4 libopenblas-base libatlas3-base libcurl3 libgomp1
 
 
+COPY  install_mxnet.sh .
+RUN   bash install_mxnet.sh
+
 RUN mkdir -p /opt/code/app
 RUN mkdir -p /root/.m2
 WORKDIR /opt/code/app

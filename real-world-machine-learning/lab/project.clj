@@ -1,8 +1,22 @@
 (defproject lab "0.1.0"
-  :repositories {
-                 "conjars"        "https://conjars.org/repo"
-                 "clojars"        "https://clojars.org/repo"
-                 "oracle"         "https://download.oracle.com/maven"}
+  ; :repositories {
+  ;                "conjars"        "https://conjars.org/repo"
+  ;                "clojars"        "https://clojars.org/repo"
+  ;                "oracle"         "https://download.oracle.com/maven"
+                 
+  ;                }
+            
+    :repositories [["conjars" {:url "https://conjars.org/repo"}]
+                   ["clojars" {:url "https://clojars.org/repo"}]
+                   ["oracle" {:url "https://download.oracle.com/maven"}]
+
+                   
+                   ["staging" {:url       "https://repository.apache.org/content/repositories/staging"
+                               :snapshots true
+                               :update    :always}]
+                   ["snapshots" {:url       "https://repository.apache.org/content/repositories/snapshots"
+                                 :snapshots true
+                                 :update    :always}]]
 
   :min-lein-version "2.0.0"
 
@@ -25,12 +39,15 @@
                  [io.pedestal/pedestal.jetty         "0.5.5"]
                  [io.pedestal/pedestal.service-tools "0.5.5"]
 
-                 
+                 [cheshire "5.8.1"]
+
                  [thinktopic/cortex "0.9.22"]
-                 
-                 [org.apache.mxnet.contrib.clojure/clojure-mxnet-linux-cpu "1.4.0" 
-                 :exclusions [org.slf4j/log4j-over-slf4j org.slf4j/slf4j-api  org.slf4j/slf4j-log4j12]]
-                  
+
+                ;  [org.apache.mxnet.contrib.clojure/clojure-mxnet-linux-cpu "1.4.0"
+                ;   :exclusions [org.slf4j/log4j-over-slf4j org.slf4j/slf4j-api  org.slf4j/slf4j-log4j12]]
+
+                   [org.apache.mxnet.contrib.clojure/clojure-mxnet "1.5.0-SNAPSHOT"
+                    :exclusions [org.slf4j/log4j-over-slf4j org.slf4j/slf4j-api  org.slf4j/slf4j-log4j12]]
                  ;
                  ]
 
