@@ -42,5 +42,5 @@ build/
 .m2/settings.xml
 
 data/
-
-
+train-obama-0000*
+train-obama-symbol*
