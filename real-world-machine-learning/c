@@ -61,4 +61,8 @@ push(){
   git push
 }
 
+mem(){
+  top -b -o +%MEM |head -17
+}
+
 "$@"
