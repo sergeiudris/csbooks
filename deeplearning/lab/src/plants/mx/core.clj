@@ -32,6 +32,36 @@
    (keep-indexed (fn pred [i x]  (if (not (i-set i)) x)))
    vec))
 
+
+(defn index->row
+  "returns the row number given elem index and row length"
+  [i row-len]
+  (int (/ i row-len))
+  )
+
+(defn index->col
+  "returns the col number given elem index, row-len"
+  [i row-len]
+  (mod i row-len))
+
+(defn mx-mn
+  [m n mk-elem]
+  "returns the matrix of (mk-elem m n) with m rows, n cols"
+  (->>
+  ; (repeatedly (* m n) #(mk-elem m n) )
+  ;  (repeatedly (* m n))
+   (range (* m n))
+   (map-indexed #(mk-elem (index->row %1 n) (index->col %2 n)))
+   )
+  )
+
+
+(defn mx->mn
+  [mx]
+  "returns the m,n elem of mx"
+  
+  )
+
 (comment
   (iden)
   
@@ -61,5 +91,12 @@
   (vec-s [:a :b :c ] #{  3 7})
   (vec-s- [:a :b :c] #{3 7})
  
+  (mx-mn 3 3 #(str %1 "," %2))
+  (take 5 (repeatedly (* 3 3)))
   
+  (mod 0 3)
+  
+  (/  5 3)
+  
+    ;;;
   )
