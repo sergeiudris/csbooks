@@ -29,6 +29,14 @@
   (is (= (plants.mx.core/mx-mn 2 3 (fn [i x] 2) ) [2 2 2 2 2 2]))
   )
 
+(deftest mx->mn
+  (is (= (plants.mx.core/mx->mn [1 2 3 4 5 6 7 8 9] 3 2 1 ) 5 ))
+  (is (= (plants.mx.core/mx->mn [1 2 3 4 5 6 7 8 9] 3 0 1) 2))
+  (is (= (plants.mx.core/mx->mn [1 2 3 4 5 6 7 8 9] 3 1 0) 1))
+  )
+
+
+ 
 (comment
   
   (run-tests)
