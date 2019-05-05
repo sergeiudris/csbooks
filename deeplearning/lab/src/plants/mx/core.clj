@@ -44,6 +44,17 @@
   [i row-len]
   (mod i row-len))
 
+(defn mnwidth->index
+  "returns index given m,n, width"
+  [width m n ]
+  (cond
+    (zero? m) n 
+    :else (->>
+           (* (- m 1) width)
+           (+ n))
+    )
+  )
+
 (defn mx-mn
   [m n mk-elem]
   "returns the matrix of (mk-elem m n) with m rows, n cols"
@@ -57,9 +68,9 @@
 
 
 (defn mx->mn
-  [mx]
+  [mx width m n ]
   "returns the m,n elem of mx"
-  
+  (mx (mnwidth->index width m n ) )
   )
 
 (comment
@@ -99,6 +110,15 @@
   (/  5 3)
   
   (mx-mn 3 3 (fn [i x] 3 ))
+  
+  (mx->mn [1 2 3 4 5 6 7 8 9] 3 0 2)
+  
+  (mx->mn [1 2 3 4 5 6 7 8 9] 3 2 1)
+  
+  (mx->mn [1 2 3 4 5 6 7 8 9] 3 2 0)
+  
+  (mx->mn [1 2 3 4 5 6 7 8 9] 3 1 0)
+  
   
   
     ;;;
