@@ -15,11 +15,13 @@
   (is (= (plants.mx.core/mul [] []) [])))
 
 
-(deftest filter-vec-by-index-set-test
-  (is (= (plants.mx.core/filter-vec-by-index-set [:a :b :c] #{1 3 7}) [:b]))
-  (is (= (plants.mx.core/filter-vec-by-index-set [:a :b :c] #{ 3 7}) []))
-  )
+(deftest vec-s
+  (is (= (plants.mx.core/vec-s [:a :b :c] #{1 3 7}) [:b]))
+  (is (= (plants.mx.core/vec-s [:a :b :c] #{3 7}) [])))
 
+(deftest vec-s-
+  (is (= (plants.mx.core/vec-s- [:a :b :c] #{1 3 7}) [:a :c]))
+  (is (= (plants.mx.core/vec-s- [:a :b :c] #{3 7}) [:a :b :c])))
 
 (comment
   
