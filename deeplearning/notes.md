@@ -77,3 +77,13 @@ example, they can learn to sort lists of numbers given examples of scrambled and
 sorted sequences. This self-programming technology is in its infancy, but in the
 future could in principle be applied to nearly any task.
 
+
+> 47
+
+https://en.wikipedia.org/wiki/Cartesian_product
+That is, for sets A and B, the Cartesian product A × B is the set of all ordered pairs (a, b) where a ∈ A and b ∈ B. 
+
+We can think of vectors as identifying points in space, with each element
+giving the coordinate along a different axis.
+
+

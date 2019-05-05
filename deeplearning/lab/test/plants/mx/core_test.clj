@@ -13,3 +13,17 @@
 
 (deftest mul-test
   (is (= (plants.mx.core/mul [] []) [])))
+
+
+(deftest filter-vec-by-index-set-test
+  (is (= (plants.mx.core/filter-vec-by-index-set [:a :b :c] #{1 3 7}) [:b]))
+  (is (= (plants.mx.core/filter-vec-by-index-set [:a :b :c] #{ 3 7}) []))
+  )
+
+
+(comment
+  
+  (run-tests)
+  
+  ;;;
+  )
