@@ -68,7 +68,9 @@
   ; (repeatedly (* m n) #(mk-elem m n) )
   ;  (repeatedly (* m n))
    (range (* m n))
-   (map-indexed #(mk-elem (index->row %1 n) (index->col %2 n)))
+  ;  (map-indexed #(mk-elem (index->row %1 n) (index->col %2 n)))
+   (map-indexed #(mk-elem %1  %2))
+   vec
    )
   )
 
@@ -137,7 +139,7 @@
                  (let [m     (index->row i width)
                        n     (index->col i width)
                        new-i (mnwidth->index height n m)]
-                   (prn i x width m n new-i)
+                  ;  (prn i x width m n new-i)
                    (assoc res new-i x))) (vec (repeat len nil)) mx )
     ;;;
     ))
@@ -146,8 +148,10 @@
 (defn prnmx
   "prints the matrix"
   [mx width]
-  ; ()
-  )
+  (doseq [row (partition width mx)]
+    (println row))
+  (println)
+  mx)
 
 (comment
   
@@ -160,5 +164,14 @@
   (mnwidth->index 3 1 0)
   
   (assoc (vec (repeat 5 nil)) 3 3)
+  
+  (prnmx  [1 2 3 4 5 6 7 8 9] 3)
+  
+  (->
+   (mx-mn 3 3  (fn [i x] i))
+   (prnmx 3)
+   (transpose 3)
+   (prnmx 3))
+  
   ;;;
   )
