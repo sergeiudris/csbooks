@@ -40,7 +40,10 @@
   )
 
 (deftest multiply-test
-  (is (= (plants.mx.core/multiply [1 2 3 4 5 6]  [0 1 2 3 4 5] 3 2 ) [16 22 34 49])))
+  (is (= (plants.mx.core/multiply [1 2 3 4 5 6]  [0 1 2 3 4 5] 3 2) [16 22 34 49]))
+  (is (= (plants.mx.core/multiply [1 2 3 4 5 6 7 8 9 10 11 12]  [-2 1 0] 3 1) [0 -3 -6 -9]))
+  (is (= (plants.mx.core/multiply [1 2 3 4 5 6]  [1 2 3 4 5 6] 3 2) [22 28 49 64]))
+  (is (= (plants.mx.core/multiply [1 2 3 4 5 6]  [1 2 3 4 5 6] 2 3) [9 12 15 19 26 33 29 40 51])))
 
 
  
