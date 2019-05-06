@@ -1,6 +1,6 @@
 (ns deeplearning
   (:require [clojure.repl :refer :all]
-            [deeplearning.chapter0]
+            [deeplearning.chapter1]
    ;
             )
   )
