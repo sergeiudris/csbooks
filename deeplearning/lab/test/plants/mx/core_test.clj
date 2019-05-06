@@ -45,7 +45,9 @@
   (is (= (plants.mx.core/multiply [1 2 3 4 5 6]  [1 2 3 4 5 6] 3 2) [22 28 49 64]))
   (is (= (plants.mx.core/multiply [1 2 3 4 5 6]  [1 2 3 4 5 6] 2 3) [9 12 15 19 26 33 29 40 51])))
 
-
+(deftest add-test
+  (is (= (plants.mx.core/add [1 2 3 4 5 6] [1 2 3 4 5 6]) [2 4 6 8 10 12]))
+  (is (= (plants.mx.core/subtract [1 2 3 4 5 6] [2 4 6 8 10 12]) [-1 -2 -3 -4 -5 -6])))
  
 (comment
 
