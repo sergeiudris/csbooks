@@ -1,9 +1,9 @@
 (ns plants.mx.core
   (:require [clojure.set]
-            [clojure.repl :refer :all]
+            [clojure.repl :refer :all]))
    ;
-            )
-  )
+            
+  
 
 
 (defn iden
@@ -36,8 +36,8 @@
 (defn index->row
   "returns the row number given elem index and row length"
   [i row-len]
-  (int (/ i row-len))
-  )
+  (int (/ i row-len)))
+  
 
 (defn index->col
   "returns the col number given elem index, row-len"
@@ -46,7 +46,7 @@
 
 (defn mnwidth->index
   "returns index given m,n, width"
-  [width m n ]
+  [width m n]
   ; (cond
   ;   (zero? m) n 
   ;   (zero? n) (* m width)
@@ -57,9 +57,14 @@
   ;   )
   (->
     (* (inc m) width)
-     (- (- width n))
-   )
-  )
+    (- (- width n))))
+   
+  (comment
+    
+    (mnwidth->index 3 2 1)
+    
+    ;;;
+    )
 
 (defn mx-mn
   "returns the matrix of (mk-elem m n) with m rows, n cols"
@@ -70,16 +75,16 @@
    (range (* m n))
   ;  (map-indexed #(mk-elem (index->row %1 n) (index->col %2 n)))
    (map-indexed #(mk-elem %1  %2))
-   vec
-   )
-  )
+   vec))
+   
+  
 
 
 (defn mx->mn
   "returns the m,n elem of mx"
-  [mx width m n ]
-  (mx (mnwidth->index width m n ) )
-  )
+  [mx width m n]
+  (mx (mnwidth->index width m n)))
+  
 
 (comment
   (iden)
@@ -125,10 +130,14 @@
 
   (mx->mn [1 2 3 4 5 6 7 8 9] 3 1 0)
 
-
+  (mx->mn [1 2 3 4 5 6 7 8 9] 3 1 0)
 
     ;;;
   )
+
+
+
+  
 
 (defn transpose
   "returns transposed matrix - all indices are mirrored, e.g. 1,2 -> 2,1"
@@ -140,9 +149,7 @@
                        n     (index->col i width)
                        new-i (mnwidth->index height n m)]
                   ;  (prn i x width m n new-i)
-                   (assoc res new-i x))) (vec (repeat len nil)) mx )
-    ;;;
-    ))
+                   (assoc res new-i x))) (vec (repeat len nil)) mx)))
 
 
 (defn prnmx
@@ -154,24 +161,82 @@
   mx)
 
 (comment
-  
+
   (source mapv)
-  
-  (transpose [1 2 3 4 5 6 ] 3)
-  
+
+  (transpose [1 2 3 4 5 6] 3)
+
   (assoc [1 2 3] 4 5)
-  
+
   (mnwidth->index 3 1 0)
-  
+
   (assoc (vec (repeat 5 nil)) 3 3)
-  
+
   (prnmx  [1 2 3 4 5 6 7 8 9] 3)
-  
+
   (->
    (mx-mn 3 3  (fn [i x] i))
    (prnmx 3)
    (transpose 3)
    (prnmx 3))
-  
+
   ;;;
   )
+  
+  
+
+(defn vec-by-vec
+  "returns a sum of multiplying v1 elems by v2 elems"
+  [v1 v2]
+  (reduce-kv (fn rcr [acc i x] 
+               (->>
+                (v2 i)
+                (* x)
+                (+ acc)))
+                
+             0 v1))
+  
+
+(defn multiply-vec
+  "Returns the matrix, resulting from multiplying mx by vec. mx width should be equal to vec length"
+  [mx v]
+  (let [width (count v)
+        rows  (mapv vec (partition width mx))]
+    (->>
+     rows
+     (mapv (fn mr [row]
+             (vec-by-vec row v))))))
+             
+
+(defn multiply
+  "returns the matrix, resulted from multiplying mx1 by mx2"
+  [mx1 mx2])
+  
+  
+
+
+(comment
+
+  ; A
+  [1 2 3]
+  [4 5 6]
+
+  ; b
+  [0]
+  [1]
+  [2]
+
+  ; * A b
+
+  [8]
+  [17]
+
+  (multiply-vec [1 2 3 4 5 6] [0 1 2])
+
+  ([0 1 2] 1)
+
+  (mapv vec '((1 2) (2 3)))
+
+  ;;;
+  )
+   
