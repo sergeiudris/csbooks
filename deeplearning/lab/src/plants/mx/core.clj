@@ -220,7 +220,16 @@
 (defn mx->row
   "returns a row n of mx"
   [mx width n]
-  (keep-indexed  (fn mr [i x] (if (= (index->row i width) n) x nil)) mx))
+  (->
+   (keep-indexed  (fn mr [i x] (if (= (index->row i width) n) x nil)) mx)
+   vec))
+
+(defn mx->col
+  "returns a row n of mx"
+  [mx width n]
+  (->
+   (keep-indexed  (fn mr [i x] (if (= (index->col i width) n) x nil)) mx)
+   vec))
 
 
 (comment
@@ -229,8 +238,29 @@
   (keep-indexed  (fn mr [i x] (if (= (index->row i 3) 0) x nil ) ) [1 2 3 4 5 6])
   
   (mx->row [1 2 3 4 5 6] 3 1)
+  (mx->col [1 2 3 4 5 6] 3 1)
+  (mx->col [1 2 3 4 5 6] 3 0)
+  (mx->col [1 2 3 4 5 6] 3 2)
+  
+  
+  
   ;;;
   )
+
+(defn col-by-row
+  "returns the sum of products of mathcing elements"
+  [row col]
+  (->>
+   (mapv * col row)
+   (reduce +)))
+
+(comment
+
+  (col-by-row [1 2 3] [4 5 6])
+
+  ;;;
+  )
+
 
 (defn multiply
   "returns the matrix, resulted from multiplying mx1 by mx2.
@@ -240,22 +270,41 @@
         len (* h1 w2)
         mx  (vec-of-len len nil)]
     (->>
-     (map-indexed (fn [x i]
-                   (let [m (index->row i)
-                         n (index->col i)]
-                     
-                     ) 
-                    
-                    ) mx )
+     mx
+     (map-indexed (fn [i x]
+                    (let [m   (index->row i w2)
+                          n   (index->col i w2)
+                          row (mx->row mx1 w1 m)
+                          col (mx->col mx2 w2 n)]
+                      (col-by-row row col)
+                      ;
+                      )))
      vec
-     )
-    
-    ))
+     ;
+     )))
   
   
 
 
 (comment
+
+
+  (def A [1 2 3 4 5 6])
+
+  (def B [0 1 2 3 4 5])
+
+  (->
+   (multiply A B 3 2) ; [16 22 34 49]
+   (prnmx 2))
+
+
+  (mx->row mx w2 m)
+
+  (index->row 3 2)
+  (index->row 2 2)
+  (index->col 0 2)
+
+
 
   ; A
   [1 2 3]
@@ -280,32 +329,34 @@
     ; A
   [1 2 3]
   [4 5 6]
-  
+
   ; B
-  
+
   [0 1]
   [2 3]
   [4 5]
-  
+
   ; AxB  2 x 2
-  [18 22]
+  [16 22]
   [34 49]
-  
+
   ; BxA 3 x 3
-  
+
   [4 5 6]
   [14 19 24]
   [24 33 42]
-  
-  
-  (def A [1 2 3 4 5 6])
-  
-  (def B [0 1 2 3 4 5])
-  
-  
-  (multiply A B 3 2 )
-  
+
+
+
+  (multiply A B 3 2)
+
   (map identity [1 2])
+
+  (map * [1 2 3] [4 5 6])
+
+  (reduce + [1 2 3])
+
+  (multiply A B 3 2)
 
 
   ;;;
