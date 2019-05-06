@@ -200,12 +200,36 @@
                 
              0 v1))
   
+(defn mx->rows
+  "partitions mx into vector of rows"
+  [width mx]
+  (mapv vec (partition width mx))
+  )
+
+(defn rows->mx
+  "returns mx from rows"
+  [rows]
+  (->>
+   rows
+   flatten
+   vec))
+
+(comment
+  (->>
+   (mx->rows 3 [1 2 3 4 5 6])
+   flatten
+   vec)
+  
+  (rows->mx [[1 2 3] [4 5 6]])
+
+  ;;;
+  )
 
 (defn multiply-vec
   "Returns the matrix, resulting from multiplying mx by vec. mx width should be equal to vec length"
   [mx v]
   (let [width (count v)
-        rows  (mapv vec (partition width mx))]
+        rows  (mx->rows width mx)]
      
      (mapv (fn mr [row]
              (vec-by-vec row v)) rows)))
@@ -433,4 +457,34 @@
   
   ;;;
   )
-   
+
+
+(defn add-vec
+  "returns the matrix resulting from adding v to mx"
+  [mx width v]
+  (let [rows (mx->rows width mx)]
+    (->>
+     rows
+     (mapv (fn mr [row]
+             (mapv + row v)))
+     rows->mx)))
+
+(defn add-scalar
+  "returns the matrix after adding a const to each element"
+  [mx scalar]
+  (mapv #(+ scalar %)  mx))
+
+(comment
+
+  (defn A [1 2 3 4 5 6])
+  
+  (def a [1 2 3])
+  
+  (add-vec A 3 a)
+  
+  (add-scalar A 3)
+  
+  (mapv #(+ % 1) [1 2])
+
+  ;;;
+  )
