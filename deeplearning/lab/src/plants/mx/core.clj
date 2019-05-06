@@ -283,7 +283,7 @@
      ;
      )))
   
-  
+
 
 
 
@@ -297,7 +297,7 @@
   (->
    (multiply A B 3 2) ; [16 22 34 49]
    (prnmx 2))
-  
+
 
   (plants.mx.core/multiply [1 2 3 4 5 6 7 8 9 10 11 12]  [-2 1 0] 3 1)
 
@@ -363,6 +363,32 @@
 
   (multiply A B 3 2)
 
+
+  ;;;
+  )
+   
+
+(defn add
+  "returns the matrix resulting from adding mx1 to mx2"
+  [mx1 mx2]
+  (mapv + mx1 mx2))
+
+
+(defn subtract
+  "returns the matrix resulting from subtracting mx2 from mx1"
+  [mx1 mx2]
+  (mapv - mx1 mx2))
+
+(comment
+
+  (->
+   (add [1 2 3 4 5 6] [1 2 3 4 5 6])
+   (prnmx 3))
+
+
+  (->
+   (subtract [1 2 3 4 5 6] [2 4 6 8 10 12])
+   (prnmx 3))
 
   ;;;
   )
