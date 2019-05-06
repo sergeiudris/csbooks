@@ -136,8 +136,12 @@
   )
 
 
+(defn vec-of-len
+  "returns vecctor os specified len and elem"
+  [len elem]
+  (vec (repeat len nil))
+  )
 
-  
 
 (defn transpose
   "returns transposed matrix - all indices are mirrored, e.g. 1,2 -> 2,1"
@@ -149,7 +153,7 @@
                        n     (index->col i width)
                        new-i (mnwidth->index height n m)]
                   ;  (prn i x width m n new-i)
-                   (assoc res new-i x))) (vec (repeat len nil)) mx)))
+                   (assoc res new-i x))) (vec-of-len len nil) mx)))
 
 
 (defn prnmx
@@ -202,15 +206,51 @@
   [mx v]
   (let [width (count v)
         rows  (mapv vec (partition width mx))]
-    (->>
-     rows
+     
      (mapv (fn mr [row]
-             (vec-by-vec row v))))))
+             (vec-by-vec row v)) rows)))
              
 
+(defn mx->col
+  "returns a  col n of mx"
+  [mx width n]
+  
+  )
+
+(defn mx->row
+  "returns a row n of mx"
+  [mx width n]
+  (keep-indexed  (fn mr [i x] (if (= (index->row i width) n) x nil)) mx))
+
+
+(comment
+
+
+  (keep-indexed  (fn mr [i x] (if (= (index->row i 3) 0) x nil ) ) [1 2 3 4 5 6])
+  
+  (mx->row [1 2 3 4 5 6] 3 1)
+  ;;;
+  )
+
 (defn multiply
-  "returns the matrix, resulted from multiplying mx1 by mx2"
-  [mx1 mx2])
+  "returns the matrix, resulted from multiplying mx1 by mx2.
+  The resulting mx has cols as mx2 and rows as mx1"
+  [mx1 mx2 w1 w2]
+  (let [h1  (/ (count mx1) w1)
+        len (* h1 w2)
+        mx  (vec-of-len len nil)]
+    (->>
+     (map-indexed (fn [x i]
+                   (let [m (index->row i)
+                         n (index->col i)]
+                     
+                     ) 
+                    
+                    ) mx )
+     vec
+     )
+    
+    ))
   
   
 
@@ -236,6 +276,37 @@
   ([0 1 2] 1)
 
   (mapv vec '((1 2) (2 3)))
+
+    ; A
+  [1 2 3]
+  [4 5 6]
+  
+  ; B
+  
+  [0 1]
+  [2 3]
+  [4 5]
+  
+  ; AxB  2 x 2
+  [18 22]
+  [34 49]
+  
+  ; BxA 3 x 3
+  
+  [4 5 6]
+  [14 19 24]
+  [24 33 42]
+  
+  
+  (def A [1 2 3 4 5 6])
+  
+  (def B [0 1 2 3 4 5])
+  
+  
+  (multiply A B 3 2 )
+  
+  (map identity [1 2])
+
 
   ;;;
   )
