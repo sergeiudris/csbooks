@@ -302,6 +302,11 @@
   (plants.mx.core/multiply [1 2 3 4 5 6 7 8 9 10 11 12]  [-2 1 0] 3 1)
 
   (plants.mx.core/multiply [1 2 3 4 5 6]  [1 2 3 4 5 6] 3 2)
+  
+  (plants.mx.core/multiply [0 4 -2 -4 -3 0]  [0 1 1 -1 2 3] 3 2) ; [0 -10 -3 -1]
+  
+  (plants.mx.core/multiply [1 2 3 4]  [1 2 3 4 ] 2 2)
+  
 
   (mx->row mx w2 m)
 
@@ -390,6 +395,42 @@
    (subtract [1 2 3 4 5 6] [2 4 6 8 10 12])
    (prnmx 3))
 
+  ;;;
+  )
+
+
+;https://en.wikipedia.org/wiki/Determinant
+(defn determinant
+  "returns the determinant of a matrix"
+  [mx width]
+  [])
+
+
+;https://en.wikipedia.org/wiki/Invertible_matrix
+(defn inverse
+  "returns the inverse of a matrix"
+  [mx]
+  [])
+
+
+(comment
+
+  (mx->mn [1 2 3 4] 2 0 1)
+
+  (source plants.mx.core/mx->mn)
+
+  (transpose [1 2 3] 1)
+  
+  [1]
+  [2]
+  [3]
+
+  (transpose [1] 1)
+  
+  [1]
+
+  
+  
   ;;;
   )
    

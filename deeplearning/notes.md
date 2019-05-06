@@ -86,4 +86,6 @@ That is, for sets A and B, the Cartesian product A × B is the set of all ordere
 We can think of vectors as identifying points in space, with each element
 giving the coordinate along a different axis.
 
+https://en.wikipedia.org/wiki/Determinant
 
+The determinant gives the signed n-dimensional volume of this parallelotope, {\displaystyle \det(A)=\pm {\text{vol}}(P)} {\displaystyle \det(A)=\pm {\text{vol}}(P)}, and hence describes more generally the n-dimensional volume scaling factor of the linear transformation produced by A
