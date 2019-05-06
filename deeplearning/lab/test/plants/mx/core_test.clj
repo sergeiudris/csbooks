@@ -49,6 +49,10 @@
   (is (= (plants.mx.core/add [1 2 3 4 5 6] [1 2 3 4 5 6]) [2 4 6 8 10 12]))
   (is (= (plants.mx.core/subtract [1 2 3 4 5 6] [2 4 6 8 10 12]) [-1 -2 -3 -4 -5 -6])))
  
+(deftest transpose
+  (is (= (plants.mx.core/transpose [1 2 3 4 5 6] 3) [1 4 2 5 3 6]))
+  (is (= (plants.mx.core/transpose [1] 1) [1])))
+
 (comment
 
   (run-tests)
