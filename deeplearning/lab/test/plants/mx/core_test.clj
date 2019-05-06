@@ -39,6 +39,9 @@
   (is (= (plants.mx.core/vec-by-vec [1 2 3] [0 1 2] ) 8 ))
   )
 
+(deftest multiply-test
+  (is (= (plants.mx.core/multiply [1 2 3 4 5 6]  [0 1 2 3 4 5] 3 2 ) [16 22 34 49])))
+
 
  
 (comment
