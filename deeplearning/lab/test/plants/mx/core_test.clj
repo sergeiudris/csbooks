@@ -53,8 +53,8 @@
   (is (= (transpose [1 2 3 4 5 6] 3) [1 4 2 5 3 6]))
   (is (= (transpose [1] 1) [1])))
 
-(deftest add-vec-test
-  (is (= (add-vec [1 2 3 4 5 6] 3 [1 2 3]) [2 4 6 5 7 9])))
+(deftest broadcast-test
+  (is (= (broadcast [1 2 3 4 5 6] 3 [1 2 3]) [2 4 6 5 7 9])))
 
 (deftest add-scalar-test
   (is (= (add-scalar [1 2 3 4 5 6] -1) [0 1 2 3 4 5]))
