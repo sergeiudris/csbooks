@@ -287,10 +287,11 @@
 
 
 (defn multiply
-  "returns the matrix, resulted from multiplying mx1 by mx2.
-  The resulting mx has cols as mx2 and rows as mx1"
-  [mx1 mx2 w1 w2]
-  (let [h1  (/ (count mx1) w1)
+  "returns the matrix, resulted from multiplying A by B .
+  A must have the same number of cols as B rows.
+  The resulting mx has cols as B and rows as A"
+  [A B w1 w2]
+  (let [h1  (/ (count A) w1)
         len (* h1 w2)
         mx  (vec-of-len len nil)]
     (->>
@@ -298,8 +299,8 @@
      (map-indexed (fn [i x]
                     (let [m   (index->row i w2)
                           n   (index->col i w2)
-                          row (mx->row mx1 w1 m)
-                          col (mx->col mx2 w2 n)]
+                          row (mx->row A w1 m)
+                          col (mx->col B w2 n)]
                       (col-by-row row col)
                       ;
                       )))
@@ -308,7 +309,12 @@
      )))
   
 
-
+(defn element-wise-product
+  " 
+  returns a matrix that is the Hadamard product of A and B"
+  [A B]
+  (mapv * A B)
+  )
 
 
 (comment
@@ -393,6 +399,8 @@
   (multiply A B 3 2)
 
 
+  (element-wise-product A A)
+  
   ;;;
   )
    
