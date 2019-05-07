@@ -78,14 +78,26 @@
            (divide-scalar [1 3 0])
            vec-length) 0.9999999999999999)))
 
-(deftest matrix-multiplication-is-distributive-test
-  (let [A  [1 2 3 4 5 6]
-        wA 3
-        B  [0 1 2 3 4 5]
-        wB 2
-        C  [0 0 0 1 1 1]
-        wC 2]
-    (is (= (multiply A (add B C) 3 2) (add (multiply A B 3 2) (multiply A C 3 2))))))
+(deftest matrix-properties-test
+  (let [A [1 2 3 4 5 6]
+        B [0 1 2 3 4 5]
+        C [2 3 7 8 1 0]]
+    (testing "mx multiplication is distributive"
+      (is (= (multiply A (add B C) 3 2) (add (multiply A B 3 2) (multiply A C 3 2)))))
+    (testing "square mx multiplication is associative"
+      (is (= (multiply A (multiply B C 3 3) 3 3) (multiply (multiply A B 3 3) C 3 3))))
+    ;;;
+    ))
+
+(deftest vector-properties
+  (let [a [1 2 3]
+        b [4 5 6]]
+    (testing "dot product is commutative"
+      (is (= (dot-product a b) (dot-product b a))))
+    ;;;
+    ))
+
+
 
 
 (comment
