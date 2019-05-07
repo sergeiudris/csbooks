@@ -10,16 +10,6 @@
 
 
 
-(defn iden
-  "returns an identity matrix"
-  []
-  [])
-
-(defn mul
-  "retruns a result of matrix multiplication"
-  [mx1 mx2 & mxs]
-  [])
-
 (defn vec-s
   "returns vector including only elems with indices in i-set"
   [v i-set]
@@ -648,3 +638,47 @@
   
   )
 
+(defn iden
+  "returns the identity matrix n by n"
+  [n]
+  (let [len (* n n)
+        mx  (vec-of-len len nil)]
+    (->>
+     mx
+     (map-indexed (fn mpr [i x]
+                    (let [row-i (index->row i n)
+                          col-i (index->col i n)]
+                      (cond
+                        (= row-i col-i) 1
+                        :else 0))))
+     vec)))
+
+(defn iden3
+  "returns 3x3 identity mx"
+  []
+  (iden 3))
+
+(defn iden3
+  "returns 3x3 identity mx"
+  []
+  (iden 4))
+
+(comment
+
+  (->
+   (iden 3)
+   (prnmx 3))
+  
+  (index->col 8 3)
+
+
+  (->
+   (iden 4)
+   (prnmx 4))
+
+  (->
+   (iden 1)
+   (prnmx 1))
+
+  ;;;
+  )

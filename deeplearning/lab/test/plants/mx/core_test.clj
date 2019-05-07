@@ -112,6 +112,10 @@ of such a product is a scalar and therefore equal to its own transpose
     ))
 
 
+(deftest iden-test
+  (is (= (iden 3) [1 0 0 0 1 0 0 0 1])))
+
+
 
 
 (comment
