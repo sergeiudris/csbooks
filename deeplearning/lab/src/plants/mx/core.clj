@@ -4,6 +4,10 @@
    ;
             
   
+(def e1 [1 0 0])
+(def e2 [0 1 0])
+(def e3 [0 0 1])
+
 
 
 (defn iden
@@ -513,3 +517,63 @@
 
   ;;;
   )
+
+(defn vec-sum
+  "returns the sum of v1 v2"
+  [a b]
+  (add a b))
+
+(defn vec-subtract
+  "returns the result of subtracting b from a"
+  [a b]
+  (subtract a b))
+
+(defn vec-divide
+  "returns the result of dividing a by a"
+  [a b]
+  (mapv / a b))
+
+(defn divide-scalar
+  "returns the result of dividing v by a"
+  [v a]
+  (mapv #(/ % a) v ))
+
+;https://en.wikipedia.org/wiki/Euclidean_vector#Length
+(defn vec-length
+  "returns the length or magnitude of norm of the vector"
+  [a]
+  (Math/sqrt (dot-product a a ) )
+  )
+
+(defn vec-unit
+  "returns the unit vector of v"
+  [v]
+  (divide-scalar v (vec-length v)))
+
+(comment
+  (vec-sum [1 1 0] [0 2 0])
+
+  (vec-subtract [1 1 0] [0 2 0])
+
+  (Math/sqrt 2)
+
+  (vec-length [1 3 0])
+
+  (->>
+   [1 3 0]
+   vec-length
+   (divide-scalar [1 3 0])
+   vec-length)
+
+
+  ;;;
+  )
+
+;https://en.wikipedia.org/wiki/Euclidean_vector#Cross_product
+(defn cross-product
+  "returns the cross product of vectors a and b"
+  [a b]
+  []
+  
+  )
+

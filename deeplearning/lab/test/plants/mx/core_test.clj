@@ -71,6 +71,22 @@
   (is (= (element-wise-product [1 2 3 4] [1 2 3 4]) [1 4 9 16]))
   )
 
+(deftest vec-unit-test
+  (is (=  (->>
+           [1 3 0]
+           vec-length
+           (divide-scalar [1 3 0])
+           vec-length) 0.9999999999999999)))
+
+(deftest matrix-multiplication-is-distributive-test
+  (let [A  [1 2 3 4 5 6]
+        wA 3
+        B  [0 1 2 3 4 5]
+        wB 2
+        C  [0 0 0 1 1 1]
+        wC 2]
+    (is (= (multiply A (add B C) 3 2) (add (multiply A B 3 2) (multiply A C 3 2))))))
+
 
 (comment
 
