@@ -91,8 +91,8 @@
       and the number of columns of B equals the number of rows of C
       "
       (is (=  (multiply (multiply A B 3 2) C 2 3) (multiply A (multiply B C 2 3) 3 3))))
-    ; (testing "transpose AB equals tr(B)tr(A)  "
-    ;   (is (= (transpose (multiply A B 3 3) 3) (multiply (transpose B 3) (transpose A 3) 3 3))))
+    (testing "transpose of a product AB is reverse product (BA) of transposes   "
+      (is (= (transpose (multiply A B 3 2) 2) (multiply (transpose B 2) (transpose A 3) 3 4))))
     ;;;
     ))
 
@@ -121,6 +121,10 @@
   (def B (mkmx
           [[1 2 3]
            [4 5 6]]))
+
+  (= (transpose (multiply A B 3 2) 2) (multiply (transpose B 2) (transpose A 3) 3 4))
+
+  (prnmx   (transpose A 3) 4)
 
   (def C (mkmx
           [[0 1 2]
