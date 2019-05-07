@@ -67,7 +67,9 @@
 (deftest dot-product-test
   (is (= (dot-product [1 3 -5] [4 -2 -1]) 3)))
 
-
+(deftest element-wise-product-test
+  (is (= (element-wise-product [1 2 3 4] [1 2 3 4]) [1 4 9 16]))
+  )
 
 
 (comment
