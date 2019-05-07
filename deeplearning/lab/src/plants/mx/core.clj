@@ -474,6 +474,11 @@
   [mx scalar]
   (mapv #(+ scalar %)  mx))
 
+(defn multiply-scalar
+  "returns the matrix after adding a const to each element"
+  [mx scalar]
+  (mapv #(* scalar %)  mx))
+
 ; https://en.wikipedia.org/wiki/Dot_product#Definition
 (defn dot-product
   "returns the number , result of dot product of v1 v2"
@@ -482,7 +487,7 @@
 
 (comment
 
-  (defn A [1 2 3 4 5 6])
+  (def A [1 2 3 4 5 6])
   
   (def a [1 2 3])
   
@@ -495,6 +500,8 @@
   (reduce + 0 (map + [1 2] [3 4]) )
   
   (dot-product [1 2] [3 4] )
+  
+  (multiply-scalar A 2 )
 
   ;;;
   )
