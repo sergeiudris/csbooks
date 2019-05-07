@@ -459,7 +459,7 @@
   )
 
 
-(defn add-vec
+(defn broadcast
   "returns the matrix resulting from adding v to mx"
   [mx width v]
   (let [rows (mx->rows width mx)]
@@ -486,7 +486,7 @@
   
   (def a [1 2 3])
   
-  (add-vec A 3 a)
+  (broadcast A 3 a)
   
   (add-scalar A 3)
   
