@@ -270,6 +270,7 @@
   (mx->col [1 2 3 4 5 6] 3 0)
   (mx->col [1 2 3 4 5 6] 3 2)
   
+  (int (/ 11 5) )
   
   
   ;;;
@@ -282,9 +283,78 @@
    (mapv * col row)
    (reduce +)))
 
+(defn mkmx
+  "returns falttened vector "
+  [v]
+  (->
+   v
+   flatten
+   vec))
+
 (comment
 
   (col-by-row [1 2 3] [4 5 6])
+
+  (def A [1 2 3 4 5 6])
+
+  (index->row 6 3)
+  (index->col 5 3)
+
+  (index->row 0 3)
+  (index->row 1 3)
+  (index->row 2 3)
+  (index->row 3 3)
+
+
+  (index->row 3 1)
+  (index->col 3 1)
+
+  (def B (flatten [[1 2 3]
+                   [4 5 6]
+                   [7 8 9]
+                   [10 11 12]]))
+
+  (def C [0 1 2])
+
+  (index->row 11 3)
+
+  (mx->row B 3 3)
+
+  (mx->col C 1 0)
+
+  (col-by-row  (mx->row B 3 3) (mx->col C 1 0))
+
+  (multiply B C 3 1)
+
+
+  ; the products (AB) C and A (BC) are defined if and only if 
+  ; the number of columns of A equals the number of rows of B 
+  ; and the number of columns of B equals the number of rows of C
+
+
+  (def A (mkmx [[1 2 3]
+                [4 5 6]
+                [7 8 9]
+                [10 11 12]]))
+
+  (def B (mkmx
+          [[1 2 3]
+           [4 5 6]]))
+
+  (def C (mkmx
+          [[0 1 2]
+           [3 4 5]]))
+
+
+
+
+  (def M1 (multiply A (multiply B C 3 2) 3 2))
+
+  (def M2 (multiply  (multiply A B 3 3) C 3 2))
+
+  (= M1 M2)
+
+
 
   ;;;
   )
