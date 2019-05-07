@@ -79,13 +79,20 @@
            vec-length) 0.9999999999999999)))
 
 (deftest matrix-properties-test
-  (let [A [1 2 3 4 5 6]
-        B [0 1 2 3 4 5]
+  (let [A [1 2 3 4 5 6 7 8 9 10 11 12]
+        B [1 2 3 4 5 6]
         C [2 3 7 8 1 0]]
     (testing "mx multiplication is distributive"
       (is (= (multiply A (add B C) 3 2) (add (multiply A B 3 2) (multiply A C 3 2)))))
-    (testing "square mx multiplication is associative"
-      (is (= (multiply A (multiply B C 3 3) 3 3) (multiply (multiply A B 3 3) C 3 3))))
+    (testing "mx multiplication is associative.
+      https://en.wikipedia.org/wiki/Matrix_multiplication#Associativity
+      the products (AB) C and A (BC) are defined if and only if 
+      the number of columns of A equals the number of rows of B 
+      and the number of columns of B equals the number of rows of C
+      "
+      (is (=  (multiply (multiply A B 3 2) C 2 3) (multiply A (multiply B C 2 3) 3 3))))
+    ; (testing "transpose AB equals tr(B)tr(A)  "
+    ;   (is (= (transpose (multiply A B 3 3) 3) (multiply (transpose B 3) (transpose A 3) 3 3))))
     ;;;
     ))
 
@@ -104,6 +111,28 @@
 
   (run-tests)
   (remove-ns 'plants.mx.core-test)
+
+
+  (def A (mkmx [[1 2 3]
+                [4 5 6]
+                [7 8 9]
+                [10 11 12]]))
+
+  (def B (mkmx
+          [[1 2 3]
+           [4 5 6]]))
+
+  (def C (mkmx
+          [[0 1 2]
+           [3 4 5]]))
+
+  (def M1 (multiply A (multiply B C 2 3) 3 3))
+
+  (def M2 (multiply  (multiply A B 3 2) C 2 3))
+
+  (= M1 M2)
+
+
 
   ;;;
   )
