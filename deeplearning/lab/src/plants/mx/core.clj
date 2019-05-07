@@ -492,12 +492,73 @@
   ;;;
   )
 
+(defn det2x2
+  "returns the determinant of a 2x2 mx"
+  [mx]
+  (->
+   (- (* (mx 0) (mx 3)) (* (mx 1) (mx 2)))
+   vector))
+
+
+(defn fact
+  "returns the afctorial of n"
+  [n]
+  (reduce * 1 (range 1 (inc n))))
+
+
+
+(defn symmetric-group-oder
+  "returns  the number (n!) that is the order (cardinality)
+   of a set of n elems 
+  "
+  [n]
+  (fact n))
+
+; (defn sym-group-1
+;   "returns the vector of sym groups of a set"
+;   [v]
+  
+;   )
+
+
+(defn sort-interchange-steps
+  "returns num of steps required to sort a vector
+  "
+  [v steps steps-old]
+  (cond
+    (= steps steps-old) steps
+    (or (empty? v) (= (count v) 1)) steps
+    (< (second v) (first v)) (concat [(second v) (first v)]  (sort-interchange-steps (drop 2 v) (inc steps) steps))
+    :else (sort-interchange-steps
+           ()
+           (inc steps) steps))
+  )
+
+(defn sgn-sequen
+  "returns the signature of a set (vector) of natural numbers
+   a value that is +1 whenever the reordering given by σ can be achieved by 
+  successively interchanging two entries an even number of times, 
+  and −1 whenever it can be achieved by an odd number of such interchanges.
+  This implementations expects elems to form a seq
+  "
+  [v]
+  (let [original (vec (sort v))]
+    (cond 
+      (= v original) 1
+      
+      )
+    )
+  
+  )
 
 ;https://en.wikipedia.org/wiki/Determinant
-(defn determinant
+(defn det
   "returns the determinant of a matrix"
-  [mx width]
-  [])
+  [mx]
+  (let [len   (count mx)
+        width (int (Math/sqrt len))]
+    
+    ))
 
 
 ;https://en.wikipedia.org/wiki/Invertible_matrix
@@ -515,6 +576,25 @@
 
   (transpose [1 2 3] 1)
   
+  (range 1 6)
+  (fact 2)
+  (fact 5)
+  (fact 6)
+  (fact 10)
+  (fact 15)
+  (fact 20)
+  (fact 30)
+  
+  (concat)
+  
+  
+  (symmetric-group-oder 3)
+  
+  
+  
+  
+  
+  
   [1]
   [2]
   [3]
@@ -522,8 +602,10 @@
   (transpose [1] 1)
   
   [1]
-
   
+  (det2x2 [1 2 3 4])
+
+  (det (iden3) )
   
   ;;;
   )
@@ -682,3 +764,5 @@
 
   ;;;
   )
+
+
