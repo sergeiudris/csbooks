@@ -143,8 +143,7 @@
 (defn vec-of-len
   "returns vecctor os specified len and elem"
   [len elem]
-  (vec (repeat len nil))
-  )
+  (vec (repeat len nil)))
 
 
 (defn transpose
@@ -387,8 +386,7 @@
   " 
   returns a matrix that is the Hadamard product of A and B"
   [A B]
-  (mapv * A B)
-  )
+  (mapv * A B))
 
 
 (comment
@@ -565,7 +563,9 @@
 (defn dot-product
   "returns the number , result of dot product of v1 v2"
   [v1 v2]
-  (reduce + 0 (map * v1 v2)))
+  (->
+   (reduce + 0 (map * v1 v2))
+   vector))
 
 (comment
 
@@ -612,8 +612,9 @@
 (defn vec-length
   "returns the length or magnitude of norm of the vector"
   [a]
-  (Math/sqrt (dot-product a a ) )
-  )
+  (->
+   (Math/sqrt (first (dot-product a a)))
+   vector))
 
 (defn vec-unit
   "returns the unit vector of v"

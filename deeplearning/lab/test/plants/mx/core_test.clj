@@ -65,18 +65,18 @@
 
 
 (deftest dot-product-test
-  (is (= (dot-product [1 3 -5] [4 -2 -1]) 3)))
+  (is (= (dot-product [1 3 -5] [4 -2 -1]) [3])))
 
 (deftest element-wise-product-test
-  (is (= (element-wise-product [1 2 3 4] [1 2 3 4]) [1 4 9 16]))
-  )
+  (is (= (element-wise-product [1 2 3 4] [1 2 3 4]) [1 4 9 16])))
 
 (deftest vec-unit-test
   (is (=  (->>
            [1 3 0]
            vec-length
+           first
            (divide-scalar [1 3 0])
-           vec-length) 0.9999999999999999)))
+           vec-length) [ 0.9999999999999999] )))
 
 (deftest matrix-properties-test
   (let [A [1 2 3 4 5 6 7 8 9 10 11 12]
@@ -101,6 +101,13 @@
         b [4 5 6]]
     (testing "dot product is commutative"
       (is (= (dot-product a b) (dot-product b a))))
+
+    (testing "However, the dot product between two
+vectors is commutative.
+      the value
+of such a product is a scalar and therefore equal to its own transpose
+      "
+      (is (= (dot-product a b) (transpose (dot-product a b) 1))))
     ;;;
     ))
 
@@ -108,7 +115,7 @@
 
 
 (comment
-
+  
   (run-tests)
   (remove-ns 'plants.mx.core-test)
 
@@ -135,6 +142,8 @@
   (def M2 (multiply  (multiply A B 3 2) C 2 3))
 
   (= M1 M2)
+  
+  (transpose (dot-product [1 2 3] [0 22 3]) 1)
 
 
 
