@@ -6,15 +6,6 @@
             ))
 
 
-(deftest iden-test
-  (is (= (iden) []))
-  )
-
-
-(deftest mul-test
-  (is (= (mul [] []) [])))
-
-
 (deftest vec-s-test
   (is (= (vec-s [:a :b :c] #{1 3 7}) [:b]))
   (is (= (vec-s [:a :b :c] #{3 7}) [])))

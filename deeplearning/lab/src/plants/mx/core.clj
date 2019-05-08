@@ -521,17 +521,73 @@
 ;   )
 
 
-(defn sort-interchange-steps
-  "returns num of steps required to sort a vector
+(defn sort-interchange-steps-cycle-col
+  "returns [sorted-vec steps] after one cycle of interchaging vector elements
   "
-  [v steps steps-old]
+  [v steps total-steps col]
   (cond
-    (= steps steps-old) steps
-    (or (empty? v) (= (count v) 1)) steps
-    (< (second v) (first v)) (concat [(second v) (first v)]  (sort-interchange-steps (drop 2 v) (inc steps) steps))
-    :else (sort-interchange-steps
-           ()
-           (inc steps) steps))
+    ; (empty? v) (col [] 0 0)
+    (= (count v) 1) (col v 0 total-steps)
+    (< (second v) (first v))  (sort-interchange-steps-cycle-col (cons (first v) (drop 2 v)) steps total-steps
+                                                                (fn col- [v-res steps- steps-total-]
+                                                                  (col (cons (second v) v-res) (inc steps-) (inc steps-total-))))
+    :else (sort-interchange-steps-cycle-col (rest v) steps total-steps
+                                            (fn col- [v-res steps- steps-total-]
+                                              (col (cons (first v) v-res) steps- steps-total-)))))
+
+
+
+(defn sort-interchange-steps
+  "returns [sorted-vec steps] after sorting the vec by successively intercahnging elements 
+  and counting steps"
+  [v steps]
+  ;  (let [res (sort-interchange-steps-cycle-col v 0 nil  )
+  ;        ])
+  )
+
+
+; (def sort-steps
+;   "returns sorted vec and steps"
+;   ((fn [mk-col]
+;      (mk-col sort-interchange-steps-cycle-col  mk-col))
+;    (fn [cyc mk-col]
+;      (fn [v steps steps-total]
+;        (cond
+;          (zero? steps) [v steps-total]
+;          :else (cyc v 0 steps-total (mk-col cyc mk-col))))))
+;   ;;;
+;   )
+
+(def sort-steps
+  "returns sorted vec and steps"
+  ((fn a [mk-sort-steps-fn]
+     (mk-sort-steps-fn mk-sort-steps-fn))
+   (fn ab [mk-sort-steps-fn]
+     ((fn abc [sort-steps-fn]
+        (fn abcd [v  steps steps-total]
+          (cond
+            (and (not (nil? steps)) (zero? steps))  [v steps-total]
+            :else (sort-interchange-steps-cycle-col v nil steps-total sort-steps-fn))))
+      (fn abcde [v steps steps-total]
+        ((mk-sort-steps-fn mk-sort-steps-fn) v steps steps-total)))))
+  ;;;
+  )
+
+
+(comment
+  (cons 2 [12])
+
+  (def a   [2 1 5 4 0])
+
+  (sort-interchange-steps-cycle-col [2 1 5 4 0] 0 0 (fn [v steps steps-total]
+                                                      [v steps-total]))
+  
+  (sort-steps [2 1 5 4 0] nil 0)
+  (not nil)
+  (nil)
+  (cons (second a) (rest a))
+
+  ;;;
   )
 
 (defn sgn-sequen
