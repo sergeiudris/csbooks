@@ -492,12 +492,7 @@
   ;;;
   )
 
-(defn det2x2
-  "returns the determinant of a 2x2 mx"
-  [mx]
-  (->
-   (- (* (mx 0) (mx 3)) (* (mx 1) (mx 2)))
-   vector))
+
 
 
 (defn fact
@@ -597,6 +592,8 @@
     (odd? (second (sort-steps-v2 v nil 0))) -1
     :else 1))
 
+
+
 (comment
   
   (sgn [2 1 3] )
@@ -605,14 +602,91 @@
   )
 
 
+(defn permutations
+  "returns all combinations (symmetric group) (vector of vectors) of elemnts of a set of {1... n}"
+  [n count v]
+  ; [[0 1 2][0 2 1][1 0 2][1 2 0][2 0 1][2 1 0]]
+  (cond
+    (> count n) v
+    :else (permutations n
+                        (inc count)
+                        (->>
+                         (map-indexed (fn [i x]
+                                      ;  (int (/ i n))
+                                        
+
+                                       ;
+                                        )
+                                      v)
+                         flatten)
+                        ))
+  
+  (mapv (fn [x] (vector)) (range (fact n)))
+  
+  )
+
+(defn entries-product
+  [mx width permutation]
+  (reduce-kv (fn [acc i x]
+               (* acc (mx->mn mx width i x))) 1 permutation))
+
+
+(comment
+  
+
+  (def A (mkmx [[1 2 3]
+                [4 5 6]
+                [7 8 9]
+                [10 11 12]]))
+
+  (entries-product A 3 [1 0 2] ) 
+
+  (fact 4)
+  
+  (permutations 3)
+  ;;;
+  )
+
+(defn det2x2
+  "returns the determinant of a 2x2 mx"
+  [mx]
+  (->
+   (- (* (mx 0) (mx 3)) (* (mx 1) (mx 2)))
+   vector))
+
 ;https://en.wikipedia.org/wiki/Determinant
-(defn det
-  "returns the determinant of a matrix"
+(defn det-leibniz
+  "returns the determinant of a matrix.
+  (sum-n (* (sgn sigma) (prod i (a i sigmai) ) ) )
+  "
   [mx]
   (let [len   (count mx)
-        width (int (Math/sqrt len))]
-    
-    ))
+        width (int (Math/sqrt len))
+        perms (permutations width)]
+    (reduce-kv (fn [acc i x]
+                 (prn i x)
+                 (+ acc (* (sgn x) (entries-product mx width x)))) 0 perms)))
+
+(comment
+
+  (doc reduce-kv)
+
+  (def A (mkmx [[1 2 3]
+                [4 5 6]
+                [7 8 9]]))
+
+  (permutations 3)
+
+
+  (det-leibniz  A)
+  
+  (def I (iden 3))
+
+  (det-leibniz I)
+  
+
+  ;;;
+  )
 
 
 ;https://en.wikipedia.org/wiki/Invertible_matrix
