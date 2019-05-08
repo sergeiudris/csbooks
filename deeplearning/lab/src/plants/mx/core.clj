@@ -537,29 +537,9 @@
 
 
 
-(defn sort-interchange-steps
+(def sort-steps
   "returns [sorted-vec steps] after sorting the vec by successively intercahnging elements 
   and counting steps"
-  [v steps]
-  ;  (let [res (sort-interchange-steps-cycle-col v 0 nil  )
-  ;        ])
-  )
-
-
-; (def sort-steps
-;   "returns sorted vec and steps"
-;   ((fn [mk-col]
-;      (mk-col sort-interchange-steps-cycle-col  mk-col))
-;    (fn [cyc mk-col]
-;      (fn [v steps steps-total]
-;        (cond
-;          (zero? steps) [v steps-total]
-;          :else (cyc v 0 steps-total (mk-col cyc mk-col))))))
-;   ;;;
-;   )
-
-(def sort-steps
-  "returns sorted vec and steps"
   ((fn a [mk-sort-steps-fn]
      (mk-sort-steps-fn mk-sort-steps-fn))
    (fn ab [mk-sort-steps-fn]
