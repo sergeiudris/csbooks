@@ -107,6 +107,16 @@ of such a product is a scalar and therefore equal to its own transpose
   (is (= (iden 3) [1 0 0 0 1 0 0 0 1])))
 
 
+(deftest sort-steps-test
+  (is (= (sort-steps [2 1 5 4 0] nil 0) '[(0 1 2  4 5) 6]))
+  (is (= (sort-steps [1 1 0 0] nil 0) '[(0 0 1 1) 4]))
+  (is (= (sort-steps [0 9 9 0 3] nil 0) '[(0 0 3 9 9) 4]))
+  (is (= (sort-steps [9 7 3 2 0 1] nil 0) '[(0 1 2 3 7 9 ) 14]))
+  
+  
+  
+  ;;;
+  )
 
 
 (comment
@@ -137,7 +147,7 @@ of such a product is a scalar and therefore equal to its own transpose
   (def M2 (multiply  (multiply A B 3 2) C 2 3))
 
   (= M1 M2)
-  
+
   (transpose (dot-product [1 2 3] [0 22 3]) 1)
 
 

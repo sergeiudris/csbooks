@@ -583,6 +583,13 @@
                                                       [v steps-total]))
   
   (sort-steps [2 1 5 4 0] nil 0)
+  
+  (sort-steps [7 3 0 9 6 5 5 5 1 4] nil 0)
+  
+  (sort-steps [7 3 0 9 6 5 5 5 1 4] nil 0)
+  
+  
+  
   (not nil)
   (nil)
   (cons (second a) (rest a))
