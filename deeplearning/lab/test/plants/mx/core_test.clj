@@ -107,20 +107,30 @@ of such a product is a scalar and therefore equal to its own transpose
   (is (= (iden 3) [1 0 0 0 1 0 0 0 1])))
 
 
-(deftest sort-steps-test
-  (is (= (sort-steps [2 1 5 4 0] nil 0) '[(0 1 2  4 5) 6]))
-  (is (= (sort-steps [1 1 0 0] nil 0) '[(0 0 1 1) 4]))
-  (is (= (sort-steps [0 9 9 0 3] nil 0) '[(0 0 3 9 9) 4]))
-  (is (= (sort-steps [9 7 3 2 0 1] nil 0) '[(0 1 2 3 7 9 ) 14]))
+(deftest sort-steps-v2-test
+  (is (= (sort-steps-v2 [2 1 5 4 0] nil 0) '[(0 1 2  4 5) 6]))
+  (is (= (sort-steps-v2 [1 1 0 0] nil 0) '[(0 0 1 1) 4]))
+  (is (= (sort-steps-v2 [0 9 9 0 3] nil 0) '[(0 0 3 9 9) 4]))
+  (is (= (sort-steps-v2 [9 7 3 2 0 1] nil 0) '[(0 1 2 3 7 9 ) 14]))
   
   
   
   ;;;
   )
 
+(deftest sgn-test
+  (is (= (sgn [1 2 3]) 1))
+  (is (= (sgn [2 1 3]) -1))
+  (is (= (sgn [1 3 2]) -1))
+  (is (= (sgn [2 3 1]) 1))
+  (is (= (sgn [3 1 2]) 1))
+  (is (= (sgn [3 2 1]) -1))
+  ;;;
+  )
+
 
 (comment
-  
+
   (run-tests)
   (remove-ns 'plants.mx.core-test)
 

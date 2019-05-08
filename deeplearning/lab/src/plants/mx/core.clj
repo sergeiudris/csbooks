@@ -553,6 +553,14 @@
   ;;;
   )
 
+(defn sort-steps-v2
+  "returns [sorted-vec steps] after sorting the vec by successively intercahnging elements 
+  and counting steps"
+  [v  steps steps-total]
+  (cond
+    (and (not (nil? steps)) (zero? steps))  [v steps-total]
+    :else (sort-interchange-steps-cycle-col v nil steps-total sort-steps-2)))
+
 
 (comment
   (cons 2 [12])
@@ -568,7 +576,7 @@
   
   (sort-steps [7 3 0 9 6 5 5 5 1 4] nil 0)
   
-  
+  (sort-steps-v2 [2 1 5 4 0] nil 0)
   
   (not nil)
   (nil)
@@ -577,7 +585,7 @@
   ;;;
   )
 
-(defn sgn-sequen
+(defn sgn
   "returns the signature of a set (vector) of natural numbers
    a value that is +1 whenever the reordering given by σ can be achieved by 
   successively interchanging two entries an even number of times, 
@@ -585,14 +593,17 @@
   This implementations expects elems to form a seq
   "
   [v]
-  (let [original (vec (sort v))]
-    (cond 
-      (= v original) 1
-      
-      )
-    )
+  (cond
+    (odd? (second (sort-steps-v2 v nil 0))) -1
+    :else 1))
+
+(comment
   
+  (sgn [2 1 3] )
+  
+  ;;;
   )
+
 
 ;https://en.wikipedia.org/wiki/Determinant
 (defn det
