@@ -964,6 +964,8 @@
   (adjugate B)
   (inverse B)
   
+  (multiply B (inverse B) 3 3 )
+  
   (= 0 0N)
   
   
