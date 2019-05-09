@@ -740,29 +740,86 @@
 
 
   (det-leibniz  A)
-  
+
   (def I (iden 3))
 
   (det-leibniz I)
-  
+
   (def I (iden 4))
-  
+
   (det-leibniz I)
-  
+
   (det2x2 (iden 2))
-  
+
+  (def B (mkmx [[0 2 -1]
+                [0 5 1]
+                [3 0 4]]))
+
+  (det-leibniz B)
   
   
 
+
+
+
   ;;;
+  )
+;https://en.wikipedia.org/wiki/Linear_combination#Definition
+(defn linear-combination
+  "returns the linear combination. 
+   linear combination of x and y would be any expression of the form ax + by,where a and b are constants
+   the set of all linear combinations of v1,...,vn always forms a subspace.
+  
+  Euclidean vectors
+  (a,b,c) = (a,0,0) + (0,b,0) + (0,0,c) 
+  = a(1,0,0) + b(0,1,0) + c(0,0,1)
+  = a*e1 + b*e2 + c*e3
+  
+  "
+  ([vs]
+   (->>
+    vs
+    (reduce vec-sum)))
+  ([vs xs]
+   (->>
+    (mapv (fn [v x]
+            (multiply-scalar v x)) vs xs)
+    (reduce vec-sum)
+   ;
+    )))
+
+(comment
+  
+  (linear-combination [[1 2 3] [0 1 2]  ] [3 4] )
+  (linear-combination [[1 2 3] [0 1 2]])
+  
+  
+  ;;;
+  )
+
+
+;https://en.wikipedia.org/wiki/Adjugate_matrix#3_%C3%97_3_generic_matrix
+(defn cofactor-mx
+  "returns the cofacor matrix (comatrix) of m"
+  [m]
+  
+  )
+
+;https://en.wikipedia.org/wiki/Adjugate_matrix#3_%C3%97_3_generic_matrix
+(defn adjugate
+  "returns the adjugate mx"
+  [m]
+  
   )
 
 
 ;https://en.wikipedia.org/wiki/Invertible_matrix
 (defn inverse
-  "returns the inverse of a matrix"
+  "returns the inverse of a matrix A^-1
+  AB = BA = In
+  "
   [mx]
-  [])
+  (multiply-scalar (adjugate mx) (/ 1 (det-leibniz mx))))
 
 
 (comment
