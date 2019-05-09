@@ -129,6 +129,10 @@ of such a product is a scalar and therefore equal to its own transpose
   )
 
 
+(deftest permutations-test
+  (is (= (permutations 2 1 [[1]]) [[3 2 1] [2 3 1] [2 1 3] [3 1 2] [1 3 2] [1 2 3]])))
+
+
 (comment
 
   (run-tests)
