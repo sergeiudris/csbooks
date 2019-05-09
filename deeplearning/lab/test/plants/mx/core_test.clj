@@ -104,7 +104,10 @@ of such a product is a scalar and therefore equal to its own transpose
 
 
 (deftest iden-test
-  (is (= (iden 3) [1 0 0 0 1 0 0 0 1])))
+  (is (= (iden 3) [1 0 0 0 1 0 0 0 1]))
+  (testing "An identity matrix is a matrix that does not change any vector when we
+multiply that vector by that matrix"
+    (is (= (multiply-vec (iden 3) [1 2 3]) [1 2 3]))))
 
 
 (deftest sort-steps-v2-test
@@ -150,23 +153,25 @@ of such a product is a scalar and therefore equal to its own transpose
 
 
 (deftest ij-submatrix-test
-  (let [A (mkmx [[1 2 3]
-                 [4 5 6]
-                 [7 8 9]])])
-  (is (= (ij-submatrix 0 0 A) [5 6 8 9]))
-  (is (= (ij-submatrix 1 1 A) [1 3 7 9]))
-  (is (= (ij-submatrix 2 2 A) [1 2 4 5]))
-  (is (= (ij-submatrix 0 1 A) [4 6 7 9]))
+    (let [A (mkmx [[1 2 3]
+                   [4 5 6]
+                   [7 8 9]])]
+      (is (= (ij-submatrix 0 0 A) [5 6 8 9]))
+      (is (= (ij-submatrix 1 1 A) [1 3 7 9]))
+      (is (= (ij-submatrix 2 2 A) [1 2 4 5]))
+      (is (= (ij-submatrix 0 1 A) [4 6 7 9])))
+ 
   ;
   )
 
 (deftest ij-minor-test
-  (let [A (mkmx [[1 2 3]
-                 [4 5 6]
-                 [7 8 9]])])
-  (is (= (ij-minor 0 1 A) -6))
-  (is (= (ij-minor 0 0 A) -3))
-  (is (= (ij-minor 1 1 A) -12))
+    (let [A (mkmx [[1 2 3]
+                   [4 5 6]
+                   [7 8 9]])]
+      (is (= (ij-minor 0 1 A) -6))
+      (is (= (ij-minor 0 0 A) -3))
+      (is (= (ij-minor 1 1 A) -12)))
+  
   ;
   )
 
@@ -183,7 +188,15 @@ of such a product is a scalar and therefore equal to its own transpose
   (let [B (mkmx [[-1 2 1]
                  [1 4 0]
                  [2 3 0]])]
-    (is (= (multiply B (inverse B) 3 3) (iden 3)))))
+    (is (= (multiply B (inverse B) 3 3) (iden 3))))
+  )
+
+
+(deftest system-of-linear-equations-test
+  (let [A (mkmx [[1 0 2]
+                 [3 4 -1]
+                 [5 1 0]])]
+    (is (= (system-of-linear-equations [3 6 -3] A)  [-13/11 32/11 23/11]))))
 
 (comment
 

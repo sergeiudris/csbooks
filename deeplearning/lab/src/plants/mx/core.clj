@@ -494,6 +494,56 @@
 
 
 
+(defn broadcast
+  "returns the matrix resulting from adding v to mx"
+  [mx width v]
+  (let [rows (mx->rows width mx)]
+    (->>
+     rows
+     (mapv (fn mr [row]
+             (mapv + row v)))
+     rows->mx)))
+
+(defn add-scalar
+  "returns the matrix after adding a const to each element"
+  [mx scalar]
+  (mapv #(+ scalar %)  mx))
+
+(defn multiply-scalar
+  "returns the matrix after adding a const to each element"
+  [mx scalar]
+  (mapv #(* scalar %)  mx))
+
+; https://en.wikipedia.org/wiki/Dot_product#Definition
+(defn dot-product
+  "returns the number , result of dot product of v1 v2"
+  [v1 v2]
+  (->
+   (reduce + 0 (map * v1 v2))
+   vector))
+
+(comment
+
+  (def A [1 2 3 4 5 6])
+
+  (def a [1 2 3])
+
+  (broadcast A 3 a)
+
+  (add-scalar A 3)
+
+  (mapv #(+ % 1) [1 2])
+
+  (reduce + 0 (map + [1 2] [3 4]))
+
+  (dot-product [1 2] [3 4])
+
+  (multiply-scalar A 2)
+
+  ;;;
+  )
+
+
 
 (defn fact
   "returns the afctorial of n"
@@ -771,45 +821,7 @@
   ;;;
   )
 
-(defn sum
-  "returns the sum of numbers.
-  sum is a linear combintaion of scalars"
-  [v]
-  (reduce + 0 v))
 
-;https://en.wikipedia.org/wiki/Linear_combination#Definition
-(defn linear-combination
-  "returns the linear combination. 
-   linear combination of x and y would be any expression of the form ax + by,where a and b are constants
-   the set of all linear combinations of v1,...,vn always forms a subspace.
-  
-  Euclidean vectors
-  (a,b,c) = (a,0,0) + (0,b,0) + (0,0,c) 
-  = a(1,0,0) + b(0,1,0) + c(0,0,1)
-  = a*e1 + b*e2 + c*e3
-  
-  "
-  ([vs]
-   (->>
-    vs
-    (reduce vec-sum)))
-  ([vs xs]
-   (->>
-    (mapv (fn [v x]
-            (multiply-scalar v x)) vs xs)
-    (reduce vec-sum)
-   ;
-    )))
-
-(comment
-  
-  (linear-combination [[1 2 3] [0 1 2]  ] [3 4] )
-  (linear-combination [[1 2 3] [0 1 2]])
-  
-  (sum [1 2 3])
-  
-  ;;;
-  )
 
 ;https://en.wikipedia.org/wiki/Minor_(linear_algebra)#First_minors
 (defn ij-submatrix
@@ -1021,55 +1033,6 @@
   )
 
 
-(defn broadcast
-  "returns the matrix resulting from adding v to mx"
-  [mx width v]
-  (let [rows (mx->rows width mx)]
-    (->>
-     rows
-     (mapv (fn mr [row]
-             (mapv + row v)))
-     rows->mx)))
-
-(defn add-scalar
-  "returns the matrix after adding a const to each element"
-  [mx scalar]
-  (mapv #(+ scalar %)  mx))
-
-(defn multiply-scalar
-  "returns the matrix after adding a const to each element"
-  [mx scalar]
-  (mapv #(* scalar %)  mx))
-
-; https://en.wikipedia.org/wiki/Dot_product#Definition
-(defn dot-product
-  "returns the number , result of dot product of v1 v2"
-  [v1 v2]
-  (->
-   (reduce + 0 (map * v1 v2))
-   vector))
-
-(comment
-
-  (def A [1 2 3 4 5 6])
-  
-  (def a [1 2 3])
-  
-  (broadcast A 3 a)
-  
-  (add-scalar A 3)
-  
-  (mapv #(+ % 1) [1 2])
-  
-  (reduce + 0 (map + [1 2] [3 4]) )
-  
-  (dot-product [1 2] [3 4] )
-  
-  (multiply-scalar A 2 )
-
-  ;;;
-  )
-
 (defn vec-sum
   "returns the sum of v1 v2"
   [a b]
@@ -1121,6 +1084,47 @@
 
   ;;;
   )
+
+(defn sum
+  "returns the sum of numbers.
+  sum is a linear combintaion of scalars"
+  [v]
+  (reduce + 0 v))
+
+;https://en.wikipedia.org/wiki/Linear_combination#Definition
+(defn linear-combination
+  "returns the linear combination. 
+   linear combination of x and y would be any expression of the form ax + by,where a and b are constants
+   the set of all linear combinations of v1,...,vn always forms a subspace.
+  
+  Euclidean vectors
+  (a,b,c) = (a,0,0) + (0,b,0) + (0,0,c) 
+  = a(1,0,0) + b(0,1,0) + c(0,0,1)
+  = a*e1 + b*e2 + c*e3
+  
+  "
+  ([vs]
+   (->>
+    vs
+    (reduce vec-sum)))
+  ([vs xs]
+   (->>
+    (mapv (fn [v x]
+            (multiply-scalar v x)) vs xs)
+    (reduce vec-sum)
+   ;
+    )))
+
+(comment
+
+  (linear-combination [[1 2 3] [0 1 2]] [3 4])
+  (linear-combination [[1 2 3] [0 1 2]])
+
+  (sum [1 2 3])
+
+  ;;;
+  )
+
 
 ;https://en.wikipedia.org/wiki/Euclidean_vector#Cross_product
 (defn cross-product
@@ -1176,3 +1180,33 @@
   )
 
 
+(defn system-of-linear-equations
+  "returns x
+  
+  Ax = b
+  (A^-1)*A*x = (A^-1)*b
+  I*x = (A^-1)*b
+  x = (A^-1)*b
+  
+  a[m1]x[n] + ... + a[mn]x[n] = b[n]
+  
+  "
+  [b A]
+  (multiply-vec (inverse A) b))
+
+(comment
+
+  (def A (mkmx [[1 0 2]
+                [3 4 -1]
+                [5 1 0]]))
+
+  (inverse  A)
+  
+  (multiply-vec A [1 2 3])
+
+  (multiply-vec (inverse  A) [1 2 3])
+
+  (system-of-linear-equations  [3 6 -3] A)
+
+  ;;;
+  )
