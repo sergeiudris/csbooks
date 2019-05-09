@@ -156,7 +156,28 @@ of such a product is a scalar and therefore equal to its own transpose
   (is (= (ij-submatrix 0 0 A) [5 6 8 9]))
   (is (= (ij-submatrix 1 1 A) [1 3 7 9]))
   (is (= (ij-submatrix 2 2 A) [1 2 4 5]))
-  (is (= (ij-submatrix 0 1 A) [4 6 7 9])))
+  (is (= (ij-submatrix 0 1 A) [4 6 7 9]))
+  ;
+  )
+
+(deftest ij-minor-test
+  (let [A (mkmx [[1 2 3]
+                 [4 5 6]
+                 [7 8 9]])])
+  (is (= (ij-minor 0 1 A) -6))
+  (is (= (ij-minor 0 0 A) -3))
+  (is (= (ij-minor 1 1 A) -12))
+  ;
+  )
+
+(deftest cofactor-test
+  (let [A (mkmx [[1 2 3]
+                 [4 5 6]
+                 [7 8 9]])])
+  (is (= (cofactor 0 1 -6) 6))
+  (is (= (cofactor 0 0 -3) -3))
+  ;
+  )
 
 (comment
 
