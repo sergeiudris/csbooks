@@ -877,6 +877,23 @@
   [i j minor]
   (* minor (int (Math/pow -1 (+ (inc i) (inc j))))))
 
+(defn cofactor-entry
+  "returns the cofactor of an element of a matrix given row and col"
+  [i j A]
+  (->>
+   (ij-minor i j A)
+   (cofactor i j)))
+
+(defn cofactor-entry-by-index
+  "returns the cofactor of an element of a matrix given index"
+  [i A]
+  (let [size  (size-square-matrix A)
+        row-i (index->row i size)
+        col-i (index->col i size)]
+    (->>
+     (ij-minor row-i col-i A)
+     (cofactor row-i col-i))))
+
 (comment
   (def A (mkmx [[1 2 3]
                 [4 5 6]
@@ -900,17 +917,18 @@
 ;https://en.wikipedia.org/wiki/Adjugate_matrix#3_%C3%97_3_generic_matrix
 (defn comatrix
   "returns the cofacor matrix (comatrix) of m"
-  [m]
-  
+  [A]
+  (->>
+   (map-indexed (fn [i x]
+                  (cofactor-entry-by-index i A)) A)
+   vec)
   )
 
 ;https://en.wikipedia.org/wiki/Adjugate_matrix#3_%C3%97_3_generic_matrix
 (defn adjugate
   "returns the adjugate mx"
-  [m]
-  
-  )
-
+  [A]
+  (transpose (comatrix A) (size-square-matrix A)))
 
 ;https://en.wikipedia.org/wiki/Invertible_matrix
 (defn inverse
@@ -920,6 +938,38 @@
   [mx]
   (multiply-scalar (adjugate mx) (/ 1 (det-leibniz mx))))
 
+
+(comment
+
+  (def A (mkmx [[1 2 3]
+                [4 5 6]
+                [7 8 9]]))
+
+  (det-leibniz A )
+  
+  (comatrix A)
+
+  (adjugate A)
+
+  (inverse A)
+
+  
+  (def B (mkmx [[-1 2 1]
+                [1 4 0]
+                [2 3 0]]))
+  
+  (det-leibniz B)
+  
+  (comatrix B)
+  (adjugate B)
+  (inverse B)
+  
+  (= 0 0N)
+  
+  
+  
+  ;;;
+  )
 
 (comment
 
