@@ -554,7 +554,7 @@
   [v  steps steps-total]
   (cond
     (and (not (nil? steps)) (zero? steps))  [v steps-total]
-    :else (sort-interchange-steps-cycle-col v nil steps-total sort-steps-2)))
+    :else (sort-interchange-steps-cycle-col v nil steps-total sort-steps-v2)))
 
 
 (comment
@@ -601,28 +601,69 @@
   ;;;
   )
 
+(defn insert [i x v] (vec (concat (subvec v 0 i) [x] (subvec v i))))
+
+
+
+(defn inc-group
+  "returns vector of vectors where each has value 
+  inserted between elements
+  "
+  [v]
+  (let [new-len (inc (count v))]
+    (->>
+     (reduce-kv (fn [acc i x]
+                  (assoc acc i (insert i new-len v))) [] (vec (range new-len)))
+   ;
+     )))
+
+(defn inc-groups
+  "returns vector of groups
+  [[1]] -> [[1 2] [2 1]] -> [[1 2 3] [3 1 2] ...]
+  "
+  [v]
+  (->>
+   v
+   ;  (int (/ (fact cnt) (fact (- cnt 1)) ))
+   (mapv inc-group)
+   (apply concat)
+   vec
+  ;  (map-indexed (fn [group-i group]
+
+  ;                 (->
+  ;                  (reduce-kv (fn [acc el-i el]
+  ;                               (assoc acc el-i [el-i])) [] (vec (range (inc (count group)))))
+  ;                  vec)))
+   ;
+   ))
+
+(comment
+
+  (insert-inbetween [[1 2] [2 1]] 1)
+  
+  (insert 2 3 [1 2]  )
+  
+  (inc-group [1 2] )
+  
+  (inc-groups [[1 2] [2 1]])
+  
+
+  ;;;
+  )
 
 (defn permutations
   "returns all combinations (symmetric group) (vector of vectors) of elemnts of a set of {1... n}"
-  [n count v]
+  [n cnt v]
   ; [[0 1 2][0 2 1][1 0 2][1 2 0][2 0 1][2 1 0]]
   (cond
-    (> count n) v
-    :else (permutations n
-                        (inc count)
-                        (->>
-                         (map-indexed (fn [i x]
-                                      ;  (int (/ i n))
-                                        
-
-                                       ;
-                                        )
-                                      v)
-                         flatten)
-                        ))
-  
-  (mapv (fn [x] (vector)) (range (fact n)))
-  
+    (> cnt n) v
+    :else (->>
+           v
+           inc-groups
+           (permutations n (inc cnt))
+           ;
+           ))
+  ; (mapv (fn [x] (vector)) (range (fact n)))
   )
 
 (defn entries-product
@@ -632,18 +673,27 @@
 
 
 (comment
-  
+
 
   (def A (mkmx [[1 2 3]
                 [4 5 6]
                 [7 8 9]
                 [10 11 12]]))
 
-  (entries-product A 3 [1 0 2] ) 
+  (entries-product A 3 [1 0 2])
 
   (fact 4)
-  
-  (permutations 3)
+
+  (permutations 4 6 [[1] [2] [3] [4] [5] [6]])
+
+  (->>
+   (permutations 2 1 [[1]])
+  ;  count
+   )
+
+  (permutations 3 1 [[1]])
+
+
   ;;;
   )
 
