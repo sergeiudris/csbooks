@@ -863,10 +863,11 @@
   it is the 'first minor'
   This number is often denoted Mi,j.
   "
-  [i j m]
-  
-  
-  )
+  [i j A]
+  (let [size (size-square-matrix A)]
+    (->>
+     (ij-submatrix i j A)
+     det-leibniz)))
 
 ;https://en.wikipedia.org/wiki/Minor_(linear_algebra)#First_minors
 (defn cofactor
@@ -874,7 +875,27 @@
   The (i,j) cofactor is obtained by multiplying the minor by (-1)^{i+j}
   "
   [i j minor]
-  (* minor (int (Math/pow -1 (+ i j)))))
+  (* minor (int (Math/pow -1 (+ (inc i) (inc j))))))
+
+(comment
+  (def A (mkmx [[1 2 3]
+                [4 5 6]
+                [7 8 9]]))
+
+  (ij-minor 1 2 A)
+
+  (->>
+   (ij-minor 1 2 A)
+   (cofactor 1 2))
+
+  (->>
+   (ij-minor 0 1 A)
+   (cofactor 0 1))
+
+  ;;;
+  )
+
+
 
 ;https://en.wikipedia.org/wiki/Adjugate_matrix#3_%C3%97_3_generic_matrix
 (defn comatrix
