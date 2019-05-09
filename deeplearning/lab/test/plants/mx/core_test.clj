@@ -130,8 +130,12 @@ of such a product is a scalar and therefore equal to its own transpose
 
 
 (deftest permutations-test
-  (is (= (permutations 2 1 [[1]]) [[3 2 1] [2 3 1] [2 1 3] [3 1 2] [1 3 2] [1 2 3]])))
+  (is (= (permutations-iter 2 1 [[0]]) [[2 1 0] [1 2 0] [1 0 2] [2 0 1] [0 2 1] [0 1 2]])))
 
+(deftest det-leibniz-test
+  (is (= (det-leibniz (iden 2)) 1))
+  (is (= (det-leibniz (iden 3)) 1))
+  (is (= (det-leibniz (iden 4)) 1)))
 
 (comment
 

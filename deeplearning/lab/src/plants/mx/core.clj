@@ -613,7 +613,7 @@
   (let [new-len (inc (count v))]
     (->>
      (reduce-kv (fn [acc i x]
-                  (assoc acc i (insert i new-len v))) [] (vec (range new-len)))
+                  (assoc acc i (insert i (dec new-len) v))) [] (vec (range new-len)))
    ;
      )))
 
@@ -651,7 +651,7 @@
   ;;;
   )
 
-(defn permutations
+(defn permutations-iter
   "returns all combinations (symmetric group) (vector of vectors) of elemnts of a set of {1... n}"
   [n cnt v]
   ; [[0 1 2][0 2 1][1 0 2][1 2 0][2 0 1][2 1 0]]
@@ -660,11 +660,16 @@
     :else (->>
            v
            inc-groups
-           (permutations n (inc cnt))
+           (permutations-iter n (inc cnt))
            ;
            ))
   ; (mapv (fn [x] (vector)) (range (fact n)))
   )
+
+(defn permutations
+  "returns all combinations (symmetric group) (vector of vectors) of elemnts of a set of {1... n}"
+  [n]
+  (permutations-iter n 1 [[0]]))
 
 (defn entries-product
   [mx width permutation]
@@ -687,11 +692,17 @@
   (permutations 4 6 [[1] [2] [3] [4] [5] [6]])
 
   (->>
-   (permutations 2 1 [[1]])
+   (permutations-iter 2 1 [[0]])
   ;  count
    )
 
-  (permutations 3 1 [[1]])
+  (permutations-iter 3 1 [[0]])
+
+  (->>
+   (permutations 2)
+   (map #(list %1 (sgn %1)))
+   ;
+   )
 
 
   ;;;
@@ -712,9 +723,8 @@
   [mx]
   (let [len   (count mx)
         width (int (Math/sqrt len))
-        perms (permutations width)]
+        perms (permutations (dec width))]
     (reduce-kv (fn [acc i x]
-                 (prn i x)
                  (+ acc (* (sgn x) (entries-product mx width x)))) 0 perms)))
 
 (comment
@@ -733,6 +743,12 @@
   (def I (iden 3))
 
   (det-leibniz I)
+  
+  (def I (iden 4))
+  
+  (det-leibniz I)
+  
+  
   
 
   ;;;
