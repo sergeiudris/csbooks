@@ -179,6 +179,12 @@ of such a product is a scalar and therefore equal to its own transpose
   ;
   )
 
+(deftest inverse-test
+  (let [B (mkmx [[-1 2 1]
+                 [1 4 0]
+                 [2 3 0]])]
+    (is (= (multiply B (inverse B) 3 3) (iden 3)))))
+
 (comment
 
   (run-tests)
