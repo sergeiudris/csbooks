@@ -716,6 +716,7 @@
    vector))
 
 ;https://en.wikipedia.org/wiki/Determinant
+;https://en.wikipedia.org/wiki/Determinant#n_%C3%97_n_matrices
 (defn det-leibniz
   "returns the determinant of a matrix.
   (sum-n (* (sgn sigma) (prod i (a i sigmai) ) ) )
@@ -747,6 +748,8 @@
   (def I (iden 4))
   
   (det-leibniz I)
+  
+  (det2x2 (iden 2))
   
   
   
