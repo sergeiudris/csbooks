@@ -135,7 +135,18 @@ of such a product is a scalar and therefore equal to its own transpose
 (deftest det-leibniz-test
   (is (= (det-leibniz (iden 2)) 1))
   (is (= (det-leibniz (iden 3)) 1))
-  (is (= (det-leibniz (iden 4)) 1)))
+  (is (= (det-leibniz (iden 4)) 1))
+  (is (= (det-leibniz (mkmx [[1 2 3]
+                             [4 5 6]
+                             [7 8 9]])) 0))
+  (is (= (det-leibniz (mkmx [[3 2 3]
+                             [4 5 6]
+                             [7 8 9]])) -6))
+  (is (= (det-leibniz (mkmx [[-1 4 -2]
+                             [0 2 1]
+                             [5 -3 7]])) 23))
+  ;
+  )
 
 (comment
 
