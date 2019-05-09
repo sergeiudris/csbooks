@@ -715,6 +715,11 @@
    (- (* (mx 0) (mx 3)) (* (mx 1) (mx 2)))
    vector))
 
+(defn size-square-matrix
+  "returns the width/height of a square amtrix"
+  [m]
+  (int (Math/sqrt (count m))))
+
 ;https://en.wikipedia.org/wiki/Determinant
 ;https://en.wikipedia.org/wiki/Determinant#n_%C3%97_n_matrices
 (defn det-leibniz
@@ -722,8 +727,8 @@
   (sum-n (* (sgn sigma) (prod i (a i sigmai) ) ) )
   "
   [mx]
-  (let [len   (count mx)
-        width (int (Math/sqrt len))
+  (let [  
+        width (size-square-matrix mx)
         perms (permutations (dec width))]
     (reduce-kv (fn [acc i x]
                  (+ acc (* (sgn x) (entries-product mx width x)))) 0 perms)))
@@ -738,6 +743,7 @@
 
   (permutations 3)
 
+  (size-square-matrix A)
 
   (det-leibniz  A)
 
@@ -756,14 +762,21 @@
                 [3 0 4]]))
 
   (det-leibniz B)
-  
-  
+
+
 
 
 
 
   ;;;
   )
+
+(defn sum
+  "returns the sum of numbers.
+  sum is a linear combintaion of scalars"
+  [v]
+  (reduce + 0 v))
+
 ;https://en.wikipedia.org/wiki/Linear_combination#Definition
 (defn linear-combination
   "returns the linear combination. 
@@ -793,13 +806,78 @@
   (linear-combination [[1 2 3] [0 1 2]  ] [3 4] )
   (linear-combination [[1 2 3] [0 1 2]])
   
+  (sum [1 2 3])
   
   ;;;
   )
 
+;https://en.wikipedia.org/wiki/Minor_(linear_algebra)#First_minors
+(defn ij-submatrix
+  "If A is a square matrix, then the minor of the entry in the i-th row and j-th column (also called the (i,j) minor,
+  or a first minor [1]) is the determinant of the submatrix formed by deleting the i-th row and j-th column"
+  [i j A]
+  (->>
+   (let [size  (size-square-matrix A)]
+     (keep-indexed (fn [k x]
+                     (if
+                      (or (= (index->row k size) i)
+                          (= (index->col k size) j))
+                       nil x)) A))
+   vec))
+
+(comment
+
+
+  (def A (mkmx [[1 2 3]
+                [4 5 6]
+                [7 8 9]]))
+
+  [(index->row 0 3) (index->col 0 3)]
+  [(index->row 1 3) (index->col 1 3)]
+  
+  
+  
+  
+  (->
+   (ij-submatrix  0 0 A)
+   (prnmx 2))
+
+  (->
+   (ij-submatrix  1 1 A)
+   (prnmx 2))
+
+  (->
+   (ij-submatrix  1 2 A)
+   (prnmx 2))
+
+  (->
+   (ij-submatrix  0 2 A)
+   (prnmx 2))
+
+  ;;;
+  )
+
+;https://en.wikipedia.org/wiki/Minor_(linear_algebra)#First_minors
+(defn ij-minor
+  "returns the minor (determinant) of a submatrix corresponding to i,j element of m.
+  it is the 'first minor'
+  This number is often denoted Mi,j.
+  "
+  [i j m]
+  
+  
+  )
+
+;https://en.wikipedia.org/wiki/Minor_(linear_algebra)#First_minors
+(defn cofactor
+  "returns the number - cofactor of a minor
+  The (i,j) cofactor is obtained by multiplying the minor by (-1)^{i+j}
+  "
+  [i j minor]
+  (* minor (int (Math/pow -1 (+ i j)))))
 
 ;https://en.wikipedia.org/wiki/Adjugate_matrix#3_%C3%97_3_generic_matrix
-(defn cofactor-mx
+(defn comatrix
   "returns the cofacor matrix (comatrix) of m"
   [m]
   
@@ -840,6 +918,11 @@
   (fact 30)
   
   (concat)
+  
+  (cofactor 2 3 3)
+  (cofactor 2 3 3.2)
+  
+  (* 3.2 (int -1))
   
   
   (symmetric-group-oder 3)
