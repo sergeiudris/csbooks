@@ -224,7 +224,8 @@ multiply that vector by that matrix"
   (let [A (mkmx [[1 2 3]
                  [0 1 0]
                  [0 0 2]])]
-    (is (= (frobenius-norm A) 4.358898943540674))))
+    (is (= (frobenius-norm A) 4.358898943540674))
+    (is (= (frobenius-norm-trace A) 4.358898943540674))))
 
 
 (deftest diag-v-test
@@ -234,6 +235,14 @@ and in that case, diag (v) −1 = diag ([1/v 1 , . . . , 1/v n ]  )."
 
 (deftest symmetric-test
   (is (symmetric? (iden 3))))
+
+(deftest trace-operator-test
+
+  (let [A (mkmx [[1 2 3]
+                 [0 1 0]
+                 [0 0 2]])]
+    (is (= (trace-operator (iden 4))  4))
+    (is (= (trace-operator A)  (trace-operator (transpose A 3))))))
 
 (comment
 
