@@ -1345,3 +1345,41 @@
   
   ;;;
   )
+
+
+(defn symmetric?
+  "returns true if matrix is equal to its own trasnpose"
+  [A]
+  (= A (transpose A (size-square-matrix A) )  )
+  )
+
+(defn vec-orthogonal?
+  "returns true if both vectors are at 90 degree agle"
+  [a b]
+  (= (dot-product a b) [0]))
+
+(comment
+
+  (symmetric? (iden 3))
+  (dot-product [1 0 0] [0 0 1])
+  (vec-orthogonal? [1 0 0] [0 0 1])
+
+  ;;;
+  )
+
+
+(defn mx-orthogonal?
+  "returns true if A is a square matrix whose rows are mutually orthonor-
+mal and whose columns are mutually orthonormal
+  A^T A = AA^T = I.
+  "
+  [A]
+  (let [size (size-square-matrix A)]
+    (=  (multiply (transpose A size) A size size) (multiply  A (transpose A size) size size) (iden size))))
+
+(comment
+  (mx-orthogonal? (iden 4) )
+  
+  
+  ;;;
+  )

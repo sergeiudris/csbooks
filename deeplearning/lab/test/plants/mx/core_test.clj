@@ -232,6 +232,9 @@ multiply that vector by that matrix"
 and in that case, diag (v) −1 = diag ([1/v 1 , . . . , 1/v n ]  )."
     (is (= (inverse (diag-v [1 2 3])) (diag-v [1 1/2 1/3])))))
 
+(deftest symmetric-test
+  (is (symmetric? (iden 3))))
+
 (comment
 
   (run-tests)
