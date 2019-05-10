@@ -1271,6 +1271,15 @@
    count))
 
 
+(defn max-norm
+  "returns the absolue value of the element with the largest magnitutde"
+  [v]
+  (->>
+   v
+   (mapv #(Math/abs %))
+   sort
+   last))
+
 (comment
 
   (norm2 [0 0 2])
@@ -1288,7 +1297,7 @@
 
   (count-non-zero-elems [1 2 3 0 0 5])
 
-
+  (max-norm [1 -3 -2 4 2 -9 1 1 1])
 
 
   ;;;
