@@ -222,8 +222,8 @@ multiply that vector by that matrix"
 
 (deftest frobenius-norm-test
   (let [A (mkmx [[1 2 3]
-                  [0 1 0]
-                  [0 0 2]])]
+                 [0 1 0]
+                 [0 0 2]])]
     (is (= (frobenius-norm A) 4.358898943540674))))
 
 

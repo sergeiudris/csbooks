@@ -154,8 +154,34 @@
                         :else x))) A))
    vec))
 
+(defn diag-v-non-square
+  "returns the diag mx fo v of arbitrary size"
+  [v m n]
+  (->
+   (let [size (count v)
+         len  (* m n)
+         A    (vec-of-len len 0)]
+     (map-indexed (fn [i x]
+                    (let [row-i (index->row i m)
+                          col-i (index->col i m)]
+                      (cond
+                        (and (<= row-i size) (= row-i col-i)) (nth v row-i)
+                        :else x))) A))
+   vec)
+  )
+
 (comment
   (prnmx (diag-v [1 2 3 4]) 4 )
+  
+  (prnmx (diag-v-non-square [1 2 3 4] 3 4) 3)
+  
+  (prnmx (diag-v-non-square [1 2 3 4] 4 5) 4)
+  
+  (prnmx (diag-v-non-square [1 2 3 4] 5 4) 5)
+  
+  
+  
+  
   ;;;
   )
 
