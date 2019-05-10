@@ -116,7 +116,7 @@
      (reduce (fn [acc x]
                (let [u    (vec-unit x)
                      size (size-square-matrix A)
-                     m    (vec->diagonal-mx u)]
+                     m    (diag-v u)]
                 ;  (prnmx acc 3)
                 ;  (prnmx m 3)
                 ;  (prn (det-leibniz acc))

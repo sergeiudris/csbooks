@@ -140,7 +140,7 @@
   [size x]
   (vec-of-len (Math/pow size 2) x))
 
-(defn vec->diagonal-mx
+(defn diag-v
   "returns square mx with diagoanl entries being from v"
   [v]
   (->
@@ -155,7 +155,7 @@
    vec))
 
 (comment
-  (prnmx (vec->diagonal-mx [1 2 3 4]) 4 )
+  (prnmx (diag-v [1 2 3 4]) 4 )
   ;;;
   )
 
