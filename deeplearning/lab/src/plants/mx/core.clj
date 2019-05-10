@@ -1243,9 +1243,19 @@
   0)
 
 (defn norm2
-  "returns the size (Euclidean norm) of a vector - length in from origin to point"
+  "returns the size (Euclidean norm) of a vector - length in from origin to point
+  grows slowly near the origin
+  "
   [v]
   (Math/sqrt (reduce + (mapv #(* % %) v))))
+
+(defn norm1
+  [v]
+  "returns the L1 norm, that grows at the same rate in all locations"
+  (->>
+   v
+   (mapv #(Math/abs %) )
+   (reduce +)))
 
 (comment
 
@@ -1256,6 +1266,12 @@
   (norm2 [1 1 0])
 
   (Math/sqrt 2)
+
+  (norm1 [1 1 0])
+  
+  (norm1 [1 -1 0])
+  
+
 
 
 
