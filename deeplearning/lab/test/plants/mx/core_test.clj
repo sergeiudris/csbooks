@@ -213,6 +213,9 @@ multiply that vector by that matrix"
   (is (== (norm1 [1 -1 1]) 3)))
 
 
+(deftest count-non-zero-elems-test
+  (is (== (count-non-zero-elems [0 -1 2]) 2))
+  )
 
 (comment
 

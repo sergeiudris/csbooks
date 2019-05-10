@@ -1251,11 +1251,25 @@
 
 (defn norm1
   [v]
-  "returns the L1 norm, that grows at the same rate in all locations"
+  "returns the L1 norm, that grows at the same rate in all locations
+  Every time an element of x moves
+  away from 0 by e , the L 1 norm increases by e"
   (->>
    v
    (mapv #(Math/abs %) )
    (reduce +)))
+
+(defn count-non-zero-elems
+  "returns the count of non-zero elemts of a vector
+  mistakenly called L0 norm
+  it's not a norm, cause scaling vector does not change the count of non-zero elems
+  "
+  [v]
+  (->>
+   v
+   (filterv (fn [x] (not (zero? x)) ))
+   count))
+
 
 (comment
 
@@ -1268,9 +1282,11 @@
   (Math/sqrt 2)
 
   (norm1 [1 1 0])
-  
+
   (norm1 [1 -1 0])
-  
+
+
+  (count-non-zero-elems [1 2 3 0 0 5])
 
 
 
