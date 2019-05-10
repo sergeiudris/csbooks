@@ -2,6 +2,7 @@
   (:require [dev.nrepl]
             [dev.core]
             [plants.mx.core]
+            [plants.mx.colors]
             [deeplearning.core]
    ;
             )

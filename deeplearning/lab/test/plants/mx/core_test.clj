@@ -148,6 +148,11 @@ multiply that vector by that matrix"
   (is (= (det-leibniz (mkmx [[-1 4 -2]
                              [0 2 1]
                              [5 -3 7]])) 23))
+  (testing "determinant of transpose A equals det A"
+    (let [A (mkmx [[-1 4 -2]
+                   [0 2 1]
+                   [5 -3 7]])]
+      (is (= (det-leibniz A) (det-leibniz (transpose A 3))))))
   ;
   )
 

@@ -133,8 +133,12 @@
 (defn vec-of-len
   "returns vecctor os specified len and elem"
   [len elem]
-  (vec (repeat len nil)))
+  (vec (repeat len elem)))
 
+(defn mk-square-mx
+  "returns square mx of size with x as entries"
+  [size x]
+  (vec-of-len (Math/pow size 2) x))
 
 (defn transpose
   "returns transposed matrix - all indices are mirrored, e.g. 1,2 -> 2,1"
@@ -1062,9 +1066,10 @@
    vector))
 
 (defn vec-unit
-  "returns the unit vector of v"
+  "returns the unit vector of v.
+  normalize"
   [v]
-  (divide-scalar v (vec-length v)))
+  (divide-scalar v (first (vec-length v)) ))
 
 (comment
   (vec-sum [1 1 0] [0 2 0])
@@ -1158,6 +1163,7 @@
   "returns 3x3 identity mx"
   []
   (iden 4))
+
 
 (comment
 
