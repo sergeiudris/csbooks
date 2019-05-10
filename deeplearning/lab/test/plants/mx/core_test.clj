@@ -208,6 +208,12 @@ multiply that vector by that matrix"
   (is (== (norm2 [0 0 2]) 2))
   (is (== (norm2 [1 1 1]) 1.7320508075688772)))
 
+(deftest norm1-test
+  (is (== (norm1 [0 -1 2]) 3))
+  (is (== (norm1 [1 -1 1]) 3)))
+
+
+
 (comment
 
   (run-tests)
