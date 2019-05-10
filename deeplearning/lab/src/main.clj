@@ -3,6 +3,7 @@
             [dev.core]
             [plants.mx.core]
             [plants.mx.colors]
+            [plants.mx.pca]
             [deeplearning.core]
    ;
             )
