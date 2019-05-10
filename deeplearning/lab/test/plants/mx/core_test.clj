@@ -226,6 +226,12 @@ multiply that vector by that matrix"
                   [0 0 2]])]
     (is (= (frobenius-norm A) 4.358898943540674))))
 
+
+(deftest diag-v-test
+  (testing "The inverse exists only if every diagonal entry is nonzero,
+and in that case, diag (v) −1 = diag ([1/v 1 , . . . , 1/v n ]  )."
+    (is (= (inverse (diag-v [1 2 3])) (diag-v [1 1/2 1/3])))))
+
 (comment
 
   (run-tests)
