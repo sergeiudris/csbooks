@@ -217,6 +217,9 @@ multiply that vector by that matrix"
   (is (== (count-non-zero-elems [0 -1 2]) 2))
   )
 
+(deftest max-norm-test
+  (is (= (max-norm [1 4 3 -2 -4 -9 4 3 -8 1]) 9)))
+
 (comment
 
   (run-tests)
