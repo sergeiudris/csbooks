@@ -1411,6 +1411,9 @@ mal and whose columns are mutually orthonormal
   (reciprocal (diag-v-non-square [1 2 3 4] 4 5))
 
   (trace-operator (iden 4))
+  
+  (trace-operator [1])
+  
 
   ;;;
   )
