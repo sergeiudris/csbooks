@@ -97,23 +97,81 @@
 
   (det-leibniz U2)
 
-  (def U3 (mkmx [[1 2 0]
-                 [3 4 -1]
-                 [0 2 -2]]))
+  (def U3 (mkmx [[1 0.5 0.5]
+                 [0.5 1 0.5]
+                 [0.5 0.5 1]]))
 
 
   (= (det-leibniz U3) (det-leibniz (transpose U3 3)))
 
+
+  (multiply [1 2 3] U3 1 3); nonsense
+
+
+
+  (defn multiply-A-by-vector-mxs
+    "returns matrix after making an iden-like mxs from vectors and multiplying them one after another : V*A "
+    [vs A]
+    (->
+     (reduce (fn [acc x]
+               (let [u    (vec-unit x)
+                     size (size-square-matrix A)
+                     m    (mk-iden-like-mx u)]
+                ;  (prnmx acc 3)
+                ;  (prnmx m 3)
+                ;  (prn (det-leibniz acc))
+                 (multiply m acc size size))) A  vs)
+
+     vec))
+
+  (defn vec-against-linear-systems
+    "prints out vecs after solving system-of-linear-equations against matrices"
+    [v ms key]
+    (println key "---")
+    (doseq [M ms]
+      (println (system-of-linear-equations v M)))
+    (println "---"))
+
   (def M2 (->
            (reduce (fn [acc x]
-                     (prnmx acc 3)
-                     (prn (det-leibniz acc))
-                     (multiply (vec-unit x) acc 1 3)) U3  magenta)
+                     (let [u (vec-unit x)
+                           m (mkmx [[(nth u 0) 0 0]
+                                    [0 (nth u 1) 0]
+                                    [0 0 (nth u 2)]])]
+                       (prnmx acc 3)
+                       (prnmx m 3)
+                       (prn (det-leibniz acc))
+                       (multiply m acc 3 3))) U3  magenta)
 
            vec))
   (prnmx M2 3)
 
-  (system-of-linear-equations q-unit M2)
+
+  (def B (mkmx [[1 0.5 0.5]
+                [0.5 1 0.5]
+                [0.5 0.5 1]]))
+
+  (def Mg (multiply-A-by-vector-mxs magenta B))
+
+  (def Y (multiply-A-by-vector-mxs yellow B))
+
+  (def T (multiply-A-by-vector-mxs teal B))
+
+  (def R (multiply-A-by-vector-mxs red B))
+
+
+  (system-of-linear-equations (vec-unit [241 11 251]) Mg) ; magenta 
+  (system-of-linear-equations (vec-unit [235 35 255]) Mg) ; magenta 
+  (system-of-linear-equations (vec-unit [17 246 239]) Mg) ; teal
+  (system-of-linear-equations (vec-unit [241 249 19]) Mg) ; yellow
+
+
+
+  (vec-against-linear-systems (vec-unit [235 35 255]) [Mg Y T R] :magenta) ; magenta 
+  (vec-against-linear-systems (vec-unit [17 246 239]) [Mg Y T R] :teal) ; teal
+  (vec-against-linear-systems (vec-unit [241 249 19]) [Mg Y T R] :yellow) ; yellow
+
+
 
   (->>
    (multiply  M2 q-unit 3 1)

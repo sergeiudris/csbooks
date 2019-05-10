@@ -140,6 +140,25 @@
   [size x]
   (vec-of-len (Math/pow size 2) x))
 
+(defn mk-iden-like-mx
+  "returns square mx with diagoanl entries being from v"
+  [v]
+  (->
+   (let [size (count v)
+         A    (mk-square-mx size 0)]
+     (map-indexed (fn [i x]
+                    (let [row-i (index->row i size)
+                          col-i (index->col i size)]
+                      (cond
+                        (= row-i col-i) (nth v row-i)
+                        :else x))) A))
+   vec))
+
+(comment
+  (prnmx (mk-iden-like-mx [1 2 3 4]) 4 )
+  ;;;
+  )
+
 (defn transpose
   "returns transposed matrix - all indices are mirrored, e.g. 1,2 -> 2,1"
   [mx width]
