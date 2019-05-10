@@ -203,6 +203,11 @@ multiply that vector by that matrix"
                  [5 1 0]])]
     (is (= (system-of-linear-equations [3 6 -3] A)  [-13/11 32/11 23/11]))))
 
+
+(deftest norm2-test
+  (is (== (norm2 [0 0 2]) 2))
+  (is (== (norm2 [1 1 1]) 1.7320508075688772)))
+
 (comment
 
   (run-tests)

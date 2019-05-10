@@ -1235,3 +1235,29 @@
 
   ;;;
   )
+
+
+(defn linear-combination-2
+  "Ax = SUM(x^i * A^col-i)"
+  []
+  0)
+
+(defn norm2
+  "returns the size (Euclidean norm) of a vector - length in from origin to point"
+  [v]
+  (Math/sqrt (reduce + (mapv #(* % %) v))))
+
+(comment
+
+  (norm2 [0 0 2])
+
+  (norm2 [1 1 1])
+
+  (norm2 [1 1 0])
+
+  (Math/sqrt 2)
+
+
+
+  ;;;
+  )

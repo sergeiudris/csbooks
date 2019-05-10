@@ -89,3 +89,29 @@ giving the coordinate along a different axis.
 https://en.wikipedia.org/wiki/Determinant
 
 The determinant gives the signed n-dimensional volume of this parallelotope, {\displaystyle \det(A)=\pm {\text{vol}}(P)} {\displaystyle \det(A)=\pm {\text{vol}}(P)}, and hence describes more generally the n-dimensional volume scaling factor of the linear transformation produced by A
+
+
+> 52
+
+However, A −1 is primarily useful as a theoretical
+tool, and should not actually be used in practice for most software applications.
+Because A −1 can be represented with only limited precision on a digital computer,
+algorithms that make use of the value of b can usually obtain more accurate
+estimates of x .
+
+
+> 53
+
+In order for the matrix to have an inverse, we additionally need to ensure that
+equation 2.11 has at most one solution for each value of b. To do so, we need to
+ensure that the matrix has at most m columns. Otherwise there is more than one
+way of parametrizing each solution.
+Together, this means that the matrix must be square, that is, we require that
+m = n and that all of the columns must be linearly independent. A square matrix
+with linearly dependent columns is known as singular .
+
+
+> 54
+
+For square matrices, the left inverse and right inverse are equal.
+
