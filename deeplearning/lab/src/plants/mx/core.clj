@@ -1372,14 +1372,71 @@
   "returns true if A is a square matrix whose rows are mutually orthonor-
 mal and whose columns are mutually orthonormal
   A^T A = AA^T = I.
+  
+  orthogonal matrices are of interest because their inverse is very cheap to compute
   "
   [A]
   (let [size (size-square-matrix A)]
-    (=  (multiply (transpose A size) A size size) (multiply  A (transpose A size) size size) (iden size))))
+    (and (=  (multiply (transpose A size) A size size) (multiply  A (transpose A size) size size) (iden size))
+         (= (inverse A) (transpose A size)))))
 
 (comment
-  (mx-orthogonal? (iden 4) )
+  (mx-orthogonal? (iden 4))
+
+
+  ;;;
+  )
+
+
+(defn reciprocal
+  "returns the diag matrix with non-zero elems becoming 1/elem"
+  [A]
+  (mapv (fn [x]
+          (if (zero? x) x
+              (/ 1 x))) A)
+  )
+
+(defn trace-operator
+  "returns the sum of all diagonal entries of a matrix"
+  [A]
+  (let [size (size-square-matrix A)]
+    (->>
+     A
+     (keep-indexed (fn [i x]
+                     (if (= (index->row i size) (index->col i size)) x nil)))
+     (reduce +))))
+
+(comment
+
+  (reciprocal (diag-v-non-square [1 2 3 4] 4 5))
+
+  (trace-operator (iden 4))
+
+  ;;;
+  )
+
+(defn frobenius-norm-trace
+  "returns the frobenius norm of a matrix usign trace operator"
+  [A]
+  (let [size (size-square-matrix A)]
+    (as->  A x
+      x
+      (multiply x (transpose x size) size size)
+      (trace-operator x)
+      (Math/sqrt x))))
+
+(comment
+
+
+  (def A (mkmx [[1 2 3]
+                [0 1 0]
+                [0 0 2]]))
+
+  (frobenius-norm A)
+
+  (frobenius-norm-trace A)
+
   
-  
+
   ;;;
   )
