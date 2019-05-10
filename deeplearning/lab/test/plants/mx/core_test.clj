@@ -220,6 +220,12 @@ multiply that vector by that matrix"
 (deftest max-norm-test
   (is (= (max-norm [1 4 3 -2 -4 -9 4 3 -8 1]) 9)))
 
+(deftest frobenius-norm-test
+  (let [A (mkmx [[1 2 3]
+                  [0 1 0]
+                  [0 0 2]])]
+    (is (= (frobenius-norm A) 4.358898943540674))))
+
 (comment
 
   (run-tests)

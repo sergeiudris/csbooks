@@ -1280,6 +1280,17 @@
    sort
    last))
 
+(defn frobenius-norm
+  "returns the nomr (size) of a matrix
+  Frobenius size of A = sqrt of the sum of a[ij]^2  
+  "
+  [A]
+  (->>
+   A
+   (mapv  #(* % %))
+   (reduce +)
+   Math/sqrt))
+
 (comment
 
   (norm2 [0 0 2])
@@ -1300,5 +1311,11 @@
   (max-norm [1 -3 -2 4 2 -9 1 1 1])
 
 
+  (def A (mkmx [[1 2 3]
+                [0 1 0]
+                [0 0 2]]))
+  
+  (frobenius-norm A)
+  
   ;;;
   )
