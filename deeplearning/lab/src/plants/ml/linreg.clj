@@ -57,10 +57,10 @@
    mkmx))
 
 (def color-enum
-  {:red     5
-   :yellow  10
-   :magenta 15
-   :teal    20})
+  {:red     1
+   :yellow  2
+   :magenta 3
+   :teal    4})
 
 (defn set->regression-targets-vec
   "returns regression targets vector for the set"
@@ -138,15 +138,25 @@
   (-> (y-value w [250, 1 ,245]) first float) ; 3 magenta or ~15 
   (-> (y-value w [250, 245 ,0]) first float) ; 2 yellow or ~10
   (-> (y-value w [11, 245 ,259]) first float) ; 4 teal or ~20
-  
+
   (-> (dot-product w [11, 245 ,259]) first float)
-  
+
   (-> (y-value w [11, 238 ,245]) first float) ; 4 teal
-  
-  
-  
-  
-  
+
+
+  (->>
+   (conj test-set {:label :yellow ; error on purpose
+                    :value [122,80, 20]})
+   (map-indexed (fn [i x]
+                   (let [label   (-> x :label)
+                         v       (:value x)
+                         label-i (-> label color-enum)
+                         y       (-> (y-value w v) first float)]
+                     (prn label y label-i)
+                     (if (= label-i (Math/round y)) 1 nil)))))
+
+  (-> (y-value w [70,70, 20]) first float) ; wrong
+
 
  ;;;
   )
