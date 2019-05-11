@@ -57,10 +57,10 @@
    mkmx))
 
 (def color-enum
-  {:red     1
-   :yellow  2
-   :magenta 3
-   :teal    4})
+  {:red     5
+   :yellow  10
+   :magenta 15
+   :teal    20})
 
 (defn set->regression-targets-vec
   "returns regression targets vector for the set"
@@ -134,11 +134,14 @@
 
   (def w (normal-equations train-set-design-mx train-regression-targets-vec 3 1))
 
-  (-> (y-value w [250, 1 ,1]) first float) ; 1 red
-  (-> (y-value w [250, 1 ,245]) first float) ; 3 magenta
-  (-> (y-value w [250, 245 ,0]) first float) ; 2 yellow
-  (-> (y-value w [11, 245 ,259]) first float) ; 4 teal
+  (-> (y-value w [250, 1 ,1]) first float) ; 1 red or ~5
+  (-> (y-value w [250, 1 ,245]) first float) ; 3 magenta or ~15 
+  (-> (y-value w [250, 245 ,0]) first float) ; 2 yellow or ~10
+  (-> (y-value w [11, 245 ,259]) first float) ; 4 teal or ~20
   
+  (-> (dot-product w [11, 245 ,259]) first float)
+  
+  (-> (y-value w [11, 238 ,245]) first float) ; 4 teal
   
   
   
