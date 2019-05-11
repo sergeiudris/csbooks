@@ -6,9 +6,10 @@
             [plants.mx.pca]
             [plants.mx.prob]
             [plants.mx.num]
-   
+            [plants.ml.linreg]
+            
             [deeplearning.core]
-   
+
    ;
             )
   ;

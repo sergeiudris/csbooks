@@ -184,3 +184,108 @@ occurred. A message saying “the sun rose this morning” is so uninformative a
 to be unnecessary to send, but a message saying “there was a solar eclipse this
 morning” is very informative.
 We would like to quantify information in a way that formalizes this intuition.
+
+
+> 112
+
+Machine learning is
+essentially a form of applied statistics with increased emphasis on the use of
+computers to statistically estimate complicated functions and a decreased emphasis
+on proving confidence intervals around these functions
+
+
+> 114
+
+A machine learning algorithm is an algorithm that is able to learn from data. But
+what do we mean by learning? Mitchell ( 1997 ) provides the definition “A computer
+program is said to learn from experience E with respect to some class of tasks T
+and performance measure P , if its performance at tasks in T , as measured by P ,
+improves with experience E.”
+
+Machine learning tasks are usually described in terms of how the machine
+learning system should process an example. An example is a collection of features
+that have been quantitatively measured from some object or event that we want
+the machine learning system to process. We typically represent an example as a
+vector x ∈ R n where each entry x i of the vector is another feature. For example,
+the features of an image are usually the values of the pixels in the image.
+
+> 115
+
+Many kinds of tasks can be solved with machine learning. Some of the most
+common machine learning tasks include the following:
+
+Classification:
+
+Classification with missing inputs:
+
+Regression:
+
+Transcription:
+
+Machine translation:
+
+Structured output:
+
+    One example is parsing—mapping a
+    natural language sentence into a tree that describes its grammatical structure
+    and tagging nodes of the trees as being verbs, nouns, or adverbs, and so on.
+    See Collobert ( 2011 ) for an example of deep learning applied to a parsing
+    task. Another example is pixel-wise segmentation of images, where the
+    computer program assigns every pixel in an image to a specific category.
+
+Anomaly detection:
+
+Synthesis and sampling:
+
+Imputation of missing values:
+
+Denoising:
+    n obtained by an unknown corruption process
+    from a clean example x ∈ R n . The learner must predict the clean example
+    x from its corrupted version x̃, or more generally predict the conditional
+    probability distribution p(x | x̃).
+
+Density estimation or probability mass function estimation:
+
+
+> 118
+
+In order to evaluate the abilities of a machine learning algorithm, we must design
+a quantitative measure of its performance. Usually this performance measure P is
+specific to the task T being carried out by the system.
+For tasks such as classification, classification with missing inputs, and tran-
+scription, we often measure the accuracy of the model.
+
+> 120
+
+One of the oldest datasets studied by statisticians and machine learning re-
+searchers is the Iris dataset ( Fisher , 1936 ). It is a collection of measurements of
+different parts of 150 iris plants. Each individual plant corresponds to one example.
+The features within each example are the measurements of each of the parts of the
+plant: the sepal length, sepal width, petal length and petal width. The dataset
+also records which species each plant belonged to. Three different species are
+represented in the dataset.
+
+
+> 121 
+
+Though unsupervised learning and supervised learning are not completely formal or
+distinct concepts, they do help to roughly categorize some of the things we do with
+machine learning algorithms. Traditionally, people refer to regression, classification
+and structured output problems as supervised learning. Density estimation in
+support of other tasks is usually considered unsupervised learning.
+
+
+Some machine learning algorithms do not just experience a fixed dataset. For
+example, reinforcement learning algorithms interact with an environment, so
+there is a feedback loop between the learning system and its experiences.
+
+Most machine learning algorithms simply experience a dataset. A dataset can
+be described in many ways. In all cases, a dataset is a collection of examples,
+which are in turn collections of features
+
+
+One common way of describing a dataset is with a design matrix . A design
+matrix is a matrix containing a different example in each row. Each column of the
+matrix corresponds to a different feature.
+
