@@ -181,6 +181,40 @@
   (det-leibniz M2)
 
 
+  ; design matrix
+
+  (def q [17,246,239])
+  (def q-unit (plants/vec-unit q))
+
+  (def yellow-dm (mkmx [[255 250 30]
+                        [240 243 20]
+                        [238 255 10]]))
+
+  (def teal-dm (mkmx  [[10 251 248]
+                       [15 240 242]
+                       [30 243 254]]))
+
+  (def magenta-dm (mkmx [[238 12 250]
+                         [239 21 253]
+                         [248 30 245]]))
+
+  (def red-dm (mkmx [[255 2 3]
+                     [250 10 9]
+                     [247 8 11]]))
+  
+  (system-of-linear-equations   q  yellow-dm)
+  
+  (system-of-linear-equations   q  teal-dm)
+  
+  (system-of-linear-equations   q  magenta-dm)
+  
+  (system-of-linear-equations   q  red-dm)
+  
+  
+  
+  
+  
+
 
 
   ;;;

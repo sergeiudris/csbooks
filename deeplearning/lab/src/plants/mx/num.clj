@@ -17,5 +17,10 @@
   (softmax [1 2 3 4 5])
 
   (reduce + (softmax [1 2 3 4 5]))
+
+  (softmax [2 2 2 2 2])
+  (reduce + (softmax [2 2  2 2 2]))
+
+
   ;;;
   )

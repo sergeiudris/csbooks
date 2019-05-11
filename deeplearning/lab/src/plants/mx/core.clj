@@ -329,6 +329,9 @@
    flatten
    vec))
 
+
+
+
 (comment
 
   (col-by-row [1 2 3] [4 5 6])
@@ -1441,5 +1444,22 @@ mal and whose columns are mutually orthonormal
 
   
 
+  ;;;
+  )
+
+
+(defn mkmx-normilize
+  "returns falttened vector "
+  [v]
+  (->>
+   v
+   (mapv vec-unit)
+   flatten
+   vec))
+
+(comment
+  (def A (mkmx-normilize [[1 2 3]
+                          [0 1 0]
+                          [0 0 2]]))
   ;;;
   )
