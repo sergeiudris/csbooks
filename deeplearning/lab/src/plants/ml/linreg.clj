@@ -160,3 +160,8 @@
 
  ;;;
   )
+
+; suppose X-train is a mx3 matrix  - m examples, each has 3 features
+; if we compute w (weights vector), we get vec3
+; so X-train*w = y
+; the product of X-train (ddesign matrix,m by 3) and 2eigth vector (3) is a m-length vetor of 'labels' - regression targets
