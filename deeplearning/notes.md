@@ -115,3 +115,72 @@ with linearly dependent columns is known as singular .
 
 For square matrices, the left inverse and right inverse are equal.
 
+
+> 68
+
+Probability theory is a mathematical framework for representing uncertain
+statements. It provides a means of quantifying uncertainty and axioms for deriving
+new uncertain statements. In artificial intelligence applications, we use probability
+theory in two major ways. First, the laws of probability tell us how AI systems
+should reason, so we design our algorithms to compute or approximate various
+expressions derived using probability theory. Second, we can use probability and
+statistics to theoretically analyze the behavior of proposed AI systems.
+
+> 69
+
+There are three possible sources of uncertainty:
+
+1. Inherent stochasticity in the system being modeled. For example, most
+interpretations of quantum mechanics describe the dynamics of subatomic
+particles as being probabilistic. We can also create theoretical scenarios that
+we postulate to have random dynamics, such as a hypothetical card game
+where we assume that the cards are truly shuffled into a random order.
+
+2. Incomplete observability. Even deterministic systems can appear stochastic
+when we cannot observe all of the variables that drive the behavior of the
+system. For example, in the Monty Hall problem, a game show contestant is
+asked to choose between three doors and wins a prize held behind the chosen
+door. Two doors lead to a goat while a third leads to a car. The outcome
+given the contestant’s choice is deterministic, but from the contestant’s point
+of view, the outcome is uncertain.
+
+3. Incomplete modeling. When we use a model that must discard some of
+the information we have observed, the discarded information results in
+uncertainty in the model’s predictions. For example, suppose we build a
+robot that can exactly observe the location of every object around it. If the
+robot discretizes space when predicting the future location of these objects,
+then the discretization makes the robot immediately become uncertain about
+the precise position of objects: each object could be anywhere within the
+discrete cell that it was observed to occupy.
+
+    Discretization
+    In applied mathematics, discretization is the process of transferring continuous functions, models, variables, and equations into discrete counterparts. 
+
+
+> 70
+
+In
+the case of the doctor diagnosing the patient, we use probability to represent a
+degree of belief, with 1 indicating absolute certainty that the patient has the flu
+and 0 indicating absolute certainty that the patient does not have the flu. The
+former kind of probability, related directly to the rates at which events occur, is
+known as frequentist probability, while the latter, related to qualitative levels
+of certainty, is known as Bayesian probability.
+
+> 71 
+
+Probability can be seen as the extension of logic to deal with uncertainty. Logic
+provides a set of formal rules for determining what propositions are implied to
+be true or false given the assumption that some other set of propositions is true
+or false. Probability theory provides a set of formal rules for determining the
+likelihood of a proposition being true given the likelihood of other propositions.
+
+
+> 88
+
+The basic intuition behind information theory is that learning that an unlikely
+event has occurred is more informative than learning that a likely event has
+occurred. A message saying “the sun rose this morning” is so uninformative as
+to be unnecessary to send, but a message saying “there was a solar eclipse this
+morning” is very informative.
+We would like to quantify information in a way that formalizes this intuition.
