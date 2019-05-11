@@ -4,7 +4,11 @@
             [plants.mx.core]
             [plants.mx.colors]
             [plants.mx.pca]
+            [plants.mx.prob]
+            [plants.mx.num]
+   
             [deeplearning.core]
+   
    ;
             )
   ;

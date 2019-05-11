@@ -1,4 +1,4 @@
-(ns deeplearning
+(ns deeplearning.core
   (:require [clojure.repl :refer :all]
             [deeplearning.chapter1]
    ;
