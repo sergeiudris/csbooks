@@ -289,3 +289,164 @@ One common way of describing a dataset is with a design matrix . A design
 matrix is a matrix containing a different example in each row. Each column of the
 matrix corresponds to a different feature.
 
+> 125
+
+Typically, when training a machine learning model, we have access to a training
+set, we can compute some error measure on the training set called the training
+error, and we reduce this training error. So far, what we have described is simply
+an optimization problem. What separates machine learning from optimization is
+that we want the generalization error, also called the test error, to be low as
+well. The generalization error is defined as the expected value of the error on a
+new input. Here the expectation is taken across different possible inputs, drawn
+from the distribution of inputs we expect the system to encounter in practice.
+
+How can we affect performance on the test set when we get to observe only the
+training set? The field of statistical learning theory provides some answers. If
+the training and the test set are collected arbitrarily, there is indeed little we can
+do. If we are allowed to make some assumptions about how the training and test
+set are collected, then we can make some progress.
+
+> 126
+
+The factors determining how well a machine
+learning algorithm will perform are its ability to:
+1. Make the training error small.
+2. Make the gap between training and test error small.
+
+These two factors correspond to the two central challenges in machine learning:
+underfitting and overfitting . Underfitting occurs when the model is not able to
+obtain a sufficiently low error value on the training set. Overfitting occurs when
+the gap between the training error and test error is too large.
+
+> 127
+
+Machine learning algorithms will generally perform best when their capacity
+is appropriate for the true complexity of the task they need to perform and the
+amount of training data they are provided with. Models with insufficient capacity
+are unable to solve complex tasks. Models with high capacity can solve complex
+tasks, but when their capacity is higher than needed to solve the present task they
+may overfit.
+
+> 131
+
+In part, machine learning avoids this problem by offering only probabilistic rules,
+rather than the entirely certain rules used in purely logical reasoning. Machine
+learning promises to find rules that are probably correct about most members of
+the set they concern.
+Unfortunately, even this does not resolve the entire problem. The no free
+lunch theorem for machine learning (Wolpert , 1996 ) states that, averaged over
+all possible data generating distributions, every classification algorithm has the
+same error rate when classifying previously unobserved points. In other words,
+in some sense, no machine learning algorithm is universally any better than any
+other.
+
+> 133
+
+This means that the goal of machine learning research is not to seek a universal
+learning algorithm or the absolute best learning algorithm. Instead, our goal is to
+understand what kinds of distributions are relevant to the “real world” that an AI
+agent experiences, and what kinds of machine learning algorithms perform well on
+data drawn from the kinds of data generating distributions we care about.
+
+The no free lunch theorem implies that we must design our machine learning
+algorithms to perform well on a specific task. We do so by building a set of
+preferences into the learning algorithm. When these preferences are aligned with
+the learning problems we ask the algorithm to solve, it performs better.
+
+> 135
+
+Regularization is any modification we make to a
+learning algorithm that is intended to reduce its generalization error but not its
+training error.
+
+$$$
+
+The no free lunch theorem has made it clear that there is no best machine
+learning algorithm, and, in particular, no best form of regularization. Instead
+we must choose a form of regularization that is well-suited to the particular task
+we want to solve. The philosophy of deep learning in general and this book in
+particular is that a very wide range of tasks (such as all of the intellectual tasks
+that people can do) may all be solved effectively using very general-purpose forms
+of regularization.
+
+
+Most machine learning algorithms have several settings that we can use to control
+the behavior of the learning algorithm. These settings are called hyperparame-
+ters. The values of hyperparameters are not adapted by the learning algorithm
+itself (though we can design a nested learning procedure where one learning
+algorithm learns the best hyperparameters for another learning algorithm).
+In the polynomial regression example we saw in figure 5.2 , there is a single
+hyperparameter: the degree of the polynomial, which acts as a capacity hyper-
+parameter. The λ value used to control the strength of weight decay is another
+example of a hyperparameter.
+
+> 136
+
+The subset of data used to guide the selection of hyperparameters is called the
+validation set.Typically, one uses about 80% of the training data for training and
+20% for validation.
+
+> 162
+
+A classic unsupervised learning task is to find the “best” representation of the
+data. By ‘best’ we can mean different things, but generally speaking we are looking
+for a representation that preserves as much information about x as possible while
+obeying some penalty or constraint aimed at keeping the representation simpler or
+more accessible than x itself.
+
+
+The notion of representation is one of the central themes of deep learning
+
+
+> 170
+
+Recognizing that most machine learning algorithms
+can be described using this recipe helps to see the different algorithms as part of a
+taxonomy of methods for doing related tasks that work for similar reasons, rather
+than as a long list of algorithms that each have separate justifications.
+
+> 175
+
+The core idea in deep learning is that we assume that the data was generated by
+the composition of factors or features, potentially at multiple levels in a hierarchy.
+Many other similarly generic assumptions can further improve deep learning al-
+gorithms. These apparently mild assumptions allow an exponential gain in the
+relationship between the number of examples and the number of regions that can
+be distinguished.
+
+
+> 176
+
+A manifold is a connected region.
+
+Mathematically, it is a set of points,
+associated with a neighborhood around each point.
+
+For example, a figure eight is a manifold that has a single
+dimension in most places but two dimensions at the intersection at the center.
+
+> 177
+
+The first observation in favor of the manifold hypothesis is that the proba-
+bility distribution over images, text strings, and sounds that occur in real life is
+highly concentrated. Uniform noise essentially never resembles structured inputs
+from these domains. Figure 5.12 shows how, instead, uniformly sampled points
+look like the patterns of static that appear on analog television sets when no signal
+is available. Similarly, if you generate a document by picking letters uniformly at
+random, what is the probability that you will get a meaningful English-language
+text? Almost zero, again, because most of the long sequences of letters do not
+correspond to a natural language sequence: the distribution of natural language
+sequences occupies a very small volume in the total space of sequences of letters.
+
+> 178
+
+images encountered in AI applications occupy a negligible proportion of the
+volume of image space.
+
+> 179
+
+It remains likely that there are multiple manifolds involved in most
+applications. For example, the manifold of images of human faces may not be
+connected to the manifold of images of cat faces.
+
+
