@@ -243,17 +243,30 @@
    (drop (* n image-size-squared))
    (take image-size-squared)))
 
+(defn take-images-range
+  "reutrns vector with image data from image n-start to iamge n-end  "
+  [dataset n-start n-end]
+  (let [i-start (* (dec n-start) image-size-squared)
+        i-end   (+ i-start (* (- n-end n-start) image-size-squared))]
+    (subvec dataset i-start i-end)))
+
 (defn nth-image
   "returns nth image from a dataset"
   [dataset i]
   (subvec dataset  (* i image-size-squared) (+ (* i image-size-squared) image-size-squared)))
+
+(defn prn-image
+  "prints image as matrix 28x28 using prnmx"
+  [image-vec]
+  (prnmx image-vec image-size)
+  nil)
 
 (defn prn-nth-image-dataset
   "prints nth image from a dataset"
   [dataset n]
   (->
    (nth-image dataset (dec n))
-   (prnmx image-size))
+   prn-image)
   nil)
 
 (defn nth-label
@@ -285,6 +298,14 @@
   (prn-nth T60-IMAGES T60-LABELS 8)
   
   
+  
+  
+  
+  ;;;
+  )
+
+
+(comment
   
   
   
