@@ -298,7 +298,11 @@
   (prn-nth T60-IMAGES T60-LABELS 8)
   
   
+  (count (partition image-size-squared T10-IMAGES))
   
+  (count (partition image-size-squared T60-IMAGES))
+  
+  (prn-nth T60-IMAGES T60-LABELS 36000)
   
   
   ;;;
