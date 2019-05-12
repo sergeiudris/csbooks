@@ -96,7 +96,7 @@
                   [1 0]
                   [1 1]]))
 
-    (neural-network-xor W 2 c w b X 2 [])
+    (neural-network-xor W 2 c w b X 2 []) ; [0 1 1 0]
 
 
 

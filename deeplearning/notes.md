@@ -466,3 +466,46 @@ It is best to think of
 feedforward networks as function approximation machines that are designed to
 achieve statistical generalization
 
+> 345
+
+Examples of time series are heights of ocean tides, counts of sunspots, and the daily closing value of the Dow Jones Industrial Average. Time series are very frequently plotted via line charts. ... Time series forecasting is the use of a model to predict future values based on previously observed values.
+
+Convolutional
+networks are simply neural networks that use convolution in place of general matrix
+multiplication in at least one of their layers.
+
+
+> part II Applications
+
+> 463
+
+For example, one might train a speech recognition network with a
+powerful computer cluster, then deploy it on mobile phones.
+
+One strategy for accelerating data processing systems in general is to build systems
+that have dynamic structure in the graph describing the computation needed
+to process an input. Data processing systems can dynamically determine which
+subset of many neural networks should be run on a given input.
+
+> 464
+
+Dynamic structure of computations is a basic computer science principle applied
+generally throughout the software engineering discipline. The simplest versions
+of dynamic structure applied to neural networks are based on determining which
+subset of some group of neural networks (or other machine learning models) should
+be applied to a particular input.
+
+venerable - accorded a great deal of respect, especially because of age, wisdom, or character.
+
+For example, Google
+transcribes address numbers from Street View imagery using a two-step cascade
+that first locates the address number with one machine learning model and then
+transcribes it with another
+
+
+> 465
+
+In the same spirit, one can use a neural network, called the gater to select
+which one out of several expert networks will be used to compute the output,
+given the current input.
+
