@@ -525,6 +525,8 @@
   (mapv + mx1 mx2))
 
 
+
+
 (defn subtract
   "returns the matrix resulting from subtracting mx2 from mx1"
   [mx1 mx2]
@@ -1089,6 +1091,30 @@
   "returns the sum of v1 v2"
   [a b]
   (add a b))
+
+
+(defn mx-add-vec
+  "returns the matrix with vector added to each row"
+  [A A-width a]
+  (->>
+   A
+   (mx->rows A-width)
+   (mapv (fn [row] (vec-sum row a)))
+   rows->mx))
+
+(comment
+
+  (def A (mkmx [[0 0]
+                [1 1]
+                [1 1]
+                [2 2]]))
+
+  (def c [0 -1])
+
+  (mx-add-vec A 2 c)
+
+  ;;;
+  )
 
 (defn vec-subtract
   "returns the result of subtracting b from a"

@@ -7,7 +7,7 @@
             [plants.mx.prob]
             [plants.mx.num]
             [plants.ml.linreg]
-            
+            [plants.ml.xor]
             [deeplearning.core]
 
    ;

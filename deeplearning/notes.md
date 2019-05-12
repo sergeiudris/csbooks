@@ -450,3 +450,19 @@ applications. For example, the manifold of images of human faces may not be
 connected to the manifold of images of cat faces.
 
 
+> 184
+
+Finally, these networks are called neural because they are loosely inspired by
+neuroscience. Each hidden layer of the network is typically vector-valued. The
+dimensionality of these hidden layers determines the width of the model. Each
+element of the vector may be interpreted as playing a role analogous to a neuron.
+Rather than thinking of the layer as representing a single vector-to-vector function,
+we can also think of the layer as consisting of many units that act in parallel,
+each representing a vector-to-scalar function. Each unit resembles a neuron in
+the sense that it receives input from many other units and computes its own
+activation value.
+
+It is best to think of
+feedforward networks as function approximation machines that are designed to
+achieve statistical generalization
+
