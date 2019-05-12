@@ -2,16 +2,65 @@
   (:require [plants.mx.core :refer :all]
             [clojure.repl :refer :all]
             [clojure.java.io :refer [file output-stream input-stream]]
-            [clojure.pprint  :as pp]))
+            [clojure.pprint  :as pp]
+            [clojure.java.io :as io]))
 
 ; http://yann.lecun.com/exdb/mnist/
+
+(defn read-binary-file
+  "returns bute-array , accepts :offset :limit"
+  [filename & {:keys [offset limit]
+               :or   {offset 0}}]
+  (let [f   (file filename)
+        lim (or limit (- (.length f) offset))
+        buf (byte-array lim)]
+    ; (prn lim offset)
+    (with-open [in (input-stream  f)]
+      (.skip in offset)
+      (.read in buf 0 lim)
+      buf
+      ;
+      )))
+
+(defn read-file-to-vec
+  "returns vector with file bytes (ints 8)"
+  [filename offset]
+  (->
+   (if (.exists (io/as-file  filename))
+     (read-binary-file filename
+                       :offset  offset)
+     nil)
+   vec))
+
+(defn bytes->int [bytes]
+  "Converts a byte array into an integer."
+  (->>
+   bytes
+   (map (partial format "%02x"))
+   (apply (partial str "0x"))
+   read-string))
+
+(defn file-szie
+  "returns file byte length"
+  [filename]
+  (.length (file filename)))
+
 
 (def t10-iamges-filename "data/t10k-images-idx3-ubyte")
 (def t10-labels-filename "data/t10k-labels-idx1-ubyte")
 (def t60-iamges-filename "data/train-images-idx3-ubyte")
 (def t60-labels-filename "data/train-labels-idx1-ubyte")
 
+; reading files into memeory on init
+
+(def  T10-IMAGES  (read-file-to-vec t10-iamges-filename  image-file-meta-bits))
+(def  T60-IMAGES  (read-file-to-vec t60-iamges-filename  image-file-meta-bits))
+(def  T10-LABELS  (read-file-to-vec t10-labels-filename  labels-file-meta-bits))
+(def  T60-LABELS  (read-file-to-vec t60-labels-filename  labels-file-meta-bits))
+
 (def image-size 28)
+(def image-size-squared (* 28 28))
+
 
 (def image-count-t60 60000)
 (def image-count-t10 10000)
@@ -27,33 +76,14 @@
 (def labels-file-meta-bits 8)
 
 
+(comment
 
-(defn bytes->int [bytes]
-  "Converts a byte array into an integer."
-  (->>
-   bytes
-   (map (partial format "%02x"))
-   (apply (partial str "0x"))
-   read-string))
+  (->
+   (prnmx (take 784 (drop 784 T10-IMAGES)) 28)
+   nil?)
 
-(defn file-szie
-  "returns file byte length"
-  [filename]
-  (.length (file filename)))
-
-(defn read-binary-file
-  "returns bute-array , accepts :offset :limit"
-  [filename & {:keys [offset limit] :or {offset 0  }  } ]
-  (let [f   (file filename)
-        lim (or limit (- (.length f) offset))
-        buf (byte-array lim)]
-    ; (prn lim offset)
-    (with-open [in (input-stream  f)]
-      (.skip in offset)
-      (.read in buf 0 lim)
-      buf
-      ;
-      )))
+  ;;;
+  )
 
 (defn read-int-from-file
   "returns the number represented by bytes in range [offset , + offset  limit]"
@@ -204,7 +234,57 @@
   )
 
 
+
+(defn nth-image-0
+  "returns nth image from a dataset"
+  [dataset n]
+  (->>
+   dataset
+   (drop (* n image-size-squared))
+   (take image-size-squared)))
+
+(defn nth-image
+  "returns nth image from a dataset"
+  [dataset i]
+  (subvec dataset  (* i image-size-squared) (+ (* i image-size-squared) image-size-squared)))
+
+(defn prn-nth-image-dataset
+  "prints nth image from a dataset"
+  [dataset n]
+  (->
+   (nth-image dataset (dec n))
+   (prnmx image-size))
+  nil)
+
+(defn nth-label
+  "returns nth label from a dataset"
+  [dataset i]
+  (dataset i))
+
+(defn prn-nth
+  "prints nth image nad label from a dataset"
+  [images labels  n]
+  (prn-nth-image-dataset images n)
+  (prn (nth-label labels (dec n))))
+
 (comment
+  (take 10  T10-IMAGES)
+  
+  (nth-image T10-IMAGES 1 )
+  
+  (prn-nth-image-dataset T10-IMAGES 1)
+  
+  (nth-label T10-LABELS 1)
+  
+  (prn-nth T10-IMAGES T10-LABELS 1)
+  
+  (prn-nth T60-IMAGES T60-LABELS 59999)
+  
+  (prn-nth T60-IMAGES T60-LABELS 60000)
+  
+  (prn-nth T60-IMAGES T60-LABELS 8)
+  
+  
   
   
   

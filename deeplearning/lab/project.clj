@@ -67,7 +67,7 @@
 
 
   :main ^{:skip-aot true} main
-  :jvm-opts ["-Xms768m" "-Xmx1g"]
+  :jvm-opts ["-Xms768m" "-Xmx2048m" "-Xmx1g"]
   ; :javac-opts ["-target" "1.8" "-source" "1.8"]
 
 
