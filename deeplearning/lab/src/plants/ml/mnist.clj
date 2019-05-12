@@ -6,6 +6,11 @@
 
 ; http://yann.lecun.com/exdb/mnist/
 
+(def t10-iamges-filename "data/t10k-images-idx3-ubyte")
+(def t10-labels-filename "data/t10k-labels-idx1-ubyte")
+(def t60-iamges-filename "data/train-images-idx3-ubyte")
+(def t60-labels-filename "data/train-labels-idx1-ubyte")
+
 (def image-size 28)
 
 (def image-count-t60 60000)
@@ -42,7 +47,7 @@
   (let [f   (file filename)
         lim (or limit (- (.length f) offset))
         buf (byte-array lim)]
-    (prn lim offset)
+    ; (prn lim offset)
     (with-open [in (input-stream  f)]
       (.skip in offset)
       (.read in buf 0 lim)
@@ -91,6 +96,17 @@
   (prnmx (read-MNIST-image-nth filename n) image-size)
   nil)
 
+(defn prn-nth-image-and-label-t10
+  "prn iamge and label from "
+  [n]
+  (prn-nth-image t10-iamges-filename n)
+  (read-MNIST-label-nth t10-labels-filename n))
+
+(defn prn-nth-image-and-label-t60
+  "prn iamge and label from "
+  [n]
+  (prn-nth-image t60-iamges-filename n)
+  (read-MNIST-label-nth t60-labels-filename n))
 
 (comment
 
@@ -178,8 +194,19 @@
   (prn-nth-image "data/t10k-images-idx3-ubyte" 1000)
   (read-MNIST-label-nth "data/t10k-labels-idx1-ubyte" 1000)
 
+  (prn-nth-image-and-label-t10 1000 )
+  
+  (prn-nth-image-and-label-t60 1000)
+  
 
 
+  ;;;
+  )
 
+
+(comment
+  
+  
+  
   ;;;
   )
