@@ -30,17 +30,18 @@
       ;
       )))
 
-(defn )
+(defn read-int-from-file
+  "returns the number represented by bytes in range [offset , + offset  limit]"
+  [filename offset limit]
+  (->   (read-binary-file  filename :offset offset :limit limit)
+        bytes->int)
+  )
+
 
 
 (comment
 
-
-  (->   (read-binary-file "data/t10k-images-idx3-ubyte" :offset 4 :limit 4)
-        bytes->int)
-
   (count (read-binary-file "data/t10k-images-idx3-ubyte"))
-
 
   (as-> (read-binary-file "data/t10k-labels-idx1-ubyte") x
     (bytes x)
@@ -72,6 +73,28 @@
   (apply (partial str "0x") ["00" "02"])
   (apply (partial str "0x") ["asd"])
   (str "0x"  ["asd"])
+
+
+  ;;;
+  )
+
+
+(comment
+  
+    ; number of iamges in t10
+  (read-int-from-file "data/t10k-images-idx3-ubyte" 4 4)
+
+    ; number of images rows
+  (read-int-from-file "data/t10k-images-idx3-ubyte" 8 4)
+
+    ; number of images rows
+  (read-int-from-file "data/t10k-images-idx3-ubyte" 12 4)
+
+    ; number of images in train
+  (read-int-from-file "data/train-images-idx3-ubyte" 4 4)
+
+
+
 
 
   ;;;
