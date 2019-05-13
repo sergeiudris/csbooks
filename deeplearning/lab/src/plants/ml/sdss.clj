@@ -1,6 +1,8 @@
 (ns plants.ml.sdss
   (:require [plants.mx.core :refer :all]
             [clojure.repl :refer :all]
+            [clojure.pprint :as pp]
+            [puget.printer :as pug]
             [clojure.data.csv :as csv]
             [clojure.java.io :as io])
   (:import
@@ -116,20 +118,36 @@
 (def SDSS-TRAIN-LABEL (subvec SDSS-LABELS 0 8000))
 (def SDSS-TEST-LABEL (subvec  SDSS-LABELS 8000 10000))
 
-
+(defn prn-nth
+  [items labels i]
+  (pug/cprint (nth items i))
+  (pug/cprint (nth labels i)))
 
 (comment
-  
-  (keep-columns [[1 2 3] [1 2 3]] [0 1] )
+
+  (keep-columns [[1 2 3] [1 2 3]] [0 1])
   (first SDSS-DATA-CSV)
   (first SDSS-SET)
   (count SDSS-TRAIN-SET)
   (count SDSS-TEST-SET)
   (count SDSS-LABELS)
-  
+
   (first SDSS-LABELS)
-  
+
   ((set [0 1 2 3 4 5 6 7 8 9 10 11 13 14 15 16 17]) 12)
+
+  (subvec SDSS-TRAIN-SET  0 3)
+
+  (prn-nth SDSS-TRAIN-SET SDSS-TRAIN-LABEL 7999)
+
+  ;;;
+  )
+
+
+(comment
+  
+  
   
   ;;;
   )
+
