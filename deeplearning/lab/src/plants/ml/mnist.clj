@@ -51,12 +51,6 @@
 (def t60-iamges-filename "data/train-images-idx3-ubyte")
 (def t60-labels-filename "data/train-labels-idx1-ubyte")
 
-; reading files into memeory on init
-
-(def  T10-IMAGES  (read-file-to-vec t10-iamges-filename  image-file-meta-bits))
-(def  T60-IMAGES  (read-file-to-vec t60-iamges-filename  image-file-meta-bits))
-(def  T10-LABELS  (read-file-to-vec t10-labels-filename  labels-file-meta-bits))
-(def  T60-LABELS  (read-file-to-vec t60-labels-filename  labels-file-meta-bits))
 
 (def image-size 28)
 (def image-size-squared (* 28 28))
@@ -71,9 +65,18 @@
 (def t10-labels-file-size 10008)
 (def t60-labels-file-size 60008)
 
-
 (def image-file-meta-bits 16)
 (def labels-file-meta-bits 8)
+
+; reading files into memeory on init
+
+(def  T10-IMAGES  (read-file-to-vec t10-iamges-filename  image-file-meta-bits))
+(def  T60-IMAGES  (read-file-to-vec t60-iamges-filename  image-file-meta-bits))
+(def  T10-LABELS  (read-file-to-vec t10-labels-filename  labels-file-meta-bits))
+(def  T60-LABELS  (read-file-to-vec t60-labels-filename  labels-file-meta-bits))
+
+
+
 
 
 (comment
@@ -272,7 +275,8 @@
 (defn nth-label
   "returns nth label from a dataset"
   [dataset i]
-  (dataset i))
+  (dataset i)
+  )
 
 (defn prn-nth
   "prints nth image nad label from a dataset"
