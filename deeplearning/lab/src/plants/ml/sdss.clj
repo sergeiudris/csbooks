@@ -41,8 +41,8 @@
   (-> (read-csv-file sdss-filename)
       parse-numbers))
 
-(def SDSS_DATA_RAW (read-csv-file sdss-filename))
-(def SDSS_DATA (parse-numbers SDSS_DATA_RAW))
+(def SDSS-DATA-CSV-RAW (drop 1 (read-csv-file sdss-filename)))
+(def SDSS-DATA-CSV (parse-numbers SDSS-DATA-CSV-RAW))
 
 (comment
 
@@ -73,7 +73,9 @@
     (read-csv-data sdss-filename)
     (nth x 5))
 
-  (nth SDSS_DATA 9888)
+  (nth SDSS-DATA-CSV 9888)
+  
+  (count (drop 1 SDSS-DATA-CSV-RAW))
 
   ;;;
   )
@@ -82,10 +84,12 @@
 
 
 (comment
-  (type (nth (nth SDSS_DATA 1) 13))
-  (nth SDSS_DATA_RAW 1)
+  (type (nth (nth SDSS-DATA-CSV 1) 13))
+  (nth SDSS-DATA-CSV-RAW 1)
 
-  (nth SDSS_DATA 1)
+  (nth SDSS-DATA-CSV 1)
+  
+  (count (nth SDSS-DATA-CSV 1))
 
   (try-str->num "STAR")
   (read-string "STAR")
@@ -93,9 +97,39 @@
   ;;;
   )
 
+(defn keep-columns
+  "returns vector of examples with slected column indices"
+  [data idxs]
+  (mapv  (fn [row]
+           (->
+            (keep-indexed #(when ((set idxs) %1) %2) row)
+            vec))   data))
+
+
+(def SDSS-SET (keep-columns SDSS-DATA-CSV [0 1 2 3 4 5 6 7 8 9 10 11 12 14 15 16 17] ) )
+(def SDSS-LABELS (-> (keep-columns SDSS-DATA-CSV [13]) flatten vec ))
+
+
+(def SDSS-TRAIN-SET (subvec  SDSS-SET 0 8000) )
+(def SDSS-TEST-SET  (subvec  SDSS-SET 8000 10000))
+
+(def SDSS-TRAIN-LABEL (subvec SDSS-LABELS 0 8000))
+(def SDSS-TEST-LABEL (subvec  SDSS-LABELS 8000 10000))
+
+
+
 (comment
   
+  (keep-columns [[1 2 3] [1 2 3]] [0 1] )
+  (first SDSS-DATA-CSV)
+  (first SDSS-SET)
+  (count SDSS-TRAIN-SET)
+  (count SDSS-TEST-SET)
+  (count SDSS-LABELS)
   
+  (first SDSS-LABELS)
+  
+  ((set [0 1 2 3 4 5 6 7 8 9 10 11 13 14 15 16 17]) 12)
   
   ;;;
   )
