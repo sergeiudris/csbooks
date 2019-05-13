@@ -8,7 +8,7 @@
             [plants.mx.num]
             [plants.ml.linreg]
             [plants.ml.xor]
-            [plants.ml.mnist]
+            ; [plants.ml.mnist]
             [deeplearning.core]
 
    ;

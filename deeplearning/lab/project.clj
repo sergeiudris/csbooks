@@ -24,6 +24,8 @@
                  [cider/cider-nrepl "0.21.1"]
                 ;  [mvxcvi/puget "1.1.2"]
                  [mvxcvi/whidbey "2.1.1"]
+                 [org.clojure/data.csv "0.1.4"]
+                 [commons-io/commons-io "2.4"]
 
 
                  ;

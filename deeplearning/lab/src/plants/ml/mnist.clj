@@ -286,29 +286,35 @@
 
 (comment
   (take 10  T10-IMAGES)
-  
-  (nth-image T10-IMAGES 1 )
-  
+
+  (nth-image T10-IMAGES 1)
+
   (prn-nth-image-dataset T10-IMAGES 1)
-  
+
   (nth-label T10-LABELS 1)
-  
+
   (prn-nth T10-IMAGES T10-LABELS 1)
-  
+
   (prn-nth T60-IMAGES T60-LABELS 59999)
-  
+
   (prn-nth T60-IMAGES T60-LABELS 60000)
-  
+
   (prn-nth T60-IMAGES T60-LABELS 8)
-  
-  
+
+
   (count (partition image-size-squared T10-IMAGES))
-  
+
   (count (partition image-size-squared T60-IMAGES))
+
+  (prn-nth T60-IMAGES T60-LABELS 12333)
+  (prn-nth T60-IMAGES T60-LABELS 23233)
+
+  (int (/  (count T60-IMAGES) 100000))
+
+  (time (prn-nth T60-IMAGES T60-LABELS 23233))
   
-  (prn-nth T60-IMAGES T60-LABELS 36000)
   
-  
+
   ;;;
   )
 
