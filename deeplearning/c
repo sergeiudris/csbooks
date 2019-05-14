@@ -50,9 +50,9 @@ install_clj(){
   sudo apt update
   sudo apt install -y rlwrap
   curl -o /tmp/${SCRIPT_NAME} https://download.clojure.org/install/${SCRIPT_NAME}
-  chmod +x ${SCRIPT_NAME}
-  sudo ./${SCRIPT_NAME}
-  sudo rm ${SCRIPT_NAME}
+  chmod +x /tmp/${SCRIPT_NAME}
+  sudo /tmp/${SCRIPT_NAME}
+  sudo rm /tmp/${SCRIPT_NAME}
 }
 
 push(){
