@@ -309,9 +309,11 @@
   (prn-nth T60-IMAGES T60-LABELS 12333)
   (prn-nth T60-IMAGES T60-LABELS 23233)
 
-  (int (/  (count T60-IMAGES) 100000))
+  (str (int (/  (count T60-IMAGES) 1000000)) " million")
 
   (time (prn-nth T60-IMAGES T60-LABELS 23233))
+  
+  (time (prn-nth T60-IMAGES T60-LABELS 60000))
   
   
 
