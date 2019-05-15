@@ -16,7 +16,8 @@
 
   :plugins [[cider/cider-nrepl "0.21.1"]
             [com.jakemccrary/lein-test-refresh "0.24.1"]
-            [lein-virgil "0.1.9"]]
+            ; [lein-virgil "0.1.9"]
+            ]
   :dependencies [;; casaclog
                  [org.clojure/clojure "1.10.1-beta2"]
                  [org.clojure/core.async "0.4.490"]
