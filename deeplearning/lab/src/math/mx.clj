@@ -169,6 +169,11 @@
   [a b]
   (mapv + a b))
 
+(defn elwise-subtract
+  "Returns a vector (mx), multiplies a,b element-wise "
+  [a b]
+  (mapv - a b))
+
 (defn dot-prod
   "Retruns the sum of products of corresponding els"
   [a b]
@@ -213,5 +218,37 @@
   ;;;
   )
 
+(defn vec-broadcast
+  "returns mx with vector added to each row element-wise"
+  [wid A a]
+  (as-> nil R
+    (mx->rows wid A)
+    (mapv #(elwise-sum a %)  R)))
 
+
+(comment
+
+  (def A [1 2 3 4 5 6])
+
+  (def a [1 2 3])
+
+  (vec-broadcast  3 A a)
+
+  ;;;
+  )
+
+(defn mx-square->size
+  "returns the size of a square mx"
+  [A]
+  (int (Math/sqrt (count A))))
+
+(defn vec-norm
+  "returns the length (Euclidean norm) of a vector"
+  [a]
+  (Math/sqrt (dot-prod a a)))
+
+(comment
+  (vec-norm [0 0 2] )
+  ;;;
+  )
 
