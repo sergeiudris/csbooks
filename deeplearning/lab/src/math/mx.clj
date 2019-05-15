@@ -335,7 +335,7 @@
   ;;;
   )
 
-(defn transpose
+(defn mx-transpose
   "Returns transposed A - all indices are mirrored, e.g. 1,2 -> 2,1"
   [wid A]
   (let [len (count A)
@@ -347,11 +347,53 @@
                    (assoc acc new-i x))) (make-mx hei wid nil) A)))
 
 
+
+
+(defn mx-symmetric?
+  "Returns true if matrix is equal to its own trasnpose"
+  [A]
+  (->
+   (mx-transpose  (mx-square->size A) A)
+   (= A)))
+
+(defn vec-orthogonal?
+  "returns true if both vectors are at 90 degree agle"
+  [a b]
+  (= (dot-prod a b) 0))
+
 (comment
   (as-> nil R
     (make-mx-with 3 3  (fn [i x] i))
     (prn-mx 3 R true)
-    (transpose 3 R)
-    (prn-mx 3 R))
+    (mx-transpose 3 R)
+    (prn-mx 3 R )
+    )
+  
+  
+  (vec-orthogonal? [0 0 2] [1 0 0])
   ;;;
   )
+
+(defn mx-reciprocal
+  "returns the diag matrix with non-zero elems becoming 1/elem"
+  [A]
+  (mapv #(if (zero? %) %
+            (/ 1 %)) A))
+
+(defn mx-trace
+  "Returns the sum of all diagonal entries of a matrix"
+  [A]
+  (let [size (mx-square->size A)]
+    (->>
+     A
+     (keep-indexed #(if
+                     (= (index->row %1 size) (index->col %1 size)) %2
+                     nil))
+     (reduce +))))
+
+
+
+
+
+
+
