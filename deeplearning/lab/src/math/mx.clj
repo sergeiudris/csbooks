@@ -185,8 +185,32 @@
    Left mx must have cols as right mx rows.
    Result mx has A-rows, B-cols
   "
-  [A B]
-  []
+  [wid-A wid-B A B]
+  (let [hei-A (/ (count A) wid-A)
+        M     (make-mx hei-A wid-B nil)]
+    (map-indexed (fn [i x]
+                   (let [row-i (index->row i wid-B)
+                         col-i (index->col i wid-B)
+                         row   (mx->row row-i wid-A A)
+                         col   (mx->col col-i wid-B B)]
+                     (dot-prod row col)
+                      ;
+                     ))
+                 M)))
+
+
+(comment
+
+  (def A (rows->mx [[1 2 3]
+                    [2 5 6]]))
+
+  (def B (rows->mx [[0 1]
+                    [2 3]
+                    [4 5]]))
+
+  (prn-mx 2 (mx-prod 3 2 A B))
+  
+  ;;;
   )
 
 
