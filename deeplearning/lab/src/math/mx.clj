@@ -33,12 +33,12 @@
 
 (defn prn-rows
   "Prtints rows, used by prn-mx"
-  [wid A]
+  [wid A & {:keys [print-fn] :or {print-fn prn}}]
   (as-> nil R
     (mx->rows  wid A)
     (doseq [row R]
       ; (print)
-      (cprn row))))
+      (print-fn row))))
 
 (defn prn-mx
   "Prtints A"
@@ -50,12 +50,22 @@
    (println)
    A))
 
+(defn cprn-mx
+  "Color-prtints A"
+  ([wid A]
+   (prn-rows wid A :print-fn cprn)
+   (println))
+  ([wid A return?]
+   (prn-rows wid A :print-fn cprn)
+   (println)
+   A))
+
 (comment
 
   (rows->mx [[1 2 3]
             [4 5 6]])
 
-  (prn-mx 3 (rows->mx [[1 2 3]
+  (cprn-mx 3 (rows->mx [[1 2 3]
                       [4 5 6]]))
 
   ;;;
