@@ -1,15 +1,12 @@
 (ns main
   (:require [dev.nrepl]
             [dev.core]
-            [plants.mx.core]
-            [plants.mx.colors]
-            [plants.mx.pca]
-            [plants.mx.prob]
-            [plants.mx.num]
-            [plants.ml.linreg]
-            [plants.ml.xor]
+            [plants.mx core colors pca prob num]
+            [plants.ml linreg xor]
+            [math core mx num prob]
+            [ml pca]
+            [examples pca]
             ; [plants.ml.mnist]
-            [deeplearning.core]
 
    ;
             )

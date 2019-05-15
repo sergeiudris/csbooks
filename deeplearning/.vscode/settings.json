@@ -28,7 +28,7 @@
     "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
     "java.configuration.checkProjectSettingsExclusions": false,
     "java.errors.incompleteClasspath.severity": "ignore",
-    "workbench.colorTheme": "Quiet Light",
+    "workbench.colorTheme": "Default Light+",
     "workbench.colorCustomizations": {
         "[-One Dark Pro Vivid]": {},
         "[-One Dark Pro]": {
