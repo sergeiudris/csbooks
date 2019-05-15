@@ -31,14 +31,24 @@
    (partition wid A)
    (mapv vec)))
 
-(defn prn-mx
-  "Prtints A"
+(defn prn-rows
+  "Prtints rows, used by prn-mx"
   [wid A]
   (as-> nil R
     (mx->rows  wid A)
     (doseq [row R]
       ; (print)
       (cprn row))))
+
+(defn prn-mx
+  "Prtints A"
+  ([wid A]
+   (prn-rows wid A)
+   (println))
+  ([wid A return?]
+   (prn-rows wid A)
+   (println)
+   A))
 
 (comment
 
@@ -123,6 +133,17 @@
                         :else 0))))
      vec)))
 
+(defn iden-mx-3
+  "Returns 3x3 identity mx"
+  []
+  (iden-mx 3))
+
+
+(defn iden-mx-4
+  "Returns 4x4 identity mx"
+  []
+  (iden-mx 4))
+
 
 (defn diag
   "Returns a square mx with the vector as the diagonal "
@@ -155,6 +176,8 @@
   (diag  4 4 [1 2 3])
   (get [1 2 3]  4)
 
+  
+  (iden-mx-4 )
   ;;;
   )
 
@@ -165,14 +188,19 @@
   (mapv * a b))
 
 (defn elwise-sum
-  "Returns a vector (mx), multiplies a,b element-wise "
+  "Returns a vector (mx), adds a,b element-wise "
   [a b]
   (mapv + a b))
 
 (defn elwise-subtract
-  "Returns a vector (mx), multiplies a,b element-wise "
+  "Returns a vector (mx), subtracts a,b element-wise "
   [a b]
   (mapv - a b))
+
+(defn elwise-divide
+  "Returns a vector (mx), divides a,b element-wise "
+  [a b]
+  (mapv / a b))
 
 (defn dot-prod
   "Retruns the sum of products of corresponding els"
@@ -183,6 +211,11 @@
   "Returns vector of scalar el products"
   [x v]
   (mapv #(* x %)  v))
+
+(defn scalar-divide
+  "Returns vector, divides v by scalar element-wise"
+  [x v]
+  (mapv #(/ % x)  v))
 
 
 (defn mx-prod
@@ -219,7 +252,7 @@
   )
 
 (defn vec-broadcast
-  "returns mx with vector added to each row element-wise"
+  "Returns mx with vector added to each row element-wise"
   [wid A a]
   (as-> nil R
     (mx->rows wid A)
@@ -238,17 +271,87 @@
   )
 
 (defn mx-square->size
-  "returns the size of a square mx"
+  "Returns the size of a square mx"
   [A]
   (int (Math/sqrt (count A))))
 
-(defn vec-norm
-  "returns the length (Euclidean norm) of a vector"
+(defn vec-length
+  "Returns the length (Euclidean norm) of a vector.
+   L2 norm"
   [a]
   (Math/sqrt (dot-prod a a)))
 
+(defn vec-L1-norm
+  [a]
+  "Returns the L1 norm, that grows at the same rate in all locations.
+   Every time an element of x moves
+   away from 0 by e , the L 1 norm increases by e"
+  (->>
+   a
+   (mapv #(Math/abs %))
+   (reduce +)))
+
+(defn vec-max-norm
+  "Returns the absolue value of the element with the largest magnitutde"
+  [v]
+  (->>
+   v
+   (mapv #(Math/abs %))
+   sort
+   last))
+
+(defn mx-frobenius-norm
+  "Returns the norm (size) of a matrix.
+   Frobenius size of A = sqrt of the sum of a[ij]^2  
+  "
+  [A]
+  (->>
+   A
+   (mapv  #(* % %))
+   (reduce +)
+   Math/sqrt))
+
+(defn vec-unit
+  "Returns the unit vector (normalizes) of a"
+  [a]
+  (scalar-divide (vec-length a) a))
+
+
+(defn count-non-zero
+  "Returns the count of non-zero elemts of a vector.
+   Mistakenly called L0 norm.
+   It's not a norm, scaling vector does not change the count of non-zero elems
+  "
+  [a]
+  (->>
+   a
+   (filterv (fn [x] (not (zero? x))))
+   count))
+
 (comment
-  (vec-norm [0 0 2] )
+  (vec-length [0 0 2])
+  (vec-unit [0 0 2])
+  (count-non-zero [0 0 2])
   ;;;
   )
 
+(defn transpose
+  "Returns transposed A - all indices are mirrored, e.g. 1,2 -> 2,1"
+  [wid A]
+  (let [len (count A)
+        hei (/ len wid)]
+    (reduce-kv (fn [acc i x]
+                 (let [row-i (index->row i wid)
+                       col-i (index->col i wid)
+                       new-i (pos->index col-i row-i  hei)]
+                   (assoc acc new-i x))) (make-mx hei wid nil) A)))
+
+
+(comment
+  (as-> nil R
+    (make-mx-with 3 3  (fn [i x] i))
+    (prn-mx 3 R true)
+    (transpose 3 R)
+    (prn-mx 3 R))
+  ;;;
+  )
