@@ -6,9 +6,14 @@
   []
   0)
 
+(defn fact
+  "returns factorial of x"
+  [x]
+  (reduce * 1 (range 1 (inc x))))
+
 (comment
   
-  (argmin)
+  (fact 20)
   
   
   ;;;
