@@ -1,6 +1,6 @@
 (ns ala.core
   (:require [clojure.repl :refer :all]
-            [ala.mx :as mx]
+            [ala.math :as math]
             [ala.print :refer [cprn]]))
 
 ; applied linear algebra
@@ -9,58 +9,20 @@
 
 ; page 449 pdf - notaion 
 
-(def e1 [1 0 0])
-
-(def e2 [0 1 0])
-
-(def e3 [0 0 1])
-
-
-(defn nnz
-  "Returns the count of non-zero els of a"
-  [a]
-  (count (filterv #(not (= 0 %)) a)))
-
-(defn make-vec
-  "Returns a vec given size, el"
-  [size el]
-  (vec (repeat size el)))
-
-(defn sum
-  "Returns the sum of numbers.
-   Sum is a linear combintaion of scalars"
-  [a]
-  (reduce + 0 a))
-
-(defn fact
-  "Returns factorial of x"
-  [x]
-  (reduce * 1 (range 1 (inc x))))
-
-
-
-
+; f(x) - real-valued, scalar-valued (returns a scalar)
 
 (comment
+  ; Exercises 1
 
-  (nnz [1 2 0 0 5 6])
-  (make-vec 3 0)
-  (mx/iden-mx 3)
-  
-  ;;;
-  )
+  ; 1.4
+  ; w = [ d{1} d{n} ] n in t%24
+  ; d = w{t:t+24}
 
+  ; 1.6
 
-(comment
-
-  (mx/elwise-sum [0 7 3] [1 2 0])
-
-  (mx/scalar-add 2 [1 2 3])
-
-  (mx/scalar-prod -2 [1 9 6])
-
-  (mx/vec-linear-comb [[1 2 3] [0 0 1]] [1 2])
+  ; d = x{1,n} - [0,x{2}..., x{n-1}]
 
   
+
   ;;;
   )

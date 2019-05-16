@@ -1,4 +1,4 @@
-(ns ala.mx
+(ns ala.math
   (:require [clojure.repl :refer :all]
             [ala.print :refer [cprn]]))
 
@@ -427,6 +427,18 @@
   [& vs]
   (scalar-prod (/ 1 (count vs)) (apply elwise-sum+ vs)))
 
+(defn inner-prod
+  "Reutrns the sum of products of correspondin els"
+  [a b]
+  (dot-prod a b))
+
+; affine  - sum of coefficeints in lin com is 1
+; convex - affine and all coefs are positive
+
+(defn inner-prod-block
+  "Returns the inner prod of block vectors. Must have the same size (conform)"
+  [a b]
+  (reduce + (mapv inner-prod  a b)))
 
 (comment
 
@@ -436,7 +448,70 @@
 
   (vec-avg [1 2] [2 3] [2 2])
 
+  (inner-prod [-1 2 2] [1 0 -3])
+
+  (inner-prod [2] [2])
+
+  (inner-prod-block [[1 2] [3 4]] [[2 3] [1 1]])
+  
+  (float (inner-prod [3/4 1/8 1/8] [1 2 3]))
+
+  (* 74 8) ; 74mb vec is 592 in mem
+  
+
   ;;;
   )
 
+
+(def e1 [1 0 0])
+
+(def e2 [0 1 0])
+
+(def e3 [0 0 1])
+
+
+(defn nnz
+  "Returns the count of non-zero els of a"
+  [a]
+  (count (filterv #(not (= 0 %)) a)))
+
+(defn make-vec
+  "Returns a vec given size, el"
+  [size el]
+  (vec (repeat size el)))
+
+(defn sum
+  "Returns the sum of numbers.
+   Sum is a linear combintaion of scalars"
+  [a]
+  (reduce + 0 a))
+
+(defn fact
+  "Returns factorial of x"
+  [x]
+  (reduce * 1 (range 1 (inc x))))
+
+(comment
+
+  (nnz [1 2 0 0 5 6])
+  (make-vec 3 0)
+  (mx/iden-mx 3)
+
+  ;;;
+  )
+
+
+(comment
+
+  (mx/elwise-sum [0 7 3] [1 2 0])
+
+  (mx/scalar-add 2 [1 2 3])
+
+  (mx/scalar-prod -2 [1 9 6])
+
+  (mx/vec-linear-comb [[1 2 3] [0 0 1]] [1 2])
+
+
+  ;;;
+  )
 
