@@ -13,7 +13,7 @@
     "editor.autoClosingQuotes": "never",
     "calva.evalOnSave": false,
     "window.zoomLevel": -1,
-    "workbench.panel.defaultLocation": "bottom",
+    "workbench.panel.defaultLocation": "right",
     "files.autoSave": "off",
     "LineCount.includes": [],
     "LineCount.excludes": [
