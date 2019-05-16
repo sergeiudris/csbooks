@@ -422,7 +422,7 @@
   [& vs]
   (reduce elwise-sum vs))
 
-(defn vec-avg
+(defn vecs-avg
   "Returns an average vec, is a linear comb"
   [& vs]
   (scalar-prod (/ 1 (count vs)) (apply elwise-sum+ vs)))
@@ -446,7 +446,7 @@
 
   (scalar-prod 1/3 [5 7])
 
-  (vec-avg [1 2] [2 3] [2 2])
+  (vecs-avg [1 2] [2 3] [2 2])
 
   (inner-prod [-1 2 2] [1 0 -3])
 
@@ -480,7 +480,7 @@
   [size el]
   (vec (repeat size el)))
 
-(defn sum
+(defn vec-sum
   "Returns the sum of numbers.
    Sum is a linear combintaion of scalars"
   [a]
@@ -491,11 +491,24 @@
   [x]
   (reduce * 1 (range 1 (inc x))))
 
+(defn vec-avg
+  "Returns avg of a vector"
+  [v]
+  (/ (vec-sum v) (count v)))
+
+(defn vec-max
+  "Returns the max el of vec"
+  [v]
+  (apply max v))
+
 (comment
 
   (nnz [1 2 0 0 5 6])
   (make-vec 3 0)
   (mx/iden-mx 3)
+  
+  (vec-avg [1 2 3])
+  
 
   ;;;
   )
@@ -511,6 +524,13 @@
 
   (mx/vec-linear-comb [[1 2 3] [0 0 1]] [1 2])
 
+  (inner-prod [0.5 1.5] [0.481 0.736])
+
+  (inner-prod [0.12 0.31 0.26] [0.5 1.1 0.3])
+  (inner-prod  [0.12 0.31 0.26] [1.5 0.8 1.2])
+
+  
+  
 
   ;;;
   )
