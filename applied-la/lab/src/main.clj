@@ -1,13 +1,7 @@
 (ns main
   (:require [dev.nrepl]
             [dev.core]
-            [plants.mx core colors pca prob num]
-            [plants.ml linreg xor]
-            [math core mx num prob]
-            [ml pca]
-            [examples pca]
             [ala core]
-            ; [plants.ml.mnist]
 
    ;
             )
