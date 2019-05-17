@@ -622,10 +622,17 @@
   [a]
   (elwise-subtract a (scalar-prod (vec-avg a) (make-vec (count a) 1))))
 
+; 4 flops ?
 (defn vec-standard-deviation
   "Returns root-mean-square of the de-meaned vec"
   [a]
   (root-mean-square (vec-demeaned a)))
+
+; 3 flops ?
+(defn vec-standard-deviation-2
+  "Returns root-mean-square of the de-meaned vec"
+  [a]
+  (Math/sqrt (- (sq (root-mean-square a)) (sq (vec-avg a)))))
 
 (defn sq
   "Returns x squared"
@@ -663,23 +670,114 @@
   (vec-demeaned a)
   (vec-avg a)
   (format  "%.3f"  (vec-standard-deviation a))
-
+  (vec-standard-deviation a)
+  (vec-standard-deviation-2 a)
   (root-mean-square (vec-demeaned a))
 
   (source ==)
-  
+
   (==* 1 1.0 1)
-  
+
   (vec-avg [5 4.999999])
   (vec-demeaned [5 4.999999])
-  
+
   (==* 4.9999999M 4.9999999)
-  
-  (diff-max-min [ 4 3 2 -1 11])
+
+  (diff-max-min [4 3 2 -1 11])
 
   (==** 5 4.99999)
+
+  (==* -4.999999 -5M)
+
+  ;;;
+  )
+
+
+(defn vec-standardized
+  "Returns de-meaned vector, divided by standard deviation"
+  [a]
+  (scalar-divide (vec-standard-deviation a) (vec-demeaned a)))
+
+(defn rad->deg
+  "Returns degrees (from value in radians)"
+  [x]
+  (* x (/ 180 Math/PI)))
+
+(defn deg->rad
+  "Returns radians (from value in degrees)"
+  [x]
+  (/ (* x Math/PI) 180))
+
+(defn vec-angle
+  "Returns the angle (radians) between two non-zero vecs"
+  [a b]
+  (Math/acos (/ (inner-prod a b) (* (vec-norm a) (vec-norm b)))))
+
+(defn spherical-dist
+  "Returns the dist between two 3-vecs on a spehre of radius r"
+  [r a b]
+  (* r (vec-angle a b)))
+
+(defn latlon->3-D
+  "Returns the 3-D coords for lat lon, given radius "
+  [r lat lon]
+  (let [lat-rad (deg->rad lat)
+        lon-rad (deg->rad lon)]
+    [(* r (Math/sin lon-rad) (Math/cos lat-rad))
+     (* r (Math/cos lon-rad) (Math/cos lat-rad))
+     (* r (Math/sin lat-rad))]))
+
+(defn vec-correlation-coef
+  "Returns the correlation coefficient (cos of angle) between de-meaned vecs "
+  [a b]
+  (let [[ad bd] [(vec-demeaned a) (vec-demeaned b)]]
+    (/ (inner-prod ad bd) (* (vec-norm ad) (vec-norm bd)))
+    ; (Math/cos (vec-angle ad bd))
+    ))
+
+(defn km->)
+
+(comment
+
+  (def x-standardized (vec-standardized [1 2 3  5]))
+
+  (vec-avg x-standardized)
+  (vec-standard-deviation x-standardized)
+
+  (vec-correlation-coef [1 0 0] [-1 0 0])
+
+  (vec-correlation-coef [1 0 0] [2 0 0])
+
+  (rad->deg 0.9661)
+  (deg->rad 55.35)
+
+  (def Earth-radius 6367.5)
+
+  (def Beijing (latlon->3-D Earth-radius 39.914 116.392))
+  (def Palo-Alto (latlon->3-D Earth-radius 37.429 -122.138))
+
+  (spherical-dist Earth-radius Beijing  Palo-Alto) ; 9093 km
+
+
+  ;;;
+  )
+
+(defn j-clust
+  "Returns value (clustering objective estimate).
+   The lower the better clustering is.
+   Mean square distance from vecs to their representatives.
+   "
+  [xs zs cs]
+  (->
+   (reduce-kv (fn [acc i x]
+                (+ acc (sq (vec-dist x (zs (cs i)))))) 0 xs)
+   (/ (count xs))))
+
+
+
+(comment
   
-  (==* -4.999999 -5M )
+  
   
   ;;;
   )
