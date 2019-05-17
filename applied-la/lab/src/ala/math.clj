@@ -290,8 +290,8 @@
   [A]
   (int (Math/sqrt (count A))))
 
-(defn vec-length
-  "Returns the length (Euclidean norm) of a vector.
+(defn vec-norm
+  "Returns the  Euclidean norm (length or magnitude) of a vector.
    L2 norm"
   [a]
   (Math/sqrt (dot-prod a a)))
@@ -329,7 +329,7 @@
 (defn vec-unit
   "Returns the unit vector (normalizes) of a"
   [a]
-  (scalar-divide (vec-length a) a))
+  (scalar-divide (vec-norm a) a))
 
 
 (defn count-non-zero
@@ -344,7 +344,7 @@
    count))
 
 (comment
-  (vec-length [0 0 2])
+  (vec-norm [0 0 2])
   (vec-unit [0 0 2])
   (count-non-zero [0 0 2])
   ;;;
@@ -405,7 +405,7 @@
                      (= (index->row %1 size) (index->col %1 size)) %2
                      nil))
      (reduce +))))
-
+v
 
 (defn vec-linear-comb
   "Returns a linear combination (sum of prodcuts)"
@@ -435,7 +435,7 @@
 ; affine  - sum of coefficeints in lin com is 1
 ; convex - affine and all coefs are positive
 
-(defn inner-prod-block
+(defn inner-prod-stacked
   "Returns the inner prod of block vectors. Must have the same size (conform)"
   [a b]
   (reduce + (mapv inner-prod  a b)))
@@ -452,7 +452,7 @@
 
   (inner-prod [2] [2])
 
-  (inner-prod-block [[1 2] [3 4]] [[2 3] [1 1]])
+  (inner-prod-stacked [[1 2] [3 4]] [[2 3] [1 1]])
   
   (float (inner-prod [3/4 1/8 1/8] [1 2 3]))
 
@@ -513,6 +513,55 @@
   ;;;
   )
 
+(defn vec-median
+  "Returns the median of the vector"
+  [a]
+  (let [size (count a)
+        v    (vec (sort a))]
+    (cond
+      (odd? size) (v (-> size dec (/ 2) ))
+      :else (vec-avg (vector (v (-> size (/ 2) dec)) (v (/ size 2)))))))
+
+(defn mean-square
+  "Returns the sum of squared vec els, divided by el count"
+  [a]
+  (/ (dot-prod a a) (count a)))
+
+(defn root-mean-square
+  "Returns suqare root of mean-square.
+   Tells what a 'typical'  |el| looks like"
+  [a]
+  (Math/sqrt (mean-square a)))
+
+
+(defn vec-norm-stacked
+  "Returns the norm of a vector, formed from norms of subvecs"
+  [aa]
+  (vec-norm (mapv #(vec-norm %)  aa)))
+
+(defn vec-dist
+  "Returns the distance between two vecs (points in n dimension)"
+  [a b]
+  (vec-norm (elwise-subtract a b)))
+
+(defn rms-deviation
+  "Returns the root-mean-square of the difference a - b"
+  [a b]
+  (root-mean-square (elwise-subtract  a b)))
+
+(defn rms-prediction-error
+  "Returns the root-mean-square of y-ye"
+  [y ye]
+  (root-mean-square (elwise-subtract y ye)))
+
+(defn nearest-neighbor
+  "Returns the closest vec z (of zs) to vec x"
+  [x zs]
+  (as-> nil R
+    (map-indexed #(vector %1 (vec-dist x %2))  zs)
+    (sort-by second R)
+    (zs (ffirst R))))
+
 
 (comment
 
@@ -529,8 +578,38 @@
   (inner-prod [0.12 0.31 0.26] [0.5 1.1 0.3])
   (inner-prod  [0.12 0.31 0.26] [1.5 0.8 1.2])
 
-  
-  
+
+  ; house prices regression model
+
+  (+ (inner-prod [148.73 -18.85] [0.846 1]) 54.40)
+  (inner-prod [1 148.73 -18.85] [54.40 0.846 1])
+
+  (vec-avg [1 2])
+
+  (vec-median [-7 -6 -5 -4 -3 1  2 3 4 7])
+
+  (root-mean-square [1 2 3 4])
+
+  (dot-prod [1 1 1 2 2 2]  [1 1 1 2 2 2])
+
+  (/ (vec-norm [1 1 1 2 2 2]) (Math/sqrt 6))
+
+  (root-mean-square [1 1 1 2 2 2])
+
+  (vec-norm [1 1 1 1 1 1 1])
+
+  (root-mean-square [1 1 1 1 1 1 1])
+
+  (vec-norm-stacked [[1 0] [0 1]])
+
+  (vec-norm [1 1])
+
+  (vec-dist [1 0 0] [3 0 0])
+
+  (vec-dist [1 1 0] [2 2 0])
+
+
+  (nearest-neighbor [5 6] [[2 1] [7 2] [5.5 4] [4 8] [1 5] [9 6]])
 
   ;;;
   )
