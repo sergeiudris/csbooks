@@ -122,7 +122,7 @@
   ;;;
   )
 
-(defn make-v
+(defn make-vec
   "Returns a vector of specified size and el"
   [size el]
   (vec (repeat size el)))
@@ -405,7 +405,6 @@
                      (= (index->row %1 size) (index->col %1 size)) %2
                      nil))
      (reduce +))))
-v
 
 (defn vec-linear-comb
   "Returns a linear combination (sum of prodcuts)"
@@ -475,7 +474,7 @@ v
   [a]
   (count (filterv #(not (= 0 %)) a)))
 
-(defn make-vec
+(defn make-vecec
   "Returns a vec given size, el"
   [size el]
   (vec (repeat size el)))
@@ -504,7 +503,7 @@ v
 (comment
 
   (nnz [1 2 0 0 5 6])
-  (make-vec 3 0)
+  (make-vecec 3 0)
   (mx/iden-mx 3)
   
   (vec-avg [1 2 3])
@@ -531,7 +530,9 @@ v
   "Returns suqare root of mean-square.
    Tells what a 'typical'  |el| looks like"
   [a]
-  (Math/sqrt (mean-square a)))
+  (Math/sqrt (mean-square a))
+  ; (/ (vec-norm a) (Math/sqrt (count) ) )
+  )
 
 
 (defn vec-norm-stacked
@@ -603,6 +604,7 @@ v
   (vec-norm-stacked [[1 0] [0 1]])
 
   (vec-norm [1 1])
+    (prn R)    (prn R)
 
   (vec-dist [1 0 0] [3 0 0])
 
@@ -614,3 +616,70 @@ v
   ;;;
   )
 
+
+(defn vec-demeaned
+  "Returns the de-meaned vec - subtract vec-avg from each entry"
+  [a]
+  (elwise-subtract a (scalar-prod (vec-avg a) (make-vec (count a) 1))))
+
+(defn vec-standard-deviation
+  "Returns root-mean-square of the de-meaned vec"
+  [a]
+  (root-mean-square (vec-demeaned a)))
+
+(defn sq
+  "Returns x squared"
+  [x]
+  (Math/pow x 2))
+
+(defn diff-max-min
+  "Returns the diff of max nad min els"
+  [a]
+  (as-> nil R
+    (sort a)
+    (- (last R) (first R))))
+
+(defn ==** 
+  "Returns true, if diff between args is <= 0.00001"
+  [& args]
+  (apply == args)
+  (<= (Math/abs (diff-max-min args)) 0.00001))
+
+(defn ==*
+  "Returns true, if diff between x and y is <= 0.00001"
+  [x y]
+  (<= (Math/abs (- y x)) 0.00001))
+
+(comment
+
+  (vec-avg (vec-demeaned [1 2 3]))
+
+  (vec-standard-deviation (vec-demeaned [1 2 3]))
+  ; same eas
+  (rms-deviation [1 2 3] (mapv (fn [x] (vec-avg [1 2 3])) [1 2 3]))
+
+  (vec-standard-deviation [2 2 2 2 2])
+  (def a [1 -2 3 2])
+  (vec-demeaned a)
+  (vec-avg a)
+  (format  "%.3f"  (vec-standard-deviation a))
+
+  (root-mean-square (vec-demeaned a))
+
+  (source ==)
+  
+  (==* 1 1.0 1)
+  
+  (vec-avg [5 4.999999])
+  (vec-demeaned [5 4.999999])
+  
+  (==* 4.9999999M 4.9999999)
+  
+  (diff-max-min [ 4 3 2 -1 11])
+
+  (==** 5 4.99999)
+  
+  (==* -4.999999 -5M )
+  
+  ;;;
+  )
