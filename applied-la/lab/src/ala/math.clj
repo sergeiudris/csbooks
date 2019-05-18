@@ -615,7 +615,10 @@
 
   ;;;
   )
-
+(defn sq
+  "Returns x squared"
+  [x]
+  (Math/pow x 2))
 
 (defn vec-demeaned
   "Returns the de-meaned vec - subtract vec-avg from each entry"
@@ -634,10 +637,7 @@
   [a]
   (Math/sqrt (- (sq (root-mean-square a)) (sq (vec-avg a)))))
 
-(defn sq
-  "Returns x squared"
-  [x]
-  (Math/pow x 2))
+
 
 (defn diff-max-min
   "Returns the diff of max nad min els"
@@ -734,8 +734,6 @@
     (/ (inner-prod ad bd) (* (vec-norm ad) (vec-norm bd)))
     ; (Math/cos (vec-angle ad bd))
     ))
-
-(defn km->)
 
 (comment
 
