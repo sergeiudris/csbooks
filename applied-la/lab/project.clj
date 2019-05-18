@@ -3,6 +3,7 @@
   :repositories [["conjars" {:url "https://conjars.org/repo"}]
                  ["clojars" {:url "https://clojars.org/repo"}]
                  ["oracle" {:url "https://download.oracle.com/maven"}]
+                 
 
 
                  ["staging" {:url       "https://repository.apache.org/content/repositories/staging"
@@ -27,7 +28,8 @@
                  [mvxcvi/whidbey "2.1.1"]
                  [org.clojure/data.csv "0.1.4"]
                  [commons-io/commons-io "2.4"]
-
+                 [clj-http "3.10.0"]
+                 [cheshire "5.8.1"]
 
                  ;
                  ]
