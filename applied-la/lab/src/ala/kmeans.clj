@@ -159,7 +159,6 @@
     (shuffle xs)
     (partitionv (/ (count R) k) R)
     (mapv (fn [g] (apply vecs-mean g)) R)
-    ; (cprn (count R) )
     (k-means xs R nil 0 i)))
 
 (comment
@@ -181,6 +180,8 @@
                  [8.5 14.6]
                  [7.9 17.1]
                  [12.5 18]
+                 [12.7 17.7]
+
                  [11 12.9]
                  [11.5 10.1]
                  [12.9 11]])
@@ -244,7 +245,10 @@
     (cprn (c :zs)))
 
 
-  (k-means-rand-x->z points :k 20 )
+  (k-means-rand-x->z points :k 20)
+
+  (k-means-rand-gs points :k 3 :i 20)
+
 
 
   ;;;

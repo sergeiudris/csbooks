@@ -331,8 +331,8 @@
 (comment
   ; k-means
 
-  (def xs-flat (take-images-range  1 500 T60-IMAGES))
-  (def xs-labels (subvec T60-LABELS 0 500))
+  (def xs-flat (take-images-range  1 2000 T60-IMAGES))
+  (def xs-labels (subvec T60-LABELS 0 2000))
 
 
   (count xs-flat)
