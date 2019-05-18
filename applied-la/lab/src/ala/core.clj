@@ -1,7 +1,10 @@
 (ns ala.core
   (:require [clojure.repl :refer :all]
             [ala.math :as math]
-            [ala.print :refer [cprn]]))
+            [ala.print :refer [cprn]]
+            [ala kmeans]
+   ;
+            ))
 
 ; applied linear algebra
 ; https://www.seas.ucla.edu/~vandenbe/ee133a.html
