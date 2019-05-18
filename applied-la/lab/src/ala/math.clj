@@ -908,10 +908,17 @@
 
   (def clusters-4 (k-means points zs-3))
 
-  (def clusters-5 (k-means points [(rand-nth points) (rand-nth points) (rand-nth points)]))
+  (def clusters-5 (k-means points (mapv (fn [_] (rand-nth points)) (range 3))))
 
+  (def clusters-6 (k-means points (mapv (fn [_] (rand-nth points)) (range 4))))
+
+  (def clusters-7 (k-means points (mapv (fn [_] (rand-nth points)) (range 5))))
 
   (doseq [c [clusters-2 clusters-3 clusters-4 clusters-5]]
+    (cprn (c :J))
+    (cprn (c :zs)))
+
+  (doseq [c [clusters-5 clusters-6 clusters-7]]
     (cprn (c :J))
     (cprn (c :zs)))
 
@@ -921,3 +928,4 @@
   ;;;
   )
 
+; heuristic
