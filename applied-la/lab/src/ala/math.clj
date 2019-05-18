@@ -886,34 +886,38 @@
 
   (def clusters (vec (k-means-lazy points zs)))
   (count clusters)
-  
+
   (nearest-neighbor [2.7 0] zs)
   (nearest-neighbor [10 7.5] zs)
-  
+
   (partition-by odd? [1 2 2 3 1 4 5 6 8 10 9 1 2 7 4])
-  
+
   (def groups (k-means-iteration points zs))
-  
+
   (reduce + (mapv (fn [[i g]]
                     (j-clust-nearest g zs)) groups))
-  
-  (def zs-2 [[3 3] [8 8] [15 15]])
-  
-  (def zs-3 [[0 10] [10 0] [13 15]])
-  
-  
-  (def clusters-2 (k-means points zs))
-  
-  (def clusters-3 (k-means points zs-2)) ; successfully does 5 iterations, prn progress
-  
-  (def clusters-4 (k-means points zs-3))
-  
 
-  (doseq [c [clusters-2 clusters-3 clusters-4]]
+  (def zs-2 [[3 3] [8 8] [15 15]])
+
+  (def zs-3 [[0 10] [10 0] [13 15]])
+
+
+  (def clusters-2 (k-means points zs))
+
+  (def clusters-3 (k-means points zs-2)) ; successfully does 5 iterations, prn progress
+
+  (def clusters-4 (k-means points zs-3))
+
+  (def clusters-5 (k-means points [(rand-nth points) (rand-nth points) (rand-nth points)]))
+
+
+  (doseq [c [clusters-2 clusters-3 clusters-4 clusters-5]]
     (cprn (c :J))
     (cprn (c :zs)))
-  
-  
+
+
+
+
   ;;;
   )
 
