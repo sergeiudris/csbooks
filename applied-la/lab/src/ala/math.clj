@@ -421,7 +421,7 @@
   [& vs]
   (reduce elwise-sum vs))
 
-(defn vecs-avg
+(defn vecs-mean
   "Returns an average vec, is a linear comb"
   [& vs]
   (scalar-prod (/ 1 (count vs)) (apply elwise-sum+ vs)))
@@ -445,7 +445,7 @@
 
   (scalar-prod 1/3 [5 7])
 
-  (vecs-avg [1 2] [2 3] [2 2])
+  (vecs-mean [1 2] [2 3] [2 2])
 
   (inner-prod [-1 2 2] [1 0 -3])
 
@@ -490,7 +490,7 @@
   [x]
   (reduce * 1 (range 1 (inc x))))
 
-(defn vec-avg
+(defn vec-mean
   "Returns avg of a vector"
   [v]
   (/ (vec-sum v) (count v)))
@@ -506,7 +506,7 @@
   (make-vecec 3 0)
   (mx/iden-mx 3)
   
-  (vec-avg [1 2 3])
+  (vec-mean [1 2 3])
   
 
   ;;;
@@ -519,7 +519,7 @@
         v    (vec (sort a))]
     (cond
       (odd? size) (v (-> size dec (/ 2) ))
-      :else (vec-avg (vector (v (-> size (/ 2) dec)) (v (/ size 2)))))))
+      :else (vec-mean (vector (v (-> size (/ 2) dec)) (v (/ size 2)))))))
 
 (defn mean-square
   "Returns the sum of squared vec els, divided by el count"
@@ -561,7 +561,8 @@
   (as-> nil R
     (map-indexed #(vector %1 (vec-dist x %2))  zs)
     (sort-by second R)
-    (zs (ffirst R))))
+    (ffirst R)
+    (vector R (zs R))))
 
 
 (comment
@@ -585,7 +586,7 @@
   (+ (inner-prod [148.73 -18.85] [0.846 1]) 54.40)
   (inner-prod [1 148.73 -18.85] [54.40 0.846 1])
 
-  (vec-avg [1 2])
+  (vec-mean [1 2])
 
   (vec-median [-7 -6 -5 -4 -3 1  2 3 4 7])
 
@@ -621,9 +622,9 @@
   (Math/pow x 2))
 
 (defn vec-demeaned
-  "Returns the de-meaned vec - subtract vec-avg from each entry"
+  "Returns the de-meaned vec - subtract vec-mean from each entry"
   [a]
-  (elwise-subtract a (scalar-prod (vec-avg a) (make-vec (count a) 1))))
+  (elwise-subtract a (scalar-prod (vec-mean a) (make-vec (count a) 1))))
 
 ; 4 flops ?
 (defn vec-standard-deviation
@@ -635,7 +636,7 @@
 (defn vec-standard-deviation-2
   "Returns root-mean-square of the de-meaned vec"
   [a]
-  (Math/sqrt (- (sq (root-mean-square a)) (sq (vec-avg a)))))
+  (Math/sqrt (- (sq (root-mean-square a)) (sq (vec-mean a)))))
 
 
 
@@ -659,16 +660,16 @@
 
 (comment
 
-  (vec-avg (vec-demeaned [1 2 3]))
+  (vec-mean (vec-demeaned [1 2 3]))
 
   (vec-standard-deviation (vec-demeaned [1 2 3]))
   ; same eas
-  (rms-deviation [1 2 3] (mapv (fn [x] (vec-avg [1 2 3])) [1 2 3]))
+  (rms-deviation [1 2 3] (mapv (fn [x] (vec-mean [1 2 3])) [1 2 3]))
 
   (vec-standard-deviation [2 2 2 2 2])
   (def a [1 -2 3 2])
   (vec-demeaned a)
-  (vec-avg a)
+  (vec-mean a)
   (format  "%.3f"  (vec-standard-deviation a))
   (vec-standard-deviation a)
   (vec-standard-deviation-2 a)
@@ -678,7 +679,7 @@
 
   (==* 1 1.0 1)
 
-  (vec-avg [5 4.999999])
+  (vec-mean [5 4.999999])
   (vec-demeaned [5 4.999999])
 
   (==* 4.9999999M 4.9999999)
@@ -739,7 +740,7 @@
 
   (def x-standardized (vec-standardized [1 2 3  5]))
 
-  (vec-avg x-standardized)
+  (vec-mean x-standardized)
   (vec-standard-deviation x-standardized)
 
   (vec-correlation-coef [1 0 0] [-1 0 0])
@@ -761,7 +762,7 @@
   )
 
 (defn j-clust
-  "Returns value (clustering objective estimate).
+  "Returns a scalar J (clustering objective estimate).
    The lower the better clustering is.
    Mean square distance from vecs to their representatives.
    "
@@ -773,9 +774,132 @@
 
 
 
+(defn j-clust-nearest
+  "Returns a scalar J.
+   Is a version of j-lcust, picks min||x - z|| (distance from vec to representative)
+   to minimize J.
+  "
+  [xs zs]
+  (->
+   (reduce-kv (fn [acc i x]
+                (+ acc (sq (vec-dist x (second (nearest-neighbor x zs)) )))) 0 xs)
+   (/ (count xs))))
+
+(defn group-centroid
+  "Returns the average of vecs"
+  [xs]
+  (apply vecs-mean xs))
+
+
+(defn -k-means-lazy-partition
+  "Does not work, take-while is sequential, coll is not sorted"
+  [xs zs]
+  (lazy-seq
+   (when-let [xs-s (seq xs)]
+     (let [fst       (first xs-s)
+           nrst-neig (second (nearest-neighbor fst zs))
+           run       (cons fst (take-while #(= nrst-neig (second (nearest-neighbor % zs))) (next xs-s)))]
+       (cprn run)
+       (prn)
+       (cons run (k-means-lazy (lazy-seq (drop (count run) xs-s))  zs))
+        ;
+       ))))
+
+(defn k-means-iteration
+  "Returns k-means groups after one iteration."
+  [xs zs]
+  (persistent!
+   (reduce-kv
+    (fn [acc i x]
+      (let [nrst-neig (nearest-neighbor x zs)
+            i-zs      (first nrst-neig)]
+        (assoc! acc i-zs (conj (get acc i-zs []) x)))
+      ;
+      )
+    (transient {}) xs)))
+
+(defn k-means
+  "Returns a group map {i-group [[x] [x] ..] .. }.
+   Iterates until J (objective) is minimized"
+  ([xs zs]
+   (k-means xs zs nil 0))
+  ([xs zs J-prev cnt]
+   (let    [groups (k-means-iteration xs zs)
+            J      (reduce + (mapv (fn [[i g]]
+                                     (j-clust-nearest g zs)) groups))]
+     (cprn {:iter   cnt
+            :J      J
+            :groups groups
+            :zs     zs})
+     (cond
+       (= J J-prev) {:J      J
+                     :groups groups}
+       :else (k-means xs (mapv (fn [[i g]]
+                                 (apply vecs-mean g)) groups) J (inc cnt))
+       ;
+       ))))
+
+
 (comment
+
+  (def points-A [[0.5 8.5]
+                 [2.2 11.5]
+                 [2.7 0]
+                 [3.7 2.5]
+                 [3.5 5.3]
+                 [3.5 7.2]
+                 [5 5.5]
+                 [7.1 5.1]
+                 [7.5 4.9]
+                 [7.8 6.8]])
+
+  (def points-B [[4.5 12.8]
+                 [6.1 13.8]
+                 [8 14.9]
+                 [8.5 14.6]
+                 [7.9 17.1]
+                 [12.5 18]
+                 [11 12.9]
+                 [11.5 10.1]
+                 [12.9 11]])
+  (def points-C [[10 7.5]
+                 [10.9 7.1]
+                 [12.1 10]
+                 [14.1 9.9]
+                 [12 4.5]
+                 [12.9 1]
+                 [15.8 0.2]
+                 [15.7 1.4]
+                 [15.9 7]
+                 [14.4 7.1]])
+
+  (def points (shuffle (concat points-A points-B points-C)))
+  (count points)
+
+  (def points-A-centroid [4 5])
+  (def points-B-centroid [9 15])
+  (def points-C-centroid [14 5])
+
+  (def zs [points-A-centroid points-B-centroid points-C-centroid])
+
+
+  (def clusters (vec (k-means-lazy points zs)))
+  (count clusters)
   
+  (nearest-neighbor [2.7 0] zs)
+  (nearest-neighbor [10 7.5] zs)
   
+  (partition-by odd? [1 2 2 3 1 4 5 6 8 10 9 1 2 7 4])
   
+  (def groups (k-means-iteration points zs))
+  
+  (reduce + (mapv (fn [[i g]]
+                    (j-clust-nearest g zs)) groups))
+  
+  (def zs-2 [[3 3] [8 8] [15 15]])
+  
+  (def clusters-2 (k-means points zs-2)); successfully does 5 iterations, prn progress
+  
+
   ;;;
   )
