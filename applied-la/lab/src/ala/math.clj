@@ -827,12 +827,13 @@
    (let    [groups (k-means-iteration xs zs)
             J      (reduce + (mapv (fn [[i g]]
                                      (j-clust-nearest g zs)) groups))]
-     (cprn {:iter   cnt
-            :J      J
-            :groups groups
-            :zs     zs})
+    ;  (cprn {:groups groups
+    ;         :iter   cnt
+    ;         :zs     zs
+    ;         :J      J})
      (cond
        (= J J-prev) {:J      J
+                     :zs     zs
                      :groups groups}
        :else (k-means xs (mapv (fn [[i g]]
                                  (apply vecs-mean g)) groups) J (inc cnt))
@@ -898,8 +899,21 @@
   
   (def zs-2 [[3 3] [8 8] [15 15]])
   
-  (def clusters-2 (k-means points zs-2)); successfully does 5 iterations, prn progress
+  (def zs-3 [[0 10] [10 0] [13 15]])
+  
+  
+  (def clusters-2 (k-means points zs))
+  
+  (def clusters-3 (k-means points zs-2)) ; successfully does 5 iterations, prn progress
+  
+  (def clusters-4 (k-means points zs-3))
   
 
+  (doseq [c [clusters-2 clusters-3 clusters-4]]
+    (cprn (c :J))
+    (cprn (c :zs)))
+  
+  
   ;;;
   )
+
