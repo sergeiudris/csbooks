@@ -285,8 +285,9 @@
   ;;;
   )
 
-(defn mx-square->size
-  "Returns the size of a square mx"
+
+(defn mx->order
+  "Returns the order of a square mx"
   [A]
   (int (Math/sqrt (count A))))
 
@@ -368,7 +369,7 @@
   "Returns true if matrix is equal to its own trasnpose"
   [A]
   (->
-   (mx-transpose  (mx-square->size A) A)
+   (mx-transpose  (mx->order A) A)
    (= A)))
 
 (defn vec-orthogonal?
@@ -398,7 +399,7 @@
 (defn mx-trace
   "Returns the sum of all diagonal entries of a matrix"
   [A]
-  (let [size (mx-square->size A)]
+  (let [size (mx->order A)]
     (->>
      A
      (keep-indexed #(if
@@ -794,19 +795,23 @@
   ([xs qs]
    (let [xi (first xs)
          qi (gram-schmidt-qi xi qs)]
-    ;  (cprn qs)
+    ;  (cprn xi)
+     (prn qi)
+     (cprn (vec-normalize qi))
+    ;  (prn)
      (cond
-       (empty? xs) {:ret true
-                    :qs  qs}
-       (every? zero? qi)  {:ret false
-                           :qs  qs}
-       :else (recur (vec (rest xs)) (conj  qs (vec-normalize qi)))))
+       (empty? xs) true
+       (every? zero? qi)  false
+       :else (gram-schmidt (vec (rest xs)) (conj  qs (vec-normalize qi)))))
    ;
    ))
 
 (comment
   (gram-schmidt [[1 0] [2 0]])
   (gram-schmidt [[2 1] [1  0] [0 1]])
+  (gram-schmidt [[1 1] [-3 2] [2 4]]) ; should be dependent
+  (gram-schmidt [[1 4 2 -3] [7 10 -4 -1] [-2 1 5 -4]])
+  
   
   (def a1 [-1 1 -1 1])
   (def a2 [-1 3 -1 3])
@@ -820,6 +825,7 @@
 
   (gram-schmidt [a b c])
 
+  (every? zero? [0.0 0.0 0.0 -0.0])
 
 
   ;;;
@@ -894,5 +900,35 @@
   (vec-normalize [0 0 0])
   (elwise-subtract+ [-1 3 -1 3] [-2 2 -2 2] )
   
+  ;;;
+  )
+
+
+
+; An n-vector can be interpreted as an n × 1 matrix;
+
+(defn mx->density
+  "Returns densitry of the mx at (0,1)"
+  [A]
+  (/ (count-non-zero A) (count A)))
+
+(comment
+
+  (mx->density (iden-mx 4))
+
+  (diag (make-vec 4 1))
+
+  (def A (rows->mx [[1 2 3]
+                    [2 1 4]
+                    [3 4 1]]))
+  
+  (mx-symmetric? A)
+  
+  (cprn-mx 3 A )
+  
+  (cprn-mx 3 (mx-transpose 3 A ))
+  
+
+
   ;;;
   )
