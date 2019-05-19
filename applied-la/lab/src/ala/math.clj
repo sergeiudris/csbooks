@@ -31,6 +31,40 @@
    (partition wid A)
    (mapv vec)))
 
+(defn mx->cols
+  "Returns two dim vector of cols of A"
+  [wid A]
+  (->>
+   (persistent!
+    (reduce-kv
+     (fn [acc i x]
+       (let [i-col (index->col i wid)]
+         (assoc! acc i-col (conj (get acc i-col []) x)))
+      ;
+       )
+     (transient {}) A))
+   (into (sorted-map))
+   vals
+   vec
+   ;
+   ))
+
+(comment
+
+  (def A (rows->mx [[1 2 3]
+                    [4 5 6]
+                    [7 8 9]]))
+
+
+  (->>
+   (mx->cols 3 A)
+   cprn
+   ;
+   )
+
+  ;;;
+  )
+
 (defn prn-rows
   "Prtints rows, used by prn-mx"
   [wid A & {:keys [print-fn] :or {print-fn prn}}]
@@ -59,6 +93,12 @@
    (prn-rows wid A :print-fn cprn)
    (println)
    A))
+
+(defn cprn-rows
+  "Color prints vec els per line"
+  [xs]
+  (doseq [x xs]
+    (cprn x)))
 
 (comment
 
@@ -241,15 +281,17 @@
   [wid-A wid-B A B]
   (let [hei-A (/ (count A) wid-A)
         M     (make-mx hei-A wid-B nil)]
-    (map-indexed (fn [i x]
-                   (let [row-i (index->row i wid-B)
-                         col-i (index->col i wid-B)
-                         row   (mx->row row-i wid-A A)
-                         col   (mx->col col-i wid-B B)]
-                     (dot-prod row col)
+    (->
+     (map-indexed (fn [i x]
+                    (let [row-i (index->row i wid-B)
+                          col-i (index->col i wid-B)
+                          row   (mx->row row-i wid-A A)
+                          col   (mx->col col-i wid-B B)]
+                      (dot-prod row col)
                       ;
-                     ))
-                 M)))
+                      ))
+                  M)
+     vec)))
 
 
 (comment
@@ -316,16 +358,12 @@
    sort
    last))
 
-(defn mx-frobenius-norm
+(defn mx-norm
   "Returns the norm (size) of a matrix.
    Frobenius size of A = sqrt of the sum of a[ij]^2  
   "
   [A]
-  (->>
-   A
-   (mapv  #(* % %))
-   (reduce +)
-   Math/sqrt))
+  (vec-norm A))
 
 (defn vec-normalize
   "Returns the unit vector (normalizes) of a"
@@ -935,6 +973,86 @@
   (=   (mx-transpose 3 (elwise-sum A B))
        (elwise-sum (mx-transpose 3 A) (mx-transpose 3 B)))
 
+  (= (vec-norm A) (mx-norm A))
 
+  
+
+  ;;;
+  )
+
+(defn mx-rms
+  "Returns the root-mean-sqaure of mx els"
+  [A]
+  (/ (mx-norm A) (sqrt (count A))))
+
+(defn mx-dist
+  "Returns the distance between two mx"
+  [A B]
+  (vec-dist A B))
+
+
+
+(defn mx-vec-prod-cols
+  "Returns the mx vec prod using cols interpretation"
+  [A x]
+  (let [wid  (count x)
+        cols (mx->cols wid A)]
+    (vec-linear-comb cols x)))
+
+(defn mx-vec-prod-rows
+  "Returns the mx vec prod using cols interpretation"
+  [A x]
+  (let [wid  (count x)
+        rows (mx->rows wid A)]
+    (mapv #(inner-prod % x) rows) ))
+
+(comment
+
+  (def A (rows->mx [[1 2 3]
+                    [2 1 4]
+                    [3 4 1]]))
+  (def B (rows->mx [[3 1 0]
+                    [2 1 4]
+                    [-1 9 3]]))
+
+  (mx-rms A)
+  (mx-rms B)
+
+  (def C [0 2 -1 -2 1 1])
+  (def c [2 1 -1])
+  
+  
+  (mx-prod 3 1 C c)
+
+  (mx-vec-prod-cols C c  )
+  
+  (mx-vec-prod-rows C c)
+  
+  (mx-vec-prod-cols C [0 1 0])
+  
+
+
+  ;;;
+  )
+
+(defn make-diff-mx
+  "Returns (n-1) x n  difference mx "
+  [wid]
+  (let [hei (dec wid)
+        A   (make-mx wid hei nil)]
+    (->>
+     (map-indexed (fn [i x]
+                    (let [i-row (index->row i wid)
+                          i-col (index->col i wid)]
+                      (cond
+                        (= i-row i-col) -1
+                        (= (inc i-row) i-col ) 1
+                        :else 0))) A)
+     vec)))
+
+(comment
+  
+  (cprn-mx 6 (make-diff-mx 6) )
+  
   ;;;
   )
