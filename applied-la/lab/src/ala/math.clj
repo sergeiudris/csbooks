@@ -130,14 +130,14 @@
 
 
 (defn iden-mx
-  "Returns an identity mx of size"
-  [size]
-  (let [A  (make-mx size size nil)]
+  "Returns an identity mx of order"
+  [order]
+  (let [A  (make-mx order order nil)]
     (->>
      A
      (map-indexed (fn mpr [i x]
-                    (let [row-i (index->row i size)
-                          col-i (index->col i size)]
+                    (let [row-i (index->row i order)
+                          col-i (index->col i order)]
                       (cond
                         (= row-i col-i) 1
                         :else 0))))
@@ -399,11 +399,11 @@
 (defn mx-trace
   "Returns the sum of all diagonal entries of a matrix"
   [A]
-  (let [size (mx->order A)]
+  (let [order (mx->order A)]
     (->>
      A
      (keep-indexed #(if
-                     (= (index->row %1 size) (index->col %1 size)) %2
+                     (= (index->row %1 order) (index->col %1 order)) %2
                      nil))
      (reduce +))))
 
@@ -480,7 +480,7 @@
   [a]
   (count (filterv #(not (= 0 %)) a)))
 
-(defn make-vecec
+(defn make-vec
   "Returns a vec given size, el"
   [size el]
   (vec (repeat size el)))
@@ -509,7 +509,7 @@
 (comment
 
   (nnz [1 2 0 0 5 6])
-  (make-vecec 3 0)
+  (make-vec 3 0)
   (mx/iden-mx 3)
   
   (vec-mean [1 2 3])
@@ -921,13 +921,19 @@
   (def A (rows->mx [[1 2 3]
                     [2 1 4]
                     [3 4 1]]))
-  
+  (def B (rows->mx [[3 1 0]
+                    [2 1 4]
+                    [-1 9 3]]))
+
   (mx-symmetric? A)
-  
-  (cprn-mx 3 A )
-  
-  (cprn-mx 3 (mx-transpose 3 A ))
-  
+
+  (cprn-mx 3 A)
+
+  (cprn-mx 3 (mx-transpose 3 A))
+
+
+  (=   (mx-transpose 3 (elwise-sum A B))
+       (elwise-sum (mx-transpose 3 A) (mx-transpose 3 B)))
 
 
   ;;;
