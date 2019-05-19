@@ -331,15 +331,16 @@
 (comment
   ; k-means
 
-  (def xs-flat (take-images-range  1 2000 T60-IMAGES))
-  (def xs-labels (subvec T60-LABELS 0 2000))
+  (def xs-flat (take-images-range  1 20000 T60-IMAGES))
+  (def xs-labels (subvec T60-LABELS 0 20000))
 
 
   (count xs-flat)
+  (/ (count T60-IMAGES) image-size-squared)
   (count xs-labels)
 
 
-  (prn-nth xs-flat xs-labels 999)
+  (prn-nth xs-flat xs-labels 19791)
 
   (count (partition image-size-squared xs-flat))
   (first (partition image-size-squared xs-flat))
@@ -354,6 +355,8 @@
   (def gs (time (k-means-rand-gs xs :k 20 :i 8)))
   ; 3 iters 100 sec 9 iter 186 sec - because incorrect validation for = J J-prev  20i 420sec
 
+  (def gs (time (k-means-rand-gs xs :k 20 :i 20)))
+  
   (gs :iter)
   (count (gs :groups))
 

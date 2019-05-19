@@ -118,8 +118,9 @@
                                                  :zs     zs
                                                  :iter   (inc cnt)
                                                  :groups groups}
-       :else (k-means xs 
-                      (mapv (fn [[i g]] (apply vecs-mean g)) groups) 
+       :else (k-means xs
+                      ; (mapv (fn [[i g]] (apply vecs-mean g)) groups)
+                      (vec (pmap (fn [[i g]] (apply vecs-mean g)) groups))
                       J (inc cnt) iters)
        ;
        ))))
@@ -158,7 +159,9 @@
   (as-> nil R
     (shuffle xs)
     (partitionv (/ (count R) k) R)
-    (mapv (fn [g] (apply vecs-mean g)) R)
+    ; (mapv (fn [g] (apply vecs-mean g)) R)
+    (pmap (fn [g] (apply vecs-mean g)) R)
+    (vec R)
     (k-means xs R nil 0 i)))
 
 (comment
