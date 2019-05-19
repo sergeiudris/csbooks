@@ -24,6 +24,8 @@
    (flatten A)
    vec))
 
+
+
 (defn mx->rows
   "Returns two dim vector of rows of A"
   [wid A]
@@ -401,7 +403,25 @@
                    (assoc acc new-i x))) (make-mx hei wid nil) A)))
 
 
+(defn cols->mx
+  "Returns a vector. flattens the A"
+  [hei A]
+  (->>
+   (flatten A)
+   vec
+   (mx-transpose hei)
+   ))
 
+(comment
+
+  (cprn-mx 4 (cols->mx 3 [[1 2 3]
+                          [4 5 6]
+                          [7 8 9]
+                          [10 11 12]]))
+
+
+  ;;;
+  )
 
 (defn mx-symmetric?
   "Returns true if matrix is equal to its own trasnpose"
@@ -1063,6 +1083,22 @@
                         :else 0))) A)
      vec)))
 
+(defn mx-reverse-cols
+  "Returns mx with cols reversed"
+  [wid A]
+  (->>
+   (mx->cols wid  A)
+   reverse
+   (cols->mx (/ (count A) wid))))
+
+(defn make-reverser-mx
+  "Returns nxn running sum matrix"
+  [order]
+  (->>
+   (iden-mx order)
+   (mx-reverse-cols order)))
+
+
 (comment
 
   (cprn-mx 6 (make-diff-mx 6))
@@ -1088,7 +1124,12 @@
                     [1 3 7]]))
 
 
+  (cprn-mx 4 (mx-transpose 4 (iden-mx 4)))
+  
+  (cprn-mx 3 (mx-reverse-cols 3 A))
 
+  (cprn-mx 7 (make-reverser-mx 7))
+  
   ;;;
   )
 
