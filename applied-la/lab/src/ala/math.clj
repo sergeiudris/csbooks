@@ -326,7 +326,7 @@
    (reduce +)
    Math/sqrt))
 
-(defn vec-unit
+(defn vec-normalize
   "Returns the unit vector (normalizes) of a"
   [a]
   (scalar-divide (vec-norm a) a))
@@ -345,7 +345,7 @@
 
 (comment
   (vec-norm [0 0 2])
-  (vec-unit [0 0 2])
+  (vec-normalize [0 0 2])
   (count-non-zero [0 0 2])
   ;;;
   )
@@ -420,6 +420,11 @@
   "Returns the sum (linear combination) of vectors"
   [& vs]
   (reduce elwise-sum vs))
+
+(defn elwise-subtract+
+  "Returns the subtraction of vecs "
+  [& vs]
+  (reduce elwise-subtract vs))
 
 (defn vecs-mean
   "Returns an average vec, is a linear comb"
@@ -621,6 +626,11 @@
   [x]
   (Math/pow x 2))
 
+(defn sqrt
+  "Returns x squared"
+  [x]
+  (Math/sqrt x))
+
 (defn vec-demeaned
   "Returns the de-meaned vec - subtract vec-mean from each entry"
   [a]
@@ -758,5 +768,131 @@
   (spherical-dist Earth-radius Beijing  Palo-Alto) ; 9093 km
 
 
+  ;;;
+  )
+
+
+(defn gram-schmidt-qi
+  "Returns the vec q ith, checks for orthogonalization"
+  [x qs]
+  ; (prn x)
+  ; (cprn qs)
+  (->>
+   (pmap (fn [q]
+           (scalar-prod  (inner-prod q x) q))  qs)
+   vec
+   (reduce-kv (fn [acc i q*]
+                (elwise-subtract acc q*)) x)
+   vec
+   ;
+   ))
+
+(defn gram-schmidt
+  "Returns true if vecs are linearily independent"
+  ([xs]
+   (gram-schmidt xs []))
+  ([xs qs]
+   (let [xi (first xs)
+         qi (gram-schmidt-qi xi qs)]
+    ;  (cprn qs)
+     (cond
+       (empty? xs) {:ret true
+                    :qs  qs}
+       (every? zero? qi)  {:ret false
+                           :qs  qs}
+       :else (recur (vec (rest xs)) (conj  qs (vec-normalize qi)))))
+   ;
+   ))
+
+(comment
+  (gram-schmidt [[1 0] [2 0]])
+  (gram-schmidt [[2 1] [1  0] [0 1]])
+  
+  (def a1 [-1 1 -1 1])
+  (def a2 [-1 3 -1 3])
+  (def a3 [1 3 5 7])
+
+  (gram-schmidt [a1 a2 a3])
+
+  (def a [1 1 1])
+  (def b [1 2 0])
+  (def c [0 -1 1])
+
+  (gram-schmidt [a b c])
+
+
+
+  ;;;
+  )
+
+
+(comment
+
+  (gram-schmidt [[1 0 0] [0 1 0] [0 0 1]])
+
+  (gram-schmidt [[2 1 0] [1 3 0] [0 0 1]])
+
+  (gram-schmidt [[2 1] [1  0] [0 1]])
+
+  (vec-normalize [2 1])
+
+  (elwise-subtract [1  0] (vec-normalize [2 1]))
+
+  (elwise-subtract   [0 1 0]  (scalar-prod (inner-prod [1 0 0] [0 1 0]) [1 0 0]))
+  (vec-normalize [-1 1 0])
+
+  (def a1 [-1 1 -1 1])
+  (def a2 [-1 3 -1 3])
+  (def a3 [1 3 5 7])
+
+
+
+  (vec-norm a1)
+  (def q1 (vec-normalize a1))
+  (def q2- (elwise-subtract a2 (scalar-prod  (inner-prod   q1 a2) q1)))
+  (def q2 (vec-normalize q2-))
+  (def q3- (elwise-subtract+ a3 (scalar-prod  (inner-prod   q1 a3) q1)  (scalar-prod  (inner-prod   q2 a3) q2)))
+  (def q3 (vec-normalize q3-))
+
+  (gram-schmidt [a1 a2 a3])
+
+  (gram-schmidt [[1 1 1]  [2 2 2] [3 3 3]])
+
+  (gram-schmidt [[1 1] [2 2]])
+
+  (gram-schmidt [[1 0] [2 0]])
+
+
+  (every? zero? (elwise-sum+ (scalar-prod -1/2 [2 2 2])  (scalar-prod -2 [1 1 1]) [3 3 3]))
+
+  (every? zero? (elwise-sum+ (scalar-prod -1 [2 0 0])  (scalar-prod -1 [1 0 0]) [3 3 0]))
+
+  (gram-schmidt [[1.2 -2.6] [-0.3 -3.7]])
+
+
+  (def a [1 1 1])
+  (def b [1 2 0])
+  (def c [0 -1 1])
+
+
+  (gram-schmidt [a b c])
+
+  (def q1 (vec-normalize a))
+  (def q2 (as-> nil R
+            (inner-prod q1 b)
+            (scalar-prod R q1)
+            (elwise-subtract b R)
+            (vec-normalize R)))
+  
+  (def q3 (as-> nil R
+            [ (scalar-prod (inner-prod q1 c) q1) (scalar-prod (inner-prod q2 c) q2) ]
+            
+            (elwise-subtract+ c (first R) (second R))
+            (vec-normalize R)))
+
+  
+  (vec-normalize [0 0 0])
+  (elwise-subtract+ [-1 3 -1 3] [-2 2 -2 2] )
+  
   ;;;
   )
