@@ -1064,10 +1064,51 @@
      vec)))
 
 (comment
-  
-  (cprn-mx 6 (make-diff-mx 6) )
-  
+
+  (cprn-mx 6 (make-diff-mx 6))
+
   (cprn-mx 6 (make-running-sum-mx 6))
+
+
+  (def a [1 1 1])
+  (def b [1 2 0])
+  (def c [0 -1 1])
+
+  (def A (rows->mx [[1 1 0]
+                    [1 2 -1]
+                    [1 0 1]]))
+
+  (def a1 [-1 1 -1 1])
+  (def a2 [-1 3 -1 3])
+  (def a3 [1 3 5 7])
+
+  (def A (rows->mx [[-1 -1 1]
+                    [1 3 3]
+                    [-1 -1 5]
+                    [1 3 7]]))
+
+
+
+  ;;;
+  )
+
+
+; UNFINISHED
+(defn vec-conv
+  "Returns convoluted vector"
+  [a b]
+  (let [size-a (count a)
+        size-b (count b)
+        size   (dec (+ size-a size-b))
+        c      (make-vec size nil)]
+    (mapv (fn [i]) c)))
+
+(comment
+  
+  (mapv (fn [x y]
+          (prn x y)
+          ) [1 2 3 4] [0 -1 -2] )
   
   ;;;
   )
+
