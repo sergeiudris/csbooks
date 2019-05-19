@@ -1050,9 +1050,24 @@
                         :else 0))) A)
      vec)))
 
+(defn make-running-sum-mx
+  "Returns nxn running sum matrix"
+  [order]
+  (let [A   (make-mx order order nil)]
+    (->>
+     (map-indexed (fn [i x]
+                    (let [i-row (index->row i order)
+                          i-col (index->col i order)]
+                      (cond
+                        (<= i-col i-row) 1
+                        :else 0))) A)
+     vec)))
+
 (comment
   
   (cprn-mx 6 (make-diff-mx 6) )
+  
+  (cprn-mx 6 (make-running-sum-mx 6))
   
   ;;;
   )
