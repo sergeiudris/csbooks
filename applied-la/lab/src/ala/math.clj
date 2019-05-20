@@ -307,7 +307,7 @@
               (first mxs) (vec (rest mxs)))))
 
 (defn mx-pow
-  "Returns a square mx powered n"
+  "Returns A powers n"
   [n A]
   (mx-prod+ (vec (repeat n A))))
 
@@ -332,7 +332,7 @@
   (def C (rows->mx [[0 1 2]
                     [1 2 0]
                     [3 4 0]]))
-  
+
   (def D (rows->mx [[0 1 3 4 5]
                     [2 3 7 1 2]
                     [4 5 0 1 2]]))
@@ -341,13 +341,11 @@
   (cprn-mx 3 (mx-prod 3 3 C C))
   (cprn-mx 3 (mx-pow 3 C))
   (cprn-mx 3 (mx-prod+ [3 3 3] [C C C]))
-  
+
   (cprn-mx 2 (mx-prod+ [3 3 2] [C A B]))
   (cprn-mx 5 (mx-prod+ [3 3 5] [C A D]))
-  
-  
 
-
+  
 
   ;;;
   )
@@ -1181,6 +1179,10 @@
   ;;;
   )
 
+(defn =+
+  "Returns true if vecs are equal"
+  [a b]
+  (zero? (compare a b)))
 
 ; UNFINISHED
 (defn vec-conv
@@ -1197,14 +1199,38 @@
   [a b]
   (mx-prod 1 (count b) a b))
 
-(comment
-  
-  (mapv (fn [x y]
-          (prn x y)
-          ) [1 2 3 4] [0 -1 -2] )
-  
-  (cprn-mx 3 (outer-prod [1 2 3 4 5] [4 5 6] ) )
+;FIX equality
+(defn mx-orthogonal?
+  "Returns true if A's cols are an orthonormal basis"
+  [A]
+  (let [order (mx->order A)]
+    (=+ (mx-prod order order (mx-transpose order A) A) (iden-mx order))))
 
+
+
+(comment
+
+  (mapv (fn [x y]
+          (prn x y)) [1 2 3 4] [0 -1 -2])
+
+  (cprn-mx 3 (outer-prod [1 2 3 4 5] [4 5 6]))
+
+  (mx-orthogonal? (rows->mx [[0 0 1.0]
+                             [1 0 0]
+                             [0 1 0]]))
+
+  (source =)
+  
+  (. clojure.lang.Numbers (equiv 1 1.0))
+  (. clojure.lang.Numbers equiv 1 1.0)
+  (== 1 1.0)
+  
+  (compare [1 1] [1 1])
+  (compare [1 1 2] [1 1.0])
+  
+  (compare [1 1 [1 2]] [1 1 [1 2.0 ]] [1 1 [1.0 2.0M]])
+  
+  (=+ [1 2 3] [1.0 2N 3.0M])
 
   ;;;
   )
