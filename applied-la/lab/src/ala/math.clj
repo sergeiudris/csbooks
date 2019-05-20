@@ -445,16 +445,16 @@
 
 (defn cols->mx
   "Returns a vector. flattens the A"
-  [hei A]
+  [A]
   (->>
    (flatten A)
    vec
-   (mx-transpose hei)
+   (mx-transpose (count (first A)))
    ))
 
 (comment
 
-  (cprn-mx 4 (cols->mx 3 [[1 2 3]
+  (cprn-mx 4 (cols->mx [[1 2 3]
                           [4 5 6]
                           [7 8 9]
                           [10 11 12]]))
@@ -898,7 +898,7 @@
      (cprn (vec-normalize qi))
     ;  (prn)
      (cond
-       (empty? xs) true
+       (empty? xs) qs
        (every? zero? qi)  false
        :else (gram-schmidt (vec (rest xs)) (conj  qs (vec-normalize qi)))))
    ;
@@ -915,7 +915,10 @@
   (def a2 [-1 3 -1 3])
   (def a3 [1 3 5 7])
 
-  (gram-schmidt [a1 a2 a3])
+  (def qs (gram-schmidt [a1 a2 a3]))
+  (def Q (cols->mx  qs))
+  (cprn-mx 3 Q)
+  (cprn-mx 3 (mx-prod 4 3 (mx-transpose 3 Q) Q)) ; should be Identity and it is!
 
   (def a [1 1 1])
   (def b [1 2 0])
@@ -1129,7 +1132,7 @@
   (->>
    (mx->cols wid  A)
    reverse
-   (cols->mx (/ (count A) wid))))
+   cols->mx))
 
 (defn make-reverser-mx
   "Returns nxn running sum matrix"
@@ -1179,7 +1182,7 @@
   ;;;
   )
 
-(defn =+
+(defn =*
   "Returns true if vecs are equal"
   [a b]
   (zero? (compare a b)))
@@ -1207,6 +1210,21 @@
     (=+ (mx-prod order order (mx-transpose order A) A) (iden-mx order))))
 
 
+(defn scalar-inverse
+  "Returns (/ 1 x)"
+  [x]
+  (/ 1 x))
+
+(defn mx-left-inverse?
+  "Returns true if X is the left inverse of A"
+  [widX widA X A]
+  (=* (mx-prod widX widA X A) (iden-mx widA)))
+
+(defn mx-right-inverse?
+  "Returns true if X is the right inverse of A.
+  Any X has the same dimensions as A^T"
+  [widX widA X A]
+  (=* (mx-prod widA widX A X) (iden-mx widX)))
 
 (comment
 
@@ -1220,18 +1238,37 @@
                              [0 1 0]]))
 
   (source =)
-  
+
   (. clojure.lang.Numbers (equiv 1 1.0))
   (. clojure.lang.Numbers equiv 1 1.0)
   (== 1 1.0)
-  
+
   (compare [1 1] [1 1])
   (compare [1 1 2] [1 1.0])
-  
-  (compare [1 1 [1 2]] [1 1 [1 2.0 ]] [1 1 [1.0 2.0M]])
-  
-  (=+ [1 2 3] [1.0 2N 3.0M])
 
+  (compare [1 1 [1 2]] [1 1 [1 2.0]] [1 1 [1.0 2.0M]])
+
+  (=* [1 2 3] [1.0 2N 3.0M])
+
+  (def A (rows->mx [[-3 -4]
+                    [4 6]
+                    [1 1]]))
+
+  (def B (rows->mx [[0 -0.5 3]
+                    [0 0.5 -2]]))
+  
+  (def C (scalar-prod 1/9 (rows->mx [[-11 -10 16]
+                                     [7 8 -11]]) ))
+
+  (mx-left-inverse? 3 2  B A )
+  
+  (mx-left-inverse? 3 2  C A)
+  
+  (mx-right-inverse? 2 3  (mx-transpose 3 C) (mx-transpose 2 A))
+  
+  
+
+  (mx-prod 3 2 B A)
   ;;;
   )
 
