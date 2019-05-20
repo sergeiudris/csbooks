@@ -33,6 +33,11 @@
    (partition wid A)
    (mapv vec)))
 
+(defn index->col
+  "returns the col index given el index, row length"
+  [i wid]
+  (mod i wid))
+
 (defn mx->cols
   "Returns two dim vector of cols of A"
   [wid A]
@@ -119,10 +124,7 @@
   (int (/ i wid)))
 
 
-(defn index->col
-  "returns the col index given el index, row length"
-  [i wid]
-  (mod i wid))
+
 
 (defn index->pos
   "Returns the position [i,j] el in the mx of given width"
@@ -295,6 +297,19 @@
                   M)
      vec)))
 
+(defn mx-prod+
+  "Returns the product of multiplying n mxs"
+  ([mxs]
+   (mx-prod+ (mapv #(mx->order %) mxs) mxs))
+  ([wids mxs]
+   (reduce-kv (fn [R i A]
+                (mx-prod (wids i) (wids (inc i)) R A))
+              (first mxs) (vec (rest mxs)))))
+
+(defn mx-pow
+  "Returns a square mx powered n"
+  [n A]
+  (mx-prod+ (vec (repeat n A))))
 
 (comment
 
@@ -306,7 +321,34 @@
                     [4 5]]))
 
   (prn-mx 2 (mx-prod 3 2 A B))
+
+  (def v [1 2 3 4])
+  (reduce-kv (fn [acc i x]
+               (prn i x)
+               (+ acc x)) (first v) (vec (rest v)))
+
+  (mapv (fn [_] 3) (range 2))
+
+  (def C (rows->mx [[0 1 2]
+                    [1 2 0]
+                    [3 4 0]]))
   
+  (def D (rows->mx [[0 1 3 4 5]
+                    [2 3 7 1 2]
+                    [4 5 0 1 2]]))
+
+  (cprn-mx 3 (mx-pow 2 C))
+  (cprn-mx 3 (mx-prod 3 3 C C))
+  (cprn-mx 3 (mx-pow 3 C))
+  (cprn-mx 3 (mx-prod+ [3 3 3] [C C C]))
+  
+  (cprn-mx 2 (mx-prod+ [3 3 2] [C A B]))
+  (cprn-mx 5 (mx-prod+ [3 3 5] [C A D]))
+  
+  
+
+
+
   ;;;
   )
 
@@ -1098,6 +1140,10 @@
    (iden-mx order)
    (mx-reverse-cols order)))
 
+(defn make-gram-mx
+  "Returns the Gram matrix"
+  [wid A]
+  (mx-prod (/ (count A) wid) wid (mx-transpose wid A) A))
 
 (comment
 
@@ -1129,6 +1175,8 @@
   (cprn-mx 3 (mx-reverse-cols 3 A))
 
   (cprn-mx 7 (make-reverser-mx 7))
+  (cprn-mx 4 (mx-transpose 3 A))
+  (cprn-mx 3 (make-gram-mx 3 A) )
   
   ;;;
   )
@@ -1144,12 +1192,20 @@
         c      (make-vec size nil)]
     (mapv (fn [i]) c)))
 
+(defn outer-prod
+  "Returns a mx of outer prod of two vecs"
+  [a b]
+  (mx-prod 1 (count b) a b))
+
 (comment
   
   (mapv (fn [x y]
           (prn x y)
           ) [1 2 3 4] [0 -1 -2] )
   
+  (cprn-mx 3 (outer-prod [1 2 3 4 5] [4 5 6] ) )
+
+
   ;;;
   )
 
