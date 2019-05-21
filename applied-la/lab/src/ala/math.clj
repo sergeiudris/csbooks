@@ -1341,3 +1341,58 @@
   ;;;
   )
 
+(defn gram-schmidt-q
+  "Returns qi as aprt of orthonogalization step"
+  [x qs]
+  (as-> nil E
+    (reduce-kv (fn [acc i q]
+                 (->>
+                  (scalar-prod (inner-prod q x) q)
+                  (elwise-subtract acc)
+                  ;
+                  )) x qs)))
+
+(defn gram-schmidt-qs
+  "Returns an orthonormal collection of vectors qi..qk.
+   Each xi is a linear comb of qs and each qi is a lincomb of xi..xk "
+  ([xs]
+   (gram-schmidt-qs xs []))
+  ([xs qs]
+   (if (empty? xs) qs
+       (let [xi (first xs)
+             qi (gram-schmidt-q xi qs)]
+         (cond
+           (every? #(==* 0 %) qi) (cprn qi)
+           :else (recur (vec (rest xs)) (vec (conj qs (vec-normalize qi))))
+         ;
+           )))))
+
+
+(comment
+  (gram-schmidt-qs [[1 0] [2 0]])
+  (gram-schmidt-qs [[2 1] [1  0] [0 1]])
+  (gram-schmidt-qs [[1 1] [-3 2] [2 4]]) ; should be dependent
+  (gram-schmidt-qs [[1 4 2 -3] [7 10 -4 -1] [-2 1 5 -4]])
+  
+
+
+  (def a1 [-1 1 -1 1])
+  (def a2 [-1 3 -1 3])
+  (def a3 [1 3 5 7])
+
+  (def qs (gram-schmidt-qs [a1 a2 a3]))
+  (def Q (cols->mx  qs))
+  (cprn-mx 3 Q)
+  (cprn-mx 3 (mx-prod 4 3 (mx-transpose 3 Q) Q)) ; should be Identity and it is!
+
+  (def a [1 1 1])
+  (def b [1 2 0])
+  (def c [0 -1 1])
+
+  (gram-schmidt-qs [a b c])
+
+  (every? zero? [0.0 0.0 0.0 -0.0])
+
+
+  ;;;
+  )
