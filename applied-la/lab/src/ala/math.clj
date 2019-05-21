@@ -1238,27 +1238,7 @@
   [A]
   nil)
 
-(defn back-substitution-xi
-  "Returns the value of x ith"
-  [R bi xs]
-  (let [order (mx->order R)]
-    (- bi (reduce-kv (fn [i x]
-                       (->>
-                        (mx->el (index->row) (index->col)  order R)
-                        (* x)
-                        )
-                       ;
-                       )0 xs))))
 
-(defn back-substitution
-  "Return vec x.
-   Rx = b
-  "
-  [widR R bs xs]
-  (cond
-    (empty? bs) xs
-    :else (mapv (fn [bs]
-                  (mx->el)) () )))
 
 
 
@@ -1305,6 +1285,59 @@
   
 
   (mx-prod 3 2 B A)
+  ;;;
+  )
+
+
+(defn back-substitution-xi
+  "Returns the value of x ith"
+  [R bi xs]
+  (let [order (mx->order R)
+        i-b   (dec (- order (count xs)))]
+    (as-> nil E
+      (reduce-kv (fn [acc i x]
+                   (->>
+                    (mx->el  i-b (+ i-b i 1)  order R)
+                    (* x)
+                    (+ acc))
+                       ;
+                   )0 xs)
+      (- bi E)
+      (/ E (mx->el  i-b i-b order R)))))
+
+(defn back-substitution
+  "Return vec x.
+   Rx = b
+  "
+  [widR R bs xs]
+  (cond
+    (empty? bs) xs
+    :else (back-substitution widR
+                             R
+                             (vec (drop-last bs))
+                             (vec (cons  (back-substitution-xi R (last bs) xs) xs )))))
+
+
+(comment
+
+  (def A (rows->mx [[1 2 3]
+                    [0 -1 2]
+                    [0 0 4]]))
+  (mx->el (dec 3) (dec 3) 3 A)
+
+  (def bs [-1 3 2])
+
+  (back-substitution 3 A bs [])
+
+  (def B (rows->mx [[1 -1 2 4]
+                    [0 2 3 5]
+                    [0 0 -1 -3]
+                    [0 0 0 1]]))
+  
+  (def bs2 [1 3 -1 2])
+  
+  (back-substitution 4 B bs2 [])
+  
   ;;;
   )
 
