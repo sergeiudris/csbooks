@@ -144,6 +144,11 @@
   [i j wid A]
   (A (pos->index i j wid)))
 
+(defn index->el
+  "Returns the el given index, wid "
+  [wid i A]
+  (mx->el (index->row i wid) (index->col i wid) wid A))
+
 (defn mx->row
   "Returns i-th row of the mx"
   [i wid A]
@@ -297,6 +302,11 @@
                   M)
      vec)))
 
+(defn mx->order
+  "Returns the order of a square mx"
+  [A]
+  (int (Math/sqrt (count A))))
+
 (defn mx-prod+
   "Returns the product of multiplying n mxs"
   ([mxs]
@@ -370,10 +380,7 @@
   )
 
 
-(defn mx->order
-  "Returns the order of a square mx"
-  [A]
-  (int (Math/sqrt (count A))))
+
 
 (defn vec-norm
   "Returns the  Euclidean norm (length or magnitude) of a vector.
@@ -1207,7 +1214,7 @@
   "Returns true if A's cols are an orthonormal basis"
   [A]
   (let [order (mx->order A)]
-    (=+ (mx-prod order order (mx-transpose order A) A) (iden-mx order))))
+    (=* (mx-prod order order (mx-transpose order A) A) (iden-mx order))))
 
 
 (defn scalar-inverse
@@ -1225,6 +1232,35 @@
   Any X has the same dimensions as A^T"
   [widX widA X A]
   (=* (mx-prod widA widX A X) (iden-mx widX)))
+
+(defn mx-invertible?
+  "Returns true if A is invertible (nonsingular)"
+  [A]
+  nil)
+
+(defn back-substitution-xi
+  "Returns the value of x ith"
+  [R bi xs]
+  (let [order (mx->order R)]
+    (- bi (reduce-kv (fn [i x]
+                       (->>
+                        (mx->el (index->row) (index->col)  order R)
+                        (* x)
+                        )
+                       ;
+                       )0 xs))))
+
+(defn back-substitution
+  "Return vec x.
+   Rx = b
+  "
+  [widR R bs xs]
+  (cond
+    (empty? bs) xs
+    :else (mapv (fn [bs]
+                  (mx->el)) () )))
+
+
 
 (comment
 
