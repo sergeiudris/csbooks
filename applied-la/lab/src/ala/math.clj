@@ -1350,10 +1350,10 @@
   ([widR R bs xs]
    (cond
      (empty? bs) xs
-     :else (back-substitution widR
-                              R
-                              (vec (drop-last bs))
-                              (vec (cons  (back-substitution-xi R (last bs) xs) xs))))))
+     :else (recur widR
+                  R
+                  (vec (drop-last bs))
+                  (vec (cons  (back-substitution-xi R (last bs) xs) xs))))))
 
 
 (comment
@@ -1367,6 +1367,8 @@
 
   (back-substitution 3 A bs [])
   (back-substitution 3 A bs)
+  
+  (mx-prod 3 1 A [3/2 -2 1/2] )
   
   (back-substitution 3 A [-1 3 2 4])
   
@@ -1406,7 +1408,9 @@
              qi (gram-schmidt-q xi qs)]
          (cond
            (every? #(==* 0 %) qi) (do (cprn qi) false)
-           :else (recur (vec (rest xs))  (vec (conj qs- qi)) (vec (conj qs (vec-normalize qi))))
+           :else (recur (vec (rest xs))
+                        (vec (conj qs- qi))
+                        (vec (conj qs (vec-normalize qi))))
          ;
            )))))
 
@@ -1510,20 +1514,78 @@
         ; [qs- qs] (mx->qs widA A)
         Q (QR-factorization->Q widA A )
         Q'T (mx-transpose widA Q )
-        Q-cols (mx->cols widA Q'T)
+        Q'T-cols (mx->cols widA Q'T)
         R        (QR-factorization->R widA A)]
     ; (prn widA)
     ; (cprn-mx widA R)
     ; (cprn-mx widA Q)
     ; (cprn-mx widA Q'T)
-    (->
+    (as-> nil E
      (map-indexed (fn [idx q]
-                    (back-substitution widA R q)) Q-cols)
-     cols->mx)
+                    ; (prn (back-substitution widA R q))
+                    (->
+                     (back-substitution widA R q)
+                     reverse
+                     vec
+                     )
+                    ) Q'T-cols)
+    ;  (do (prn E) E)
+     (cols->mx E))
     ;
     ))
 
+(defn make-vandermode-mx
+  "Returns Vandermonde mx
+  1 t1 .. t1^(n-2) t1^(n-1)
+  1 t2 .. t2^(n-2) t2^(n-1)
+  ...
+  "
+  [xs]
+  (let [hei (count xs)
+        A   (make-mx hei hei nil)]
+    (->
+     (map-indexed  (fn [idx _]
+                     (let [[i j] (index->pos idx hei)]
+                       (prn i j)
+                       (cond
+                         (= j 0) 1
+                         :else (Math/pow (xs i) j)))) A)
+     vec)))
 
+(defn linear-equation-inverse
+  "Returns the solution to
+  x = A^-1b 
+  "
+  [A b]
+  (let [order (mx->order A)]
+    (as-> nil E
+      (mx-inverse A)
+      (mx-prod order 1 A b))))
+
+
+(comment
+
+  (def V (make-vandermode-mx [-1.1 -0.4 0.2 0.8]))
+  (prn-mx 4 V)
+
+  (Math/pow 0.2 3)
+  (Math/pow -0.4 3)
+  (Math/pow 0.8 3)
+
+  (prn-mx 4 (mx-inverse V))
+
+  (linear-equation-inverse V [1 0 0 0]); Lagrange polynomials, associated with 
+  ; points −1.1, −0.4, 0.2, 0.8. Coeffs are cols of A^-1
+
+  (linear-equation-inverse V [0 1 0 0])
+
+
+
+
+
+
+  ;;;
+  )
 
 
 (comment
@@ -1635,33 +1697,3 @@
   )
 
 
-(defn make-vandermode-mx
-  "Returns Vandermonde mx
-  1 t1 .. t1^(n-2) t1^(n-1)
-  1 t2 .. t2^(n-2) t2^(n-1)
-  ...
-  "
-  [bs]
-  (let [hei (count bs)
-        A   (make-mx hei hei nil)]
-    (->
-     (map-indexed  (fn [idx _]
-                     (let [[i j] (index->pos idx hei)]
-                       (prn i j)
-                       (cond
-                         (= j 0) 1
-                         :else (Math/pow (bs i) j)))) A)
-     vec)))
-
-(comment
-  
-  (prn-mx 4 (make-vandermode-mx [-1.1 -0.4 0.2 0.8] ) )
-  
-  (Math/pow 0.2 3)
-  (Math/pow -0.4 3)
-  (Math/pow 0.8 3)
-  
-  
-  
-  ;;;
-  )
