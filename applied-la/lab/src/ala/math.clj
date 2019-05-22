@@ -1189,10 +1189,46 @@
   ;;;
   )
 
+(defn xor
+  "Returns true only if one form is true"
+  [& fs]
+  (cond
+    (empty? fs) false
+    (first fs) (not (apply xor (rest fs)))
+    :else (apply xor (rest fs))))
+
 (defn =*
   "Returns true if vecs are equal"
   [a b]
   (zero? (compare a b)))
+
+(defn =**
+  "Returns true if vecs are equal with comparer (==*) "
+  ([a b]
+   (=** a b ==*))
+  ([a b comparer]
+   (cond
+     (and (number? a) (number? b)) (comparer a b)
+     (and (empty? a) (empty? b)) true
+     (empty? a) false
+     (xor (coll? (first a)) (coll? (first b))) false
+     :else (and (=** (first a) (first b) comparer) (=** (rest a) (rest b) comparer))
+     ;
+     )))
+
+(comment
+
+  (=* [1] [1])
+
+  (=** [1 2 [3 4.00000001 5 [6]]] [1 2 [3 4 5 [5.9999]]])
+
+  (xor false  false nil)
+  
+  (xor false  false nil false [] 'a)
+  
+
+  ;;;
+  )
 
 ; UNFINISHED
 (defn vec-conv
@@ -1309,13 +1345,15 @@
   "Return vec x.
    Rx = b
   "
-  [widR R bs xs]
-  (cond
-    (empty? bs) xs
-    :else (back-substitution widR
-                             R
-                             (vec (drop-last bs))
-                             (vec (cons  (back-substitution-xi R (last bs) xs) xs )))))
+  ([widR R bs]
+   (back-substitution widR R bs []))
+  ([widR R bs xs]
+   (cond
+     (empty? bs) xs
+     :else (back-substitution widR
+                              R
+                              (vec (drop-last bs))
+                              (vec (cons  (back-substitution-xi R (last bs) xs) xs))))))
 
 
 (comment
@@ -1328,6 +1366,10 @@
   (def bs [-1 3 2])
 
   (back-substitution 3 A bs [])
+  (back-substitution 3 A bs)
+  
+  (back-substitution 3 A [-1 3 2 4])
+  
 
   (def B (rows->mx [[1 -1 2 4]
                     [0 2 3 5]
@@ -1353,8 +1395,9 @@
                   )) x qs)))
 
 (defn gram-schmidt-qs
-  "Returns an orthonormal collection of vectors qi..qk.
-   Each xi is a linear comb of qs and each qi is a lincomb of xi..xk "
+  "Returns [qs- qs] an orthonormal collection of vectors qi..qk.
+   Each xi is a linear comb of qs and each qi is a lincomb of xi..xk.
+    "
   ([xs]
    (gram-schmidt-qs xs [] []))
   ([xs qs- qs]
@@ -1363,12 +1406,12 @@
              qi (gram-schmidt-q xi qs)]
          (cond
            (every? #(==* 0 %) qi) (do (cprn qi) false)
-           :else (recur (vec (rest xs))  (vec (conj qs- qi)) (vec (conj qs (vec-normalize qi))) )
+           :else (recur (vec (rest xs))  (vec (conj qs- qi)) (vec (conj qs (vec-normalize qi))))
          ;
            )))))
 
 (defn mx->qs
-  "Returns the Q mx with cols as orthonormal vecs prodcued by applying Gram-Schmidt
+  "Returns [qs- qs] the Q mx with cols as orthonormal vecs prodcued by applying Gram-Schmidt
    to A's cols.
    "
   [wid A]
@@ -1428,19 +1471,19 @@
   (gram-schmidt-qs (mx->cols 3 A))
   (cprn-mx 3 (cols->mx (mx->qs 3 A)))
 
-  
+
   (def R (QR-factorization->R 3 A))
   (cprn-mx 3 R)
   (cprn-mx 3 (mx-prod 3 3 Q R))
   (=* A (mx-prod 3 3 Q R))
-  
+
   (=* A (mx-prod 3 3 Q R))
-  
-  (cprn-mx 3 (QR-factorization->Q 3 A) )
-  
-  (=* A (mx-prod 3 3 (QR-factorization->Q 3 A) (QR-factorization->R 3 A)) )
-  
-  
+
+  (cprn-mx 3 (QR-factorization->Q 3 A))
+
+  (=* A (mx-prod 3 3 (QR-factorization->Q 3 A) (QR-factorization->R 3 A)))
+
+
   (cprn-mx 3 (mx-prod 3 3 Q (rows->mx [[2 4 2]
                                        [0 2 8]
                                        [0 0 4]])))
@@ -1450,12 +1493,63 @@
   (def c [0 -1 1])
 
   (vec-norm [-0.5 0.5 -0.5 0.5])
-  
+
   (gram-schmidt-qs [a b c])
 
   (every? zero? [0.0 0.0 0.0 -0.0])
 
 
 
+  ;;;
+  )
+
+(defn mx-inverse
+  "Returns the inverse of A"
+  [A]
+  (let [widA     (mx->order A)
+        ; [qs- qs] (mx->qs widA A)
+        Q (QR-factorization->Q widA A )
+        Q'T (mx-transpose widA Q )
+        Q-cols (mx->cols widA Q'T)
+        R        (QR-factorization->R widA A)]
+    (prn widA)
+    (cprn-mx widA R)
+    (cprn-mx widA Q)
+    (cprn-mx widA Q'T)
+    (->
+     (map-indexed (fn [idx q]
+                    (back-substitution widA R q)) Q-cols)
+     cols->mx)
+    ;
+    ))
+
+(comment
+
+
+  (def a1 [-1 1 -1])
+  (def a2 [-1 3 -1])
+  (def a3 [1 3 5])
+
+  (def A (cols->mx [a1 a2 a3]))
+
+  (def Q (QR-factorization->Q 3 A))
+  (cprn-mx 3 Q)
+  (=* (cprn-mx 3 (mx-prod 3 3 (mx-transpose 3 Q) Q)) (iden-mx 3))
+
+  (def R (QR-factorization->R 3 A))
+  (cprn-mx 3 R)
+
+  (=* A (mx-prod 3 3 Q R))
+  (def A' (mx-prod 3 3 Q R))
+  (cprn-mx 3 A')
+
+  (cprn-mx 3 (mx-inverse A))
+
+  (cprn-mx 3 (mx-prod 3 3  A (mx-inverse A)))
+
+  (=** (mx-prod 3 3  A (mx-inverse A)) (iden-mx 3))
+
+  (=** [1] [1])
+  
   ;;;
   )
