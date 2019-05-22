@@ -1575,6 +1575,25 @@
         Q'Tb   (mx-prod wid 1 Q'T b)]
     (back-substitution wid R Q'Tb)))
 
+(defn factor-solve-multiple
+  "Returns cols (X), solution to 
+  AX = B.
+  Uses factorization caching.
+  "
+  [widB A B]
+  (let [wid    (mx->order A)
+        Q      (QR-factorization->Q wid A)
+        Q'T    (mx-transpose wid Q)
+        Q-cols (mx->cols wid Q'T)
+        R      (QR-factorization->R wid A)
+        bs     (mx->cols widB B)
+        heiB   (/ (count B) widB)
+        X      (make-mx widB heiB nil)]
+    (->
+     (map-indexed (fn [i b]
+                    (back-substitution wid R (mx-prod wid 1 Q'T b))) bs)
+     vec)))
+
 (comment
 
   (def A (rows->mx [[0 2 -1]
@@ -1588,7 +1607,12 @@
   (QR-linear-equation B [3 6 -3])
  ; [-1.1818181818181819 2.9090909090909096 2.0909090909090913]  
  ; correct 
+  (def C (cols->mx [[3 6 -3]
+                    [-1 2 4]
+                    [2 0 2]]))
 
+  (cprn-mx 3 (cols->mx (factor-solve-multiple 3 B C) ) )
+  (QR-linear-equation B [-1 2 4])
 
 
   ;;;
