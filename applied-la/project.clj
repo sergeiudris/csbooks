@@ -53,6 +53,7 @@
   :whidbey {:print-color     true
             :map-delimiter   ""
             :extend-notation true
+            ; :width 180
             ; :print-meta      true
             }
 

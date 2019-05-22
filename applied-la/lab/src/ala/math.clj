@@ -1589,6 +1589,7 @@
         bs     (mx->cols widB B)
         heiB   (/ (count B) widB)
         X      (make-mx widB heiB nil)]
+    ; (prn bs)
     (->
      (map-indexed (fn [i b]
                     (back-substitution wid R (mx-prod wid 1 Q'T b))) bs)
@@ -1607,12 +1608,27 @@
   (QR-linear-equation B [3 6 -3])
  ; [-1.1818181818181819 2.9090909090909096 2.0909090909090913]  
  ; correct 
-  (def C (cols->mx [[3 6 -3]
-                    [-1 2 4]
-                    [2 0 2]]))
+  (def C (rows->mx [[3 6 -3 -2]
+                    [-1 2 4 1]
+                    [2 0 2 5]]))
 
-  (cprn-mx 3 (cols->mx (factor-solve-multiple 3 B C) ) )
-  (QR-linear-equation B [-1 2 4])
+  (prn-mx 4 (cols->mx (factor-solve-multiple 4 B C)))
+  (QR-linear-equation B [3 -1 2])
+  (QR-linear-equation B [6 2 0])
+  
+
+  (QR-linear-equation B [3 6 -3 ])
+
+  (def x puget.printer/*options*)
+
+  (def ^:dynamic *opts* x)
+  
+  (binding [*opts* puget.printer/*options*]
+    (set! *opts* (merge x {:width 100})))
+
+  puget.printer/*options*
+  
+  (puget.printer/merge-options  puget.printer/*options* {:width 100} )
 
 
   ;;;
