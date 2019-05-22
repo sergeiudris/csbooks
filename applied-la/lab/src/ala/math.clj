@@ -1810,22 +1810,36 @@
   )
 
 
+(defn linear-equation-pseudo-inverse
+  "Returns the solution of
+  Ax = b
+  "
+  [wid A b]
+  (as-> nil E
+    (mx-pseudo-inverse wid A)
+    (mx-prod (/ (count A) wid) 1 E b)))
+
 (comment
-  
+
   (def A (rows->mx [[-3 -4]
                     [4 6]
                     [1 1]]))
-  
+
   (def Q (QR-factorization->Q 2 A))
   (prn-mx 2 Q)
-  
+
   (def R (QR-factorization->R 2 A))
   (prn-mx 2 R)
-  
+
   (prn-mx 3 (mx-pseudo-inverse 2 A))
+
+  (linear-equation-pseudo-inverse 2 A [1 -2 0])
+
+  (=** (linear-equation-pseudo-inverse 2 A [1 -2 0]) [1 -1]) ; success
+
   
-  
-  
-  
+
+
+
   ;;;
   )
