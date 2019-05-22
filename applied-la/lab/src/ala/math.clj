@@ -1269,10 +1269,7 @@
   [widX widA X A]
   (=* (mx-prod widA widX A X) (iden-mx widX)))
 
-(defn mx-invertible?
-  "Returns true if A is invertible (nonsingular)"
-  [A]
-  nil)
+
 
 
 
@@ -1406,6 +1403,7 @@
    (if (empty? xs) [qs- qs]
        (let [xi (first xs)
              qi (gram-schmidt-q xi qs)]
+        ;  (prn xi qs qi)
          (cond
            (every? #(==* 0 %) qi) (do (cprn qi) false)
            :else (recur (vec (rest xs))
@@ -1413,6 +1411,17 @@
                         (vec (conj qs (vec-normalize qi))))
          ;
            )))))
+
+(comment
+  
+  (def A (rows->mx [[1 2 3]
+                    [4 5 6]
+                    [7 8 9]]))
+  
+  (gram-schmidt-qs (mx->cols (mx->order A) A))
+  
+  ;;;
+  )
 
 (defn mx->qs
   "Returns [qs- qs] the Q mx with cols as orthonormal vecs prodcued by applying Gram-Schmidt
@@ -1509,30 +1518,37 @@
 
 (defn mx-inverse
   "Returns the inverse of A"
-  [A]
-  (let [widA     (mx->order A)
+  ([A]
+   (mx-inverse A (mx->order A)))
+  ([A widA]
+   (let [     
         ; [qs- qs] (mx->qs widA A)
-        Q (QR-factorization->Q widA A )
-        Q'T (mx-transpose widA Q )
-        Q'T-cols (mx->cols widA Q'T)
-        R        (QR-factorization->R widA A)]
+         heiA     (/ (count A) widA)
+         Q        (QR-factorization->Q widA A)
+         Q'T      (mx-transpose widA Q)
+         Q'T-cols (mx->cols heiA Q'T)
+         R        (QR-factorization->R widA A)]
     ; (prn widA)
     ; (cprn-mx widA R)
     ; (cprn-mx widA Q)
     ; (cprn-mx widA Q'T)
-    (as-> nil E
-     (map-indexed (fn [idx q]
+     (as-> nil E
+       (map-indexed (fn [idx q]
                     ; (prn (back-substitution widA R q))
-                    (->
-                     (back-substitution widA R q)
-                     reverse
-                     vec
-                     )
-                    ) Q'T-cols)
+                      (->
+                       (back-substitution widA R q)
+                    ;  reverse
+                       vec)) Q'T-cols)
     ;  (do (prn E) E)
-     (cols->mx E))
+       (cols->mx E))
     ;
-    ))
+     )))
+
+(defn mx-pseudo-inverse
+  "Returns the inverse of A"
+  [widA A]
+  (mx-inverse A widA))
+
 
 (defn make-vandermode-mx
   "Returns Vandermonde mx
@@ -1560,7 +1576,7 @@
   (let [order (mx->order A)]
     (as-> nil E
       (mx-inverse A)
-      (mx-prod order 1 A b))))
+      (mx-prod order 1 E b))))
 
 
 (comment
@@ -1573,15 +1589,14 @@
   (Math/pow 0.8 3)
 
   (prn-mx 4 (mx-inverse V))
+  
 
-  (linear-equation-inverse V [1 0 0 0]); Lagrange polynomials, associated with 
+  ; Lagrange polynomials, associated with 
   ; points −1.1, −0.4, 0.2, 0.8. Coeffs are cols of A^-1
-
+  (linear-equation-inverse V [1 0 0 0])
   (linear-equation-inverse V [0 1 0 0])
-
-
-
-
+  (linear-equation-inverse V [0 0 1 0])
+  (linear-equation-inverse V [0 0 0 1])
 
 
   ;;;
@@ -1697,3 +1712,120 @@
   )
 
 
+
+(comment
+  ; Balancing chemical reactions.
+
+  (def R (rows->mx [[2 0 0]
+                    [7 0 0]
+                    [0 1 0]
+                    [0 0 1]
+                    [-2 2 1]]))
+  
+  (def P (rows->mx [[1 0 0]
+                    [0 0 1]
+                    [0 1 0]
+                    [0 0 2]
+                    [3 3 0]]))
+  
+  (def A (rows->mx [[2 0 0 -1 0 0]
+                    [7 0 0 0 0 -1]
+                    [0 1 0 0 -1 0]
+                    [0 0 1 0 0 -2]
+                    [-2 2 1 -3 -3 0]
+                    [1 0 0 0 0 0]]))
+  
+  (def bs [0 0 0 0 0 1])
+  
+  (mx-prod 6 1 (mx-inverse A) bs )
+  (mx->order A)
+  
+  (linear-equation-inverse A bs)
+  (QR-linear-equation A bs) ; correct [1.0000000000000007
+                           ;           5.999999999999924
+                            ;          13.999999999999995
+                             ;         2.000000000000012
+                              ;        5.999999999999933
+                               ;       7.000000000000001]
+
+  ;;;
+  )
+
+
+(defn mx-invertible?
+  "Returns true if A is invertible (nonsingular)"
+  [A]
+  (boolean (gram-schmidt-qs (mx->cols (mx->order A) A))))
+
+(defn mx-linearly-indep-cols?
+  "Returns true of mx has linearly independent columns"
+  [wid A]
+  (let [hei (/ (count A) wid)]
+    (mx-invertible? (make-gram-mx wid A ))))
+
+(defn mx-singular?
+  "Returns true if mx has linearly dependent cols"
+  [wid A]
+  (not (mx-linearly-indep-cols? wid A)))
+
+(comment
+
+  (def A (rows->mx [[1 2 3]
+                    [4 5 6]
+                    [7 8 9]]))
+
+  (gram-schmidt-qs A)
+
+  (mx-inverse A)
+
+  (mx-invertible? A)
+
+  (def a1 [-1 1 -1 1])
+  (def a2 [-1 3 -1 3])
+  (def a3 [1 3 5 7])
+
+  (def A (cols->mx [a1 a2 a3]))
+  (cprn-mx 3 A)
+  (def qs (second (gram-schmidt-qs [a1 a2 a3])))
+  (def Q (cols->mx  qs))
+  (cprn-mx 3 Q)
+  (cprn-mx 3 (mx-prod 4 3 (mx-transpose 3 Q) Q))
+  
+  (def ATA (mx-prod  4  3 (mx-transpose 3 A) A))
+  
+  (prn-mx 3 ATA)
+  
+  (mx-invertible? ATA)
+  
+  (boolean [])
+
+  (mx-linearly-indep-cols? 3 A)
+  
+  (mx-singular? 3 A)
+  
+  
+  
+
+  ;;;
+  )
+
+
+(comment
+  
+  (def A (rows->mx [[-3 -4]
+                    [4 6]
+                    [1 1]]))
+  
+  (def Q (QR-factorization->Q 2 A))
+  (prn-mx 2 Q)
+  
+  (def R (QR-factorization->R 2 A))
+  (prn-mx 2 R)
+  
+  (prn-mx 3 (mx-pseudo-inverse 2 A))
+  
+  
+  
+  
+  ;;;
+  )
