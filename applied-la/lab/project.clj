@@ -3,7 +3,7 @@
   :repositories [["conjars" {:url "https://conjars.org/repo"}]
                  ["clojars" {:url "https://clojars.org/repo"}]
                  ["oracle" {:url "https://download.oracle.com/maven"}]
-                 
+
 
 
                  ["staging" {:url       "https://repository.apache.org/content/repositories/staging"
@@ -18,6 +18,7 @@
   :plugins [[cider/cider-nrepl "0.21.1"]
             [com.jakemccrary/lein-test-refresh "0.24.1"]
             ; [lein-virgil "0.1.9"]
+            ; [mvxcvi/whidbey "2.1.1"]
             ]
   :dependencies [;; casaclog
                  [org.clojure/clojure "1.10.1-beta2"]
@@ -74,6 +75,13 @@
   :main ^{:skip-aot true} main
   :jvm-opts ["-Xms768m" "-Xmx2048m" "-Xmx1g"]
   ; :javac-opts ["-target" "1.8" "-source" "1.8"]
+
+  ; :whidbey {:print-color     true
+  ;           :map-delimiter   ""
+  ;           :extend-notation true
+  ;           :width           180
+  ;           ; :print-meta      true
+  ;           }
 
 
   :source-paths ["src"]

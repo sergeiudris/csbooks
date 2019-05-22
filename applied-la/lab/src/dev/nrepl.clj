@@ -72,11 +72,12 @@
   (def nrepl.middleware.print/*print-fn* 1)
 
 
-  ;   (whidbey.repl/init! {:print-color true
-  ;                     ;  :map-delimiter   ""
-  ;                     ;  :extend-notation true
-  ;                     ;  :print-meta      true
-  ;                        })
+    ; (whidbey.repl/init! {:print-color true
+    ;                      :width           180
+    ;                   ;  :map-delimiter   ""
+    ;                   ;  :extend-notation true
+    ;                   ;  :print-meta      true
+    ;                      })
   ; (whidbey.repl/update-print-fn!)
 
   {:width           180
