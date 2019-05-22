@@ -1512,16 +1512,19 @@
         Q'T (mx-transpose widA Q )
         Q-cols (mx->cols widA Q'T)
         R        (QR-factorization->R widA A)]
-    (prn widA)
-    (cprn-mx widA R)
-    (cprn-mx widA Q)
-    (cprn-mx widA Q'T)
+    ; (prn widA)
+    ; (cprn-mx widA R)
+    ; (cprn-mx widA Q)
+    ; (cprn-mx widA Q'T)
     (->
      (map-indexed (fn [idx q]
                     (back-substitution widA R q)) Q-cols)
      cols->mx)
     ;
     ))
+
+
+
 
 (comment
 
@@ -1548,8 +1551,45 @@
   (cprn-mx 3 (mx-prod 3 3  A (mx-inverse A)))
 
   (=** (mx-prod 3 3  A (mx-inverse A)) (iden-mx 3))
+  
+  (= (mx-prod 3 3  A (mx-inverse A)) (iden-mx 3))
 
   (=** [1] [1])
   
+  -2.220446049250313E-16
+  
+  ;;;
+  )
+
+(defn QR-linear-equation
+  "Returns the result of solving
+  Ax = b
+  using QR-factorization.
+  "
+  [A b]
+  (let [wid    (mx->order A)
+        Q      (QR-factorization->Q wid A)
+        Q'T    (mx-transpose wid Q)
+        Q-cols (mx->cols wid Q'T)
+        R      (QR-factorization->R wid A)
+        Q'Tb   (mx-prod wid 1 Q'T b)]
+    (back-substitution wid R Q'Tb)))
+
+(comment
+
+  (def A (rows->mx [[0 2 -1]
+                    [0 5 1]
+                    [3 0 4]]))
+
+  (def B (rows->mx [[1 0 2]
+                    [3 4 -1]
+                    [5 1 0]]))
+
+  (QR-linear-equation B [3 6 -3])
+ ; [-1.1818181818181819 2.9090909090909096 2.0909090909090913]  
+ ; correct 
+
+
+
   ;;;
   )
