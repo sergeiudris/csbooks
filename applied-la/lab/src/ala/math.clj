@@ -129,7 +129,7 @@
 (defn index->pos
   "Returns the position [i,j] el in the mx of given width"
   [i wid]
-  (vector (index->row) (index->col)))
+  (vector (index->row i wid) (index->col i wid)))
 
 (defn pos->index
   "Returns el index given row, col and row length"
@@ -1631,5 +1631,37 @@
   (puget.printer/merge-options  puget.printer/*options* {:width 100} )
 
 
+  ;;;
+  )
+
+
+(defn make-vandermode-mx
+  "Returns Vandermonde mx
+  1 t1 .. t1^(n-2) t1^(n-1)
+  1 t2 .. t2^(n-2) t2^(n-1)
+  ...
+  "
+  [bs]
+  (let [hei (count bs)
+        A   (make-mx hei hei nil)]
+    (->
+     (map-indexed  (fn [idx _]
+                     (let [[i j] (index->pos idx hei)]
+                       (prn i j)
+                       (cond
+                         (= j 0) 1
+                         :else (Math/pow (bs i) j)))) A)
+     vec)))
+
+(comment
+  
+  (prn-mx 4 (make-vandermode-mx [-1.1 -0.4 0.2 0.8] ) )
+  
+  (Math/pow 0.2 3)
+  (Math/pow -0.4 3)
+  (Math/pow 0.8 3)
+  
+  
+  
   ;;;
   )
