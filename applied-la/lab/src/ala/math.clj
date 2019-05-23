@@ -1643,34 +1643,39 @@
   Ax = b
   using QR-factorization.
   "
-  [A b]
-  (let [wid    (mx->order A)
-        Q      (QR-factorization->Q wid A)
-        Q'T    (mx-transpose wid Q)
-        Q-cols (mx->cols wid Q'T)
-        R      (QR-factorization->R wid A)
-        Q'Tb   (mx-prod wid 1 Q'T b)]
-    (back-substitution wid R Q'Tb)))
+  ([A b]
+   (QR-linear-equation (mx->order A) A b))
+  ([wid A b]
+   (let [hei (/ (count A) wid)
+         Q      (QR-factorization->Q wid A)
+         Q'T    (mx-transpose wid Q)
+         Q-cols (mx->cols hei Q'T)
+         R      (QR-factorization->R wid A)
+         Q'Tb   (mx-prod hei 1 Q'T b)]
+     (back-substitution wid R Q'Tb))))
+
 
 (defn factor-solve-multiple
   "Returns cols (X), solution to 
   AX = B.
   Uses factorization caching.
   "
-  [widB A B]
-  (let [wid    (mx->order A)
-        Q      (QR-factorization->Q wid A)
-        Q'T    (mx-transpose wid Q)
-        Q-cols (mx->cols wid Q'T)
-        R      (QR-factorization->R wid A)
-        bs     (mx->cols widB B)
-        heiB   (/ (count B) widB)
-        X      (make-mx widB heiB nil)]
+  ([widB A B]
+   (factor-solve-multiple (mx->order A) widB A B))
+  ([widA widB A B]
+   (let [hei    (/ (count A) widA)
+         Q      (QR-factorization->Q widA A)
+         Q'T    (mx-transpose widA Q)
+         Q-cols (mx->cols hei Q'T)
+         R      (QR-factorization->R widA A)
+         bs     (mx->cols widB B)
+         heiB   (/ (count B) widB)
+         X      (make-mx widB heiB nil)]
     ; (prn bs)
-    (->
-     (map-indexed (fn [i b]
-                    (back-substitution wid R (mx-prod wid 1 Q'T b))) bs)
-     vec)))
+     (->
+      (map-indexed (fn [i b]
+                     (back-substitution widA R (mx-prod hei 1 Q'T b))) bs)
+      vec))))
 
 (comment
 
@@ -1693,8 +1698,6 @@
   (QR-linear-equation B [3 -1 2])
   (QR-linear-equation B [6 2 0])
   
-
-  (QR-linear-equation B [3 6 -3 ])
 
   (def x puget.printer/*options*)
 
@@ -1774,7 +1777,7 @@
                     [4 5 6]
                     [7 8 9]]))
 
-  (gram-schmidt-qs A)
+  (gram-schmidt-qs (mx->cols  3  A))
 
   (mx-inverse A)
 
@@ -1790,21 +1793,21 @@
   (def Q (cols->mx  qs))
   (cprn-mx 3 Q)
   (cprn-mx 3 (mx-prod 4 3 (mx-transpose 3 Q) Q))
-  
+
   (def ATA (mx-prod  4  3 (mx-transpose 3 A) A))
-  
+
   (prn-mx 3 ATA)
-  
+
   (mx-invertible? ATA)
-  
+
   (boolean [])
 
   (mx-linearly-indep-cols? 3 A)
-  
+
   (mx-singular? 3 A)
-  
-  
-  
+
+
+
 
   ;;;
   )
@@ -1818,6 +1821,8 @@
   (as-> nil E
     (mx-pseudo-inverse wid A)
     (mx-prod (/ (count A) wid) 1 E b)))
+
+
 
 (comment
 
@@ -1835,7 +1840,7 @@
 
   (linear-equation-pseudo-inverse 2 A [1 -2 0])
 
-  (=** (linear-equation-pseudo-inverse 2 A [1 -2 0]) [1 -1]) ; success
+  (=** (linear-equation-pseudo-inverse 2 A [1 -2 0]) [1 -1]) ; true
 
   
 
