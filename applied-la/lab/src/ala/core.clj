@@ -2,7 +2,8 @@
   (:require [clojure.repl :refer :all]
             [ala.math :as math]
             [ala.print :refer [cprn]]
-            [ala kmeans]
+            [ala kmeans least-squares]
+   
    ;
             ))
 
