@@ -46,7 +46,8 @@
 
 (comment
   (sign 0)
-
+  ; least squares calssification
+  
   ;162 Regression model
   ;299 iris
 

@@ -379,3 +379,118 @@
   
   ;;;
   )
+
+
+(comment
+
+  ; least squares calssification
+
+  (prn-nth T60-IMAGES T60-LABELS 60000)
+
+  (prn-nth T60-IMAGES T60-LABELS 999)
+
+
+
+  (def test-images-subset1 (take-images-range  1 10 T10-IMAGES))
+  (def test-labels-subset1 (subvec T10-LABELS 0 10))
+
+  (def train-images-subset1 (take-images-range  1 1000 T60-IMAGES))
+  (def train-labels-subset1 (subvec T60-LABELS 0 1000))
+
+  (partition 1 [1 2 3 4])
+
+  (def train-cols (vec (map vec (partition 784 train-images-subset1))))
+  (prn-image (train-cols 0))
+  (prn-nth train-images-subset1 train-labels-subset1 1)
+
+  (count train-images-subset1)
+  (count train-labels-subset1)
+
+  (count train-cols)
+  (count (first train-cols))
+
+  (def have-non-zero-idx (filterv (fn [x]
+                                    (not (== 0 (x 775))))  train-cols))
+  (count have-non-zero-idx)
+  (prn-image (have-non-zero-idx 0))
+  ((have-non-zero-idx 0) 28)
+
+
+  (def nnz-indices (vecs-nnz-indices train-cols))
+  (count nnz-indices)
+  (prn nnz-indices)
+  (prn-nth train-images-subset1 train-labels-subset1 999)
+  (prn (vec-nnz-indices (nth-image train-images-subset1 (dec 999))))
+
+  (#{1 2} 3)
+  (#{1 2} 784)
+  (nnz-indices 784)
+  
+  (def train-cols-nnz  (mapv (fn [x]
+                               (->
+                                (keep-indexed #(if (nnz-indices %1) %2 nil ) x)
+                                vec)
+                               ;
+                               ) train-cols ))
+  
+  (count (nth train-cols-nnz 999 ))
+
+  (def X  (regression-model-feature-mx  train-cols-nnz))
+  
+  (count X)
+  (/ (count X) 610)
+
+  
+  (time (def params (regression-model-parameters 1000 X  train-labels-subset1)))
+
+  (def img8 (nth-image train-images-subset1 (dec 8)))
+
+  (nnz img8)
+  (count img8)
+
+  (nnz (nth-image train-images-subset1 (dec 49)))
+
+  (mx->cols 2 [1 2 3 4 5 6])
+
+
+  ;;;
+  )
+
+
+(comment
+   ; least squares calssification 2
+
+
+  (def test-images-subset1 (take-images-range  1 10 T10-IMAGES))
+  (def test-labels-subset1 (subvec T10-LABELS 0 10))
+
+  (def train-images-subset1 (take-images-range  1 100 T60-IMAGES))
+  (def train-labels-subset1 (subvec T60-LABELS 0 100))
+
+  (def binary-labels (mapv #(if (== % 0) 1 -1)  train-labels-subset1))
+
+  (def train-cols (vec (map vec (partition 784 train-images-subset1))))
+
+  (def nnz-indices (vecs-nnz-indices train-cols))
+  
+  (def nnz-indices (sorted-set (keep-indexed (fn [i x]
+                                               (if ) ; REMOVE rwos and cols on edges
+                                               )  nnz-indices) ))
+
+  (def train-cols-nnz  (mapv (fn [x]
+                               (->
+                                (keep-indexed #(if (nnz-indices %1) %2 nil) x)
+                                vec)
+                               ;
+                               )train-cols))
+
+  (count nnz-indices)
+  (count train-cols-nnz)
+
+
+  (def X  (regression-model-feature-mx  train-cols-nnz))
+
+  (time (def params (regression-model-parameters 100 X  binary-labels)))
+
+  ;;;
+  )
