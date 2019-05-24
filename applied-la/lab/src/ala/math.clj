@@ -1891,3 +1891,32 @@
   (filterv identity [nil 1 nil])
   ;;;
   )
+
+(defn vec-nnz-indices
+  "Returns indices of non-zero els
+   "
+  [xs]
+  (vec (keep-indexed #(if (not (== 0 %2)) %1 nil) xs)))
+
+(defn vecs-nnz-indices
+  "Returns indices vec of  els
+   that are non-zero in at least one of vecs
+   "
+  [vecs]
+  (->
+   (reduce-kv (fn [acc i x]
+                (apply conj acc (vec-nnz-indices x)))  (sorted-set) vecs)
+   ))
+
+(comment
+  
+  ((sorted-set 3) 11)
+  
+  (vec-nnz-indices [1 2 0 0 3 5 7 8 0 0 0  0 0 0 0 0 0 0 0 0 ])
+  
+  (vecs-nnz-indices [[1 2 0 0 3] [1 2 0 0 5 ] [0 0 0 0 0]] )
+  
+  (apply conj #{ 1 2 3} [1 2 3 5])
+  
+  ;;;
+  )
