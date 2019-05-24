@@ -1823,6 +1823,12 @@
     (mx-prod (/ (count A) wid) 1 E b)))
 
 
+(defn sign
+  "Returns +1 if x >= 0, -1 if x < 0"
+  [x]
+  (cond
+    (>= x 0) +1
+    :else -1))
 
 (comment
 
@@ -1842,9 +1848,46 @@
 
   (=** (linear-equation-pseudo-inverse 2 A [1 -2 0]) [1 -1]) ; true
 
+
+
+  (sign -7)
+  (sign 0)
+  (sign 1)
+
+
+  ;;;
+  )
+
+(defn make-regression-model-feature-mx
+  [cols]
+  (as-> nil E
+    (mapv #(vec (cons 1 %)) cols)
+    (cols->mx E)))
+
+(defn regression-model-parameters
+  "Returns the coeffs and v values"
+  [widX X ys]
+  (as-> nil E
+    (QR-linear-equation (/ (count X) widX) (mx-transpose widX X)  ys)))
+
+(defn regression-model-predictions
+  "Returns the y vec"
+  [widX X- bs-]
+  (let [heiX (/ (count X-) widX)]
+    (mx-prod heiX 1 (mx-transpose widX X-) bs-)))
+
+(defn error-rate
+  "Returns the total num of errors divided by total num of examples"
+  [y y-]
+  (->
+   (count (->> (mapv #(if (not= %1 %2) 1 nil)  y y-) (filterv identity ) ))
+   (/ (count y))))
+
+(comment
   
-
-
-
+  (error-rate [1 1 1] [1 0 1])
+  (filterv identity [nil 1 nil])
+  (count (->> (mapv #(if (not= %1 %2) 1 nil) [1 1 1] [1 0 1]) (filterv identity)))
+  (filterv identity [nil 1 nil])
   ;;;
   )
