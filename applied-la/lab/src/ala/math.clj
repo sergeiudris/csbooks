@@ -1920,3 +1920,19 @@
   
   ;;;
   )
+
+(defn agrmax
+  "Returns the index of the largest value amonng the numbers"
+  [xs]
+  (->>
+   (map-indexed #(vector %1 %2) xs)
+   (sort-by second)
+   last
+   first))
+
+(comment
+
+  (agrmax [14 1 9 8 13 11 7 8 4 5 12])
+
+  ;;;
+  )

@@ -489,6 +489,11 @@
 
 
   (def X  (regression-model-feature-mx  train-cols-nnz))
+  
+  (count train-cols-nnz)
+  (count (first train-cols-nnz))
+  
+  (prn-mx 23 (first train-cols-nnz))
 
   (time (def params (regression-model-parameters 100 X  binary-labels)))
 
