@@ -274,7 +274,7 @@
 (defn scalar-divide
   "Returns vector, divides v by scalar element-wise"
   [x v]
-  (mapv #(/ % x)  v))
+   (mapv #(/ % x)  v))
 
 (defn scalar-add
   "Returns vector, adds a scalar element-wise"
@@ -386,7 +386,32 @@
   "Returns the  Euclidean norm (length or magnitude) of a vector.
    L2 norm"
   [a]
-  (Math/sqrt (dot-prod a a)))
+  ; (bigdec (Math/sqrt (dot-prod a a)))
+  (Math/sqrt (dot-prod a a))
+  )
+
+(comment
+
+  (def a  [7 2 3 5 3.149 0.189256])
+  (bigdec 7)
+
+  (vec-normalize a)
+  (vec-norm a)
+  (float  (dot-prod a a))
+  (Math/sqrt (float  (dot-prod a a)))
+  (bigdec (Math/sqrt (dot-prod a a)))
+  (scalar-prod (vec-norm a) (vec-normalize a))
+
+  (/ (bigdec 1) (bigdec 3))
+  
+  (.divide (bigdec 1) (bigdec 3) 10 RoundingMode.HALF_UP)
+  
+  (with-precision 50 :rounding HALF_DOWN (/ 1M 3M))
+  
+  (with-precision 50 :rounding HALF_DOWN (/ 1M 3))
+  
+  ;;;
+  )
 
 (defn vec-L1-norm
   [a]
