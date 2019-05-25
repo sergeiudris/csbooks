@@ -274,7 +274,17 @@
 (defn scalar-divide
   "Returns vector, divides v by scalar element-wise"
   [x v]
-   (mapv #(/ % x)  v))
+   (mapv #(/ % x)  v)
+  ; (prn x v)
+  ; (mapv #(with-precision 10 (/ (bigdec %) (bigdec x)))  v)
+  )
+
+(comment
+  (with-precision 10 (/ 0.81818181794497862030M 0.9045340337332909M))
+  
+  
+  ;;;
+  )
 
 (defn scalar-add
   "Returns vector, adds a scalar element-wise"
@@ -387,12 +397,12 @@
    L2 norm"
   [a]
   ; (bigdec (Math/sqrt (dot-prod a a)))
-  (Math/sqrt (dot-prod a a))
+   (Math/sqrt (dot-prod a a))
   )
 
 (comment
 
-  (def a  [7 2 3 5 3.149 0.189256])
+  (def a  [7 2.01 3 5 3.149123123 0.189256])
   (bigdec 7)
 
   (vec-normalize a)
@@ -400,6 +410,7 @@
   (float  (dot-prod a a))
   (Math/sqrt (float  (dot-prod a a)))
   (bigdec (Math/sqrt (dot-prod a a)))
+  (with-precision 5 (Math/sqrt (dot-prod a a)))
   (scalar-prod (vec-norm a) (vec-normalize a))
 
   (/ (bigdec 1) (bigdec 3))
@@ -409,6 +420,12 @@
   (with-precision 50 :rounding HALF_DOWN (/ 1M 3M))
   
   (with-precision 50 :rounding HALF_DOWN (/ 1M 3))
+  
+  (with-precision 1 :rounding HALF_DOWN 3 (* 1 -1.4654943925052066E-14))
+  
+  (with-precision 13 (* (bigdec (Math/sqrt 2000000)) (bigdec (Math/sqrt 2000000))))
+  
+  (with-precision 18 (* (bigdec (Math/sqrt 2)) (bigdec (Math/sqrt 2))))
   
   ;;;
   )
@@ -1430,7 +1447,8 @@
              qi (gram-schmidt-q xi qs)]
         ;  (prn xi qs qi)
          (cond
-           (every? #(==* 0 %) qi) (do (cprn qi) false)
+          ;  (every? #(==* 0 %) qi) (do (cprn qi) false)
+           (every? #(== 0 %) qi) (do (cprn qi) false)
            :else (recur (vec (rest xs))
                         (vec (conj qs- qi))
                         (vec (conj qs (vec-normalize qi))))
