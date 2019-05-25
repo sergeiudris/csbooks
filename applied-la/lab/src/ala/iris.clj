@@ -94,5 +94,8 @@
 
   (float (error-rate binary-lables-virginica y--)) ; 0.07333333 correct
 
+  (with-precision 10 (* (bigdec (Math/pow 2M 1/2)) (bigdec (Math/pow 2M 1/2))) )
+  
+  
   ;;;
   )
