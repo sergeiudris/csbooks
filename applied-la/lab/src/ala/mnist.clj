@@ -435,7 +435,7 @@
   
   (count (nth train-cols-nnz 999 ))
 
-  (def X  (regression-model-feature-mx  train-cols-nnz))
+  (def X  (make-regression-model-feature-mx  train-cols-nnz))
   
   (count X)
   (/ (count X) 610)
@@ -488,7 +488,7 @@
   (count train-cols-nnz)
 
 
-  (def X  (regression-model-feature-mx  train-cols-nnz))
+  (def X  (make-regression-model-feature-mx  train-cols-nnz))
   
   (count train-cols-nnz)
   (count (first train-cols-nnz))
