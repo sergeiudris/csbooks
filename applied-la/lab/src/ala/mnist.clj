@@ -472,10 +472,10 @@
   (def train-cols (vec (map vec (partition 784 train-images-subset1))))
 
   (def nnz-indices (vecs-nnz-indices train-cols))
-  
+
   (def nnz-indices (sorted-set (keep-indexed (fn [i x]
-                                               (if ) ; REMOVE rwos and cols on edges
-                                               )  nnz-indices) ))
+                                               (if) ; REMOVE rwos and cols on edges
+                                               )nnz-indices)))
 
   (def train-cols-nnz  (mapv (fn [x]
                                (->
@@ -489,13 +489,21 @@
 
 
   (def X  (make-regression-model-feature-mx  train-cols-nnz))
-  
+
   (count train-cols-nnz)
   (count (first train-cols-nnz))
-  
+
   (prn-mx 23 (first train-cols-nnz))
 
   (time (def params (regression-model-parameters 100 X  binary-labels)))
+
+  (def y- (regression-model-predictions 100 X params))
+  (count y-)
+  (def y-- (mapv sign  y-))
+
+  (def residuals (elwise-subtract binary-labels y--))
+
+  (float (error-rate binary-labels y--)) ; 0.07333333 correct
 
   ;;;
   )

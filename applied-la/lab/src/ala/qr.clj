@@ -3,8 +3,9 @@
             [ala.print :refer [cprn]]
             [ala.math :refer [mx->cols cols->mx make-mx index->row
                               index->col mx->order mx-transpose
-                              mx->el rows->mx ==*
-                              ]]))
+                              mx->el rows->mx ==*]])
+  (:import (java.text DecimalFormat)
+           (java.math RoundingMode)))
 
 (defn elwise-subtract
   "Returns a vector (mx), subtracts a,b element-wise "
@@ -41,16 +42,41 @@
   [a]
   (scalar-divide (vec-norm a) a))
 
+(defn round-off
+  "Returns the number rounded using approximation
+  (* (Math/round (* 0.0001 (bigdec 100000))) 0.00001)
+  (double (* (Math/round (* 0.000001  (Math/pow 10 6))) (bigdec (Math/pow 10 -6))))
+  "
+  ([x]
+   (round-off x 12))
+  ([x precision]
+   (double 
+    (* (Math/round (* x  (Math/pow 10 precision))) 
+       (bigdec (Math/pow 10 (* -1 precision)))))))
+
+
+(defn zero-vec?
+  "Returns true if vec el are 0 valued"
+  [xs]
+  (every? #(== 0 %) xs))
+
 (defn gram-schmidt-q
   "Returns qi as aprt of orthonogalization step"
   [x qs]
   (as-> nil E
     (reduce-kv (fn [acc i q]
+                ;  (prn acc)
+                ;  (prn q)
+                ;  (prn (scalar-prod (inner-prod q x) q))
+                ;  (prn (elwise-subtract acc (scalar-prod (inner-prod q x) q)))
+                ;  (prn)
+                 
                  (->>
                   (scalar-prod (inner-prod q x) q)
                   (elwise-subtract acc)
                   ;
-                  ))x qs)))
+                  )
+                 )x qs)))
 
 (defn gram-schmidt-qs
   "Returns [qs- qs] an orthonormal collection of vectors qi..qk.
@@ -61,16 +87,78 @@
   ([xs qs- qs]
    (if (empty? xs) [qs- qs]
        (let [xi (first xs)
-             qi (gram-schmidt-q xi qs)]
+            ;  qi (mapv #(round-off % 12) (gram-schmidt-q xi qs))
+            ;  qi (mapv #(round-off % 8) (gram-schmidt-q xi qs)) 
+             qi (gram-schmidt-q xi qs)
+             ]
         ;  (prn xi qs qi)
+        ;  (prn qi)
+        ;  (prn (mapv #(round-off % 12 )qi))
+        ;  (prn (every? #(== 0 %) (mapv #(round-off % 12) qi)))
          (cond
-           (every? #(==* 0 %) qi) (do (cprn qi) false)
+           (zero-vec? (mapv #(round-off % 8) qi)) (do (prn "linearly dependent" qi) false)
           ;  (every? #(== 0 %) qi) (do (cprn qi) false)
            :else (recur (vec (rest xs))
                         (vec (conj qs- qi))
                         (vec (conj qs (vec-normalize qi))))
          ;
            )))))
+
+(comment
+
+  (def A (rows->mx [[1 2 3]
+                    [4 5 6]
+                    [7 8 9]]))
+
+  (gram-schmidt-qs (mx->cols (mx->order A) A))
+  
+  (round-off -2.0E-10 9)
+
+  (elwise-subtract [1.6363636363636367 0.5454545454545467 -0.5454545454545432]
+                   [1.6363636363636513 0.5454545454545516 -0.5454545454545481])
+
+  (let [a [1.6363636363636367 0.5454545454545467 -0.5454545454545432]
+        b [1.6363636363636513 0.5454545454545516 -0.5454545454545481]]
+    (mapv #(with-precision 16 :rounding UNNECESSARY (- (bigdec %1) (bigdec %2))) a b))
+
+
+  (def x -1.4654943925052066E-14)
+
+  (def df (DecimalFormat. "#.#####"))
+
+
+
+  (.setRoundingMode df RoundingMode/CEILING)
+
+
+  (.format df 0.2000000001)
+
+  (.format df x)
+
+  ; (double)Math.round(value * 100000d) / 100000d
+
+  (double (/ (Math/round (* x (bigdec 100000))) 100000))
+
+  (/ (Math/round (* 0.000001 (bigdec 100000))) 100000)
+
+  (double (* (Math/round (* 0.0001 (bigdec 100000))) 0.00001))
+
+  (type 0.0001)
+
+  (double (* (Math/round (* 0.0001  (Math/pow 10 6)))  (bigdec (Math/pow 10 -6))))
+
+  (round-off 0.0000001)
+
+  (round-off x 12)
+  
+  (round-off x )
+
+  (mapv #(round-off % 12)  [-1.4654943925052066E-14 -4.884981308350689E-15 4.884981308350689E-15])
+
+  (round-off 298.123123123 12)
+  
+  ;;;
+  )
 
 (defn mx->qs
   "Returns [qs- qs] the Q mx with cols as orthonormal vecs prodcued by applying Gram-Schmidt
@@ -166,16 +254,7 @@
     ;
      )))
 
-(comment
 
-  (def A (rows->mx [[1 2 3]
-                    [4 5 6]
-                    [7 8 9]]))
-
-  (gram-schmidt-qs (mx->cols (mx->order A) A))
-
-  ;;;
-  )
 
 
 
