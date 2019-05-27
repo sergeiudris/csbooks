@@ -1,4 +1,4 @@
-# doing-clojure-books
+# science laboratory
 
 
 * community books
