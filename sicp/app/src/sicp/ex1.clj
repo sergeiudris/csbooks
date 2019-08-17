@@ -1,10 +1,6 @@
-(ns sicp.exercises-1
+(ns sicp.ex1
   (:require [clojure.repl :refer :all]
-            [sicp.ch1-building-abstractions-with-procedures :refer [square average improve sqrt good-enough?  abs]]))
-            
-  
-
-
+            [sicp.ch1 :refer [square average improve sqrt good-enough?  abs]]))
   
   ;; Exercise 1.3
   

@@ -1,4 +1,4 @@
-(ns sicp.ch1-building-abstractions-with-procedures
+(ns sicp.ch1
     (:require [clojure.repl :refer :all]))
               ; [clojure.math.numeric-tower]
      
@@ -291,7 +291,7 @@ size
   [n]
   (cond
     (= n 0) 0
-    :else (+ (- n 1) (unique-2-subsets-of-a-set (- n 1)))))
+    :else (+ (- n 1) (unique-2-subsets-of-n-set (- n 1)))))
 
 (defn unique-m-subsets-of-n-set
   [n]
@@ -299,7 +299,7 @@ size
     (= n 0) 0
     (= n 1) 1
     (= n 2) 1
-    :else (+ (- n 1) (unique-2-subsets-of-a-set (- n 1)))))
+    :else (+ (- n 1) (unique-2-subsets-of-n-set (- n 1)))))
   
 (defn change-money
   "returns possible ways to change an amount of money"
