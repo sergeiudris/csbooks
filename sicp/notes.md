@@ -485,4 +485,20 @@
     recursion is a consequence of the natural way to compile procedure calls (Steele 1977).
     e  standard for Scheme requires that Scheme implementations be tail-recursive.
 
-    
+    p109
+
+    e general technique
+    of isolating the parts of a program that deal with how data objects are
+    represented from the parts of a program that deal with how data objects
+    are used is a powerful design methodology called data abstraction .
+
+    p133
+
+    e ability to create pairs whose elements are pairs is the essence
+    of list structure’s importance as a representational tool. We refer to this
+    ability as the closure property of cons . In general, an operation for com-
+    bining data objects satisfies the closure property if the results of com-
+    bining things with that operation can themselves be combined using the
+    same operation.Closure is the key to power in any means of combina-
+    tion because it permits us to create hierarchical structures—structures
+    made up of parts, which themselves are made up of parts, and so on.
