@@ -1,7 +1,6 @@
 (ns main
   (:require [nrepl]
-            [sicp.ch1]
-            [sicp.ex1]))
+            [sicp.core]))
 
 (defn -main []
   (nrepl/-main)
