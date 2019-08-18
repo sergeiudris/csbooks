@@ -134,9 +134,79 @@
     result
     (recur (conj result x) (dec x))))
 
+(defn indexed [coll] (map-indexed vector coll))
+
+(defn index-filter [pred coll]
+  (when pred
+    (for [[idx elt] (indexed coll) :when (pred elt)] idx)))
+(defn index-of-any [pred coll]
+  (first (index-filter pred coll)))
+
 (comment
-  
+
   (countdown [] 5)
+  (indexed "abcde")
+
+  (index-filter #{\a \b} "abcdbbb")
+  (index-of-any #{\z \a} "zzabyycdxx")
+  (index-of-any #{\b \y} "zzabyycdxx")
+
+  (nth (index-filter #{:h} [:t :t :h :t :h :t :t :t :h :h])
+       2)
+
+  (meta #'str)
+
+  (defn ^{:tag String} shout [^{:tag String} s] (.toUpperCase s))
+
+  (meta #'shout)
+  
+  (defn ^String shout [^String s] (.toUpperCase s))
+  
   
   ;
   )
+
+(defn shout
+  ([s] (.toUpperCase s))
+  {:tag String})
+
+(defn minutes-to-millis [mins] (* mins 1000 60))
+
+(defn recently-modified? [file]
+  (> (.lastModified file)
+     (- (System/currentTimeMillis) (minutes-to-millis 30))))
+
+(comment
+  (meta #'shout)
+  
+  (cons 0 '(1 2 3))
+  
+  (class (rest [1 2 3]))
+  
+  (map #(.getName %) (.listFiles (File. ".")))
+  
+  (filter recently-modified? (file-seq (File. ".")))
+  ;
+  )
+
+(defn non-blank? [line] (if (re-find #"\S" line) true false))
+
+(defn non-svn? [file] (not (.contains (.toString file) ".svn")))
+
+(defn clojure-source? [file] (.endsWith (.toString file) ".clj"))
+
+(defn clojure-loc [base-file]
+  (reduce
+   +
+   (for [file (file-seq base-file)
+         :when (and (clojure-source? file) (non-svn? file))]
+     (with-open [rdr (io/reader file)]
+       (count (filter non-blank? (line-seq rdr)))))))
+
+(comment
+  
+  (clojure-loc (java.io.File. "/home/user/code/clojure"))
+  
+  ;
+  )
+
