@@ -1,11 +1,12 @@
 (defproject app "0.1.0-SNAPSHOT"
   
   
-  :plugins [[cider/cider-nrepl "0.18.0"]
+  :plugins [[cider/cider-nrepl "0.21.1"]
             ]
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [cider/piggieback "0.3.10"]
                  [nrepl "0.5.3"]
+                 [cider/cider-nrepl "0.21.1"]
                  [org.clojure/core.async "0.4.490"]
                  [net.mikera/core.matrix "0.20.0"]
                  ]
