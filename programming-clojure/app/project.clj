@@ -3,9 +3,9 @@
   
   :plugins [[cider/cider-nrepl "0.21.1"]
             ]
-  :dependencies [[org.clojure/clojure "1.9.0"]
+  :dependencies [[org.clojure/clojure "1.10.1"]
                  [cider/piggieback "0.3.10"]
-                 [nrepl "0.5.3"]
+                 [nrepl "0.6.0"]
                  [cider/cider-nrepl "0.21.1"]
                  [org.clojure/core.async "0.4.490"]
                  [net.mikera/core.matrix "0.20.0"]
