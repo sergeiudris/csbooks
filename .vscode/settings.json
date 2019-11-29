@@ -41,6 +41,18 @@
         "editorWarning.foreground": "#000"
     },
     "editor.tokenColorCustomizations": {
+        "[Default Light+]": {
+            "textMateRules": [
+                {
+                    "scope": [
+                        "constant.keyword.clojure"
+                    ],
+                    "settings": {
+                        "foreground": "#336a8a"
+                    }
+                }
+            ]
+        },
         "[-One Dark Pro Vivid]": {
             "functions": "#ef596f",
             // "variables": "#ef596f"
@@ -295,8 +307,8 @@
     },
     "calva.syncReplNamespaceToCurrentFile": true,
     "calva.openBrowserWhenFigwheelStarted": false,
-    "clojureWarrior.commentFormStyle": {"textDecoration": "none; opacity: 1"},
+    "calva.highlight.commentFormStyle": {"textDecoration": "none; opacity: 1"},
     "explorer.openEditors.visible": 0,
-    "clojureWarrior.enableBracketColors": true,
-
+    "calva.highlight.enableBracketColors": true,
+    "calva.sendAsyncOutputTo": "REPL Window"
 }
