@@ -1,58 +1,54 @@
 FROM ubuntu:18.04
 
-
+## core
 RUN apt-get update && \
-    apt-get install -y sudo && \
-    apt-get install -y curl && \
-    apt-get install -y wget && \
-    apt-get install -y git-core && \
-    apt-get install -y gpg && \
-    apt-get install -y rlwrap && \
-    apt-get install -y unzip && \
-    apt-get install -y software-properties-common
+    apt-get install -y \
+            sudo  \
+            git-core  \
+            rlwrap  \
+            software-properties-common  \
+            unzip wget curl net-tools lsof
 
-# RUN add-apt-repository -y ppa:webupd8team/java && \
-#     apt-get update && \
-#     # sudo apt-get install oracle-java8-installer
-#     apt-get install -y oracle-java11-set-default
+WORKDIR /tmp
 
-    # apt install -y openjdk-11-jdk
-    # apt install -y oracle-java10-set-default
-    # add-apt-repository -y ppa:linuxuprising/java && \
-    # apt update && \
-    # apt install -y oracle-java10-installer && \
-    # apt install -y oracle-java10-set-default
-    # apt install default-jre
+## openjdk
+# RUN apt-get update && \
+#     apt-get install -y openjdk-8-jdk
 
-# RUN apt-get install -y openjdk-11-jdk
-RUN apt-get install -y  openjdk-8-jdk
+## graalvm
+# https://github.com/arjones/docker-graalvm/blob/master/Dockerfile
+# https://github.com/OlegIlyenko/graalvm-native-image/blob/master/Dockerfile
+ENV GRAALVM_VERSION=19.3.0
+ENV SUFFIX_URL=java8-linux-amd64-${GRAALVM_VERSION}
+ENV SUFFIX_DIR=java8-${GRAALVM_VERSION}
+ENV PATH $PATH:/usr/local/graalvm/bin
+#  dir will be graalvm-ce-java8-19.3.0
+RUN curl -Ls "https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-19.3.0/graalvm-ce-${SUFFIX_URL}.tar.gz" | \
+    tar zx -C /usr/local/ && \
+    ls -l /usr/local/ && \
+    rm -f /usr/local/graalvm-ce-${SUFFIX_DIR}/src.zip && \
+    ln -s /usr/local/graalvm-ce-${SUFFIX_DIR} /usr/local/graalvm && \
+    rm -fr /var/lib/apt
 
+## clojure
+ENV CLOJURE_TOOLS=linux-install-1.10.1.466.sh
+RUN curl -O https://download.clojure.org/install/$CLOJURE_TOOLS && \
+    chmod +x $CLOJURE_TOOLS && \
+    sudo ./$CLOJURE_TOOLS && \
+    clojure -Stree
 
-RUN curl -O https://download.clojure.org/install/linux-install-1.10.0.411.sh && \
-    chmod +x linux-install-1.10.0.411.sh && \
-    sudo ./linux-install-1.10.0.411.sh
+## leiningen
+ENV LEIN_VERSION=2.9.1
+ENV LEIN_DIR=/usr/local/bin/
+RUN curl -O https://raw.githubusercontent.com/technomancy/leiningen/${LEIN_VERSION}/bin/lein && \
+    mv lein ${LEIN_DIR} && \
+    chmod a+x ${LEIN_DIR}/lein && \
+    lein version
 
-WORKDIR /opt
-ADD c c
+## app
+WORKDIR /opt/app
+# COPY project.clj .
+# RUN lein deps
 
-# Jess61p4
-# RUN curl -O https://manning-content.s3.amazonaws.com/download/e/839f142-236f-4866-8693-abf06add86de/friedman-hill_src_1_jess_se.zip && \
-#     unzip friedman-hill_src_1_jess_se.zip && \
-#     cp Jess61p4/jess.jar jess.jar
-RUN sh c download_jess
-
-RUN mkdir -p /opt/code/app
-RUN mkdir -p /root/.m2
-WORKDIR /opt/code/app
-
-
-
-EXPOSE 35543
-EXPOSE 7888
-EXPOSE 4000
-EXPOSE 8890
-EXPOSE 8080
-EXPOSE 8081
-
-# CMD ["bash","c", "nrepl_clj"]
-
+EXPOSE 7788 
+CMD ["bash","c", "dev"]
