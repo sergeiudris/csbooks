@@ -1,16 +1,5 @@
 #!/bin/bash
 
-connlein(){
-    lein repl :connect  nrepl://127.0.0.1:$1
-}
-
-connclj(){
-  clj -Sdeps '{:deps {nrepl {:mvn/version "0.6.0"}}}' -m nrepl.cmdline --connect --host 0.0.0.0 --port $1
-}
-
-mem(){
-  top -b -o +%MEM |head -30
-}
 
 la() {
     docker build -t csbooks.la .
