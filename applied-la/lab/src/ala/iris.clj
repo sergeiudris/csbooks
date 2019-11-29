@@ -37,10 +37,10 @@
   (-> (read-csv-file filename)
       parse-numbers))
 
-(def IRIS_DATA_RAW (read-csv-file iris-filename))
-(def IRIS_DATA (->  IRIS_DATA_RAW parse-numbers drop-last vec))
+#_(def IRIS_DATA_RAW (read-csv-file iris-filename))
+#_(def IRIS_DATA (->  IRIS_DATA_RAW parse-numbers drop-last vec))
 
-(count IRIS_DATA)
+#_(count IRIS_DATA)
 
 
 
