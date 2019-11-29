@@ -2,7 +2,7 @@
 
 
 
-deep() {
+dock() {
     docker build -t csbooks.deep .
     docker run  --gpus all \
                 --env DISPLAY=${DISPLAY} \
