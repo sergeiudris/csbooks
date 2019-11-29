@@ -16,10 +16,9 @@
 ;     (handler {})))
 
 (defn -main []
-  (prn "--running REPL on 7878 ")
   (defonce server (start-server
                    :bind "0.0.0.0"
-                   :port 7878
+                   :port 7788
                    :handler (nrepl-handler)
                    :middleware '[;  cider.nrepl.middleware.apropos/wrap-apropos
                                 ;  cider.nrepl.middleware.version/wrap-version
@@ -56,6 +55,7 @@
                                 ;  cider.nrepl/wrap-print
                                 ;  cider.nrepl/wrap-version
                                  ]))
+  (prn (str "--running nREPL on " (:port server)))
 
   ; (whidbey.repl/init! {:print-color     true
   ;                     ;  :map-delimiter   ""

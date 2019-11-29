@@ -6,7 +6,7 @@
             [math core mx num prob]
             [ml pca]
             [examples pca]
-            [ala core]
+            #_[ala core]
             ; [plants.ml.mnist]
 
    ;

@@ -1,76 +1,22 @@
 #!/bin/bash
 
 
-dc(){
-  docker-compose "$@"
-  # docker-compose -f docker-hadoop/docker-compose.yml -f apps/docker-compose.yml config | docker-compose -f - up
+
+deep() {
+    docker build -t csbooks.deep .
+    docker run  --gpus all \
+                --env DISPLAY=${DISPLAY} \
+                -v /tmp/.X11-unix:/tmp/.X11-unix \
+                --rm \
+                --name deep \
+                --memory 12g \
+                --cpus 4.000 \
+                -it \
+                -p 7788:7788 \
+                -v "$(pwd)"/lab:/opt/app \
+                 csbooks.deep \
+                 bash
 }
 
-up(){
-  dc up -d --build --scale datanode=3
-}
-
-down(){
-  dc down
-}
-
-rs(){
-  dc restart
-}
-
-dup(){
-  down
-  up
-}
-
-
-connlein(){
-    lein repl :connect  nrepl://127.0.0.1:$1
-}
-
-connclj(){
-  clj -Sdeps '{:deps {nrepl {:mvn/version "0.6.0"}}}' -m nrepl.cmdline --connect --host 0.0.0.0 --port $1
-}
-
-remove_lein(){
-  sudo rm /usr/local/bin/lein
-}
-
-install_lein(){
-  LEIN_VERSION=2.9.1
-  BIN_DIR=/usr/local/bin/
-  curl -o /tmp/lein https://raw.githubusercontent.com/technomancy/leiningen/${LEIN_VERSION}/bin/lein
-  sudo mv /tmp/lein ${BIN_DIR}
-  chmod a+x ${BIN_DIR}/lein
-  ls ${BIN_DIR}
-}
-
-install_clj(){
-  SCRIPT_NAME=linux-install-1.10.0.442.sh
-  sudo apt update
-  sudo apt install -y rlwrap
-  curl -o /tmp/${SCRIPT_NAME} https://download.clojure.org/install/${SCRIPT_NAME}
-  chmod +x /tmp/${SCRIPT_NAME}
-  sudo /tmp/${SCRIPT_NAME}
-  sudo rm /tmp/${SCRIPT_NAME}
-}
-
-push(){
-  git add .
-  git commit -m "$@"
-  git push
-}
-
-mem(){
-  top -b -o +%MEM |head -30
-}
-
-labsh(){
-  sh c dc exec lab bash -c "bash;"
-}
-
-labtest(){
-  sh c dc exec lab bash -c "bash c test_refresh; bash;"
-}
 
 "$@"
