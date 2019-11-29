@@ -3,7 +3,7 @@
             [clojure.repl :refer :all]))
 
 (defn -main []
-  (defonce server (start-server :bind "0.0.0.0" :port 7888)))
+  (defonce server (start-server :bind "0.0.0.0" :port 7788)))
 
 (comment
   

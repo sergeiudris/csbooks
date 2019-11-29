@@ -12,7 +12,7 @@ nrepl_cljs(){
   clj -R:nREPL -m nrepl.cmdline --middleware "[cider.piggieback/wrap-cljs-repl]"
 }
 
-init(){
+dev(){
   # https://github.com/clojure-emacs/cider/pull/2194
   # clojure -m core.tutorial
   clojure -m core.core
@@ -27,21 +27,21 @@ devnull(){
    tail -f /dev/null
 }
 
-dc(){
-   docker-compose "$@"
+dock() {
+    docker build -t csbooks.jess .
+    docker run  --gpus all \
+                --env DISPLAY=${DISPLAY} \
+                -v /tmp/.X11-unix:/tmp/.X11-unix \
+                --rm \
+                --name jess \
+                --memory 12g \
+                --cpus 4.000 \
+                -it \
+                -p 7788:7788 \
+                -v "$(pwd)":/opt/app \
+                 csbooks.jess \
+                 bash
 }
-
-
-up(){
-  dc up -d --build
-  # emacs_up
-}
-
-down(){
-  dc down
-  # emacs_up
-}
-
 
 
 
