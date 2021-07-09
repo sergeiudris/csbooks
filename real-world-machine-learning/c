@@ -1,0 +1,68 @@
+#!/bin/bash
+
+
+dc(){
+  docker-compose "$@"
+  # docker-compose -f docker-hadoop/docker-compose.yml -f apps/docker-compose.yml config | docker-compose -f - up
+}
+
+up(){
+  dc up -d --build --scale datanode=3
+}
+
+down(){
+  dc down
+}
+
+rs(){
+  dc restart
+}
+
+dup(){
+  down
+  up
+}
+
+
+connlein(){
+    lein repl :connect  nrepl://127.0.0.1:$1
+}
+
+connclj(){
+  clj -Sdeps '{:deps {nrepl {:mvn/version "0.6.0"}}}' -m nrepl.cmdline --connect --host 0.0.0.0 --port $1
+}
+
+remove_lein(){
+  sudo rm /usr/local/bin/lein
+}
+
+install_lein(){
+  LEIN_VERSION=2.9.1
+  BIN_DIR=/usr/local/bin/
+  curl -o /tmp/lein https://raw.githubusercontent.com/technomancy/leiningen/${LEIN_VERSION}/bin/lein
+  sudo mv /tmp/lein ${BIN_DIR}
+  chmod a+x ${BIN_DIR}/lein
+  ls ${BIN_DIR}
+}
+
+install_clj(){
+  SCRIPT_NAME=linux-install-1.10.0.442.sh
+  sudo apt update
+  sudo apt install -y rlwrap
+  curl -o /tmp/${SCRIPT_NAME} https://download.clojure.org/install/${SCRIPT_NAME}
+  chmod +x ${SCRIPT_NAME}
+  sudo ./${SCRIPT_NAME}
+  sudo rm ${SCRIPT_NAME}
+}
+
+push(){
+  git add .
+  git commit -m "$@"
+  git push
+}
+
+mem(){
+  top -b -o +%MEM |head -30
+}
+
+"$@"
