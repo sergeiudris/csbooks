@@ -4,3 +4,5 @@
 
 * Rich Hickey's Amazon bookshelf
     - https://www.amazon.com/ideas/amzn1.account.AFAABBRGIVOWVKTHP5NOJU5LMROQ/3BSKWCYM12RBZ
+
+* write reviews (precise choice of words, effort, clarity, informal)
