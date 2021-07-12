@@ -1,5 +1,4 @@
 FROM debian:8
-MAINTAINER Ivan Ermilov <ivan.s.ermilov@gmail.com>
 
 RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list
 
