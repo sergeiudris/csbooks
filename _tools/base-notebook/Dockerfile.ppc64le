@@ -1,7 +1,10 @@
-
+# Copyright (c) IBM Corporation 2016 
+# Distributed under the terms of the Modified BSD License.
 
 # Ubuntu image 
 FROM ppc64le/ubuntu:18.04
+
+LABEL maintainer="Ilsiyar Gaynutdinov <ilsiyar_gaynutdinov@ru.ibm.com>"
 
 USER root
 
