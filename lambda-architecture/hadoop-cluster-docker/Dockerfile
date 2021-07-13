@@ -1,7 +1,5 @@
 FROM ubuntu:14.04
 
-MAINTAINER KiwenLau <kiwenlau@gmail.com>
-
 WORKDIR /root
 
 # install openssh-server, openjdk and wget
